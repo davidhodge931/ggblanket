@@ -75,7 +75,7 @@ gg_blanket <- function(
     ...,
     geom = "blank",
     stat = "identity",
-    position = "identity",
+    position = ggplot2::position_identity(),
     coord = NULL,
     aspect = NULL,
     aspect_axis_line = NULL,

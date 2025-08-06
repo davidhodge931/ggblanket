@@ -25,7 +25,7 @@ gg_contour_filled <- function(
   data = NULL,
   ...,
   stat = "contour_filled",
-  position = "identity",
+  position = ggplot2::position_identity(),
   coord = ggplot2::coord_cartesian(clip = "off"),
   
   aspect = NULL,

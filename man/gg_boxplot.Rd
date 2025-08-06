@@ -8,7 +8,7 @@ gg_boxplot(
   data = NULL,
   ...,
   stat = "boxplot",
-  position = "dodge2",
+  position = ggplot2::position_dodge2(preserve = "single"),
   coord = ggplot2::coord_cartesian(clip = "off"),
   aspect = NULL,
   aspect_axis_line = NULL,

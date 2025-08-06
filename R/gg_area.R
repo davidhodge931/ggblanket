@@ -23,7 +23,7 @@ gg_area <- function(
   data = NULL,
   ...,
   stat = "align",
-  position = "stack",
+  position = position_stack(),
   coord = ggplot2::coord_cartesian(clip = "off"),
 
   aspect = NULL,

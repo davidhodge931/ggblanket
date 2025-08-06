@@ -8,7 +8,7 @@ gg_density2d(
   data = NULL,
   ...,
   stat = "density2d",
-  position = "identity",
+  position = ggplot2::position_identity(),
   coord = ggplot2::coord_cartesian(clip = "off"),
   aspect = NULL,
   aspect_axis_line = NULL,

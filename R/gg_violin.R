@@ -25,7 +25,7 @@ gg_violin <- function(
   data = NULL,
   ...,
   stat = "ydensity",
-  position = "dodge",
+  position = ggplot2::position_dodge(preserve = "single"),
   coord = ggplot2::coord_cartesian(clip = "off"),
 
   aspect = NULL,
@@ -112,7 +112,7 @@ gg_violin <- function(
   title = NULL,
   subtitle = NULL,
   caption = NULL
-  
+
 ) {
   gg_blanket(
     data = data,
@@ -205,7 +205,7 @@ gg_violin <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    
+
     ...
   )
 }

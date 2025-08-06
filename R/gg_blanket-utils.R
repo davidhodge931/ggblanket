@@ -54,6 +54,9 @@ get_geom_params <- function(geom_name, ...) {
     ),
     crossbar = list(
       middle_gp = list(linewidth = ggplot2::get_geom_defaults("line")$linewidth)
+    ),
+    violin = list(
+      quantile_gp = list(linetype = 1)
     )
   )
 

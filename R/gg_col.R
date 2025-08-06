@@ -29,7 +29,7 @@ gg_col <- function(
   data = NULL,
   ...,
   stat = "identity",
-  position = "stack",
+  position = position_stack(),
   coord = ggplot2::coord_cartesian(clip = "off"),
   
   aspect = NULL,

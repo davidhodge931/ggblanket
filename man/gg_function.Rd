@@ -8,7 +8,7 @@ gg_function(
   data = NULL,
   ...,
   stat = "function",
-  position = "identity",
+  position = ggplot2::position_identity(),
   coord = ggplot2::coord_cartesian(clip = "off"),
   aspect = NULL,
   aspect_axis_line = NULL,

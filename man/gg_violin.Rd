@@ -8,7 +8,7 @@ gg_violin(
   data = NULL,
   ...,
   stat = "ydensity",
-  position = "dodge",
+  position = ggplot2::position_dodge(preserve = "single"),
   coord = ggplot2::coord_cartesian(clip = "off"),
   aspect = NULL,
   aspect_axis_line = NULL,

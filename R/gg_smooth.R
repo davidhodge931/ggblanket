@@ -35,7 +35,7 @@ gg_smooth <- function(
   data = NULL,
   ...,
   stat = "smooth",
-  position = "identity",
+  position = ggplot2::position_identity(),
   coord = ggplot2::coord_cartesian(clip = "off"),
 
   aspect = NULL,

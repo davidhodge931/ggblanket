@@ -29,9 +29,9 @@ gg_jitter <- function(
   data = NULL,
   ...,
   stat = "identity",
-  position = "jitter",
+  position = ggplot2::position_jitter(),
   coord = ggplot2::coord_cartesian(clip = "off"),
-  
+
   aspect = NULL,
   aspect_axis_line = NULL,
   aspect_axis_ticks = NULL,
@@ -73,7 +73,7 @@ gg_jitter <- function(
   x_labels = NULL,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
-  
+
   x_limits_to_breaks = NULL, x_transform = NULL,
   y_breaks = NULL,
   y_breaks_n = NULL,
@@ -83,7 +83,7 @@ gg_jitter <- function(
   y_labels = NULL,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
-  
+
   y_limits_to_breaks = NULL, y_transform = NULL,
   col_breaks = ggplot2::waiver(),
   col_breaks_n = NULL,
@@ -103,7 +103,7 @@ gg_jitter <- function(
   colour_palette = NULL,
   colour_na = NULL,
   fill_palette = NULL,
-  fill_na = NULL, alpha_title = snakecase::to_sentence_case, shape_palette = NULL, shape_na = NULL, shape_title = snakecase::to_sentence_case, linetype_palette = NULL, linetype_title = snakecase::to_sentence_case, linewidth_title = snakecase::to_sentence_case, size_title = snakecase::to_sentence_case, 
+  fill_na = NULL, alpha_title = snakecase::to_sentence_case, shape_palette = NULL, shape_na = NULL, shape_title = snakecase::to_sentence_case, linetype_palette = NULL, linetype_title = snakecase::to_sentence_case, linewidth_title = snakecase::to_sentence_case, size_title = snakecase::to_sentence_case,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_drop = FALSE,
@@ -116,7 +116,7 @@ gg_jitter <- function(
   title = NULL,
   subtitle = NULL,
   caption = NULL
-  
+
 ) {
   gg_blanket(
     data = data,
@@ -128,7 +128,7 @@ gg_jitter <- function(
     aspect = aspect,
     aspect_axis_line = aspect_axis_line,
     aspect_axis_ticks = aspect_axis_ticks,
-    aspect_panel_grid = aspect_panel_grid, 
+    aspect_panel_grid = aspect_panel_grid,
     blend = blend,
     x = {{ x }},
     y = {{ y }},
@@ -161,20 +161,20 @@ gg_jitter <- function(
     x_labels = x_labels,
     x_breaks_n = x_breaks_n,
     x_sec_axis = x_sec_axis,
-    
+
     x_position = x_position,
     x_title = x_title,
-    x_transform = x_transform, x_limits_to_breaks = x_limits_to_breaks, 
+    x_transform = x_transform, x_limits_to_breaks = x_limits_to_breaks,
     y_breaks = y_breaks,
     y_expand = y_expand,
     y_limits_include = y_limits_include,
     y_labels = y_labels,
     y_breaks_n = y_breaks_n,
     y_sec_axis = y_sec_axis,
-    
+
     y_position = y_position,
     y_title = y_title,
-    y_transform = y_transform, y_limits_to_breaks = y_limits_to_breaks, 
+    y_transform = y_transform, y_limits_to_breaks = y_limits_to_breaks,
     border = border,
     border_colour_transform = border_colour_transform,
     border_fill_transform = border_fill_transform,
@@ -209,7 +209,7 @@ gg_jitter <- function(
     title = title,
     subtitle = subtitle,
     caption = caption,
-    
+
     ...
   )
 }

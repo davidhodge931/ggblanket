@@ -8,7 +8,7 @@ gg_bar(
   data = NULL,
   ...,
   stat = "count",
-  position = "stack",
+  position = position_stack(),
   coord = ggplot2::coord_cartesian(clip = "off"),
   aspect = NULL,
   aspect_axis_line = NULL,

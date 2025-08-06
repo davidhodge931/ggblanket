@@ -32,7 +32,7 @@ gg_sf <- function(
   data = NULL,
   ...,
   stat = "sf",
-  position = "identity",
+  position = ggplot2::position_identity(),
   coord = ggplot2::coord_sf(clip = "off"),
   
   aspect = NULL,

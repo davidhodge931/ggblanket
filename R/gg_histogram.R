@@ -24,7 +24,7 @@ gg_histogram <- function(
   data = NULL,
   ...,
   stat = "bin",
-  position = "stack",
+  position = position_stack(),
   coord = ggplot2::coord_cartesian(clip = "off"),
   
   aspect = NULL,
