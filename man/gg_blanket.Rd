@@ -42,8 +42,8 @@ gg_blanket(
   sample = NULL,
   mapping = NULL,
   border = NULL,
-  border_colour_transform = NULL,
-  border_fill_transform = NULL,
+  border_transform_colour = NULL,
+  border_transform_fill = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -107,7 +107,7 @@ gg_blanket(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Other arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}}.}
+\item{...}{Arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}}. Also, require named arguments (and support trailing commas).}
 
 \item{geom}{A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. \code{"point"}).}
 
@@ -131,11 +131,11 @@ gg_blanket(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} for advanced edge-case situations (e.g.delayed evaluation etc).}
 
-\item{border}{\code{TRUE} or \code{FALSE} of whether the \code{border_colour_transform} and \code{border_fill_transform} should be applied.}
+\item{border}{\code{TRUE} or \code{FALSE} of whether the \code{border_transform_colour} and \code{border_transform_fill} should be applied.}
 
-\item{border_colour_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
+\item{border_transform_colour}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
 
-\item{border_fill_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
+\item{border_transform_fill}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
 
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 

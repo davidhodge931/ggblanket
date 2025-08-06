@@ -4,8 +4,8 @@
 #' This function only works when panel dimensions are set via panel.widths and panel.heights.
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param axis The axis to annotate. One of "x" or "y".
-#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param breaks A vector of axis breaks for axis ticks.
 #' @param position The position of the axis ticks. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.ticks etc.
@@ -42,8 +42,8 @@
 #'   )
 #'
 annotate_axis_ticks <- function(
-  axis,
   ...,
+  axis,
   breaks,
   position = NULL,
   colour = NULL,

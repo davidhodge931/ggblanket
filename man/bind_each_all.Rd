@@ -16,7 +16,7 @@ bind_each_all(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{An unquoted variable.}
+\item{...}{Require named arguments (and support trailing commas).}
 
 \item{name}{A variable name. Defaults to \code{each_all}.}
 

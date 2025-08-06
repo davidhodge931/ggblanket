@@ -4,12 +4,12 @@
 \alias{update_geom_size}
 \title{Update the size}
 \usage{
-update_geom_size(size = 1.5, ...)
+update_geom_size(..., size = 1.5)
 }
 \arguments{
-\item{size}{A size for point geoms.}
+\item{...}{Require named arguments (and support trailing commas).}
 
-\item{...}{Additional arguments (not used).}
+\item{size}{A size for point geoms.}
 }
 \value{
 Updated geom defaults for size

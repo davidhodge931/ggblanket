@@ -14,7 +14,7 @@ width_reference <- list(
 #' @description
 #' Update the width reference used by `standardise_width`.
 #'
-#'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param width Width value for the reference standard.
 #' @param n Number of categories (excluding dodge groups) in the reference standard.
 #' @param dodge_n Number of dodge groups in reference standard.
@@ -24,6 +24,7 @@ width_reference <- list(
 #'
 #' @export
 update_width_reference <- function(
+  ...,
   width = NULL,
   n = NULL,
   dodge_n = NULL,
@@ -60,6 +61,7 @@ update_width_reference <- function(
 #' @description
 #' Standardise the width against the reference, so that widths look the same across plots.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param n Number of categories (excluding dodge groups) in the plot with width to be standardised.
 #' @param dodge_n Number of dodge groups in the plot with width to be standardised.
 #' @param aspect Aspect ("x" or "y") in the plot with width to be standardised.
@@ -152,7 +154,8 @@ update_width_reference <- function(
 #'   coord_cartesian(reverse = "y", clip = "off")
 #'
 standardise_width <- function(
-  n,
+  ...,
+  n = NULL,
   dodge_n = 1,
   aspect = "x",
   panel_widths = ggplot2::theme_get()$panel.widths,

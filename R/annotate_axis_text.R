@@ -4,8 +4,8 @@
 #' This function only works when panel dimensions are set via panel.widths and panel.heights.
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param axis The axis to annotate. One of "x" or "y".
-#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param breaks A vector of axis breaks for text positioning.
 #' @param position The position of the axis text. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.
 #' @param labels A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the breaks as labels.
@@ -91,8 +91,8 @@
 #'   )
 #'
 annotate_axis_text <- function(
-  axis,
   ...,
+  axis,
   breaks,
   position = NULL,
   labels = NULL,

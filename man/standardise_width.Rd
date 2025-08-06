@@ -5,7 +5,8 @@
 \title{Standardise width to the reference}
 \usage{
 standardise_width(
-  n,
+  ...,
+  n = NULL,
   dodge_n = 1,
   aspect = "x",
   panel_widths = ggplot2::theme_get()$panel.widths,
@@ -13,6 +14,8 @@ standardise_width(
 )
 }
 \arguments{
+\item{...}{Require named arguments (and support trailing commas).}
+
 \item{n}{Number of categories (excluding dodge groups) in the plot with width to be standardised.}
 
 \item{dodge_n}{Number of dodge groups in the plot with width to be standardised.}

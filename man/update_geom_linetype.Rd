@@ -4,12 +4,12 @@
 \alias{update_geom_linetype}
 \title{Update the linetype}
 \usage{
-update_geom_linetype(linetype = 1, ...)
+update_geom_linetype(..., linetype = 1)
 }
 \arguments{
-\item{linetype}{linetype.}
+\item{...}{Require named arguments (and support trailing commas).}
 
-\item{...}{Additional arguments (not used).}
+\item{linetype}{linetype.}
 }
 \value{
 An updated ggplot2 theme.

@@ -1,38 +1,35 @@
 #' Set the style
 #'
 #' @description
-#' Set a consistent style for ggplot2 visualizations by configuring:
-#' theme, geom default colour/fill, linetypes, linewidths, sizes,
-#' fonts, palettes, and other styling options. Most users will only need
-#' `theme`, `col`, `col_palette_d` and , `col_palette_c` arguments.
+#' Set a consistent style. Most users will only need
+#' `theme`, `col`, `col_palette_d`, `col_palette_c` and `aspect_*` arguments.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param col A default hex code for the colour and fill of most geoms.
-#' @param linewidth A default linewidth for most geoms.
-#' @param linetype A default linetype for most geoms.
-#' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
-#' @param size A default size for point geoms.
-#' @param stroke A default stroke for point geoms.
 #' @param col_palette_d For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_o For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_c`.
 #' @param col_na A NA colour/fill value.
+#' @param border_transform_colour A function with input of the `col` or `col_palette`.
+#' @param border_transform_fill A function with input of the `col` or `col_palette`.
+#' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes.
 #' @param shape_na A NA shape value.
+#' @param linetype A default linetype for most geoms.
 #' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function.
-#' @param border_colour_transform A function with input of the set `col`.
-#' @param border_fill_transform A function with input of the set `col`.
-#' @param border_linewidth A number, or a function with input of the set linewidth.
+#' @param linewidth A default linewidth for geoms. A number.
+#' @param borderwidth A default linewidth for geoms that have a border. A number.
+#' @param size A default size for point geoms.
+#' @param stroke A default stroke for point geoms.
 #' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
 #' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
 #' @param aspect_panel_grid `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
-#' @param ... Additional arguments (not used).
 #'
 #' @return Invisibly returns NULL. Sets global styling options as a side effect.
 #'
 #' @seealso
 #' [theme_lighter()], [theme_darker()] for theme options
-#' [col_multiply()] for creating accent colours
 #'
 #' @export
 #'
@@ -46,33 +43,29 @@
 #' )
 #'
 set_blanket <- function(
-  theme = theme_lighter(),
-
-  col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
-  linewidth = 0.66,
-  linetype = 1,
-  size = 1.5,
-  shape = 21,
-  stroke = 0.5,
-
-  border_colour_transform = \(x) {
-    ifelse(is_panel_dark(), col_screen(x), col_multiply(x))
-  },
-  border_fill_transform = NULL,
-  border_linewidth = 0.25,
-
-  col_palette_d = scales::pal_hue(),
-  col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
-  col_palette_o = NULL,
-  col_na = "#A6A6A6FF",
-  shape_palette_d = c(21, 24, 22, 23, 25),
-  shape_na = 4,
-  linetype_palette_d = 1:6,
-
-  aspect_axis_line = "transparent",
-  aspect_axis_ticks = "transparent",
-  aspect_panel_grid = "transparent",
-  ...
+    ...,
+    theme = theme_lighter(),
+    col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
+    col_palette_d = scales::pal_hue(),
+    col_palette_c = pal_viridis_by_panel(option = "mako", begin = 0.1, end = 0.9),
+    col_palette_o = NULL,
+    col_na = "#A6A6A6FF",
+    border_transform_colour = \(x) {
+      ifelse(is_panel_light(), col_multiply(x), col_screen(x))
+    },
+    border_transform_fill = NULL,
+    shape = 21,
+    shape_palette_d = c(21, 24, 22, 23, 25),
+    shape_na = 4,
+    linetype = 1,
+    linetype_palette_d = 1:6,
+    linewidth = 0.66,
+    borderwidth = 0.25,
+    size = 1.5,
+    stroke = 0.5,
+    aspect_axis_line = "transparent",
+    aspect_axis_ticks = "transparent",
+    aspect_panel_grid = "transparent"
 ) {
   # Set the theme first
   ggplot2::set_theme(theme)
@@ -98,9 +91,9 @@ set_blanket <- function(
   )
 
   update_geom_border(
-    border_colour_transform = border_colour_transform,
-    border_fill_transform = border_fill_transform,
-    border_linewidth = border_linewidth
+    border_transform_colour = border_transform_colour,
+    border_transform_fill = border_transform_fill,
+    borderwidth = borderwidth
   )
 
   update_geom_font()

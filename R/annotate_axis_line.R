@@ -2,8 +2,8 @@
 #'
 #' @description Replace axis line with an annotated segment.
 #'
+#' @param ... Arguments passed to `ggplot2::annotate("segment", ....)`. Require named arguments (and support trailing commas).
 #' @param axis The axis to annotate. One of "x" or "y".
-#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param position The position of the axis. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
@@ -38,8 +38,8 @@
 #'   )
 #'
 annotate_axis_line <- function(
-  axis,
   ...,
+  axis,
   position = NULL,
   colour = NULL,
   linewidth = NULL,

@@ -1,40 +1,22 @@
 #' Get a dark/light colour for contrast
 #'
 #' @description Get a dark/light colour based on contrast.
-#'              When dark/light colours are not provided, intelligently derives them from
-#'              the current ggplot2 theme by examining text and panel background colours.
-#'              colours are automatically desaturated to ensure readability.
 #'
-#' @param col A vector of colours from which to determine the contrast colours.
-#' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param dark A dark colour. If NULL, derived from theme text or panel background
-#'             (whichever is darker), with saturation removed.
-#' @param light A light colour. If NULL, derived from theme text or panel background
-#'              (whichever is lighter), with saturation removed.
+#' @param ... Require named arguments (and support trailing commas).
+#' @param col A vector of colours from which to determine a contrast vector of light/dark colours.
+#' @param dark A dark colour. If NULL, derived from theme text or panel background.
+#' @param light A light colour. If NULL, derived from theme text or panel background.
 #'
 #' @return A character vector of colours, the same length as the `col` vector, containing either
 #'         the dark or light colour determined for contrast.
-#'
-#' @details
-#' The function calculates the luminance of each colour and returns:
-#' - The `dark` colour when col luminance > 50 (light cols)
-#' - The `light` colour when col luminance <= 50 (dark cols)
-#'
-#' When deriving colours from the theme, the function:
-#' 1. Extracts text colour (from axis.text.x, axis.text.y, axis.text, or text)
-#' 2. Extracts panel background colour
-#' 3. Desaturates both colours to remove any colourful tints
-#' 4. Assigns the darker one to `dark` and lighter one to `light`
-#'
-#' This ensures readable contrast even when themes use colourful base colours.
 #'
 #' @noRd
 #'
 #' @examples
 #' get_contrast(col = c("#000000", "#FFFFFF", "#808080"))  # Uses theme colours
-#' get_contrast(col = c("navy", "yellow", "orange"), dark = "black", light = "white")
+#' get_contrast(col = c("navy", "yellow", "orange"), dark = "navy", light = "lightblue")
 #'
-get_contrast <- function(col, ..., dark = NULL, light = NULL) {
+get_contrast <- function(..., col, dark = NULL, light = NULL) {
   # Only get theme if we need it
   if (rlang::is_null(dark) || rlang::is_null(light)) {
     # Get current theme
@@ -69,19 +51,13 @@ get_contrast <- function(col, ..., dark = NULL, light = NULL) {
 
 #' Modify an aesthetic for contrast
 #'
-#' @description Modifies a colour (or fill) aesthetic for contrast against the fill (or colour) aesthetic.
+#' @description Modifies a mapped colour (or fill) aesthetic for contrast against the fill (or colour) aesthetic.
 #'
 #' Function can be spliced into [ggplot2::aes] with [rlang::!!!].
 #'
-#' The contrast palette is a light and dark colour selected based on the luminance.
-#'
-#' @param ... Provided to require argument naming, support trailing commas etc.
-#' @param dark A dark colour. If NULL, derived from the current theme by using
-#'             either the theme's text colour or panel background (whichever is darker),
-#'             with saturation removed for better contrast.
-#' @param light A light colour. If NULL, derived from the current theme by using
-#'              either the theme's text colour or panel background (whichever is lighter),
-#'              with saturation removed for better contrast.
+#' @param ... Require named arguments (and support trailing commas).
+#' @param dark A dark colour. If NULL, derived from theme text or panel background.
+#' @param light A light colour. If NULL, derived from theme text or panel background.
 #' @param aes The aesthetic to be modified for contrast. Either "colour" (default) or "fill".
 #'
 #' @return A ggplot2 aesthetic in [ggplot2::aes].

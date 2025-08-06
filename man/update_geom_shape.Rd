@@ -4,12 +4,12 @@
 \alias{update_geom_shape}
 \title{Update the shape}
 \usage{
-update_geom_shape(shape = 21, ...)
+update_geom_shape(..., shape = 21)
 }
 \arguments{
-\item{shape}{A shape.}
+\item{...}{Require named arguments (and support trailing commas).}
 
-\item{...}{Additional arguments (not used).}
+\item{shape}{A shape.}
 }
 \value{
 Updated geom defaults for shape

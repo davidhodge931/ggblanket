@@ -4,16 +4,16 @@
 \alias{pal_viridis_by_panel}
 \title{Palette Function for viridis with Adaptive Direction}
 \usage{
-pal_viridis_by_panel(option = "viridis", begin = 0, end = 1, ..., rev = FALSE)
+pal_viridis_by_panel(..., option = "viridis", begin = 0, end = 1, rev = FALSE)
 }
 \arguments{
+\item{...}{Require named arguments (and support trailing commas).}
+
 \item{option}{A character string indicating the palette option to use.}
 
 \item{begin}{The (0–1) value at which to begin the colour scale. Default is 0.}
 
 \item{end}{The (0–1) value at which to end the colour scale. Default is 1.}
-
-\item{...}{Provided to require argument naming, support trailing commas etc.}
 
 \item{rev}{Logical. If \code{TRUE}, reverses the behaviour of the direction
 adjustment based on panel background. Default is \code{FALSE}.}
@@ -28,5 +28,5 @@ with automatic direction adjustment depending on the panel background. This
 version is compatible with \verb{scales::scale_*} functions and is useful in ggplot2.
 }
 \examples{
-pal <- pal_viridis_by_panel("magma", 0.1, 0.9)(5)
+pal <- pal_viridis_by_panel(option = "magma", begin = 0.1, end = 0.9)(5)
 }

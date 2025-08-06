@@ -7,15 +7,11 @@
 aes_contrast(..., dark = NULL, light = NULL, aes = "colour")
 }
 \arguments{
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{...}{Require named arguments (and support trailing commas).}
 
-\item{dark}{A dark colour. If NULL, derived from the current theme by using
-either the theme's text colour or panel background (whichever is darker),
-with saturation removed for better contrast.}
+\item{dark}{A dark colour. If NULL, derived from theme text or panel background.}
 
-\item{light}{A light colour. If NULL, derived from the current theme by using
-either the theme's text colour or panel background (whichever is lighter),
-with saturation removed for better contrast.}
+\item{light}{A light colour. If NULL, derived from theme text or panel background.}
 
 \item{aes}{The aesthetic to be modified for contrast. Either "colour" (default) or "fill".}
 }
@@ -23,11 +19,9 @@ with saturation removed for better contrast.}
 A ggplot2 aesthetic in \link[ggplot2:aes]{ggplot2::aes}.
 }
 \description{
-Modifies a colour (or fill) aesthetic for contrast against the fill (or colour) aesthetic.
+Modifies a mapped colour (or fill) aesthetic for contrast against the fill (or colour) aesthetic.
 
 Function can be spliced into \link[ggplot2:aes]{ggplot2::aes} with \link[rlang:splice-operator]{rlang::!!!}.
-
-The contrast palette is a light and dark colour selected based on the luminance.
 }
 \examples{
 library(ggplot2)

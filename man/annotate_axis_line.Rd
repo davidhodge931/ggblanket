@@ -5,8 +5,8 @@
 \title{Annotated axis line segment}
 \usage{
 annotate_axis_line(
-  axis,
   ...,
+  axis,
   position = NULL,
   colour = NULL,
   linewidth = NULL,
@@ -14,9 +14,9 @@ annotate_axis_line(
 )
 }
 \arguments{
-\item{axis}{The axis to annotate. One of "x" or "y".}
+\item{...}{Arguments passed to \code{ggplot2::annotate("segment", ....)}. Require named arguments (and support trailing commas).}
 
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{axis}{The axis to annotate. One of "x" or "y".}
 
 \item{position}{The position of the axis. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.}
 

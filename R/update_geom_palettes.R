@@ -4,6 +4,7 @@
 #' Updates the active theme for consistent colour/fill palette styling.
 #' Sets global options for other palettes.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param col_palette_d For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_o For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_c`.
@@ -11,20 +12,19 @@
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
 #' @param shape_na A NA shape value.
 #' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
-#' @param ... Additional arguments (not used).
 #'
 #' @return An updated ggplot2 theme and global options.
 #'
 #' @export
 update_geom_palettes <- function(
+  ...,
   col_palette_d = scales::pal_hue(),
-  col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
+  col_palette_c = pal_viridis_by_panel(option = "mako", begin = 0.1, end = 0.9),
   col_palette_o = NULL,
   col_na = "#A6A6A6FF",
   shape_palette_d = c(21, 24, 22, 23, 25),
   shape_na = 4,
-  linetype_palette_d = 1:6,
-  ...
+  linetype_palette_d = 1:6
 ) {
   # Update theme-level palettes
   ggplot2::update_theme(

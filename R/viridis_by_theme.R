@@ -4,11 +4,11 @@
 #' depending on the panel background. This is the vector form that directly
 #' returns colours rather than a palette function.
 #'
-#' @param n The number of colours to return.
+#' @param ... Require named arguments (and support trailing commas).
 #' @param option A character string indicating the palette option to use.
+#' @param n The number of colours to return.
 #' @param begin The (0–1) value at which to begin the colour scale. Default is 0.
 #' @param end The (0–1) value at which to end the colour scale. Default is 1.
-#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param rev Logical. If `TRUE`, reverses the behaviour of the direction
 #'   adjustment based on panel background. Default is `FALSE`.
 #'
@@ -16,8 +16,8 @@
 #' @export
 #'
 #' @examples
-#' viridis_by_panel(5, "magma", 0.1, 0.9)
-#' viridis_by_panel(3, "plasma")
+#' viridis_by_panel(option = "magma", n = 5, begin = 0.1, end = 0.9)
+#' viridis_by_panel(option = "plasma", n = 3)
 viridis_by_panel <- function(
   n,
   option = "viridis",
@@ -46,10 +46,10 @@ viridis_by_panel <- function(
 #' with automatic direction adjustment depending on the panel background. This
 #' version is compatible with `scales::scale_*` functions and is useful in ggplot2.
 #'
+#' @param ... Require named arguments (and support trailing commas).
+#' @param option A character string indicating the palette option to use.
 #' @param begin The (0–1) value at which to begin the colour scale. Default is 0.
 #' @param end The (0–1) value at which to end the colour scale. Default is 1.
-#' @param option A character string indicating the palette option to use.
-#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param rev Logical. If `TRUE`, reverses the behaviour of the direction
 #'   adjustment based on panel background. Default is `FALSE`.
 #'
@@ -58,12 +58,12 @@ viridis_by_panel <- function(
 #' @export
 #'
 #' @examples
-#' pal <- pal_viridis_by_panel("magma", 0.1, 0.9)(5)
+#' pal <- pal_viridis_by_panel(option = "magma", begin = 0.1, end = 0.9)(5)
 pal_viridis_by_panel <- function(
+  ...,
   option = "viridis",
   begin = 0,
   end = 1,
-  ...,
   rev = FALSE
 ) {
   if (!rev) {

@@ -4,12 +4,12 @@
 \alias{update_geom_linewidth}
 \title{Update the linewidth}
 \usage{
-update_geom_linewidth(linewidth = 0.5, ...)
+update_geom_linewidth(..., linewidth = 0.5)
 }
 \arguments{
-\item{linewidth}{linewidth.}
+\item{...}{Require named arguments (and support trailing commas).}
 
-\item{...}{Additional arguments (not used).}
+\item{linewidth}{linewidth.}
 }
 \value{
 An updated ggplot2 theme.

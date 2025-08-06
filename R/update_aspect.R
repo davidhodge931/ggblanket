@@ -2,7 +2,7 @@
 #'
 #' @description Set the aspect behaviour in `gg_*` functions.
 #'
-#' @param ... Provided to require argument naming, support trailing commas etc.
+#' @param ... Require named arguments (and support trailing commas).
 #' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
 #' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
 #' @param aspect_panel_grid `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.

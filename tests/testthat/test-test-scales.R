@@ -329,7 +329,7 @@ test_that("border_false", {
         x = bill_depth_mm,
         y = bill_length_mm,
         col = bill_length_mm,
-        col_border = FALSE
+        border = FALSE
       )
   )
 })
@@ -521,7 +521,7 @@ test_that("annotate_axis", {
         col = bill_length_mm,
         y_breaks = scales::breaks_pretty(10)
       ) +
-      annotate_axis_line("x", position = "bottom") +
+      annotate_axis_line(axis = "x", position = "bottom") +
       geom_point()
   )
 })

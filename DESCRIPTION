@@ -13,7 +13,6 @@ BugReports: https://github.com/davidhodge931/ggblanket/issues
 Depends: 
   R (>= 4.2.0)
 Imports: 
-    colorspace,
     dplyr (>= 1.0.4),
     farver,
     forcats,

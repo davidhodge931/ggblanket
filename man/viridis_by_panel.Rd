@@ -15,7 +15,7 @@ viridis_by_panel(n, option = "viridis", begin = 0, end = 1, ..., rev = FALSE)
 
 \item{end}{The (0–1) value at which to end the colour scale. Default is 1.}
 
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{...}{Require named arguments (and support trailing commas).}
 
 \item{rev}{Logical. If \code{TRUE}, reverses the behaviour of the direction
 adjustment based on panel background. Default is \code{FALSE}.}
@@ -29,6 +29,6 @@ depending on the panel background. This is the vector form that directly
 returns colours rather than a palette function.
 }
 \examples{
-viridis_by_panel(5, "magma", 0.1, 0.9)
-viridis_by_panel(3, "plasma")
+viridis_by_panel(option = "magma", n = 5, begin = 0.1, end = 0.9)
+viridis_by_panel(option = "plasma", n = 3)
 }

@@ -4,7 +4,7 @@
 #' Binds data to support plotting each category _and_ all combined data.
 #'
 #' @param data A data frame or tibble.
-#' @param ... An unquoted variable.
+#' @param ... Require named arguments (and support trailing commas).
 #' @param name A variable name. Defaults to `each_all`.
 #' @param each A string for the each value. Defaults to `"Each"`.
 #' @param all A string for the all value. Defaults to `"All"`.

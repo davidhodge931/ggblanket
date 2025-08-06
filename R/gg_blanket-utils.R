@@ -975,8 +975,8 @@ add_matching_aesthetic_guides <- function(
   col_legend_nrow,
   geom_name = NULL,
   is_border_geom = FALSE,
-  border_colour_transform = NULL,
-  border_fill_transform = NULL,
+  border_transform_colour = NULL,
+  border_transform_fill = NULL,
   aes_list = NULL,
   data = NULL
 ) {
@@ -1048,18 +1048,18 @@ add_matching_aesthetic_guides <- function(
           ) {
             list(
               colour = if (
-                !rlang::is_null(border_colour_transform) &&
-                  is.function(border_colour_transform)
+                !rlang::is_null(border_transform_colour) &&
+                  is.function(border_transform_colour)
               ) {
-                border_colour_transform(grey_col)
+                border_transform_colour(grey_col)
               } else {
                 grey_col
               },
               fill = if (
-                !rlang::is_null(border_fill_transform) &&
-                  is.function(border_fill_transform)
+                !rlang::is_null(border_transform_fill) &&
+                  is.function(border_transform_fill)
               ) {
-                border_fill_transform(grey_col)
+                border_transform_fill(grey_col)
               } else {
                 grey_col
               }
@@ -1077,18 +1077,18 @@ add_matching_aesthetic_guides <- function(
           ) {
             list(
               colour = if (
-                !rlang::is_null(border_colour_transform) &&
-                  is.function(border_colour_transform)
+                !rlang::is_null(border_transform_colour) &&
+                  is.function(border_transform_colour)
               ) {
-                border_colour_transform(grey_col)
+                border_transform_colour(grey_col)
               } else {
                 grey_col
               },
               fill = if (
-                !rlang::is_null(border_fill_transform) &&
-                  is.function(border_fill_transform)
+                !rlang::is_null(border_transform_fill) &&
+                  is.function(border_transform_fill)
               ) {
-                border_fill_transform(grey_col)
+                border_transform_fill(grey_col)
               } else {
                 grey_col
               }
@@ -1100,10 +1100,10 @@ add_matching_aesthetic_guides <- function(
         "linewidth" = {
           if (
             is_border_geom &&
-              !rlang::is_null(border_colour_transform) &&
-              is.function(border_colour_transform)
+              !rlang::is_null(border_transform_colour) &&
+              is.function(border_transform_colour)
           ) {
-            list(colour = border_colour_transform(grey_col), fill = grey_col)
+            list(colour = border_transform_colour(grey_col), fill = grey_col)
           } else {
             list(colour = grey_col, fill = grey_col)
           }
@@ -2013,8 +2013,8 @@ add_col_scale <- function(
   fill_palette_c,
   fill_palette_o,
   fill_na,
-  border_colour_transform = NULL,
-  border_fill_transform = NULL
+  border_transform_colour = NULL,
+  border_transform_fill = NULL
 ) {
   # Get NA colors with defaults
   na_colour <- colour_na %||% "#CDC5BFFF"
@@ -2105,8 +2105,8 @@ add_col_scale <- function(
     col_legend_nrow,
     geom_name = geom_name,
     is_border_geom = is_border_geom,
-    border_colour_transform = border_colour_transform,
-    border_fill_transform = border_fill_transform,
+    border_transform_colour = border_transform_colour,
+    border_transform_fill = border_transform_fill,
     aes_list = aes_list,
     data = data
   )
@@ -2563,8 +2563,8 @@ apply_secondary_grey_guides <- function(
   data,
   geom_name,
   is_border_geom,
-  border_colour_transform,
-  border_fill_transform,
+  border_transform_colour,
+  border_transform_fill,
   col_legend_ncol,
   col_legend_nrow,
   shape_legend_rev,
@@ -2604,18 +2604,18 @@ apply_secondary_grey_guides <- function(
       ) {
         override_aes <- list(
           colour = if (
-            !rlang::is_null(border_colour_transform) &&
-              is.function(border_colour_transform)
+            !rlang::is_null(border_transform_colour) &&
+              is.function(border_transform_colour)
           ) {
-            border_colour_transform(grey_col)
+            border_transform_colour(grey_col)
           } else {
             grey_col
           },
           fill = if (
-            !rlang::is_null(border_fill_transform) &&
-              is.function(border_fill_transform)
+            !rlang::is_null(border_transform_fill) &&
+              is.function(border_transform_fill)
           ) {
-            border_fill_transform(grey_col)
+            border_transform_fill(grey_col)
           } else {
             grey_col
           }

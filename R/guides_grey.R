@@ -3,35 +3,35 @@
 #' @description
 #' Override the colour/fill of legend elements for any aesthetic.
 #'
+#' @param ... Arguments passed to [ggplot2::guide_legend()]. Require named arguments (and support trailing commas).
 #' @param aesthetic Character string naming the aesthetic (e.g. "alpha", "shape",
 #'   "linetype", "linewidth", "size")
 #' @param col Base hex for the legend colour/fill. Defaults to "#8991A1".
 #' @param colour Direct override for the colour aesthetic in the legend. If NULL,
-#'   determined by `col` and `border_colour_transform`.
+#'   determined by `col` and `border_transform_colour`.
 #' @param fill Direct override for the fill aesthetic in the legend. If NULL,
-#'   determined by `fill` and `border_fill_transform`.
+#'   determined by `fill` and `border_transform_fill`.
 #' @param border TRUE or FALSE of whether to treat as a border geom.
-#' @param border_colour_transform Function to transform the colour and colour_palette for border geoms.
-#' @param border_fill_transform Function to transform the fill and fill_palette for border geoms.
-#' @param ... Other arguments passed to [ggplot2::guide_legend()].
+#' @param border_transform_colour Function to transform the colour and colour_palette for border geoms.
+#' @param border_transform_fill Function to transform the fill and fill_palette for border geoms.
 #'
 #' @return A ggplot guides specification.
 #' @export
 guides_grey <- function(
+  ...,
   aesthetic,
   col = "#8991A1",
   colour = NULL,
   fill = NULL,
   border = NULL,
-  border_colour_transform = NULL,
-  border_fill_transform = NULL,
-  ...
+  border_transform_colour = NULL,
+  border_transform_fill = NULL
 ) {
-  if (rlang::is_null(border_colour_transform)) {
-    border_colour_transform <- getOption("ggblanket.border_colour_transform")
+  if (rlang::is_null(border_transform_colour)) {
+    border_transform_colour <- getOption("ggblanket.border_transform_colour")
   }
-  if (rlang::is_null(border_fill_transform)) {
-    border_fill_transform <- getOption("ggblanket.border_fill_transform")
+  if (rlang::is_null(border_transform_fill)) {
+    border_transform_fill <- getOption("ggblanket.border_transform_fill")
   }
 
   # Direct overrides take precedence
@@ -60,9 +60,9 @@ guides_grey <- function(
     # Build override aesthetics
     if (border) {
       # Get border transformation functions if not provided
-      if (rlang::is_null(border_colour_transform)) {
+      if (rlang::is_null(border_transform_colour)) {
         current_theme <- ggplot2::theme_get()
-        border_colour_transform <- if (is_panel_dark(theme = current_theme)) {
+        border_transform_colour <- if (is_panel_dark(theme = current_theme)) {
           col_screen
         } else {
           col_multiply
@@ -70,26 +70,26 @@ guides_grey <- function(
       }
 
       # Apply transformations unless explicitly disabled (NA)
-      if (is.function(border_colour_transform)) {
-        override_colour <- border_colour_transform(col)
+      if (is.function(border_transform_colour)) {
+        override_colour <- border_transform_colour(col)
       } else if (
-        !rlang::is_null(border_colour_transform) &&
-          is.na(border_colour_transform)
+        !rlang::is_null(border_transform_colour) &&
+          is.na(border_transform_colour)
       ) {
         override_colour <- col
       } else {
-        override_colour <- border_colour_transform
+        override_colour <- border_transform_colour
       }
 
-      # Handle border_fill_transform - check for NULL first
-      if (rlang::is_null(border_fill_transform)) {
+      # Handle border_transform_fill - check for NULL first
+      if (rlang::is_null(border_transform_fill)) {
         override_fill <- col
-      } else if (is.na(border_fill_transform)) {
+      } else if (is.na(border_transform_fill)) {
         override_fill <- col
-      } else if (is.function(border_fill_transform)) {
-        override_fill <- border_fill_transform(col)
+      } else if (is.function(border_transform_fill)) {
+        override_fill <- border_transform_fill(col)
       } else {
-        override_fill <- border_fill_transform
+        override_fill <- border_transform_fill
       }
 
       override_aes <- list(colour = override_colour, fill = override_fill)

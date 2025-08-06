@@ -5,6 +5,7 @@
 \title{Update width reference}
 \usage{
 update_width_reference(
+  ...,
   width = NULL,
   n = NULL,
   dodge_n = NULL,
@@ -14,6 +15,8 @@ update_width_reference(
 )
 }
 \arguments{
+\item{...}{Require named arguments (and support trailing commas).}
+
 \item{width}{Width value for the reference standard.}
 
 \item{n}{Number of categories (excluding dodge groups) in the reference standard.}

@@ -5,8 +5,8 @@
 \title{Annotated panel grid lines}
 \usage{
 annotate_panel_grid(
-  axis,
   ...,
+  axis,
   breaks,
   colour = NULL,
   linewidth = NULL,
@@ -15,9 +15,9 @@ annotate_panel_grid(
 )
 }
 \arguments{
-\item{axis}{The axis to annotate. One of "x" or "y".}
+\item{...}{Require named arguments (and support trailing commas).}
 
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{axis}{The axis to annotate. One of "x" or "y".}
 
 \item{breaks}{A vector of axis breaks for the panel grid.}
 

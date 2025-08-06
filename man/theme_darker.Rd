@@ -9,6 +9,7 @@ theme_darker(
   base_size = 10,
   base_family = "",
   base_colour = "#C8D7DFFF",
+  base_face = "plain",
   legend_position = "right",
   legend_axis_line_colour = plot_background_fill,
   legend_axis_line_linewidth = axis_line_linewidth,
@@ -26,19 +27,36 @@ theme_darker(
   panel_background_fill = "#050D1BFF",
   panel_grid_colour = "#00040AFF",
   panel_grid_linewidth = 1.33,
-  panel_grid_minor_linewidth = ggplot2::rel(0),
+  panel_grid_minor_linetype = 0,
+  panel_grid_minor_linewidth = ggplot2::rel(0.5),
   panel_heights = NULL,
-  panel_widths = NULL
+  panel_widths = NULL,
+  title_size = ggplot2::rel(1.1),
+  title_family = base_family,
+  title_colour = base_colour,
+  title_face = "bold",
+  subtitle_size = ggplot2::rel(1),
+  subtitle_family = base_family,
+  subtitle_colour = base_colour,
+  subtitle_face = "plain",
+  caption_size = ggplot2::rel(0.85),
+  caption_family = base_family,
+  caption_colour = ifelse(is_panel_light(), col_screen(base_colour),
+    col_multiply(base_colour)),
+  caption_face = "plain",
+  caption_hjust = 0
 )
 }
 \arguments{
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{...}{Require named arguments (and support trailing commas).}
 
 \item{base_size}{The base size of the text theme element. Defaults to 10.}
 
 \item{base_family}{The base family of the text theme element. Defaults to "".}
 
 \item{base_colour}{The base colour of the text theme element.}
+
+\item{base_face}{The base face of the text theme element. Defaults to "plain".}
 
 \item{legend_position}{The position of the legend. Either "right", "top" or "bottom".}
 
@@ -54,7 +72,7 @@ theme_darker(
 
 \item{legend_ticks_linewidth}{The linewidth of the legend.ticks theme element.}
 
-\item{legend_ticks_length}{The  theme element.}
+\item{legend_ticks_length}{The legend.ticks.length theme element.}
 
 \item{axis_line_colour}{The colour of the axis.line theme element.}
 
@@ -74,14 +92,42 @@ theme_darker(
 
 \item{panel_grid_linewidth}{The linewidth of the panel.grid theme element.}
 
+\item{panel_grid_minor_linetype}{The linetype of the panel.grid.minor theme element. Defaults to 0.}
+
 \item{panel_grid_minor_linewidth}{The linewidth of the panel.grid.minor theme element.}
 
 \item{panel_heights}{The height of the panels.}
 
 \item{panel_widths}{The width of the panels.}
+
+\item{title_size}{The size of the plot.title theme element.}
+
+\item{title_family}{The family of the plot.title theme element.}
+
+\item{title_colour}{The colour of the plot.title theme element.}
+
+\item{title_face}{The face of the plot.title theme element.}
+
+\item{subtitle_size}{The size of the plot.subtitle theme element.}
+
+\item{subtitle_family}{The family of the plot.subtitle theme element.}
+
+\item{subtitle_colour}{The colour of the plot.subtitle theme element.}
+
+\item{subtitle_face}{The face of the plot.subtitle theme element.}
+
+\item{caption_size}{The size of the plot.caption theme element.}
+
+\item{caption_family}{The family of the plot.caption theme element.}
+
+\item{caption_colour}{The colour of the plot.caption theme element.}
+
+\item{caption_face}{The face of the plot.caption theme element.}
+
+\item{caption_hjust}{The horizontal adjustment of the plot.caption theme element.}
 }
 \value{
-A ggplot theme.legend.ticks.length
+A ggplot theme.
 }
 \description{
 A darker complete theme.
@@ -89,30 +135,13 @@ A darker complete theme.
 \examples{
 library(ggplot2)
 
-set_blanket()
+set_blanket(theme = theme_darker(legend_position = "top"))
 
 palmerpenguins::penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    theme = theme_darker()
-  )
-
-palmerpenguins::penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-    theme = theme_darker(legend_position = "top")
-  )
-
-palmerpenguins::penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-    theme = theme_darker(legend_position = "bottom")
   )
 
 }

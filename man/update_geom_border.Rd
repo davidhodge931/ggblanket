@@ -6,22 +6,22 @@
 \usage{
 update_geom_border(
   ...,
-  border_colour_transform = function(x) {
-     ifelse(is_panel_dark(), col_screen(x),
-    col_multiply(x))
+  border_transform_colour = function(x) {
+     ifelse(is_panel_light(), col_multiply(x),
+    col_screen(x))
  },
-  border_fill_transform = NULL,
-  border_linewidth = 0.25
+  border_transform_fill = NULL,
+  borderwidth = 0.25
 )
 }
 \arguments{
-\item{...}{Additional arguments (not used).}
+\item{...}{Require named arguments (and support trailing commas).}
 
-\item{border_colour_transform}{A function with input of the set \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
+\item{border_transform_colour}{A function with input of the set \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
 
-\item{border_fill_transform}{A function with input of the set \code{col}. Defaults to NULL.}
+\item{border_transform_fill}{A function with input of the set \code{col}. Defaults to NULL.}
 
-\item{border_linewidth}{A number, or a function with input of the set linewidth. Defaults to 0.25.}
+\item{borderwidth}{A number, or a function with input of the set linewidth. Defaults to 0.25.}
 }
 \value{
 Global options for border geom styling.

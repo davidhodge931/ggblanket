@@ -5,52 +5,38 @@
 \title{Set the style}
 \usage{
 set_blanket(
+  ...,
   theme = theme_lighter(),
   col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
-  linewidth = 0.66,
-  linetype = 1,
-  size = 1.5,
-  shape = 21,
-  stroke = 0.5,
-  border_colour_transform = function(x) {
-     ifelse(is_panel_dark(), col_screen(x),
-    col_multiply(x))
- },
-  border_fill_transform = NULL,
-  border_linewidth = 0.25,
   col_palette_d = scales::pal_hue(),
-  col_palette_c = pal_viridis_by_panel("mako", 0.1, 0.9),
+  col_palette_c = pal_viridis_by_panel(option = "mako", begin = 0.1, end = 0.9),
   col_palette_o = NULL,
   col_na = "#A6A6A6FF",
+  border_transform_colour = function(x) {
+     ifelse(is_panel_light(), col_multiply(x),
+    col_screen(x))
+ },
+  border_transform_fill = NULL,
+  shape = 21,
   shape_palette_d = c(21, 24, 22, 23, 25),
   shape_na = 4,
+  linetype = 1,
   linetype_palette_d = 1:6,
+  linewidth = 0.66,
+  borderwidth = 0.25,
+  size = 1.5,
+  stroke = 0.5,
   aspect_axis_line = "transparent",
   aspect_axis_ticks = "transparent",
-  aspect_panel_grid = "transparent",
-  ...
+  aspect_panel_grid = "transparent"
 )
 }
 \arguments{
+\item{...}{Require named arguments (and support trailing commas).}
+
 \item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lighter]{theme_lighter()}} or \code{\link[=theme_darker]{theme_darker()}}).}
 
 \item{col}{A default hex code for the colour and fill of most geoms.}
-
-\item{linewidth}{A default linewidth for most geoms.}
-
-\item{linetype}{A default linetype for most geoms.}
-
-\item{size}{A default size for point geoms.}
-
-\item{shape}{A default shape for point geoms. Must be an integer between 0 and 25.}
-
-\item{stroke}{A default stroke for point geoms.}
-
-\item{border_colour_transform}{A function with input of the set \code{col}.}
-
-\item{border_fill_transform}{A function with input of the set \code{col}.}
-
-\item{border_linewidth}{A number, or a function with input of the set linewidth.}
 
 \item{col_palette_d}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
@@ -60,28 +46,40 @@ set_blanket(
 
 \item{col_na}{A NA colour/fill value.}
 
+\item{border_transform_colour}{A function with input of the \code{col} or \code{col_palette}.}
+
+\item{border_transform_fill}{A function with input of the \code{col} or \code{col_palette}.}
+
+\item{shape}{A default shape for point geoms. Must be an integer between 0 and 25.}
+
 \item{shape_palette_d}{For shape scales, a numeric vector of shape codes.}
 
 \item{shape_na}{A NA shape value.}
 
+\item{linetype}{A default linetype for most geoms.}
+
 \item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function.}
+
+\item{linewidth}{A default linewidth for geoms. A number.}
+
+\item{borderwidth}{A default linewidth for geoms that have a border. A number.}
+
+\item{size}{A default size for point geoms.}
+
+\item{stroke}{A default stroke for point geoms.}
 
 \item{aspect_axis_line}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis line for an \code{"x"} \code{aspect}, and vice versa.}
 
 \item{aspect_axis_ticks}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis ticks for an \code{"x"} \code{aspect}, and vice versa.}
 
 \item{aspect_panel_grid}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
-
-\item{...}{Additional arguments (not used).}
 }
 \value{
 Invisibly returns NULL. Sets global styling options as a side effect.
 }
 \description{
-Set a consistent style for ggplot2 visualizations by configuring:
-theme, geom default colour/fill, linetypes, linewidths, sizes,
-fonts, palettes, and other styling options. Most users will only need
-\code{theme}, \code{col}, \code{col_palette_d} and , \code{col_palette_c} arguments.
+Set a consistent style. Most users will only need
+\code{theme}, \code{col}, \code{col_palette_d}, \code{col_palette_c} and \verb{aspect_*} arguments.
 }
 \examples{
 library(ggplot2)
@@ -95,5 +93,4 @@ set_blanket(
 }
 \seealso{
 \code{\link[=theme_lighter]{theme_lighter()}}, \code{\link[=theme_darker]{theme_darker()}} for theme options
-\code{\link[=col_multiply]{col_multiply()}} for creating accent colours
 }

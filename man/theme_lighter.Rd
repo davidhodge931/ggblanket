@@ -9,6 +9,7 @@ theme_lighter(
   base_size = 10,
   base_family = "",
   base_colour = "#121B24FF",
+  base_face = "plain",
   legend_position = "right",
   legend_axis_line_colour = plot_background_fill,
   legend_axis_line_linewidth = axis_line_linewidth,
@@ -22,23 +23,40 @@ theme_lighter(
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
   axis_ticks_length = grid::unit(11/3, "pt"),
-  panel_heights = NULL,
-  panel_widths = NULL,
+  panel_background_fill = "#FFFFFFFF",
+  plot_background_fill = "#FFFFFFFF",
   panel_grid_colour = "#F6F8FAFF",
   panel_grid_linewidth = 1.33,
-  panel_grid_minor_linewidth = ggplot2::rel(0),
-  panel_background_fill = "#FFFFFFFF",
-  plot_background_fill = "#FFFFFFFF"
+  panel_grid_minor_linetype = 0,
+  panel_grid_minor_linewidth = ggplot2::rel(0.5),
+  panel_heights = NULL,
+  panel_widths = NULL,
+  title_size = ggplot2::rel(1.1),
+  title_family = base_family,
+  title_colour = base_colour,
+  title_face = "bold",
+  subtitle_size = ggplot2::rel(1),
+  subtitle_family = base_family,
+  subtitle_colour = base_colour,
+  subtitle_face = "plain",
+  caption_size = ggplot2::rel(0.85),
+  caption_family = base_family,
+  caption_colour = ifelse(is_panel_light(), col_screen(base_colour),
+    col_multiply(base_colour)),
+  caption_face = "plain",
+  caption_hjust = 0
 )
 }
 \arguments{
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{...}{Require named arguments (and support trailing commas).}
 
 \item{base_size}{The base size of the text theme element. Defaults to 10.}
 
 \item{base_family}{The base family of the text theme element. Defaults to "".}
 
 \item{base_colour}{The base colour of the text theme element.}
+
+\item{base_face}{The base face of the text theme element. Defaults to "plain".}
 
 \item{legend_position}{The position of the legend. Either "right", "top" or "bottom".}
 
@@ -66,19 +84,47 @@ theme_lighter(
 
 \item{axis_ticks_length}{The length of the axis.ticks.length theme element.}
 
-\item{panel_heights}{The height of the panels.}
+\item{panel_background_fill}{The fill (and colour) of the panel.background theme element.}
 
-\item{panel_widths}{The width of the panels.}
+\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
 
 \item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
 \item{panel_grid_linewidth}{The linewidth of the panel.grid theme element.}
 
+\item{panel_grid_minor_linetype}{The linetype of the panel.grid.minor theme element. Defaults to 0.}
+
 \item{panel_grid_minor_linewidth}{The linewidth of the panel.grid.minor theme element.}
 
-\item{panel_background_fill}{The fill (and colour) of the panel.background theme element.}
+\item{panel_heights}{The height of the panels.}
 
-\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
+\item{panel_widths}{The width of the panels.}
+
+\item{title_size}{The size of the plot.title theme element.}
+
+\item{title_family}{The family of the plot.title theme element.}
+
+\item{title_colour}{The colour of the plot.title theme element.}
+
+\item{title_face}{The face of the plot.title theme element.}
+
+\item{subtitle_size}{The size of the plot.subtitle theme element.}
+
+\item{subtitle_family}{The family of the plot.subtitle theme element.}
+
+\item{subtitle_colour}{The colour of the plot.subtitle theme element.}
+
+\item{subtitle_face}{The face of the plot.subtitle theme element.}
+
+\item{caption_size}{The size of the plot.caption theme element.}
+
+\item{caption_family}{The family of the plot.caption theme element.}
+
+\item{caption_colour}{The colour of the plot.caption theme element.}
+
+\item{caption_face}{The face of the plot.caption theme element.}
+
+\item{caption_hjust}{The horizontal adjustment of the plot.caption theme element.}
 }
 \value{
 A ggplot theme.
@@ -89,30 +135,13 @@ A lighter complete theme.
 \examples{
 library(ggplot2)
 
-set_blanket()
+set_blanket(theme = theme_darker(legend_position = "top"))
 
 palmerpenguins::penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    theme = theme_lighter()
-  )
-
-palmerpenguins::penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-    theme = theme_lighter(legend_position = "top")
-  )
-
-palmerpenguins::penguins |>
-  gg_point(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    col = species,
-    theme = theme_lighter(legend_position = "bottom")
   )
 
 }

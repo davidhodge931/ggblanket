@@ -3,8 +3,8 @@
 #' @description Replace panel grid lines with annotated segments.
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param axis The axis to annotate. One of "x" or "y".
-#' @param ... Provided to require argument naming, support trailing commas etc.
 #' @param breaks A vector of axis breaks for the panel grid.
 #' @param colour The colour of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linewidth The linewidth of grid lines. Inherits from current theme panel.grid.major etc.
@@ -41,8 +41,8 @@
 #'   )
 #'
 annotate_panel_grid <- function(
-  axis,
   ...,
+  axis,
   breaks,
   colour = NULL,
   linewidth = NULL,

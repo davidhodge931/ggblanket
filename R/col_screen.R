@@ -6,9 +6,10 @@
 #' it blends the colour with itself. Screen is the inverse of multiply - it lightens
 #' rather than darkens.
 #'
-#' @param col1 A character vector of colours or a `scales::pal_*()` function
+#' @param col A character vector of colours or a `scales::pal_*()` function
 #' @param col2 A character vector of colours or a `scales::pal_*()` function, or NULL.
-#'   If NULL (default), col1 is blended with itself.
+#'   If NULL (default), col is blended with itself.
+#' @param ... Require named arguments (and support trailing commas).
 #'
 #' @return
 #' If inputs are character vectors, returns a character vector of blended colours.
@@ -32,29 +33,29 @@
 #' # Screen a palette function with itself
 #' pal_screened <- col_screen(scales::pal_viridis())
 #' pal_screened(5)
-col_screen <- function(col1, col2 = NULL) {
-  # If col2 is NULL, use col1
+col_screen <- function(col, col2 = NULL, ...) {
+  # If col2 is NULL, use col
   if (rlang::is_null(col2)) {
-    col2 <- col1
+    col2 <- col
   }
 
   # Handle different input combinations
-  if (is.function(col1) || is.function(col2)) {
+  if (is.function(col) || is.function(col2)) {
     # Return a function that blends the palette outputs
     function(n) {
       # Get colours from functions or use directly
-      col1_vctr <- if (is.function(col1)) col1(n) else rep_len(col1, n)
+      col_vctr <- if (is.function(col)) col(n) else rep_len(col, n)
       col2_vctr <- if (is.function(col2)) col2(n) else rep_len(col2, n)
 
       # Perform screen blend
-      screen_blend(col1_vctr, col2_vctr)
+      screen_blend(col_vctr, col2_vctr)
     }
-  } else if (is.character(col1) && is.character(col2)) {
+  } else if (is.character(col) && is.character(col2)) {
     # Blend the colour vectors directly
-    screen_blend(col1, col2)
+    screen_blend(col, col2)
   } else {
     stop(
-      "col1 and col2 must be either character vectors of colours or palette functions"
+      "col and col2 must be either character vectors of colours or palette functions"
     )
   }
 }
@@ -66,20 +67,20 @@ col_screen <- function(col1, col2 = NULL) {
 #' This mimics the "screen" blend mode from graphics software.
 #' Formula: result = 1 - (1 - color1) * (1 - color2)
 #'
-#' @param col1 Character vector of colours
+#' @param col Character vector of colours
 #' @param col2 Character vector of colours
 #'
 #' @return Character vector of blended colours
 #'
 #' @noRd
-screen_blend <- function(col1, col2) {
+screen_blend <- function(col, col2) {
   # Ensure vectors have compatible lengths
-  len <- max(length(col1), length(col2))
-  col1 <- rep_len(col1, len)
+  len <- max(length(col), length(col2))
+  col <- rep_len(col, len)
   col2 <- rep_len(col2, len)
 
   # Convert colours to RGB (values 0-1)
-  rgb1 <- grDevices::col2rgb(col1) / 255
+  rgb1 <- grDevices::col2rgb(col) / 255
   rgb2 <- grDevices::col2rgb(col2) / 255
 
   # Apply screen blend mode: result = 1 - (1 - color1) * (1 - color2)

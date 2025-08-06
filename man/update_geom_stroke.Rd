@@ -4,12 +4,12 @@
 \alias{update_geom_stroke}
 \title{Update the stroke}
 \usage{
-update_geom_stroke(stroke = 0.5, ...)
+update_geom_stroke(..., stroke = 0.5)
 }
 \arguments{
-\item{stroke}{A stroke for point geoms.}
+\item{...}{Require named arguments (and support trailing commas).}
 
-\item{...}{Additional arguments (not used).}
+\item{stroke}{A stroke for point geoms.}
 }
 \value{
 Updated geom defaults for stroke

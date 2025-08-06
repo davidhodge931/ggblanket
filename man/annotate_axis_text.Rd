@@ -5,8 +5,8 @@
 \title{Annotated axis text labels}
 \usage{
 annotate_axis_text(
-  axis,
   ...,
+  axis,
   breaks,
   position = NULL,
   labels = NULL,
@@ -23,9 +23,9 @@ annotate_axis_text(
 )
 }
 \arguments{
-\item{axis}{The axis to annotate. One of "x" or "y".}
+\item{...}{Require named arguments (and support trailing commas).}
 
-\item{...}{Provided to require argument naming, support trailing commas etc.}
+\item{axis}{The axis to annotate. One of "x" or "y".}
 
 \item{breaks}{A vector of axis breaks for text positioning.}
 

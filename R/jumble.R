@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' colorspace::swatchplot(jumble, cvd = TRUE)
+#' scales::show_col(jumble)
 jumble <- c(
   "#0095A8FF",
   "#FFA600FF",

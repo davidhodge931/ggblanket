@@ -3,15 +3,15 @@
 #' @description
 #' Updates the active theme for colour/fill styling for set aesthetics.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param col colour/fill base for most geoms.
-#' @param ... Additional arguments (not used).
 #'
 #' @return An updated ggplot2 theme.
 #'
 #' @export
 update_geom_col <- function(
-  col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
-  ...
+    ...,
+    col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF")
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(colour = col, fill = col))
 
@@ -84,15 +84,15 @@ update_geom_col <- function(
 #' @description
 #' Updates the active theme for shape styling for set aesthetics.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param shape A shape.
-#' @param ... Additional arguments (not used).
 #'
 #' @return Updated geom defaults for shape
 #'
 #' @export
 update_geom_shape <- function(
-  shape = 21,
-  ...
+    ...,
+    shape = 21
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointshape = shape))
 }
@@ -102,15 +102,15 @@ update_geom_shape <- function(
 #' @description
 #' Updates the active theme for linetype styling for set aesthetics.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param linetype linetype.
-#' @param ... Additional arguments (not used).
 #'
 #' @return An updated ggplot2 theme.
 #'
 #' @export
 update_geom_linetype <- function(
-  linetype = 1,
-  ...
+    ...,
+    linetype = 1
 ) {
   ggplot2::update_theme(
     geom = ggplot2::element_geom(linetype = linetype, bordertype = linetype)
@@ -122,15 +122,15 @@ update_geom_linetype <- function(
 #' @description
 #' Updates the active theme for linewidth styling for set aesthetics.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param linewidth linewidth.
-#' @param ... Additional arguments (not used).
 #'
 #' @return An updated ggplot2 theme.
 #'
 #' @export
 update_geom_linewidth <- function(
-  linewidth = 0.5,
-  ...
+    ...,
+    linewidth = 0.5
 ) {
   ggplot2::update_theme(
     geom.abline = ggplot2::element_geom(
@@ -229,15 +229,15 @@ update_geom_linewidth <- function(
 #' @description
 #' Updates the active theme for size styling for set aesthetics.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param size A size for point geoms.
-#' @param ... Additional arguments (not used).
 #'
 #' @return Updated geom defaults for size
 #'
 #' @export
 update_geom_size <- function(
-  size = 1.5,
-  ...
+    ...,
+    size = 1.5
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointsize = size))
 }
@@ -247,15 +247,15 @@ update_geom_size <- function(
 #' @description
 #' Updates the active theme for stroke styling for set aesthetics.
 #'
+#' @param ... Require named arguments (and support trailing commas).
 #' @param stroke A stroke for point geoms.
-#' @param ... Additional arguments (not used).
 #'
 #' @return Updated geom defaults for stroke
 #'
 #' @export
 update_geom_stroke <- function(
-  stroke = 0.5,
-  ...
+    ...,
+    stroke = 0.5
 ) {
   ggplot2::update_theme(
     geom.point = ggplot2::element_geom(borderwidth = stroke),
@@ -270,7 +270,7 @@ update_geom_stroke <- function(
 #' @description
 #' Updates the active theme to apply consistent size styling.
 #'
-#' @param ... Additional arguments (not used).
+#' @param ... Require named arguments (and support trailing commas).
 #' @param colour A colour.
 #' @param fill A fill.
 #' @param size A size.
@@ -358,7 +358,7 @@ update_geom_font <- function(
 #' @description
 #' Updates the active theme to apply consistent reference line styling.
 #'
-#' @param ... Additional arguments (not used).
+#' @param ... Require named arguments (and support trailing commas).
 #' @param colour A colour.
 #' @param linewidth A linewidth.
 #'

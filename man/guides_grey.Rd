@@ -5,35 +5,35 @@
 \title{Override legend aesthetic colours}
 \usage{
 guides_grey(
+  ...,
   aesthetic,
   col = "#8991A1",
   colour = NULL,
   fill = NULL,
   border = NULL,
-  border_colour_transform = NULL,
-  border_fill_transform = NULL,
-  ...
+  border_transform_colour = NULL,
+  border_transform_fill = NULL
 )
 }
 \arguments{
+\item{...}{Arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}. Require named arguments (and support trailing commas).}
+
 \item{aesthetic}{Character string naming the aesthetic (e.g. "alpha", "shape",
 "linetype", "linewidth", "size")}
 
 \item{col}{Base hex for the legend colour/fill. Defaults to "#8991A1".}
 
 \item{colour}{Direct override for the colour aesthetic in the legend. If NULL,
-determined by \code{col} and \code{border_colour_transform}.}
+determined by \code{col} and \code{border_transform_colour}.}
 
 \item{fill}{Direct override for the fill aesthetic in the legend. If NULL,
-determined by \code{fill} and \code{border_fill_transform}.}
+determined by \code{fill} and \code{border_transform_fill}.}
 
 \item{border}{TRUE or FALSE of whether to treat as a border geom.}
 
-\item{border_colour_transform}{Function to transform the colour and colour_palette for border geoms.}
+\item{border_transform_colour}{Function to transform the colour and colour_palette for border geoms.}
 
-\item{border_fill_transform}{Function to transform the fill and fill_palette for border geoms.}
-
-\item{...}{Other arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}.}
+\item{border_transform_fill}{Function to transform the fill and fill_palette for border geoms.}
 }
 \value{
 A ggplot guides specification.

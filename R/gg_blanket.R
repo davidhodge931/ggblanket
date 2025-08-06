@@ -6,7 +6,7 @@
 #' This function underlies all other `gg_*` functions.
 #'
 #' @param data A data frame or tibble.
-#' @param ... Other arguments passed to within a `params` list in [ggplot2::layer()].
+#' @param ... Arguments passed to within a `params` list in [ggplot2::layer()]. Also, require named arguments (and support trailing commas).
 #' @param geom A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. `"point"`).
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
@@ -18,9 +18,9 @@
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample A mapped (unquoted) aesthetic variable. Or a set aesthetic value.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] for advanced edge-case situations (e.g.delayed evaluation etc).
-#' @param border `TRUE` or `FALSE` of whether the `border_colour_transform` and `border_fill_transform` should be applied.
-#' @param border_colour_transform A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
-#' @param border_fill_transform A function with input of `col` or `col_palette`. Defaults to NULL.
+#' @param border `TRUE` or `FALSE` of whether the `border_transform_colour` and `border_transform_fill` should be applied.
+#' @param border_transform_colour A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
+#' @param border_transform_fill A function with input of `col` or `col_palette`. Defaults to NULL.
 #' @param x_breaks,y_breaks,col_breaks A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector of breaks.
 #' @param x_breaks_n,y_breaks_n,col_breaks_n A number of desired breaks.
 #' @param x_expand,y_expand Padding to the limits with the [ggplot2::expansion()] function, or a vector of length 2 (e.g. `c(0, 0)`).
@@ -109,8 +109,8 @@ gg_blanket <- function(
   sample = NULL,
   mapping = NULL,
   border = NULL,
-  border_colour_transform = NULL,
-  border_fill_transform = NULL,
+  border_transform_colour = NULL,
+  border_transform_fill = NULL,
 
   x_breaks = NULL,
   x_breaks_n = NULL,
@@ -325,32 +325,32 @@ gg_blanket <- function(
       }
 
       # Step 6: Get border adjustment functions/values
-      if (rlang::is_null(border_colour_transform)) {
-        border_colour_transform <- if (is_border_geom) {
-          getOption("ggblanket.border_colour_transform")
+      if (rlang::is_null(border_transform_colour)) {
+        border_transform_colour <- if (is_border_geom) {
+          getOption("ggblanket.border_transform_colour")
         } else {
           NULL
         }
-      } else if (is.na(border_colour_transform)) {
+      } else if (is.na(border_transform_colour)) {
         # User explicitly disabled border colour adjustment
-        border_colour_transform <- NULL
+        border_transform_colour <- NULL
       } else {
         # User provided a function or value
-        border_colour_transform <- border_colour_transform
+        border_transform_colour <- border_transform_colour
       }
 
-      if (rlang::is_null(border_fill_transform)) {
-        border_fill_transform <- if (is_border_geom) {
-          getOption("ggblanket.border_fill_transform")
+      if (rlang::is_null(border_transform_fill)) {
+        border_transform_fill <- if (is_border_geom) {
+          getOption("ggblanket.border_transform_fill")
         } else {
           NULL
         }
-      } else if (is.na(border_fill_transform)) {
+      } else if (is.na(border_transform_fill)) {
         # User explicitly disabled border fill adjustment
-        border_fill_transform <- NULL
+        border_transform_fill <- NULL
       } else {
         # User provided a function or value
-        border_fill_transform <- border_fill_transform
+        border_transform_fill <- border_transform_fill
       }
       ##############
       # Step 7: Get palettes from theme and options - FIXED VERSION
@@ -382,60 +382,60 @@ gg_blanket <- function(
 
       # Apply border adjustments to palettes and NA colors - FIXED VERSION
       if (is_border_geom) {
-        if (!rlang::is_null(border_colour_transform)) {
+        if (!rlang::is_null(border_transform_colour)) {
           # ... existing border logic but add NULL checks
           if (!rlang::is_null(colour_palette)) {
             colour_palette_d <- colour_palette
             colour_palette_c <- colour_palette
             colour_palette_o <- colour_palette
           } else {
-            # Apply border_colour_transform transformation with NULL safety
+            # Apply border_transform_colour transformation with NULL safety
             if (
-              is.function(col_palette_d) && is.function(border_colour_transform)
+              is.function(col_palette_d) && is.function(border_transform_colour)
             ) {
-              colour_palette_d <- border_colour_transform(col_palette_d)
+              colour_palette_d <- border_transform_colour(col_palette_d)
             } else if (
               is.character(col_palette_d) &&
-                is.function(border_colour_transform) &&
+                is.function(border_transform_colour) &&
                 length(col_palette_d) > 0
             ) {
               colour_palette_d <- purrr::map_chr(
                 col_palette_d,
-                border_colour_transform
+                border_transform_colour
               )
             } else {
               colour_palette_d <- col_palette_d %||% scales::hue_pal() # Add fallback
             }
 
             if (
-              is.function(col_palette_c) && is.function(border_colour_transform)
+              is.function(col_palette_c) && is.function(border_transform_colour)
             ) {
-              colour_palette_c <- border_colour_transform(col_palette_c)
+              colour_palette_c <- border_transform_colour(col_palette_c)
             } else if (
               is.character(col_palette_c) &&
-                is.function(border_colour_transform) &&
+                is.function(border_transform_colour) &&
                 length(col_palette_c) > 0
             ) {
               colour_palette_c <- purrr::map_chr(
                 col_palette_c,
-                border_colour_transform
+                border_transform_colour
               )
             } else {
               colour_palette_c <- col_palette_c %||% scales::viridis_pal() # Add fallback
             }
 
             if (
-              is.function(col_palette_o) && is.function(border_colour_transform)
+              is.function(col_palette_o) && is.function(border_transform_colour)
             ) {
-              colour_palette_o <- border_colour_transform(col_palette_o)
+              colour_palette_o <- border_transform_colour(col_palette_o)
             } else if (
               is.character(col_palette_o) &&
-                is.function(border_colour_transform) &&
+                is.function(border_transform_colour) &&
                 length(col_palette_o) > 0
             ) {
               colour_palette_o <- purrr::map_chr(
                 col_palette_o,
-                border_colour_transform
+                border_transform_colour
               )
             } else {
               colour_palette_o <- col_palette_o %||% scales::viridis_pal() # Add fallback
@@ -444,12 +444,12 @@ gg_blanket <- function(
 
           # For NA color: priority is colour_na > col_na (transformed)
           if (
-            rlang::is_null(colour_na) && is.function(border_colour_transform)
+            rlang::is_null(colour_na) && is.function(border_transform_colour)
           ) {
-            colour_na <- border_colour_transform(col_na)
+            colour_na <- border_transform_colour(col_na)
           }
         } else {
-          # No border_colour_transform adjustment - add NULL safety
+          # No border_transform_colour adjustment - add NULL safety
           colour_palette_d <- colour_palette %||%
             col_palette_d %||%
             scales::hue_pal()
@@ -465,60 +465,60 @@ gg_blanket <- function(
         }
 
         # Similar fixes for fill palettes...
-        if (!rlang::is_null(border_fill_transform)) {
+        if (!rlang::is_null(border_transform_fill)) {
           # Add similar NULL safety checks for fill palettes
           if (!rlang::is_null(fill_palette)) {
             fill_palette_d <- fill_palette
             fill_palette_c <- fill_palette
             fill_palette_o <- fill_palette
           } else {
-            # Apply border_fill_transform transformation with NULL safety
+            # Apply border_transform_fill transformation with NULL safety
             if (
-              is.function(col_palette_d) && is.function(border_fill_transform)
+              is.function(col_palette_d) && is.function(border_transform_fill)
             ) {
-              fill_palette_d <- border_fill_transform(col_palette_d)
+              fill_palette_d <- border_transform_fill(col_palette_d)
             } else if (
               is.character(col_palette_d) &&
-                is.function(border_fill_transform) &&
+                is.function(border_transform_fill) &&
                 length(col_palette_d) > 0
             ) {
               fill_palette_d <- purrr::map_chr(
                 col_palette_d,
-                border_fill_transform
+                border_transform_fill
               )
             } else {
               fill_palette_d <- col_palette_d %||% scales::hue_pal()
             }
 
             if (
-              is.function(col_palette_c) && is.function(border_fill_transform)
+              is.function(col_palette_c) && is.function(border_transform_fill)
             ) {
-              fill_palette_c <- border_fill_transform(col_palette_c)
+              fill_palette_c <- border_transform_fill(col_palette_c)
             } else if (
               is.character(col_palette_c) &&
-                is.function(border_fill_transform) &&
+                is.function(border_transform_fill) &&
                 length(col_palette_c) > 0
             ) {
               fill_palette_c <- purrr::map_chr(
                 col_palette_c,
-                border_fill_transform
+                border_transform_fill
               )
             } else {
               fill_palette_c <- col_palette_c %||% scales::viridis_pal()
             }
 
             if (
-              is.function(col_palette_o) && is.function(border_fill_transform)
+              is.function(col_palette_o) && is.function(border_transform_fill)
             ) {
-              fill_palette_o <- border_fill_transform(col_palette_o)
+              fill_palette_o <- border_transform_fill(col_palette_o)
             } else if (
               is.character(col_palette_o) &&
-                is.function(border_fill_transform) &&
+                is.function(border_transform_fill) &&
                 length(col_palette_o) > 0
             ) {
               fill_palette_o <- purrr::map_chr(
                 col_palette_o,
-                border_fill_transform
+                border_transform_fill
               )
             } else {
               fill_palette_o <- col_palette_o %||% scales::viridis_pal()
@@ -526,11 +526,11 @@ gg_blanket <- function(
           }
 
           # For NA color: priority is fill_na > col_na (transformed)
-          if (rlang::is_null(fill_na) && is.function(border_fill_transform)) {
-            fill_na <- border_fill_transform(col_na)
+          if (rlang::is_null(fill_na) && is.function(border_transform_fill)) {
+            fill_na <- border_transform_fill(col_na)
           }
         } else {
-          # No border_fill_transform adjustment - add NULL safety
+          # No border_transform_fill adjustment - add NULL safety
           fill_palette_d <- fill_palette %||%
             col_palette_d %||%
             scales::hue_pal()
@@ -597,10 +597,10 @@ gg_blanket <- function(
             # No colour value, but col is set as fixed value (and it's not NA)
             if (
               is_border_geom &&
-                !rlang::is_null(border_colour_transform) &&
-                is.function(border_colour_transform)
+                !rlang::is_null(border_transform_colour) &&
+                is.function(border_transform_colour)
             ) {
-              fixed_params$colour <- border_colour_transform(
+              fixed_params$colour <- border_transform_colour(
                 col_map_or_set$value
               )
             } else {
@@ -619,10 +619,10 @@ gg_blanket <- function(
 
           if (
             is_border_geom &&
-              !rlang::is_null(border_colour_transform) &&
-              is.function(border_colour_transform)
+              !rlang::is_null(border_transform_colour) &&
+              is.function(border_transform_colour)
           ) {
-            fixed_params$colour <- border_colour_transform(default_colour)
+            fixed_params$colour <- border_transform_colour(default_colour)
           } else {
             fixed_params$colour <- default_colour
           }
@@ -644,10 +644,10 @@ gg_blanket <- function(
             # No fill value, but col is set as fixed value (and it's not NA)
             if (
               is_border_geom &&
-                !rlang::is_null(border_fill_transform) &&
-                is.function(border_fill_transform)
+                !rlang::is_null(border_transform_fill) &&
+                is.function(border_transform_fill)
             ) {
-              fixed_params$fill <- border_fill_transform(col_map_or_set$value)
+              fixed_params$fill <- border_transform_fill(col_map_or_set$value)
             } else {
               fixed_params$fill <- col_map_or_set$value
             }
@@ -664,10 +664,10 @@ gg_blanket <- function(
 
           if (
             is_border_geom &&
-              !rlang::is_null(border_fill_transform) &&
-              is.function(border_fill_transform)
+              !rlang::is_null(border_transform_fill) &&
+              is.function(border_transform_fill)
           ) {
-            fixed_params$fill <- border_fill_transform(default_fill)
+            fixed_params$fill <- border_transform_fill(default_fill)
           } else {
             fixed_params$fill <- default_fill
           }
@@ -1061,8 +1061,8 @@ gg_blanket <- function(
           fill_palette_c = fill_palette_c,
           fill_palette_o = fill_palette_o,
           fill_na = fill_na,
-          border_colour_transform = border_colour_transform,
-          border_fill_transform = border_fill_transform
+          border_transform_colour = border_transform_colour,
+          border_transform_fill = border_transform_fill
         )
       }
 
@@ -1180,8 +1180,8 @@ gg_blanket <- function(
             data = data,
             geom_name = geom_name,
             is_border_geom = is_border_geom,
-            border_colour_transform = border_colour_transform,
-            border_fill_transform = border_fill_transform,
+            border_transform_colour = border_transform_colour,
+            border_transform_fill = border_transform_fill,
             col_legend_ncol = col_legend_ncol,
             col_legend_nrow = col_legend_nrow,
             shape_legend_rev = if (aspect == "y") TRUE else FALSE,

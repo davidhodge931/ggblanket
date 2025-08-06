@@ -17,6 +17,6 @@ The 8th and 9th are the default base_colour used in \code{theme_lighter} and \co
 The 10th is the default NA grey used, and the 11th the default blue used for set aesthetics.
 }
 \examples{
-colorspace::swatchplot(jumble, cvd = TRUE)
+scales::show_col(jumble)
 }
 \keyword{datasets}
