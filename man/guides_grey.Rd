@@ -16,26 +16,22 @@ guides_grey(
 )
 }
 \arguments{
-\item{aesthetic}{Character string naming the aesthetic ("shape", "size", "alpha",
-"linetype", "linewidth", etc.)}
+\item{aesthetic}{Character string naming the aesthetic (e.g. "alpha", "shape",
+"linetype", "linewidth", "size")}
 
-\item{col}{Base colour for the legend elements. Defaults to "#8991A1".}
+\item{col}{Base hex for the legend colour/fill. Defaults to "#8991A1".}
 
 \item{colour}{Direct override for the colour aesthetic in the legend. If NULL,
-determined by \code{col} and border settings.}
+determined by \code{col} and \code{bordered_colour}.}
 
 \item{fill}{Direct override for the fill aesthetic in the legend. If NULL,
-determined by \code{col} and border settings.}
+determined by \code{fill} and \code{bordered_fill}.}
 
-\item{bordered}{Logical. Whether to treat as a bordered geom. If NULL,
-automatically determined based on the aesthetic and current geom defaults.}
+\item{bordered}{TRUE or FALSE of whether to treat as a bordered geom.}
 
-\item{bordered_colour}{Function to transform the base colour for borders.
-Defaults to \code{col_multiply()} for light themes and \code{col_screen()} for dark themes.
-Set to NA to disable border colour transformation.}
+\item{bordered_colour}{Function to transform the colour and colour_palette for bordered geoms.}
 
-\item{bordered_fill}{Function to transform the base colour for fills.
-Defaults to NULL (no transformation). Set to NA to explicitly disable.}
+\item{bordered_fill}{Function to transform the fill and fill_palette for bordered geoms.}
 
 \item{...}{Other arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}.}
 }
@@ -43,6 +39,5 @@ Defaults to NULL (no transformation). Set to NA to explicitly disable.}
 A ggplot guides specification.
 }
 \description{
-Override the colour of legend elements for any aesthetic. Provides full control
-over bordered geom appearance in legends.
+Override the colour/fill of legend elements for any aesthetic.
 }

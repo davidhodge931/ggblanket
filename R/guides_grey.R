@@ -1,23 +1,18 @@
 #' Override legend aesthetic colours
 #'
 #' @description
-#' Override the colour of legend elements for any aesthetic. Provides full control
-#' over bordered geom appearance in legends.
+#' Override the colour/fill of legend elements for any aesthetic.
 #'
-#' @param aesthetic Character string naming the aesthetic ("shape", "size", "alpha",
-#'   "linetype", "linewidth", etc.)
-#' @param col Base colour for the legend elements. Defaults to "#8991A1".
+#' @param aesthetic Character string naming the aesthetic (e.g. "alpha", "shape",
+#'   "linetype", "linewidth", "size")
+#' @param col Base hex for the legend colour/fill. Defaults to "#8991A1".
 #' @param colour Direct override for the colour aesthetic in the legend. If NULL,
-#'   determined by `col` and border settings.
+#'   determined by `col` and `bordered_colour`.
 #' @param fill Direct override for the fill aesthetic in the legend. If NULL,
-#'   determined by `col` and border settings.
-#' @param bordered Logical. Whether to treat as a bordered geom. If NULL,
-#'   automatically determined based on the aesthetic and current geom defaults.
-#' @param bordered_colour Function to transform the base colour for borders.
-#'   Defaults to `col_multiply()` for light themes and `col_screen()` for dark themes.
-#'   Set to NA to disable border colour transformation.
-#' @param bordered_fill Function to transform the base colour for fills.
-#'   Defaults to NULL (no transformation). Set to NA to explicitly disable.
+#'   determined by `fill` and `bordered_fill`.
+#' @param bordered TRUE or FALSE of whether to treat as a bordered geom.
+#' @param bordered_colour Function to transform the colour and colour_palette for bordered geoms.
+#' @param bordered_fill Function to transform the fill and fill_palette for bordered geoms.
 #' @param ... Other arguments passed to [ggplot2::guide_legend()].
 #'
 #' @return A ggplot guides specification.
@@ -32,6 +27,10 @@ guides_grey <- function(
     bordered_fill = NULL,
     ...
 ) {
+
+  if (rlang::is_null(bordered_colour)) bordered_colour <- getOption("ggblanket.bordered_colour")
+  if (rlang::is_null(bordered_fill)) bordered_fill <- getOption("ggblanket.bordered_fill")
+
   # Direct overrides take precedence
   if (!rlang::is_null(colour) || !rlang::is_null(fill)) {
     override_aes <- list()
