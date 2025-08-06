@@ -47,7 +47,7 @@ gg_freqpoly(
   x_breaks_n = NULL,
   x_expand = NULL,
   x_limits_include = NULL,
-  x_title = NULL,
+  x_title = snakecase::to_sentence_case,
   x_labels = NULL,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
@@ -57,7 +57,7 @@ gg_freqpoly(
   y_breaks_n = NULL,
   y_expand = NULL,
   y_limits_include = NULL,
-  y_title = NULL,
+  y_title = snakecase::to_sentence_case,
   y_labels = NULL,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
@@ -67,7 +67,7 @@ gg_freqpoly(
   col_breaks_n = NULL,
   col_drop = FALSE,
   col_limits_include = NULL,
-  col_title = NULL,
+  col_title = snakecase::to_sentence_case,
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
@@ -81,9 +81,14 @@ gg_freqpoly(
   colour_na = NULL,
   fill_palette = NULL,
   fill_na = NULL,
+  alpha_title = snakecase::to_sentence_case,
   shape_palette = NULL,
   shape_na = NULL,
+  shape_title = snakecase::to_sentence_case,
   linetype_palette = NULL,
+  linetype_title = snakecase::to_sentence_case,
+  linewidth_title = snakecase::to_sentence_case,
+  size_title = snakecase::to_sentence_case,
   facet_axes = NULL,
   facet_axis_labels = "margins",
   facet_drop = FALSE,
@@ -138,7 +143,7 @@ gg_freqpoly(
 
 \item{x_limits_include, y_limits_include, col_limits_include}{For a continuous variable, any values that the limits should encompass (e.g. \code{0}). For a discrete scale, manipulate the data instead with \code{forcats::fct_expand}.}
 
-\item{x_title, y_title, col_title}{Label for the axis or legend title. Use \code{+ ggplot2::labs(... = NULL)} for no title.}
+\item{x_title, y_title, col_title, alpha_title, shape_title, linetype_title, linewidth_title, size_title}{Label for the axis or legend title. Use \verb{*_title = NULL} for no title.}
 
 \item{x_labels, y_labels, col_labels, facet_labels}{A function that takes the breaks as inputs (e.g. \verb{\\(x) stringr::str_to_sentence(x)} or \verb{scales::label_*()}), or a vector of labels. (Note this must be named for \code{facet_labels}).}
 

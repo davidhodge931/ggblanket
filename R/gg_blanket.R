@@ -29,7 +29,7 @@
 #' @param x_limits_to_breaks,y_limits_to_breaks `TRUE` or `FALSE` of whether the limits are to equal the range of the `*_breaks` (and `*_expand = c(0, 0)`). Note can only both be `TRUE` if `stat`, `x_transform` and `y_transform` equals `"identity"` (or `"reverse"`).
 #' @param x_position,y_position The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or `"top"`).If using `y_position = "top"` with a `*_*` theme, add `caption = ""` or `caption = "\n"`.
 #' @param x_sec_axis,y_sec_axis A secondary axis with [ggplot2::dup_axis()] or  [ggplot2::sec_axis()] defaults.
-#' @param x_title,y_title,col_title Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)` for no title.
+#' @param x_title,y_title,col_title,alpha_title,shape_title,linetype_title,linewidth_title,size_title Label for the axis or legend title. Use `*_title = NULL` for no title.
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
@@ -117,7 +117,7 @@ gg_blanket <- function(
     x_breaks_n = NULL,
     x_expand = NULL,
     x_limits_include = NULL,
-    x_title = NULL,
+    x_title = snakecase::to_sentence_case,
     x_labels = NULL,
     x_position = "bottom",
     x_sec_axis = ggplot2::waiver(),
@@ -126,7 +126,7 @@ gg_blanket <- function(
     y_breaks_n = NULL,
     y_expand = NULL,
     y_limits_include = NULL,
-    y_title = NULL,
+    y_title = snakecase::to_sentence_case,
     y_labels = NULL,
     y_position = "left",
     y_sec_axis = ggplot2::waiver(),
@@ -135,7 +135,7 @@ gg_blanket <- function(
     col_breaks_n = NULL,
     col_drop = FALSE,
     col_limits_include = NULL,
-    col_title = NULL,
+    col_title = snakecase::to_sentence_case,
     col_labels = NULL,
     col_legend_ncol = NULL,
     col_legend_nrow = NULL,
@@ -148,7 +148,7 @@ gg_blanket <- function(
     colour_palette = NULL,
     colour_na = NULL,
     fill_palette = NULL,
-    fill_na = NULL, shape_palette = NULL, shape_na = NULL, linetype_palette = NULL,
+    fill_na = NULL, alpha_title = snakecase::to_sentence_case, shape_palette = NULL, shape_na = NULL, shape_title = snakecase::to_sentence_case, linetype_palette = NULL, linetype_title = snakecase::to_sentence_case, linewidth_title = snakecase::to_sentence_case, size_title = snakecase::to_sentence_case,
     facet_axes = NULL,
     facet_axis_labels = "margins",
     facet_drop = FALSE,
@@ -1131,31 +1131,41 @@ gg_blanket <- function(
   }
 
   # Step 22: Get titles
-  all_titles <- get_plot_titles(
-    data = data,
-    aes_list = aes_list,
-    plot_build = plot_build,
-    titles_case = titles_case,
-    stat_name = stat_name,
-    x_title = x_title,
-    y_title = y_title,
-    col_title = col_title
-  )
+  # all_titles <- get_plot_titles(
+  #   data = data,
+  #   aes_list = aes_list,
+  #   plot_build = plot_build,
+  #   titles_case = titles_case,
+  #   stat_name = stat_name,
+  #   x_title = x_title,
+  #   y_title = y_title,
+  #   col_title = col_title
+  # )
+
+  x_title <- process_title(x_title, aes_list$x, mapping, "x", stat_name, data, "x", plot)
+  y_title <- process_title(y_title, aes_list$y, mapping, "y", stat_name, data, "y", plot)
+  col_title <- process_title(col_title, aes_list$col, mapping, "col", stat_name, data, "col", plot)
+
+  alpha_title <- process_title(alpha_title, aes_list$alpha, mapping, "alpha", stat_name, data, "alpha", plot)
+  shape_title <- process_title(shape_title, aes_list$shape, mapping, "shape", stat_name, data, "shape", plot)
+  size_title <- process_title(size_title, aes_list$size, mapping, "size", stat_name, data, "size", plot)
+  linewidth_title <- process_title(linewidth_title, aes_list$linewidth, mapping, "linewidth", stat_name, data, "linewidth", plot)
+  linetype_title <- process_title(linetype_title, aes_list$linetype, mapping, "linetype", stat_name, data, "linetype", plot)
 
   # Apply labels
   plot <- plot +
     ggplot2::labs(
-      x = all_titles$x,
-      y = all_titles$y,
-      colour = all_titles$colour,
-      fill = all_titles$fill,
-      alpha = all_titles$alpha_title,
-      shape = all_titles$shape_title,
-      size = all_titles$size_title,
-      linewidth = all_titles$linewidth_title,
-      linetype = all_titles$linetype_title,
-      pattern = all_titles$pattern_title,
-      starshape = all_titles$starshape_title,
+      x = x_title,
+      y = y_title,
+      colour = col_title,
+      fill = col_title,
+      alpha = alpha_title,
+      shape = shape_title,
+      size = size_title,
+      linewidth = linewidth_title,
+      linetype = linetype_title,
+      pattern = snakecase::to_sentence_case,
+      starshape = snakecase::to_sentence_case,
       title = title,
       subtitle = subtitle,
       caption = caption

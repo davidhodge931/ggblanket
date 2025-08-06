@@ -1793,105 +1793,6 @@ get_aes_title <- function(
   default
 }
 
-#' Get all titles for a plot
-#' @description Centralizes all title extraction logic
-#' @noRd
-get_plot_titles <- function(
-  data,
-  aes_list,
-  plot_build,
-  titles_case,
-  stat_name,
-  x_title = NULL,
-  y_title = NULL,
-  col_title = NULL
-) {
-  # Get x and y titles
-  if (stringr::str_detect(stat_name, "sf")) {
-    # SF plots don't need axis titles
-    x_title <- x_title %||% ""
-    y_title <- y_title %||% ""
-  } else {
-    x_title <- x_title %||%
-      get_aes_title(
-        data,
-        aes_list$x,
-        plot_build$plot$labels$x,
-        titles_case,
-        titles_case("x")
-      )
-
-    y_title <- y_title %||%
-      get_aes_title(
-        data,
-        aes_list$y,
-        plot_build$plot$labels$y,
-        titles_case,
-        titles_case("y")
-      )
-  }
-
-  # Get col title (handles both colour and fill)
-  if (rlang::is_null(col_title)) {
-    if (!rlang::is_null(plot_build$plot$labels$colour)) {
-      col_title <- get_aes_title(
-        data,
-        aes_list$col,
-        plot_build$plot$labels$colour,
-        titles_case,
-        NULL
-      )
-    } else if (!rlang::is_null(plot_build$plot$labels$fill)) {
-      col_title <- get_aes_title(
-        data,
-        aes_list$col,
-        plot_build$plot$labels$fill,
-        titles_case,
-        NULL
-      )
-    }
-  }
-
-  # Get other aesthetic titles
-  other_aesthetics <- c(
-    "alpha",
-    "shape",
-    "linetype",
-    "linewidth",
-    "size",
-    "pattern",
-    "starshape"
-  )
-  other_titles <- list()
-
-  for (aes in other_aesthetics) {
-    label <- plot_build$plot$labels[[aes]]
-    if (!rlang::is_null(label)) {
-      # Check if this aesthetic is identical to col
-      if (is_aes_identical_to_col(plot_build, aes)) {
-        other_titles[[paste0(aes, "_title")]] <- col_title
-      } else {
-        other_titles[[paste0(
-          aes,
-          "_title"
-        )]] <- titles_case(rlang::as_name(label[1]))
-      }
-    } else {
-      other_titles[[paste0(aes, "_title")]] <- NULL
-    }
-  }
-
-  # Return all titles
-  c(
-    list(
-      x = x_title,
-      y = y_title,
-      colour = col_title,
-      fill = col_title
-    ),
-    other_titles
-  )
-}
 
 #' Create base ggplot from aesthetic list
 #' @noRd
@@ -2652,3 +2553,74 @@ apply_secondary_grey_guides <- function(
 
   plot
 }
+
+# Helper function to process titles using ggplot2's label system
+process_title <- function(title_param, aes_quo, mapping, aes_name, stat_name, data, fallback = "X", plot = NULL) {
+  if (rlang::is_null(title_param) || (stringr::str_detect(stat_name, "sf") && aes_name %in% c("x", "y"))) {
+    return(NULL)
+  } else if (!is.function(title_param)) {
+    # User provided string/expression - use as-is
+    return(title_param)
+  } else {
+    # title_param is a function - check for label, then apply function
+
+    # First, try to get the original variable and check for labels
+    quo <- if (!rlang::quo_is_null(aes_quo)) {
+      aes_quo
+    } else if (!rlang::is_null(mapping)) {
+      # For col_title, check colour, fill, or col in mapping
+      if (aes_name == "col" && "colour" %in% names(mapping)) {
+        mapping$colour
+      } else if (aes_name == "col" && "fill" %in% names(mapping)) {
+        mapping$fill
+      } else if (aes_name %in% names(mapping)) {
+        mapping[[aes_name]]
+      } else {
+        rlang::quo(NULL)
+      }
+    } else {
+      rlang::quo(NULL)
+    }
+
+    # Try to get label from original data column
+    if (!rlang::quo_is_null(quo)) {
+      tryCatch({
+        # Try to pull directly from data (works for simple variable references)
+        data_col <- dplyr::pull(data, !!quo)
+        label_attr <- labelled::get_label_attribute(data_col)
+        if (!rlang::is_null(label_attr) && !identical(label_attr, "")) {
+          return(label_attr)
+        }
+        # No label - apply function to variable name
+        var_name <- rlang::as_name(quo)
+        return(title_param(var_name))
+      }, error = function(e) {
+        # Fall through to ggplot2 approach for computed variables
+      })
+    }
+
+    # Fallback: Use ggplot2's computed title
+    if (!rlang::is_null(plot)) {
+      tryCatch({
+        plot_labs <- ggplot2::get_labs(plot)
+
+        # For col_title, try both colour and fill labels from ggplot
+        if (aes_name == "col") {
+          ggplot_title <- plot_labs[["colour"]] %||% plot_labs[["fill"]]
+        } else {
+          ggplot_title <- plot_labs[[aes_name]]
+        }
+
+        if (!rlang::is_null(ggplot_title) && ggplot_title != "") {
+          return(title_param(ggplot_title))
+        }
+      }, error = function(e) {
+        # Continue to final fallback
+      })
+    }
+
+    # Final fallback
+    return(title_param(fallback))
+  }
+}
+
