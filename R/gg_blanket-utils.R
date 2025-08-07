@@ -1479,8 +1479,9 @@ add_aspect <- function(
     if (aspect_axis_ticks == "transparent") {
       theme_updates$axis.ticks.y.left <- element_line_transparent()
       theme_updates$axis.ticks.y.right <- element_line_transparent()
-      # theme_updates$axis.minor.ticks.y.left <- element_line_transparent()
-      # theme_updates$axis.minor.ticks.y.right <- element_line_transparent()
+
+      theme_updates$axis.minor.ticks.y.left <- element_line_transparent()
+      theme_updates$axis.minor.ticks.y.right <- element_line_transparent()
     }
     if (aspect_panel_grid == "transparent") {
       theme_updates$panel.grid.major.x <- element_line_transparent()
@@ -1503,8 +1504,9 @@ add_aspect <- function(
     if (x_scale_class == "discrete") {
       theme_updates$axis.ticks.x.bottom <- element_line_transparent()
       theme_updates$axis.ticks.x.top <- element_line_transparent()
-      # theme_updates$axis.ticks.x.bottom <- element_line_transparent()
-      # theme_updates$axis.minor.ticks.x.top <- element_line_transparent()
+
+      theme_updates$axis.ticks.x.bottom <- element_line_transparent()
+      theme_updates$axis.minor.ticks.x.top <- element_line_transparent()
     }
   } else if (aspect == "y") {
     if (aspect_axis_line == "transparent") {
@@ -1514,8 +1516,9 @@ add_aspect <- function(
     if (aspect_axis_ticks == "transparent") {
       theme_updates$axis.ticks.x.bottom <- element_line_transparent()
       theme_updates$axis.ticks.x.top <- element_line_transparent()
-      # theme_updates$axis.ticks.x.bottom <- element_line_transparent()
-      # theme_updates$axis.minor.ticks.x.top <- element_line_transparent()
+
+      theme_updates$axis.ticks.x.bottom <- element_line_transparent()
+      theme_updates$axis.minor.ticks.x.top <- element_line_transparent()
     }
     if (aspect_panel_grid == "transparent") {
       theme_updates$panel.grid.major.y <- element_line_transparent()
@@ -1538,8 +1541,9 @@ add_aspect <- function(
     if (y_scale_class == "discrete") {
       theme_updates$axis.ticks.y.left <- element_line_transparent()
       theme_updates$axis.ticks.y.right <- element_line_transparent()
-      # theme_updates$axis.minor.ticks.y.left <- element_line_transparent()
-      # theme_updates$axis.minor.ticks.y.right <- element_line_transparent()
+
+      theme_updates$axis.minor.ticks.y.left <- element_line_transparent()
+      theme_updates$axis.minor.ticks.y.right <- element_line_transparent()
     }
   }
 

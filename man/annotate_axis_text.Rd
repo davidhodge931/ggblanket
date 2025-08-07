@@ -59,3 +59,72 @@ Add text labels positioned relative to axis tick marks using absolute measuremen
 This function only works when panel dimensions are set via panel.widths and panel.heights.
 It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }
+\examples{
+library(ggplot2)
+
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), 100),
+    panel_widths = rep(unit(75, "mm"), 100),
+  ),
+)
+
+p <- palmerpenguins::penguins |>
+  gg_blanket(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    x_title = "Flipper length",
+    y_title = "Body mass",
+  )
+
+y_breaks <- seq(2500, 6500, 500)
+
+key <- 4873
+
+p +
+  geom_hline(yintercept = key) +
+  annotate_axis_text(
+    axis = "y",
+    breaks = key,
+    position = "right",
+    labels = scales::comma(key),
+  ) +
+  geom_point(
+    colour = col_multiply(get_geom_defaults("point")$colour),
+  )
+
+p +
+  annotate_axis_text(
+    axis = "y",
+    breaks = 6500,
+    labels = "kg",
+    hjust = 0,
+    length = unit(0, "pt"),
+    theme_element = "keep",
+  ) +
+  annotate_axis_text(
+    axis = "x",
+    breaks = I(1),
+    labels = "mm",
+    hjust = 0,
+    margin = unit(1, "pt"),
+    theme_element = "keep",
+  ) +
+  geom_point(
+    colour = col_multiply(get_geom_defaults("point")$colour),
+  )
+
+p +
+  annotate_axis_text(
+    axis = "y",
+    breaks = y_breaks[-length(y_breaks)],
+    hjust = 0,
+    vjust = -0.4,
+    length = unit(0, "pt"),
+    theme_element = "blank",
+  ) +
+  geom_point(
+    colour = col_multiply(get_geom_defaults("point")$colour),
+  )
+
+}

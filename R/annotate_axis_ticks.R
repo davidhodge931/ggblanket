@@ -14,7 +14,9 @@
 #' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
 #'
 #' @return A list of a annotate layer and theme elements.
+#'
 #' @export
+#'
 annotate_axis_ticks <- function(
     ...,
     axis,
