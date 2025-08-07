@@ -139,6 +139,7 @@ theme_lighter <- function(
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = ggplot2::rel(0.66),
     axis.title = ggplot2::element_text(),
     axis.text = ggplot2::element_text(),
     axis.text.y = ggplot2::element_text(

@@ -21,91 +21,22 @@
 #'
 #' @return A list of annotation layers and theme elements.
 #' @export
-#'
-#' @examples
-#' library(ggplot2)
-#'
-#' set_blanket(
-#'   theme = theme_lighter(
-#'     panel_heights = rep(unit(50, "mm"), 100),
-#'     panel_widths = rep(unit(75, "mm"), 100),
-#'   ),
-#' )
-#'
-#' p <- palmerpenguins::penguins |>
-#'   gg_blanket(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_title = "Flipper length",
-#'     y_title = "Body mass",
-#'   )
-#'
-#' y_breaks <- seq(2500, 6500, 500)
-#'
-#' key <- 4873
-#'
-#' p +
-#'   geom_hline(yintercept = key) +
-#'   annotate_axis_text(
-#'     axis = "y",
-#'     breaks = key,
-#'     position = "right",
-#'     labels = scales::comma(key),
-#'   ) +
-#'   geom_point(
-#'     colour = col_multiply(get_geom_defaults("point")$colour),
-#'   )
-#'
-#' p +
-#'   annotate_axis_text(
-#'     axis = "y",
-#'     breaks = 6500,
-#'     labels = "kg",
-#'     hjust = 0,
-#'     length = unit(0, "pt"),
-#'     theme_element = "keep",
-#'   ) +
-#'   annotate_axis_text(
-#'     axis = "x",
-#'     breaks = I(1),
-#'     labels = "mm",
-#'     hjust = 0,
-#'     margin = unit(1, "pt"),
-#'     theme_element = "keep",
-#'   ) +
-#'   geom_point(
-#'     colour = col_multiply(get_geom_defaults("point")$colour),
-#'   )
-#'
-#' p +
-#'   annotate_axis_text(
-#'     axis = "y",
-#'     breaks = y_breaks[-length(y_breaks)],
-#'     hjust = 0,
-#'     vjust = -0.4,
-#'     length = unit(0, "pt"),
-#'     theme_element = "blank",
-#'   ) +
-#'   geom_point(
-#'     colour = col_multiply(get_geom_defaults("point")$colour),
-#'   )
-#'
 annotate_axis_text <- function(
-  ...,
-  axis,
-  breaks,
-  position = NULL,
-  labels = NULL,
-  colour = NULL,
-  size = NULL,
-  family = NULL,
-  length = NULL,
-  margin = NULL,
-  fill = NULL,
-  hjust = NULL,
-  vjust = NULL,
-  angle = 0,
-  theme_element = "transparent"
+    ...,
+    axis,
+    breaks,
+    position = NULL,
+    labels = NULL,
+    colour = NULL,
+    size = NULL,
+    family = NULL,
+    length = NULL,
+    margin = NULL,
+    fill = NULL,
+    hjust = NULL,
+    vjust = NULL,
+    angle = 0,
+    theme_element = "transparent"
 ) {
   # Validate axis argument
   if (!axis %in% c("x", "y")) {
@@ -156,19 +87,8 @@ annotate_axis_text <- function(
 
   # Set default fill colour based on theme
   if (rlang::is_null(fill)) {
-    # Get text colour from theme
-    theme_text <- current_theme$axis.text.x$colour %||%
-      current_theme$axis.text.y$colour %||%
-      current_theme$axis.text$colour %||%
-      current_theme$text$colour %||%
-      "black"
-
-    # Get panel background from theme
-    theme_panel <- current_theme$panel.background$fill %||%
-      "white"
-
     # Always use panel background to mask gridlines
-    fill <- theme_panel
+    fill <- current_theme$panel.background$fill %||% "white"
   }
 
   # Validate uniform panel dimensions for the specific axis
@@ -212,16 +132,15 @@ annotate_axis_text <- function(
     margin_right <- margin[2]
     margin_bottom <- margin[3]
     margin_left <- margin[4]
-
-    # Debug: print margin values
-    # print(paste("Margin values - t:", margin_top, "r:", margin_right, "b:", margin_bottom, "l:", margin_left))
   } else {
     # Single value applied to all sides
     margin_top <- margin_right <- margin_bottom <- margin_left <- margin
   }
+
+  # Calculate default length with proper rel() handling
   if (rlang::is_null(length)) {
     # Calculate default as tick length + 3pt offset
-    tick_length <- if (axis == "x") {
+    raw_tick_length <- if (axis == "x") {
       current_theme[[paste0("axis.ticks.length.x.", position)]] %||%
         current_theme[["axis.ticks.length.x"]] %||%
         current_theme[["axis.ticks.length"]] %||%
@@ -232,6 +151,21 @@ annotate_axis_text <- function(
         current_theme[["axis.ticks.length"]] %||%
         grid::unit(11 / 3, "pt")
     }
+
+    # Handle rel() objects for tick length
+    if (inherits(raw_tick_length, "rel")) {
+      # Convert rel() to absolute unit - use default base of 11/3 pt
+      base_tick_length <- grid::unit(11 / 3, "pt")
+      tick_length <- grid::unit(as.numeric(raw_tick_length) * 11/3, "pt")
+    } else {
+      # Ensure it's a proper unit object
+      tick_length <- if (inherits(raw_tick_length, "unit")) {
+        raw_tick_length
+      } else {
+        grid::unit(11 / 3, "pt")
+      }
+    }
+
     length <- tick_length + grid::unit(3, "pt")
   }
 
@@ -314,14 +248,14 @@ annotate_axis_text <- function(
 
   # Add theme modifications to hide/modify original axis text
   if (theme_element == "transparent") {
-    theme_element <- paste0("axis.text.", axis, ".", position)
+    theme_element_name <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element]] <- ggplot2::element_text(colour = "transparent")
+    theme_mod[[theme_element_name]] <- ggplot2::element_text(colour = "transparent")
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   } else if (theme_element == "blank") {
-    theme_element <- paste0("axis.text.", axis, ".", position)
+    theme_element_name <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element]] <- ggplot2::element_blank()
+    theme_mod[[theme_element_name]] <- ggplot2::element_blank()
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }
 

@@ -40,29 +40,3 @@ Replace axis ticks with annotated segments using absolute measurements.
 This function only works when panel dimensions are set via panel.widths and panel.heights.
 It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }
-\examples{
-library(ggplot2)
-
-set_blanket(
-  theme = theme_lighter(
-    panel_heights = rep(unit(50, "mm"), 100),
-    panel_widths = rep(unit(75, "mm"), 100),
-  ),
-)
-
-palmerpenguins::penguins |>
-  gg_blanket(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    x_title = "Flipper length",
-    y_title = "Body mass",
-  ) +
-  annotate_axis_ticks(
-    axis = "y",
-    breaks = seq(3000, 6000, 1000),
-  ) +
-  geom_point(
-    colour = col_multiply(get_geom_defaults("point")$colour),
-  )
-
-}

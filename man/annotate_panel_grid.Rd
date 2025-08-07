@@ -8,6 +8,7 @@ annotate_panel_grid(
   ...,
   axis,
   breaks,
+  minor = FALSE,
   colour = NULL,
   linewidth = NULL,
   linetype = NULL,
@@ -20,6 +21,8 @@ annotate_panel_grid(
 \item{axis}{The axis to annotate. One of "x" or "y".}
 
 \item{breaks}{A vector of axis breaks for the panel grid.}
+
+\item{minor}{TRUE or FALSE as whether it applies to the panel.grid.minor.}
 
 \item{colour}{The colour of grid lines. Inherits from current theme panel.grid.major etc.}
 

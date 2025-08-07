@@ -392,7 +392,7 @@ update_geom_hvline <- function(
     current_theme$axis.line.x$colour %||%
     current_theme$axis.line.y$colour %||%
     current_theme$axis.line$colour %||%
-    0.25
+    "black"
 
   ggplot2::update_theme(
     geom.abline = ggplot2::element_geom(

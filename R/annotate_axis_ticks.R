@@ -15,41 +15,15 @@
 #'
 #' @return A list of a annotate layer and theme elements.
 #' @export
-#'
-#' @examples
-#' library(ggplot2)
-#'
-#' set_blanket(
-#'   theme = theme_lighter(
-#'     panel_heights = rep(unit(50, "mm"), 100),
-#'     panel_widths = rep(unit(75, "mm"), 100),
-#'   ),
-#' )
-#'
-#' palmerpenguins::penguins |>
-#'   gg_blanket(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_title = "Flipper length",
-#'     y_title = "Body mass",
-#'   ) +
-#'   annotate_axis_ticks(
-#'     axis = "y",
-#'     breaks = seq(3000, 6000, 1000),
-#'   ) +
-#'   geom_point(
-#'     colour = col_multiply(get_geom_defaults("point")$colour),
-#'   )
-#'
 annotate_axis_ticks <- function(
-  ...,
-  axis,
-  breaks,
-  position = NULL,
-  colour = NULL,
-  linewidth = NULL,
-  length = NULL,
-  theme_element = "transparent"
+    ...,
+    axis,
+    breaks,
+    position = NULL,
+    colour = NULL,
+    linewidth = NULL,
+    length = NULL,
+    theme_element = "transparent"
 ) {
   # Validate arguments
   if (!axis %in% c("x", "y")) {
@@ -76,7 +50,7 @@ annotate_axis_ticks <- function(
   }
 
   # Check if panel dimensions are set
-  current_theme <- ggplot2::get_theme()
+  current_theme <- ggplot2::theme_get()
   panel_widths <- current_theme$panel.widths
   panel_heights <- current_theme$panel.heights
 
@@ -115,6 +89,24 @@ annotate_axis_ticks <- function(
     }
   }
 
+  # Helper function to resolve rel() objects for numeric properties
+  resolve_rel_property <- function(property_value, base_property, default_value) {
+    if (rlang::is_null(property_value)) {
+      return(default_value)
+    }
+
+    if (inherits(property_value, "rel")) {
+      base_value <- if (rlang::is_null(base_property) || inherits(base_property, "rel")) {
+        default_value
+      } else {
+        base_property
+      }
+      return(as.numeric(property_value) * base_value)
+    }
+
+    return(property_value)
+  }
+
   # Helper function to extract theme properties
   extract_theme_property <- function(property, default) {
     if (axis == "x") {
@@ -130,9 +122,9 @@ annotate_axis_ticks <- function(
     }
   }
 
-  # Extract theme properties
+  # Extract theme properties with proper unit handling
   if (rlang::is_null(length)) {
-    length <- if (axis == "x") {
+    raw_length <- if (axis == "x") {
       current_theme[[paste0("axis.ticks.length.x.", position)]] %||%
         current_theme[["axis.ticks.length.x"]] %||%
         current_theme[["axis.ticks.length"]] %||%
@@ -143,6 +135,19 @@ annotate_axis_ticks <- function(
         current_theme[["axis.ticks.length"]] %||%
         grid::unit(11 / 3, "pt")
     }
+
+    # Handle rel() objects for length
+    if (inherits(raw_length, "rel")) {
+      # Convert rel() to absolute unit - use default base of 11/3 pt
+      length <- grid::unit(as.numeric(raw_length) * 11/3, "pt")
+    } else {
+      # Ensure it's a proper unit object
+      length <- if (inherits(raw_length, "unit")) {
+        raw_length
+      } else {
+        grid::unit(11 / 3, "pt")
+      }
+    }
   }
 
   tick_colour <- if (rlang::is_null(colour)) {
@@ -151,10 +156,13 @@ annotate_axis_ticks <- function(
     colour
   }
 
-  tick_linewidth <- if (rlang::is_null(linewidth)) {
-    extract_theme_property("linewidth", 0.5)
+  # Handle rel() objects for linewidth
+  if (rlang::is_null(linewidth)) {
+    raw_linewidth <- extract_theme_property("linewidth", NULL)
+    base_linewidth <- current_theme[["line"]]$linewidth %||% 0.5
+    tick_linewidth <- resolve_rel_property(raw_linewidth, base_linewidth, 0.5)
   } else {
-    linewidth
+    tick_linewidth <- linewidth
   }
 
   stamp <- list()
