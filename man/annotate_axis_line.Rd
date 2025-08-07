@@ -52,6 +52,10 @@ palmerpenguins::penguins |>
     axis = "x",
     arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
   ) +
+    annotate_axis_line_arrow(
+    axis = "y",
+    arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
+  ) +
   geom_point(
     colour = col_multiply(get_geom_defaults("point")$colour),
     size = 3,
