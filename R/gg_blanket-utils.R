@@ -251,7 +251,7 @@ process_data <- function(data, aes_list, aspect) {
         (tidyselect::where(is.character) |
           tidyselect::where(is.factor) |
           tidyselect::where(is.logical)),
-      labelled::to_factor
+      labelled::to_factor # or haven::as_factor, but does not seem to maintain order always
     )) |>
     # Reverse y factors for top-to-bottom reading
     dplyr::mutate(dplyr::across(
@@ -2706,7 +2706,8 @@ process_title <- function(
         {
           # Try to pull directly from data (works for simple variable references)
           data_col <- dplyr::pull(data, !!quo)
-          label_attr <- labelled::get_label_attribute(data_col)
+          # label_attr <- labelled::get_label_attribute(data_col)
+          label_attr <- attr(data_col, "label")
           if (!rlang::is_null(label_attr) && !identical(label_attr, "")) {
             return(label_attr)
           }

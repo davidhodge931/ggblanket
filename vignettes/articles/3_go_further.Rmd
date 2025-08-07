@@ -524,7 +524,9 @@ penguins |>
     y = body_mass_g,
     col = sex,
   ) +
-  annotate_axis_line() +
+  annotate_axis_line(
+    axis = "x",
+  ) +
   geom_point()
 ```
 

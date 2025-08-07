@@ -12,6 +12,7 @@ set_blanket()
 test_name <- "default"
 
 test_that(test_name, {
+  set.seed(123)
   p <- penguins |>
     drop_na(sex) |>
     mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -30,6 +31,7 @@ test_that(test_name, {
 test_name <- "GeomViolin"
 
 test_that(test_name, {
+  set.seed(123)
   p <- penguins |>
     drop_na(sex) |>
     mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -48,6 +50,7 @@ test_that(test_name, {
 test_name <- "StatYdensity"
 
 test_that(test_name, {
+  set.seed(123)
   p <- penguins |>
     drop_na(sex) |>
     mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -66,6 +69,7 @@ test_that(test_name, {
 test_name <- "PositionDodge"
 
 test_that(test_name, {
+  set.seed(123)
   p <- penguins |>
     drop_na(sex) |>
     mutate(across(sex, \(x) str_to_sentence(x))) |>
@@ -84,6 +88,7 @@ test_that(test_name, {
 test_name <- "all 3"
 
 test_that(test_name, {
+  set.seed(123)
   p <- penguins |>
     drop_na(sex) |>
     mutate(across(sex, \(x) str_to_sentence(x))) |>
