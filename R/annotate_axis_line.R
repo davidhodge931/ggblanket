@@ -38,12 +38,12 @@
 #'   )
 #'
 annotate_axis_line <- function(
-  ...,
-  axis,
-  position = NULL,
-  colour = NULL,
-  linewidth = NULL,
-  theme_element = "transparent"
+    ...,
+    axis,
+    position = NULL,
+    colour = NULL,
+    linewidth = NULL,
+    theme_element = "transparent"
 ) {
   # Validate arguments
   if (!axis %in% c("x", "y")) {
@@ -69,35 +69,31 @@ annotate_axis_line <- function(
     )
   }
 
-  # Get current theme
-  current_theme <- ggplot2::get_theme()
+  # Get current theme and calculate resolved element properties
+  current_theme <- ggplot2::theme_get()
 
-  # Helper function to extract theme properties
-  extract_theme_property <- function(property, default) {
-    if (axis == "x") {
-      current_theme[[paste0("axis.line.x.", position)]][[property]] %||%
-        current_theme[["axis.line.x"]][[property]] %||%
-        current_theme[["axis.line"]][[property]] %||%
-        default
-    } else {
-      current_theme[[paste0("axis.line.y.", position)]][[property]] %||%
-        current_theme[["axis.line.y"]][[property]] %||%
-        current_theme[["axis.line"]][[property]] %||%
-        default
-    }
-  }
+  # Use calc_element with the most specific element name
+  element_name <- paste0("axis.line.", axis, ".", position)
+  resolved_element <- ggplot2::calc_element(element_name, current_theme)
 
-  # Extract theme properties
+  # Extract theme properties with proper resolution
   line_colour <- if (rlang::is_null(colour)) {
-    extract_theme_property("colour", "#121B24FF")
+    resolved_element$colour %||% "#121B24FF"
   } else {
     colour
   }
 
-  line_linewidth <- if (rlang::is_null(linewidth)) {
-    extract_theme_property("linewidth", 0.5)
+  # Handle linewidth with proper rel() support
+  if (rlang::is_null(linewidth)) {
+    line_linewidth <- resolved_element$linewidth %||% 0.5
   } else {
-    linewidth
+    if (inherits(linewidth, "rel")) {
+      # Apply user's rel() to the resolved theme linewidth
+      base_linewidth <- resolved_element$linewidth %||% 0.5
+      line_linewidth <- as.numeric(linewidth) * base_linewidth
+    } else {
+      line_linewidth <- linewidth
+    }
   }
 
   stamp <- list()
@@ -182,14 +178,14 @@ annotate_axis_line <- function(
 
   # Add theme modification if requested
   if (theme_element == "transparent") {
-    theme_element <- paste0("axis.line.", axis, ".", position)
+    theme_element_name <- paste0("axis.line.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element]] <- ggplot2::element_line(colour = "transparent")
+    theme_mod[[theme_element_name]] <- ggplot2::element_line(colour = "transparent")
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   } else if (theme_element == "blank") {
-    theme_element <- paste0("axis.line.", axis, ".", position)
+    theme_element_name <- paste0("axis.line.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element]] <- ggplot2::element_blank()
+    theme_mod[[theme_element_name]] <- ggplot2::element_blank()
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }
 

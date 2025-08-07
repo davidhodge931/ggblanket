@@ -5,7 +5,6 @@
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param axis The axis to annotate. One of "x" or "y".
-#' @param minor TRUE or FALSE as whether it applies to the panel.grid.minor.
 #' @param breaks A vector of axis breaks for the panel grid.
 #' @param colour The colour of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linewidth The linewidth of grid lines. Inherits from current theme panel.grid.major etc.
@@ -42,14 +41,13 @@
 #'   )
 #'
 annotate_panel_grid <- function(
-  ...,
-  axis,
-  breaks,
-  minor = FALSE,
-  colour = NULL,
-  linewidth = NULL,
-  linetype = NULL,
-  theme_element = "transparent"
+    ...,
+    axis,
+    breaks,
+    colour = NULL,
+    linewidth = NULL,
+    linetype = NULL,
+    theme_element = "transparent"
 ) {
   # Validate arguments
   if (!axis %in% c("x", "y")) {
@@ -62,64 +60,32 @@ annotate_panel_grid <- function(
     )
   }
 
-  # Get current theme
+  # Get current theme and calculate resolved element properties
   current_theme <- ggplot2::theme_get()
 
-  # Helper function to resolve rel() objects for numeric properties
-  resolve_rel_property <- function(
-    property_value,
-    base_property,
-    default_value
-  ) {
-    if (rlang::is_null(property_value)) {
-      return(default_value)
-    }
-
-    if (inherits(property_value, "rel")) {
-      base_value <- if (
-        rlang::is_null(base_property) || inherits(base_property, "rel")
-      ) {
-        default_value
-      } else {
-        base_property
-      }
-      return(as.numeric(property_value) * base_value)
-    }
-
-    return(property_value)
+  # Use calc_element with the most specific element name
+  element_name <- if (axis == "x") {
+    "panel.grid.major.x"
+  } else {
+    "panel.grid.major.y"
   }
 
-  # Helper function to extract theme properties
-  if (!minor) {
-    extract_theme_property <- function(property, default) {
-      current_theme[["panel.grid.major"]][[property]] %||%
-        current_theme[["panel.grid"]][[property]] %||%
-        default
-    }
-  } else if (minor) {
-    extract_theme_property <- function(property, default) {
-      current_theme[["panel.grid.minor"]][[property]] %||%
-        current_theme[["panel.grid"]][[property]] %||%
-        default
-    }
-  }
+  resolved_element <- ggplot2::calc_element(element_name, current_theme)
 
-  # Extract theme properties with proper rel() handling
+  # Extract theme properties with proper resolution
   grid_colour <- if (rlang::is_null(colour)) {
-    extract_theme_property("colour", "#E6E9EFFF")
+    resolved_element$colour %||% "#E6E9EFFF"
   } else {
     colour
   }
 
-  # Handle rel() objects for linewidth
+  # Handle linewidth with proper rel() support
   if (rlang::is_null(linewidth)) {
-    raw_linewidth <- extract_theme_property("linewidth", NULL)
-    base_linewidth <- current_theme[["line"]]$linewidth %||% 0.5
-    grid_linewidth <- resolve_rel_property(raw_linewidth, base_linewidth, 0.5)
+    grid_linewidth <- resolved_element$linewidth %||% 0.5
   } else {
-    # Handle user-provided rel() objects
     if (inherits(linewidth, "rel")) {
-      base_linewidth <- current_theme[["line"]]$linewidth %||% 0.5
+      # Apply user's rel() to the resolved theme linewidth
+      base_linewidth <- resolved_element$linewidth %||% 0.5
       grid_linewidth <- as.numeric(linewidth) * base_linewidth
     } else {
       grid_linewidth <- linewidth
@@ -127,101 +93,59 @@ annotate_panel_grid <- function(
   }
 
   grid_linetype <- if (rlang::is_null(linetype)) {
-    extract_theme_property("linetype", "solid")
+    resolved_element$linetype %||% "solid"
   } else {
     linetype
   }
 
   stamp <- list()
 
-  # Add theme modification if requested
-  if (!minor) {
-    if (theme_element == "transparent") {
-      if (axis == "x") {
-        stamp <- c(
-          stamp,
-          list(
-            ggplot2::theme(
-              panel.grid.major.x = ggplot2::element_line(colour = "transparent")
-            )
+  # Add theme modification if requested - applies to both major and minor grid
+  if (theme_element == "transparent") {
+    if (axis == "x") {
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+            panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
           )
         )
-      } else {
-        # y
-        stamp <- c(
-          stamp,
-          list(
-            ggplot2::theme(
-              panel.grid.major.y = ggplot2::element_line(colour = "transparent")
-            )
+      )
+    } else {
+      # y
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+            panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
           )
         )
-      }
-    } else if (theme_element == "blank") {
-      if (axis == "x") {
-        stamp <- c(
-          stamp,
-          list(
-            ggplot2::theme(
-              panel.grid.major.x = ggplot2::element_blank()
-            )
-          )
-        )
-      } else {
-        # y
-        stamp <- c(
-          stamp,
-          list(
-            ggplot2::theme(
-              panel.grid.major.y = ggplot2::element_blank()
-            )
-          )
-        )
-      }
+      )
     }
-  } else if (minor) {
-    if (theme_element == "transparent") {
-      if (axis == "x") {
-        stamp <- c(
-          stamp,
-          list(
-            ggplot2::theme(
-              panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
-            )
+  } else if (theme_element == "blank") {
+    if (axis == "x") {
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            panel.grid.major.x = ggplot2::element_blank(),
+            panel.grid.minor.x = ggplot2::element_blank()
           )
         )
-      } else {
-        # y
-        stamp <- c(
-          stamp,
-          list(
-            ggplot2::theme(
-              panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
-            )
+      )
+    } else {
+      # y
+      stamp <- c(
+        stamp,
+        list(
+          ggplot2::theme(
+            panel.grid.major.y = ggplot2::element_blank(),
+            panel.grid.minor.y = ggplot2::element_blank()
           )
         )
-      }
-    } else if (theme_element == "blank") {
-      if (axis == "x") {
-        stamp <- c(
-          stamp,
-          list(
-            ggplot2::theme(
-              panel.grid.minor.x = ggplot2::element_blank()
-            )
-          )
-        )
-      } else {
-        # y
-        stamp <- c(
-          stamp,
-          list(
-            ggplot2::theme(
-              panel.grid.minor.y = ggplot2::element_blank()
-            )
-          )
-        )
-      }
+      )
     }
   }
 
