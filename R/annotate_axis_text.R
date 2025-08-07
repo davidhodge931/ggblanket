@@ -91,21 +91,21 @@
 #'   )
 #'
 annotate_axis_text <- function(
-  ...,
-  axis,
-  breaks,
-  position = NULL,
-  labels = NULL,
-  colour = NULL,
-  size = NULL,
-  family = NULL,
-  length = NULL,
-  margin = NULL,
-  fill = NULL,
-  hjust = NULL,
-  vjust = NULL,
-  angle = 0,
-  theme_element = "transparent"
+    ...,
+    axis,
+    breaks,
+    position = NULL,
+    labels = NULL,
+    colour = NULL,
+    size = NULL,
+    family = NULL,
+    length = NULL,
+    margin = NULL,
+    fill = NULL,
+    hjust = NULL,
+    vjust = NULL,
+    angle = 0,
+    theme_element = "transparent"
 ) {
   # Validate axis argument
   if (!axis %in% c("x", "y")) {
@@ -143,7 +143,7 @@ annotate_axis_text <- function(
     rlang::abort("breaks and labels must have the same length")
   }
 
-  # Check if panel dimensions are explicitly set (required for positioning)
+  # Get current theme and check if panel dimensions are explicitly set
   current_theme <- ggplot2::theme_get()
   panel_widths <- current_theme$panel.widths
   panel_heights <- current_theme$panel.heights
@@ -206,91 +206,76 @@ annotate_axis_text <- function(
     margin_top <- margin_right <- margin_bottom <- margin_left <- margin
   }
 
+  # Use calc_element with the most specific element names
+  text_element_name <- paste0("axis.text.", axis, ".", position)
+  length_element_name <- paste0("axis.ticks.length.", axis, ".", position)
+
+  resolved_text_element <- ggplot2::calc_element(text_element_name, current_theme)
+  resolved_length_element <- ggplot2::calc_element(length_element_name, current_theme)
+
   # Calculate default length with proper rel() handling
   if (rlang::is_null(length)) {
-    # Calculate default as tick length + 3pt offset
-    raw_tick_length <- if (axis == "x") {
-      current_theme[[paste0("axis.ticks.length.x.", position)]] %||%
-        current_theme[["axis.ticks.length.x"]] %||%
-        current_theme[["axis.ticks.length"]] %||%
-        grid::unit(11 / 3, "pt")
-    } else {
-      current_theme[[paste0("axis.ticks.length.y.", position)]] %||%
-        current_theme[["axis.ticks.length.y"]] %||%
-        current_theme[["axis.ticks.length"]] %||%
-        grid::unit(11 / 3, "pt")
-    }
+    # Get resolved tick length
+    tick_length <- resolved_length_element %||% grid::unit(11 / 3, "pt")
 
     # Handle rel() objects for tick length
-    if (inherits(raw_tick_length, "rel")) {
+    if (inherits(tick_length, "rel")) {
       # Convert rel() to absolute unit - use default base of 11/3 pt
-      base_tick_length <- grid::unit(11 / 3, "pt")
-      tick_length <- grid::unit(as.numeric(raw_tick_length) * 11 / 3, "pt")
-    } else {
+      tick_length <- grid::unit(as.numeric(tick_length) * 11 / 3, "pt")
+    } else if (!inherits(tick_length, "unit")) {
       # Ensure it's a proper unit object
-      tick_length <- if (inherits(raw_tick_length, "unit")) {
-        raw_tick_length
-      } else {
-        grid::unit(11 / 3, "pt")
-      }
+      tick_length <- grid::unit(11 / 3, "pt")
     }
 
     length <- tick_length + grid::unit(3, "pt")
-  }
+  } else {
+    # Handle user-provided length
+    if (inherits(length, "rel")) {
+      # Get the resolved theme tick length as base
+      theme_tick_length <- resolved_length_element %||% grid::unit(11 / 3, "pt")
 
-  # Helper function to extract theme properties with fallback hierarchy
-  extract_theme_property <- function(property, default) {
-    if (axis == "x") {
-      current_theme[[paste0("axis.text.x.", position)]][[property]] %||%
-        current_theme[["axis.text.x"]][[property]] %||%
-        current_theme[["axis.text"]][[property]] %||%
-        current_theme[["text"]][[property]] %||%
-        default
-    } else {
-      current_theme[[paste0("axis.text.y.", position)]][[property]] %||%
-        current_theme[["axis.text.y"]][[property]] %||%
-        current_theme[["axis.text"]][[property]] %||%
-        current_theme[["text"]][[property]] %||%
-        default
-    }
-  }
-
-  # Helper function to resolve theme size (handles rel() objects)
-  resolve_theme_size <- function(theme_size, base_theme_size, default = 11) {
-    if (rlang::is_null(theme_size)) {
-      return(default)
-    }
-
-    if (inherits(theme_size, "rel")) {
-      base_size <- if (
-        rlang::is_null(base_theme_size) || inherits(base_theme_size, "rel")
-      ) {
-        default
+      # Convert theme length to numeric points for rel() calculation
+      if (inherits(theme_tick_length, "rel")) {
+        # If theme length is also rel(), use default base
+        base_length_pts <- 11 / 3
+      } else if (inherits(theme_tick_length, "unit")) {
+        # Convert unit to points
+        base_length_pts <- as.numeric(grid::convertUnit(theme_tick_length, "pt"))
       } else {
-        base_theme_size
+        base_length_pts <- 11 / 3
       }
-      return(as.numeric(theme_size) * base_size)
-    }
 
-    return(theme_size)
+      # Apply user's rel() to the base length, then add 3pt offset
+      length <- grid::unit(as.numeric(length) * base_length_pts, "pt") + grid::unit(3, "pt")
+    } else if (!inherits(length, "unit")) {
+      # Convert numeric to unit
+      length <- grid::unit(length, "pt")
+    }
+    # If already a unit, use as-is
   }
 
-  # Extract text properties from theme or use provided values
+  # Extract text properties with proper resolution
   text_colour <- if (rlang::is_null(colour)) {
-    extract_theme_property("colour", "black")
+    resolved_text_element$colour %||% "black"
   } else {
     colour
   }
 
-  text_size <- if (rlang::is_null(size)) {
-    raw_size <- extract_theme_property("size", NULL)
-    resolve_theme_size(raw_size, current_theme$text$size, 11)
+  # Handle size with proper rel() support
+  if (rlang::is_null(size)) {
+    text_size <- resolved_text_element$size %||% 11
   } else {
-    size
+    if (inherits(size, "rel")) {
+      # Apply user's rel() to the resolved theme size
+      base_size <- resolved_text_element$size %||% 11
+      text_size <- as.numeric(size) * base_size
+    } else {
+      text_size <- size
+    }
   }
 
   text_family <- if (rlang::is_null(family)) {
-    extract_theme_property("family", "")
+    resolved_text_element$family %||% ""
   } else {
     family
   }

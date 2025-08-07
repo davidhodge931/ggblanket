@@ -4,7 +4,7 @@
 \alias{aes_contrast}
 \title{Modify an aesthetic for contrast}
 \usage{
-aes_contrast(..., dark = NULL, light = NULL, aes = "colour")
+aes_contrast(..., dark = NULL, light = NULL, aesthetic = "colour")
 }
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
@@ -13,7 +13,7 @@ aes_contrast(..., dark = NULL, light = NULL, aes = "colour")
 
 \item{light}{A light colour. If NULL, derived from theme text or panel background.}
 
-\item{aes}{The aesthetic to be modified for contrast. Either "colour" (default) or "fill".}
+\item{aesthetic}{The aesthetic to be modified for contrast. Either "colour" (default) or "fill".}
 }
 \value{
 A ggplot2 aesthetic in \link[ggplot2:aes]{ggplot2::aes}.

@@ -75,7 +75,7 @@ theme_lighter <- function(
   axis_line_linewidth = 0.25,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length = grid::unit(11 / 3, "pt"),
+  axis_ticks_length = ggplot2::rel(0.66),
   panel_background_fill = "#FFFFFFFF",
   plot_background_fill = "#FFFFFFFF",
   panel_grid_colour = "#F6F8FAFF",

@@ -18,14 +18,14 @@
 #' @export
 #'
 annotate_axis_ticks <- function(
-  ...,
-  axis,
-  breaks,
-  position = NULL,
-  colour = NULL,
-  linewidth = NULL,
-  length = NULL,
-  theme_element = "transparent"
+    ...,
+    axis,
+    breaks,
+    position = NULL,
+    colour = NULL,
+    linewidth = NULL,
+    length = NULL,
+    theme_element = "transparent"
 ) {
   # Validate arguments
   if (!axis %in% c("x", "y")) {
@@ -51,7 +51,7 @@ annotate_axis_ticks <- function(
     )
   }
 
-  # Check if panel dimensions are set
+  # Get current theme and check panel dimensions
   current_theme <- ggplot2::theme_get()
   panel_widths <- current_theme$panel.widths
   panel_heights <- current_theme$panel.heights
@@ -91,100 +91,84 @@ annotate_axis_ticks <- function(
     }
   }
 
-  # Helper function to resolve rel() objects for numeric properties
-  resolve_rel_property <- function(
-    property_value,
-    base_property,
-    default_value
-  ) {
-    if (rlang::is_null(property_value)) {
-      return(default_value)
-    }
+  # Use calc_element with the most specific element names
+  tick_element_name <- paste0("axis.ticks.", axis, ".", position)
+  length_element_name <- paste0("axis.ticks.length.", axis, ".", position)
 
-    if (inherits(property_value, "rel")) {
-      base_value <- if (
-        rlang::is_null(base_property) || inherits(base_property, "rel")
-      ) {
-        default_value
-      } else {
-        base_property
-      }
-      return(as.numeric(property_value) * base_value)
-    }
+  resolved_tick_element <- ggplot2::calc_element(tick_element_name, current_theme)
+  resolved_length_element <- ggplot2::calc_element(length_element_name, current_theme)
 
-    return(property_value)
-  }
-
-  # Helper function to extract theme properties
-  extract_theme_property <- function(property, default) {
-    if (axis == "x") {
-      current_theme[[paste0("axis.ticks.x.", position)]][[property]] %||%
-        current_theme[["axis.ticks.x"]][[property]] %||%
-        current_theme[["axis.ticks"]][[property]] %||%
-        default
-    } else {
-      current_theme[[paste0("axis.ticks.y.", position)]][[property]] %||%
-        current_theme[["axis.ticks.y"]][[property]] %||%
-        current_theme[["axis.ticks"]][[property]] %||%
-        default
-    }
-  }
-
-  # Extract theme properties with proper unit handling
-  if (rlang::is_null(length)) {
-    raw_length <- if (axis == "x") {
-      current_theme[[paste0("axis.ticks.length.x.", position)]] %||%
-        current_theme[["axis.ticks.length.x"]] %||%
-        current_theme[["axis.ticks.length"]] %||%
-        grid::unit(11 / 3, "pt")
-    } else {
-      current_theme[[paste0("axis.ticks.length.y.", position)]] %||%
-        current_theme[["axis.ticks.length.y"]] %||%
-        current_theme[["axis.ticks.length"]] %||%
-        grid::unit(11 / 3, "pt")
-    }
-
-    # Handle rel() objects for length
-    if (inherits(raw_length, "rel")) {
-      # Convert rel() to absolute unit - use default base of 11/3 pt
-      length <- grid::unit(as.numeric(raw_length) * 11 / 3, "pt")
-    } else {
-      # Ensure it's a proper unit object
-      length <- if (inherits(raw_length, "unit")) {
-        raw_length
-      } else {
-        grid::unit(11 / 3, "pt")
-      }
-    }
-  }
-
+  # Extract theme properties with proper resolution
   tick_colour <- if (rlang::is_null(colour)) {
-    extract_theme_property("colour", "#121B24FF")
+    resolved_tick_element$colour %||% "#121B24FF"
   } else {
     colour
   }
 
-  # Handle rel() objects for linewidth
+  # Handle linewidth with proper rel() support
   if (rlang::is_null(linewidth)) {
-    raw_linewidth <- extract_theme_property("linewidth", NULL)
-    base_linewidth <- current_theme[["line"]]$linewidth %||% 0.5
-    tick_linewidth <- resolve_rel_property(raw_linewidth, base_linewidth, 0.5)
+    tick_linewidth <- resolved_tick_element$linewidth %||% 0.5
   } else {
-    tick_linewidth <- linewidth
+    if (inherits(linewidth, "rel")) {
+      # Apply user's rel() to the resolved theme linewidth
+      base_linewidth <- resolved_tick_element$linewidth %||% 0.5
+      tick_linewidth <- as.numeric(linewidth) * base_linewidth
+    } else {
+      tick_linewidth <- linewidth
+    }
+  }
+
+  # Handle length with proper unit and rel() support
+  if (rlang::is_null(length)) {
+    # Use the resolved length element directly
+    length <- resolved_length_element %||% grid::unit(11 / 3, "pt")
+
+    # Handle rel() objects for length
+    if (inherits(length, "rel")) {
+      # Convert rel() to absolute unit - use default base of 11/3 pt
+      length <- grid::unit(as.numeric(length) * 11 / 3, "pt")
+    } else if (!inherits(length, "unit")) {
+      # Ensure it's a proper unit object
+      length <- grid::unit(11 / 3, "pt")
+    }
+  } else {
+    # Handle user-provided length
+    if (inherits(length, "rel")) {
+      # Get the resolved theme length as base
+      theme_length <- resolved_length_element %||% grid::unit(11 / 3, "pt")
+
+      # Convert theme length to numeric points for rel() calculation
+      if (inherits(theme_length, "rel")) {
+        # If theme length is also rel(), use default base
+        base_length_pts <- 11 / 3
+      } else if (inherits(theme_length, "unit")) {
+        # Convert unit to points
+        base_length_pts <- as.numeric(grid::convertUnit(theme_length, "pt"))
+      } else {
+        base_length_pts <- 11 / 3
+      }
+
+      # Apply user's rel() to the base length
+      length <- grid::unit(as.numeric(length) * base_length_pts, "pt")
+    } else if (!inherits(length, "unit")) {
+      # Convert numeric to unit
+      length <- grid::unit(length, "pt")
+    }
+    # If already a unit, use as-is
   }
 
   stamp <- list()
 
   # Add theme modification if requested
   if (theme_element == "transparent") {
-    theme_element <- paste0("axis.ticks.", axis, ".", position)
+    theme_element_name <- paste0("axis.ticks.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element]] <- ggplot2::element_line(colour = "transparent")
+    theme_mod[[theme_element_name]] <- ggplot2::element_line(colour = "transparent")
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   } else if (theme_element == "blank") {
-    theme_element <- paste0("axis.ticks.", axis, ".", position)
+    theme_element_name <- paste0("axis.ticks.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element]] <- ggplot2::element_blank()
+    theme_mod[[theme_element_name]] <- ggplot2::element_blank()
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }
 

@@ -52,7 +52,7 @@ palmerpenguins::penguins |>
     axis = "x",
     arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
   ) +
-    annotate_axis_line_arrow(
+    annotate_axis_line(
     axis = "y",
     arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
   ) +

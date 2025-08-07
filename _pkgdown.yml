@@ -22,14 +22,16 @@ reference:
   - annotate_axis_ticks
   - annotate_panel_grid
   - bind_each_all
-  - col_multiply
-  - col_screen
-  - guides_grey
-  - is_panel_dark
-  - is_panel_light
-  - label_every_nth
-  - jumble
-  - pal_viridis_by_panel
   - standardise_width
   - update_width_reference
+
+  - label_every_nth
+  - guides_grey
+
+  - col_multiply
+  - col_screen
+  - is_panel_dark
+  - is_panel_light
+  - jumble
+  - pal_viridis_by_panel
   - viridis_by_panel

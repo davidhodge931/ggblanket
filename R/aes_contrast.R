@@ -58,7 +58,7 @@ get_contrast <- function(..., col, dark = NULL, light = NULL) {
 #' @param ... Require named arguments (and support trailing commas).
 #' @param dark A dark colour. If NULL, derived from theme text or panel background.
 #' @param light A light colour. If NULL, derived from theme text or panel background.
-#' @param aes The aesthetic to be modified for contrast. Either "colour" (default) or "fill".
+#' @param aesthetic The aesthetic to be modified for contrast. Either "colour" (default) or "fill".
 #'
 #' @return A ggplot2 aesthetic in [ggplot2::aes].
 #'
@@ -96,7 +96,7 @@ get_contrast <- function(..., col, dark = NULL, light = NULL) {
 #'     show.legend = FALSE,
 #'   )
 #'
-aes_contrast <- function(..., dark = NULL, light = NULL, aes = "colour") {
+aes_contrast <- function(..., dark = NULL, light = NULL, aesthetic = "colour") {
   # Only get theme if we need it
   if (rlang::is_null(dark) || rlang::is_null(light)) {
     # Get current theme
@@ -125,19 +125,19 @@ aes_contrast <- function(..., dark = NULL, light = NULL, aes = "colour") {
     }
   }
 
-  if (aes == "colour") {
+  if (aesthetic == "colour") {
     ggplot2::aes(
       colour = ggplot2::after_scale(
         get_contrast(.data$fill, dark = dark, light = light)
       )
     )
-  } else if (aes == "fill") {
+  } else if (aesthetic == "fill") {
     ggplot2::aes(
       fill = ggplot2::after_scale(
         get_contrast(.data$colour, dark = dark, light = light)
       )
     )
   } else {
-    rlang::abort("aes must be either 'colour' or 'fill'")
+    rlang::abort("aesthetic must be either 'colour' or 'fill'")
   }
 }
