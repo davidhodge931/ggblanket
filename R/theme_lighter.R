@@ -80,7 +80,8 @@ theme_lighter <- function(
   plot_background_fill = "#FFFFFFFF",
   panel_grid_colour = "#F6F8FAFF",
   panel_grid_linewidth = 1.33,
-  panel_grid_minor_linetype = 0, panel_grid_minor_linewidth = ggplot2::rel(0.5),
+  panel_grid_minor_linetype = 0,
+  panel_grid_minor_linewidth = ggplot2::rel(0.5),
   panel_heights = NULL,
   panel_widths = NULL,
   title_size = ggplot2::rel(1.1),
@@ -93,7 +94,11 @@ theme_lighter <- function(
   subtitle_face = "plain",
   caption_size = ggplot2::rel(0.85),
   caption_family = base_family,
-  caption_colour = ifelse(is_panel_light(), col_screen(base_colour), col_multiply(base_colour)),
+  caption_colour = ifelse(
+    is_panel_light(),
+    col_screen(base_colour),
+    col_multiply(base_colour)
+  ),
   caption_face = "plain",
   caption_hjust = 0
 ) {
@@ -126,10 +131,14 @@ theme_lighter <- function(
       colour = axis_ticks_colour,
       linewidth = axis_ticks_linewidth
     ),
-    axis.minor.ticks.x.bottom = ggplot2::element_line(colour = axis_ticks_colour),
+    axis.minor.ticks.x.bottom = ggplot2::element_line(
+      colour = axis_ticks_colour
+    ),
     axis.minor.ticks.x.top = ggplot2::element_line(colour = axis_ticks_colour),
     axis.minor.ticks.y.left = ggplot2::element_line(colour = axis_ticks_colour),
-    axis.minor.ticks.y.right = ggplot2::element_line(colour = axis_ticks_colour),
+    axis.minor.ticks.y.right = ggplot2::element_line(
+      colour = axis_ticks_colour
+    ),
 
     axis.ticks.x = NULL,
     axis.ticks.x.top = NULL,

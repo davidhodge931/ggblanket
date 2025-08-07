@@ -10,8 +10,8 @@
 #'
 #' @export
 update_geom_col <- function(
-    ...,
-    col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF")
+  ...,
+  col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF")
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(colour = col, fill = col))
 
@@ -91,8 +91,8 @@ update_geom_col <- function(
 #'
 #' @export
 update_geom_shape <- function(
-    ...,
-    shape = 21
+  ...,
+  shape = 21
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointshape = shape))
 }
@@ -109,8 +109,8 @@ update_geom_shape <- function(
 #'
 #' @export
 update_geom_linetype <- function(
-    ...,
-    linetype = 1
+  ...,
+  linetype = 1
 ) {
   ggplot2::update_theme(
     geom = ggplot2::element_geom(linetype = linetype, bordertype = linetype)
@@ -129,8 +129,8 @@ update_geom_linetype <- function(
 #'
 #' @export
 update_geom_linewidth <- function(
-    ...,
-    linewidth = 0.5
+  ...,
+  linewidth = 0.5
 ) {
   ggplot2::update_theme(
     geom.abline = ggplot2::element_geom(
@@ -236,8 +236,8 @@ update_geom_linewidth <- function(
 #'
 #' @export
 update_geom_size <- function(
-    ...,
-    size = 1.5
+  ...,
+  size = 1.5
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(pointsize = size))
 }
@@ -254,8 +254,8 @@ update_geom_size <- function(
 #'
 #' @export
 update_geom_stroke <- function(
-    ...,
-    stroke = 0.5
+  ...,
+  stroke = 0.5
 ) {
   ggplot2::update_theme(
     geom.point = ggplot2::element_geom(borderwidth = stroke),

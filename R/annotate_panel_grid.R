@@ -42,14 +42,14 @@
 #'   )
 #'
 annotate_panel_grid <- function(
-    ...,
-    axis,
-    breaks,
-    minor = FALSE,
-    colour = NULL,
-    linewidth = NULL,
-    linetype = NULL,
-    theme_element = "transparent"
+  ...,
+  axis,
+  breaks,
+  minor = FALSE,
+  colour = NULL,
+  linewidth = NULL,
+  linetype = NULL,
+  theme_element = "transparent"
 ) {
   # Validate arguments
   if (!axis %in% c("x", "y")) {
@@ -66,13 +66,19 @@ annotate_panel_grid <- function(
   current_theme <- ggplot2::theme_get()
 
   # Helper function to resolve rel() objects for numeric properties
-  resolve_rel_property <- function(property_value, base_property, default_value) {
+  resolve_rel_property <- function(
+    property_value,
+    base_property,
+    default_value
+  ) {
     if (rlang::is_null(property_value)) {
       return(default_value)
     }
 
     if (inherits(property_value, "rel")) {
-      base_value <- if (rlang::is_null(base_property) || inherits(base_property, "rel")) {
+      base_value <- if (
+        rlang::is_null(base_property) || inherits(base_property, "rel")
+      ) {
         default_value
       } else {
         base_property

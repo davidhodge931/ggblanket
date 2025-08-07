@@ -91,21 +91,21 @@
 #'   )
 #'
 annotate_axis_text <- function(
-    ...,
-    axis,
-    breaks,
-    position = NULL,
-    labels = NULL,
-    colour = NULL,
-    size = NULL,
-    family = NULL,
-    length = NULL,
-    margin = NULL,
-    fill = NULL,
-    hjust = NULL,
-    vjust = NULL,
-    angle = 0,
-    theme_element = "transparent"
+  ...,
+  axis,
+  breaks,
+  position = NULL,
+  labels = NULL,
+  colour = NULL,
+  size = NULL,
+  family = NULL,
+  length = NULL,
+  margin = NULL,
+  fill = NULL,
+  hjust = NULL,
+  vjust = NULL,
+  angle = 0,
+  theme_element = "transparent"
 ) {
   # Validate axis argument
   if (!axis %in% c("x", "y")) {
@@ -225,7 +225,7 @@ annotate_axis_text <- function(
     if (inherits(raw_tick_length, "rel")) {
       # Convert rel() to absolute unit - use default base of 11/3 pt
       base_tick_length <- grid::unit(11 / 3, "pt")
-      tick_length <- grid::unit(as.numeric(raw_tick_length) * 11/3, "pt")
+      tick_length <- grid::unit(as.numeric(raw_tick_length) * 11 / 3, "pt")
     } else {
       # Ensure it's a proper unit object
       tick_length <- if (inherits(raw_tick_length, "unit")) {
@@ -319,7 +319,9 @@ annotate_axis_text <- function(
   if (theme_element == "transparent") {
     theme_element_name <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element_name]] <- ggplot2::element_text(colour = "transparent")
+    theme_mod[[theme_element_name]] <- ggplot2::element_text(
+      colour = "transparent"
+    )
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   } else if (theme_element == "blank") {
     theme_element_name <- paste0("axis.text.", axis, ".", position)

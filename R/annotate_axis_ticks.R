@@ -18,14 +18,14 @@
 #' @export
 #'
 annotate_axis_ticks <- function(
-    ...,
-    axis,
-    breaks,
-    position = NULL,
-    colour = NULL,
-    linewidth = NULL,
-    length = NULL,
-    theme_element = "transparent"
+  ...,
+  axis,
+  breaks,
+  position = NULL,
+  colour = NULL,
+  linewidth = NULL,
+  length = NULL,
+  theme_element = "transparent"
 ) {
   # Validate arguments
   if (!axis %in% c("x", "y")) {
@@ -92,13 +92,19 @@ annotate_axis_ticks <- function(
   }
 
   # Helper function to resolve rel() objects for numeric properties
-  resolve_rel_property <- function(property_value, base_property, default_value) {
+  resolve_rel_property <- function(
+    property_value,
+    base_property,
+    default_value
+  ) {
     if (rlang::is_null(property_value)) {
       return(default_value)
     }
 
     if (inherits(property_value, "rel")) {
-      base_value <- if (rlang::is_null(base_property) || inherits(base_property, "rel")) {
+      base_value <- if (
+        rlang::is_null(base_property) || inherits(base_property, "rel")
+      ) {
         default_value
       } else {
         base_property
@@ -141,7 +147,7 @@ annotate_axis_ticks <- function(
     # Handle rel() objects for length
     if (inherits(raw_length, "rel")) {
       # Convert rel() to absolute unit - use default base of 11/3 pt
-      length <- grid::unit(as.numeric(raw_length) * 11/3, "pt")
+      length <- grid::unit(as.numeric(raw_length) * 11 / 3, "pt")
     } else {
       # Ensure it's a proper unit object
       length <- if (inherits(raw_length, "unit")) {
