@@ -189,10 +189,8 @@ theme_lighter <- function(
       linewidth = legend_ticks_linewidth
     ),
     legend.ticks.length = legend_ticks_length,
-    legend.box = "vertical",
     legend.box.background = NULL,
     legend.box.spacing = NULL,
-    legend.box.just = "left",
     legend.background = ggplot2::element_rect(
       colour = legend_background_fill,
       fill = legend_background_fill
@@ -289,7 +287,7 @@ theme_lighter <- function(
   )
 
   # Apply legend position specific settings
-  theme + theme_lighter_move_legend(legend_position)
+  theme + relocate_legend(legend_position)
 }
 
 #' Move legend position
@@ -301,7 +299,7 @@ theme_lighter <- function(
 #' @return A ggplot theme object with legend position settings.
 #' @noRd
 #'
-theme_lighter_move_legend <- function(legend_position = "right") {
+relocate_legend <- function(legend_position = "right") {
   if (legend_position == "right") {
     ggplot2::theme(
       # Legend-specific settings for right position
@@ -315,6 +313,8 @@ theme_lighter_move_legend <- function(legend_position = "right") {
         b = 0,
         l = 11 * 0.75
       ),
+      legend.box = "horizontal",
+      legend.box.just = "top",
       legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
       legend.title = ggplot2::element_text(
         margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.5, l = 0)
@@ -358,6 +358,8 @@ theme_lighter_move_legend <- function(legend_position = "right") {
         b = 11 * 0.5,
         l = 0
       ),
+      legend.box = "vertical",
+      legend.box.just = "left",
       legend.box.margin = ggplot2::margin(
         t = 11 * 0.5,
         r = 0,
@@ -406,6 +408,8 @@ theme_lighter_move_legend <- function(legend_position = "right") {
         b = 11 * 0.75,
         l = 0
       ),
+      legend.box = "vertical",
+      legend.box.just = "left",
       legend.box.margin = ggplot2::margin(
         t = 11 * -0.5,
         r = 0,
