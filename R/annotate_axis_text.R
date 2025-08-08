@@ -58,37 +58,10 @@ annotate_axis_text <- function(
     )
   }
 
-  # Determine axis from position and validate consistency with x/y
+  # Determine axis from position
   axis <- if (position %in% c("top", "bottom")) "x" else "y"
-  breaks <- if (!is.null(x)) x else y
 
-  # Validate that axis matches the provided breaks
-  if (axis == "x" && is.null(x)) {
-    rlang::abort("For top/bottom positions, x breaks must be specified")
-  }
-  if (axis == "y" && is.null(y)) {
-    rlang::abort("For left/right positions, y breaks must be specified")
-  }
-
-  # Process labels - support both vectors and functions
-  if (rlang::is_null(labels)) {
-    # Default: use breaks as labels
-    labels <- as.character(breaks)
-  } else if (is.function(labels)) {
-    # Apply function to breaks to generate labels
-    labels <- labels(breaks)
-    labels <- as.character(labels)
-  } else {
-    # Convert vector labels to character
-    labels <- as.character(labels)
-  }
-
-  # Ensure breaks and labels have same length
-  if (length(breaks) != length(labels)) {
-    rlang::abort("breaks and labels must have the same length")
-  }
-
-  # Get current theme and check if panel dimensions are explicitly set
+  # Get current theme and check panel dimensions
   current_theme <- ggplot2::theme_get()
   panel_widths <- current_theme$panel.widths
   panel_heights <- current_theme$panel.heights
@@ -99,7 +72,7 @@ annotate_axis_text <- function(
     )
   }
 
-  # Validate uniform panel dimensions for the specific axis
+  # Validate panel dimensions for the specific axis
   if (axis == "x") {
     if (rlang::is_null(panel_heights)) {
       rlang::abort(
@@ -128,6 +101,21 @@ annotate_axis_text <- function(
     }
   }
 
+  # Get breaks
+  breaks <- if (!is.null(x)) x else y
+
+  # Process labels
+  if (is.null(labels)) {
+    labels <- as.character(breaks)
+  } else if (is.function(labels)) {
+    labels <- labels(breaks)
+  }
+
+  # Ensure labels match breaks length
+  if (length(labels) != length(breaks)) {
+    rlang::abort("Length of labels must match length of breaks")
+  }
+
   # Build hierarchy for axis text from most specific to least specific
   text_specific <- paste0("axis.text.", axis, ".", position)
   text_axis <- paste0("axis.text.", axis)
@@ -145,241 +133,144 @@ annotate_axis_text <- function(
 
   # If still no element found, create a minimal fallback
   if (is.null(resolved_text_element)) {
-    resolved_text_element <- list(colour = "black", size = 11, family = "")
+    resolved_text_element <- ggplot2::element_text(
+      colour = "black",
+      size = 11,
+      family = ""
+    )
   }
 
-  # Extract theme margin for the specific position using calc_element
-  if (rlang::is_null(margin)) {
-    # Build hierarchy for margin resolution
-    margin_specific <- paste0("axis.text.", axis, ".", position)
-    margin_axis <- paste0("axis.text.", axis)
-    margin_general <- "axis.text"
+  # Extract theme properties with proper resolution
+  text_colour <- colour %||% resolved_text_element$colour %||% "black"
+  text_size <- size %||% resolved_text_element$size %||% 11
+  text_family <- family %||% resolved_text_element$family %||% ""
 
-    # Use calc_element to properly resolve margin with inheritance
-    resolved_margin <- NULL
-    for (element_name in c(margin_specific, margin_axis, margin_general)) {
+  # Calculate total length if not provided
+  if (is.null(length)) {
+    # First, get tick length from theme
+    length_specific <- paste0("axis.ticks.length.", axis, ".", position)
+    length_axis <- paste0("axis.ticks.length.", axis)
+    length_general <- "axis.ticks.length"
+
+    tick_length <- NULL
+    for (element_name in c(length_specific, length_axis, length_general)) {
       element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
-      if (!is.null(element) && !inherits(element, "element_blank") && !is.null(element$margin)) {
-        resolved_margin <- element$margin
-        break
+      if (!is.null(element)) {
+        if (inherits(element, "rel")) {
+          base_size <- current_theme$text$size %||% 11
+          tick_length <- grid::unit(as.numeric(element) * base_size, "pt")
+        } else if (inherits(element, "unit")) {
+          tick_length <- element
+        } else if (is.numeric(element)) {
+          tick_length <- grid::unit(element, "pt")
+        }
+        if (!is.null(tick_length)) break
       }
     }
 
-    # Extract the relevant margin side based on position
-    if (!is.null(resolved_margin)) {
-      if (position == "bottom") {
-        margin <- resolved_margin[1]  # top margin (distance from axis line)
-      } else if (position == "top") {
-        margin <- resolved_margin[3]  # bottom margin (distance from axis line)
-      } else if (position == "left") {
-        margin <- resolved_margin[4]  # right margin (distance from axis line)
-      } else { # right
-        margin <- resolved_margin[2]  # left margin (distance from axis line)
-      }
-    } else {
-      # No margin found in current theme, use theme_grey() fallbacks
-      if (position == "bottom") {
-        fallback_element <- ggplot2::calc_element("axis.text.x.bottom", ggplot2::theme_grey())
-        margin <- fallback_element$margin[1]  # 2.2points
-      } else if (position == "top") {
-        fallback_element <- ggplot2::calc_element("axis.text.x.top", ggplot2::theme_grey())
-        margin <- fallback_element$margin[3]  # 2.2points
-      } else if (position == "left") {
-        fallback_element <- ggplot2::calc_element("axis.text.y.left", ggplot2::theme_grey())
-        margin <- fallback_element$margin[4]  # 0points
-      } else { # right
-        fallback_element <- ggplot2::calc_element("axis.text.y.right", ggplot2::theme_grey())
-        margin <- fallback_element$margin[2]  # 0points
-      }
-    }
-
-    # Final fallback if somehow still no margin
-    if (is.null(margin) || !inherits(margin, "unit")) {
-      margin <- grid::unit(2, "pt")
-    }
-  }
-
-  # Handle margin - can be single value or margin object
-  if (length(margin) == 4) {
-    # margin object with 4 values (top, right, bottom, left)
-    margin_top <- margin[1]
-    margin_right <- margin[2]
-    margin_bottom <- margin[3]
-    margin_left <- margin[4]
-  } else {
-    # Single value applied to all sides
-    margin_top <- margin_right <- margin_bottom <- margin_left <- margin
-  }
-
-  # Set default fill colour
-  if (rlang::is_null(fill)) {
-    fill <- "transparent"
-  }
-
-  # Extract text properties with proper resolution
-  text_colour <- if (rlang::is_null(colour)) {
-    resolved_text_element$colour %||% "black"
-  } else {
-    colour
-  }
-
-  # Handle size with proper rel() support
-  if (rlang::is_null(size)) {
-    text_size <- resolved_text_element$size %||% 11
-    # Handle case where theme size might be rel()
-    if (inherits(text_size, "rel")) {
-      base_size <- current_theme$text$size %||% 11
-      text_size <- as.numeric(text_size) * base_size
-    }
-  } else {
-    if (inherits(size, "rel")) {
-      # Apply user's rel() to the resolved theme size
-      theme_size <- resolved_text_element$size %||% 11
-      if (inherits(theme_size, "rel")) {
-        base_size <- current_theme$text$size %||% 11
-        theme_abs_size <- as.numeric(theme_size) * base_size
-      } else {
-        theme_abs_size <- theme_size
-      }
-      text_size <- as.numeric(size) * theme_abs_size
-    } else {
-      text_size <- size
-    }
-  }
-
-  text_family <- if (rlang::is_null(family)) {
-    resolved_text_element$family %||% ""
-  } else {
-    family
-  }
-
-  # Build hierarchy for axis ticks length from most specific to least specific
-  length_specific <- paste0("axis.ticks.length.", axis, ".", position)
-  length_axis <- paste0("axis.ticks.length.", axis)
-  length_general <- "axis.ticks.length"
-
-  # Use calc_element to properly resolve length with inheritance
-  resolved_length_element <- NULL
-  for (element_name in c(length_specific, length_axis, length_general)) {
-    element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
-    if (!is.null(element) && !inherits(element, "element_blank")) {
-      resolved_length_element <- element
-      break
-    }
-  }
-
-  # Calculate default length with proper rel() handling
-  if (rlang::is_null(length)) {
-    # Get resolved tick length
-    tick_length <- resolved_length_element
-
+    # Fallback tick length
     if (is.null(tick_length)) {
-      # Fallback: use default rel(0.66) equivalent
       base_size <- current_theme$text$size %||% 11
       tick_length <- grid::unit(0.66 * base_size, "pt")
-    } else if (inherits(tick_length, "rel")) {
-      # calc_element returned a rel() object - convert it
-      base_size <- current_theme$text$size %||% 11
-      tick_length <- grid::unit(as.numeric(tick_length) * base_size, "pt")
-    } else if (!inherits(tick_length, "unit")) {
-      # If not a unit or rel, convert assuming points
-      if (is.numeric(tick_length)) {
-        tick_length <- grid::unit(tick_length, "pt")
-      } else {
-        # Ultimate fallback
-        base_size <- current_theme$text$size %||% 11
-        tick_length <- grid::unit(0.66 * base_size, "pt")
+    }
+
+    # Now get the text margin from the resolved text element
+    text_margin <- resolved_text_element$margin
+
+    # Extract the appropriate margin component
+    margin_unit <- grid::unit(0, "pt")  # default
+
+    if (!is.null(text_margin)) {
+      # The margin is a unit vector with 4 components: [1]=top, [2]=right, [3]=bottom, [4]=left
+      # Based on the correct specification:
+      # axis.text.x.bottom uses margin[1] (top)
+      # axis.text.x.top uses margin[3] (bottom)
+      # axis.text.y.left uses margin[2] (right)
+      # axis.text.y.right uses margin[4] (left)
+      margin_index <- if (position == "bottom") {
+        1  # top margin
+      } else if (position == "top") {
+        3  # bottom margin
+      } else if (position == "left") {
+        2  # right margin
+      } else {  # right
+        4  # left margin
+      }
+
+      # Extract the specific margin component
+      if (inherits(text_margin, "unit") && length(text_margin) >= margin_index) {
+        margin_unit <- text_margin[margin_index]
+      } else if (inherits(text_margin, "margin")) {
+        # margin objects can be accessed like unit vectors
+        margin_unit <- text_margin[margin_index]
       }
     }
-    # If tick_length is already a proper unit, use as-is
 
-    length <- tick_length + grid::unit(3, "pt")
+    # Total length = tick length + margin
+    total_length <- tick_length + margin_unit
   } else {
-    # Handle user-provided length
-    if (inherits(length, "rel")) {
-      # Get the base length for rel() calculation - look at raw theme element
-      base_length_for_rel <- NULL
-
-      for (element_name in c(length_specific, length_axis, length_general)) {
-        raw_element <- current_theme[[element_name]]
-        if (!is.null(raw_element) && !inherits(raw_element, "element_blank")) {
-          base_length_for_rel <- raw_element
-          break
-        }
-      }
-
-      if (!is.null(base_length_for_rel)) {
-        if (inherits(base_length_for_rel, "rel")) {
-          # Theme is also rel() - apply user's rel to the theme's rel
-          base_size <- current_theme$text$size %||% 11
-          theme_abs_length <- as.numeric(base_length_for_rel) * base_size
-          user_length <- grid::unit(as.numeric(length) * theme_abs_length, "pt")
-        } else if (inherits(base_length_for_rel, "unit")) {
-          # Theme is absolute unit - apply user's rel to that
-          theme_abs_length <- as.numeric(grid::convertUnit(base_length_for_rel, "pt"))
-          user_length <- grid::unit(as.numeric(length) * theme_abs_length, "pt")
-        } else if (is.numeric(base_length_for_rel)) {
-          # Theme is numeric - assume points
-          user_length <- grid::unit(as.numeric(length) * base_length_for_rel, "pt")
-        } else {
-          # Fallback to default base
-          base_size <- current_theme$text$size %||% 11
-          default_length <- 0.66 * base_size
-          user_length <- grid::unit(as.numeric(length) * default_length, "pt")
-        }
-      } else {
-        # No theme element found - use default rel(0.66) as base
-        base_size <- current_theme$text$size %||% 11
-        default_length <- 0.66 * base_size
-        user_length <- grid::unit(as.numeric(length) * default_length, "pt")
-      }
-
-      length <- user_length + grid::unit(3, "pt")
-    } else if (inherits(length, "unit")) {
-      # If already a unit, use as-is
-      length <- length
+    # Use provided length
+    if (inherits(length, "unit")) {
+      total_length <- length
     } else if (is.numeric(length)) {
-      # Convert numeric to unit
-      length <- grid::unit(length, "pt")
+      total_length <- grid::unit(length, "pt")
     } else {
-      # Fallback
-      base_size <- current_theme$text$size %||% 11
-      length <- grid::unit(0.66 * base_size, "pt") + grid::unit(3, "pt")
+      rlang::abort("length must be a grid unit or numeric value")
     }
   }
 
-  #added this in. Don't know why it works
-  length <- length + grid::unit(2.2, "pt")
-
-  # Set text justification based on position
-  if (position %in% c("top", "bottom")) {
-    # x-axis text
-    text_hjust <- if (rlang::is_null(hjust)) 0.5 else hjust # center horizontally
-    text_vjust <- if (rlang::is_null(vjust)) {
-      if (position == "bottom") 1 else 0 # top-align for bottom, bottom-align for top
+  # Process margin for background rectangle
+  if (!is.null(margin)) {
+    if (inherits(margin, "margin") || (inherits(margin, "unit") && length(margin) == 4)) {
+      # Already a proper margin object or unit vector of length 4
+      rect_margin <- margin
+    } else if (inherits(margin, "unit") && length(margin) == 1) {
+      # Single unit value - apply to all sides
+      rect_margin <- rep(margin, 4)
+    } else if (is.numeric(margin) && length(margin) == 1) {
+      # Single numeric value - convert to unit and apply to all sides
+      rect_margin <- rep(grid::unit(margin, "pt"), 4)
+    } else if (is.numeric(margin) && length(margin) == 4) {
+      # Four numeric values - convert to unit vector
+      rect_margin <- grid::unit(margin, "pt")
     } else {
-      vjust
+      rect_margin <- grid::unit(c(0, 0, 0, 0), "pt")
     }
   } else {
-    # y-axis text
-    text_hjust <- if (rlang::is_null(hjust)) {
-      if (position == "left") 1 else 0 # right-align for left, left-align for right
-    } else {
-      hjust
-    }
-    text_vjust <- if (rlang::is_null(vjust)) 0.5 else vjust # center vertically
+    rect_margin <- grid::unit(c(0, 0, 0, 0), "pt")
   }
 
-  # Initialize list to store annotation layers and theme modifications
+  # Set default hjust and vjust based on position
+  if (is.null(hjust)) {
+    hjust <- if (position %in% c("top", "bottom")) {
+      0.5
+    } else if (position == "left") {
+      1
+    } else {  # right
+      0
+    }
+  }
+
+  if (is.null(vjust)) {
+    vjust <- if (position == "bottom") {
+      1
+    } else if (position == "top") {
+      0
+    } else {  # left or right
+      0.5
+    }
+  }
+
+  # Set default fill
+  text_fill <- fill %||% "transparent"
+
   stamp <- list()
 
-  # Add theme modifications to hide/modify original axis text
+  # Add theme modification if requested
   if (theme_element == "transparent") {
     theme_element_name <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element_name]] <- ggplot2::element_text(
-      colour = "transparent"
-    )
+    theme_mod[[theme_element_name]] <- ggplot2::element_text(colour = "transparent")
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   } else if (theme_element == "blank") {
     theme_element_name <- paste0("axis.text.", axis, ".", position)
@@ -388,132 +279,131 @@ annotate_axis_text <- function(
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }
 
-  # Create text annotations for each break/label pair
+  # Create text annotations
   for (i in seq_along(breaks)) {
-    if (position %in% c("top", "bottom")) {
-      # x-axis text
-      # Calculate text dimensions using a temporary text grob
-      temp_text_grob <- grid::textGrob(
-        label = labels[i],
-        gp = grid::gpar(
-          fontsize = text_size,
-          fontfamily = text_family
+    break_val <- breaks[i]
+    label <- labels[i]
+
+    # Create text grob with background
+    text_grob <- if (position == "bottom") {
+      grid::grobTree(
+        grid::rectGrob(
+          x = grid::unit(0.5, "npc"),
+          y = grid::unit(0, "npc") - total_length,
+          width = grid::grobWidth(grid::textGrob(label, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
+            rect_margin[2] + rect_margin[4],  # right + left margins
+          height = grid::unit(text_size, "pt") +
+            rect_margin[1] + rect_margin[3],  # top + bottom margins
+          just = c(hjust, vjust),
+          gp = grid::gpar(fill = text_fill, col = NA)
+        ),
+        grid::textGrob(
+          label,
+          x = grid::unit(0.5, "npc"),
+          y = grid::unit(0, "npc") - total_length,
+          just = c(hjust, vjust),
+          rot = angle,
+          gp = grid::gpar(
+            col = text_colour,
+            fontsize = text_size,
+            fontfamily = text_family
+          )
         )
       )
-      text_width <- grid::grobWidth(temp_text_grob)
-      text_height <- grid::grobHeight(temp_text_grob)
-
-      # Create background rectangle for x-axis text
-      rect_grob <- grid::rectGrob(
-        x = grid::unit(0.5, "npc"),
-        y = if (position == "bottom") {
-          grid::unit(0, "npc") - length
-        } else {
-          grid::unit(1, "npc") + length
-        },
-        width = text_width + margin_left + margin_right,
-        height = text_height + margin_top + margin_bottom,
-        hjust = text_hjust,
-        vjust = text_vjust,
-        gp = grid::gpar(
-          fill = fill,
-          col = NA
+    } else if (position == "top") {
+      grid::grobTree(
+        grid::rectGrob(
+          x = grid::unit(0.5, "npc"),
+          y = grid::unit(1, "npc") + total_length,
+          width = grid::grobWidth(grid::textGrob(label, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
+            rect_margin[2] + rect_margin[4],  # right + left margins
+          height = grid::unit(text_size, "pt") +
+            rect_margin[1] + rect_margin[3],  # top + bottom margins
+          just = c(hjust, vjust),
+          gp = grid::gpar(fill = text_fill, col = NA)
+        ),
+        grid::textGrob(
+          label,
+          x = grid::unit(0.5, "npc"),
+          y = grid::unit(1, "npc") + total_length,
+          just = c(hjust, vjust),
+          rot = angle,
+          gp = grid::gpar(
+            col = text_colour,
+            fontsize = text_size,
+            fontfamily = text_family
+          )
         )
       )
-
-      # Create text grob for x-axis
-      text_grob <- grid::textGrob(
-        label = labels[i],
-        x = grid::unit(0.5, "npc"), # centered horizontally
-        y = if (position == "bottom") {
-          grid::unit(0, "npc") - length # below panel
-        } else {
-          grid::unit(1, "npc") + length # above panel
-        },
-        hjust = text_hjust,
-        vjust = text_vjust,
-        rot = angle,
-        gp = grid::gpar(
-          col = text_colour,
-          fontsize = text_size,
-          fontfamily = text_family
+    } else if (position == "left") {
+      grid::grobTree(
+        grid::rectGrob(
+          x = grid::unit(0, "npc") - total_length,
+          y = grid::unit(0.5, "npc"),
+          width = grid::grobWidth(grid::textGrob(label, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
+            rect_margin[2] + rect_margin[4],  # right + left margins
+          height = grid::unit(text_size, "pt") +
+            rect_margin[1] + rect_margin[3],  # top + bottom margins
+          just = c(hjust, vjust),
+          gp = grid::gpar(fill = text_fill, col = NA)
+        ),
+        grid::textGrob(
+          label,
+          x = grid::unit(0, "npc") - total_length,
+          y = grid::unit(0.5, "npc"),
+          just = c(hjust, vjust),
+          rot = angle,
+          gp = grid::gpar(
+            col = text_colour,
+            fontsize = text_size,
+            fontfamily = text_family
+          )
         )
       )
+    } else {  # right
+      grid::grobTree(
+        grid::rectGrob(
+          x = grid::unit(1, "npc") + total_length,
+          y = grid::unit(0.5, "npc"),
+          width = grid::grobWidth(grid::textGrob(label, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
+            rect_margin[2] + rect_margin[4],  # right + left margins
+          height = grid::unit(text_size, "pt") +
+            rect_margin[1] + rect_margin[3],  # top + bottom margins
+          just = c(hjust, vjust),
+          gp = grid::gpar(fill = text_fill, col = NA)
+        ),
+        grid::textGrob(
+          label,
+          x = grid::unit(1, "npc") + total_length,
+          y = grid::unit(0.5, "npc"),
+          just = c(hjust, vjust),
+          rot = angle,
+          gp = grid::gpar(
+            col = text_colour,
+            fontsize = text_size,
+            fontfamily = text_family
+          )
+        )
+      )
+    }
 
-      # Set annotation position for x-axis
+    # Set annotation position based on axis and position
+    if (axis == "x") {
       annotation_position <- if (position == "bottom") {
-        list(xmin = breaks[i], xmax = breaks[i], ymin = -Inf, ymax = -Inf)
-      } else {
-        list(xmin = breaks[i], xmax = breaks[i], ymin = Inf, ymax = Inf)
+        list(xmin = break_val, xmax = break_val, ymin = -Inf, ymax = -Inf)
+      } else {  # top
+        list(xmin = break_val, xmax = break_val, ymin = Inf, ymax = Inf)
       }
-    } else {
-      # y-axis text
-      # Calculate text dimensions using a temporary text grob
-      temp_text_grob <- grid::textGrob(
-        label = labels[i],
-        gp = grid::gpar(
-          fontsize = text_size,
-          fontfamily = text_family
-        )
-      )
-      text_width <- grid::grobWidth(temp_text_grob)
-      text_height <- grid::grobHeight(temp_text_grob)
-
-      # Create background rectangle for y-axis text
-      rect_grob <- grid::rectGrob(
-        x = if (position == "left") {
-          grid::unit(0, "npc") - length
-        } else {
-          grid::unit(1, "npc") + length
-        },
-        y = grid::unit(0.5, "npc"),
-        width = text_width + margin_left + margin_right,
-        height = text_height + margin_top + margin_bottom,
-        hjust = text_hjust,
-        vjust = text_vjust,
-        gp = grid::gpar(
-          fill = fill,
-          col = NA
-        )
-      )
-
-      # Create text grob for y-axis
-      text_grob <- grid::textGrob(
-        label = labels[i],
-        x = if (position == "left") {
-          grid::unit(0, "npc") - length # left of panel
-        } else {
-          grid::unit(1, "npc") + length # right of panel
-        },
-        y = grid::unit(0.5, "npc"), # centered vertically
-        hjust = text_hjust,
-        vjust = text_vjust,
-        rot = angle,
-        gp = grid::gpar(
-          col = text_colour,
-          fontsize = text_size,
-          fontfamily = text_family
-        )
-      )
-
-      # Set annotation position for y-axis
+    } else {  # y axis
       annotation_position <- if (position == "left") {
-        list(xmin = -Inf, xmax = -Inf, ymin = breaks[i], ymax = breaks[i])
-      } else {
-        list(xmin = Inf, xmax = Inf, ymin = breaks[i], ymax = breaks[i])
+        list(xmin = -Inf, xmax = -Inf, ymin = break_val, ymax = break_val)
+      } else {  # right
+        list(xmin = Inf, xmax = Inf, ymin = break_val, ymax = break_val)
       }
     }
 
-    # Add background rectangle first, then text on top
     stamp <- c(
       stamp,
-      list(
-        rlang::exec(
-          ggplot2::annotation_custom,
-          grob = rect_grob,
-          !!!annotation_position
-        )
-      ),
       list(
         rlang::exec(
           ggplot2::annotation_custom,
