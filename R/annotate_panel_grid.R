@@ -23,18 +23,12 @@
 #'   gg_blanket(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'     facet = species,
-#'     y_breaks_n = 20,
-#'     y_labels = label_every_nth(),
 #'   ) +
 #'   annotate_panel_grid(
 #'     axis = "y",
-#'     breaks = seq(2800, 6400, 400),
+#'     breaks = seq(2750, 6500, 500),
 #'     linewidth = rel(0.5),
-#'   ) +
-#'   annotate_panel_grid(
-#'     axis = "y",
-#'     breaks = seq(2600, 6200, 400),
+#'     theme_element = "keep",
 #'   ) +
 #'   geom_point(
 #'     colour = col_multiply(get_geom_defaults("point")$colour),
@@ -60,32 +54,62 @@ annotate_panel_grid <- function(
     )
   }
 
-  # Get current theme and calculate resolved element properties
+  # Get current theme
   current_theme <- ggplot2::theme_get()
 
-  # Use calc_element with the most specific element name
-  element_name <- if (axis == "x") {
+  # Build hierarchy for panel grid from most specific to least specific
+  # Include both major and minor grid elements in hierarchy
+  grid_major_specific <- if (axis == "x") {
     "panel.grid.major.x"
   } else {
     "panel.grid.major.y"
   }
 
-  resolved_element <- ggplot2::calc_element(element_name, current_theme)
+  grid_minor_specific <- if (axis == "x") {
+    "panel.grid.minor.x"
+  } else {
+    "panel.grid.minor.y"
+  }
+
+  grid_major <- "panel.grid.major"
+  grid_minor <- "panel.grid.minor"
+  grid_general <- "panel.grid"
+
+  # Check both major and minor hierarchies to find the best styling
+  grid_hierarchy <- c(
+    grid_major_specific, grid_minor_specific,
+    grid_major, grid_minor,
+    grid_general
+  )
+
+  # Find the first non-blank resolved grid element
+  resolved_grid_element <- grid_hierarchy |>
+    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
+    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+
+  # If still no element found, create a minimal fallback
+  if (is.null(resolved_grid_element)) {
+    resolved_grid_element <- list(
+      colour = "#E6E9EFFF",
+      linewidth = 0.5,
+      linetype = "solid"
+    )
+  }
 
   # Extract theme properties with proper resolution
   grid_colour <- if (rlang::is_null(colour)) {
-    resolved_element$colour %||% "#E6E9EFFF"
+    resolved_grid_element$colour %||% "#E6E9EFFF"
   } else {
     colour
   }
 
   # Handle linewidth with proper rel() support
   if (rlang::is_null(linewidth)) {
-    grid_linewidth <- resolved_element$linewidth %||% 0.5
+    grid_linewidth <- resolved_grid_element$linewidth %||% 0.5
   } else {
     if (inherits(linewidth, "rel")) {
       # Apply user's rel() to the resolved theme linewidth
-      base_linewidth <- resolved_element$linewidth %||% 0.5
+      base_linewidth <- resolved_grid_element$linewidth %||% 0.5
       grid_linewidth <- as.numeric(linewidth) * base_linewidth
     } else {
       grid_linewidth <- linewidth
@@ -93,7 +117,7 @@ annotate_panel_grid <- function(
   }
 
   grid_linetype <- if (rlang::is_null(linetype)) {
-    resolved_element$linetype %||% "solid"
+    resolved_grid_element$linetype %||% "solid"
   } else {
     linetype
   }

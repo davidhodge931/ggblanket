@@ -125,6 +125,12 @@ annotate_axis_text <- function(
     rlang::abort("For y-axis, position must be one of 'left' or 'right'")
   }
 
+  if (!theme_element %in% c("transparent", "keep", "blank")) {
+    rlang::abort(
+      "theme_element must be one of 'transparent', 'keep', or 'blank'"
+    )
+  }
+
   # Process labels - support both vectors and functions
   if (rlang::is_null(labels)) {
     # Default: use breaks as labels
@@ -152,12 +158,6 @@ annotate_axis_text <- function(
     rlang::abort(
       "This function only works when panel dimensions are explicitly set via theme(panel.widths = ..., panel.heights = ...)"
     )
-  }
-
-  # Set default fill colour based on theme
-  if (rlang::is_null(fill)) {
-    # Always use panel background to mask gridlines
-    fill <- current_theme$panel.background$fill %||% "white"
   }
 
   # Validate uniform panel dimensions for the specific axis
@@ -206,12 +206,39 @@ annotate_axis_text <- function(
     margin_top <- margin_right <- margin_bottom <- margin_left <- margin
   }
 
-  # Use calc_element with the most specific element names
-  text_element_name <- paste0("axis.text.", axis, ".", position)
-  length_element_name <- paste0("axis.ticks.length.", axis, ".", position)
+  # Set default fill colour
+  if (rlang::is_null(fill)) {
+    fill <- "transparent"
+  }
 
-  resolved_text_element <- ggplot2::calc_element(text_element_name, current_theme)
-  resolved_length_element <- ggplot2::calc_element(length_element_name, current_theme)
+  # Build hierarchy for axis text from most specific to least specific
+  text_specific <- paste0("axis.text.", axis, ".", position)
+  text_axis <- paste0("axis.text.", axis)
+  text_general <- "axis.text"
+
+  text_hierarchy <- c(text_specific, text_axis, text_general)
+
+  # Find the first non-blank resolved text element
+  resolved_text_element <- text_hierarchy |>
+    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
+    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+
+  # If still no element found, create a minimal fallback
+  if (is.null(resolved_text_element)) {
+    resolved_text_element <- list(colour = "black", size = 11, family = "")
+  }
+
+  # Build hierarchy for axis ticks length from most specific to least specific
+  length_specific <- paste0("axis.ticks.length.", axis, ".", position)
+  length_axis <- paste0("axis.ticks.length.", axis)
+  length_general <- "axis.ticks.length"
+
+  length_hierarchy <- c(length_specific, length_axis, length_general)
+
+  # Find the first non-blank resolved length element
+  resolved_length_element <- length_hierarchy |>
+    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
+    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
 
   # Calculate default length with proper rel() handling
   if (rlang::is_null(length)) {

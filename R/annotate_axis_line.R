@@ -76,13 +76,26 @@ annotate_axis_line <- function(
   # Get current theme and calculate resolved element properties
   current_theme <- ggplot2::theme_get()
 
-  # Use calc_element with the most specific element name
-  element_name <- paste0("axis.line.", axis, ".", position)
-  resolved_element <- ggplot2::calc_element(element_name, current_theme)
+  # Build hierarchy of element names from most specific to least specific
+  specific_element <- paste0("axis.line.", axis, ".", position)
+  axis_element <- paste0("axis.line.", axis)
+  general_element <- "axis.line"
+
+  element_hierarchy <- c(specific_element, axis_element, general_element)
+
+  # Find the first non-blank resolved element
+  resolved_element <- element_hierarchy |>
+    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
+    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+
+  # If still no element found, create a minimal fallback
+  if (is.null(resolved_element)) {
+    resolved_element <- list(colour = "#121B24FF", linewidth = 0.5)
+  }
 
   # Extract theme properties with proper resolution
   line_colour <- if (rlang::is_null(colour)) {
-    resolved_element$colour %||% "black"
+    resolved_element$colour %||% "#121B24FF"
   } else {
     colour
   }

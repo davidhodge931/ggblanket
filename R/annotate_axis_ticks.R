@@ -91,12 +91,34 @@ annotate_axis_ticks <- function(
     }
   }
 
-  # Use calc_element with the most specific element names
-  tick_element_name <- paste0("axis.ticks.", axis, ".", position)
-  length_element_name <- paste0("axis.ticks.length.", axis, ".", position)
+  # Build hierarchy for axis ticks from most specific to least specific
+  tick_specific <- paste0("axis.ticks.", axis, ".", position)
+  tick_axis <- paste0("axis.ticks.", axis)
+  tick_general <- "axis.ticks"
 
-  resolved_tick_element <- ggplot2::calc_element(tick_element_name, current_theme)
-  resolved_length_element <- ggplot2::calc_element(length_element_name, current_theme)
+  tick_hierarchy <- c(tick_specific, tick_axis, tick_general)
+
+  # Find the first non-blank resolved ticks element
+  resolved_tick_element <- tick_hierarchy |>
+    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
+    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+
+  # If still no element found, create a minimal fallback
+  if (is.null(resolved_tick_element)) {
+    resolved_tick_element <- list(colour = "black", linewidth = 0.5)
+  }
+
+  # Build hierarchy for axis ticks length from most specific to least specific
+  length_specific <- paste0("axis.ticks.length.", axis, ".", position)
+  length_axis <- paste0("axis.ticks.length.", axis)
+  length_general <- "axis.ticks.length"
+
+  length_hierarchy <- c(length_specific, length_axis, length_general)
+
+  # Find the first non-blank resolved length element
+  resolved_length_element <- length_hierarchy |>
+    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
+    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
 
   # Extract theme properties with proper resolution
   tick_colour <- if (rlang::is_null(colour)) {

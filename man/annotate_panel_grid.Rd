@@ -45,18 +45,12 @@ palmerpenguins::penguins |>
   gg_blanket(
     x = flipper_length_mm,
     y = body_mass_g,
-    facet = species,
-    y_breaks_n = 20,
-    y_labels = label_every_nth(),
   ) +
   annotate_panel_grid(
     axis = "y",
-    breaks = seq(2800, 6400, 400),
+    breaks = seq(2750, 6500, 500),
     linewidth = rel(0.5),
-  ) +
-  annotate_panel_grid(
-    axis = "y",
-    breaks = seq(2600, 6200, 400),
+    theme_element = "keep",
   ) +
   geom_point(
     colour = col_multiply(get_geom_defaults("point")$colour),
