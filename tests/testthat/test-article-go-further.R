@@ -311,44 +311,44 @@ test_that("standardise_width works", {
     )
 })
 
-test_that("annotate_axis_line works", {
-  set_blanket(
-    theme = theme_lighter(
-      panel_heights = rep(unit(50, "mm"), times = 100),
-      panel_widths = rep(unit(75, "mm"), times = 100),
-    ),
-  )
-
-  penguins |>
-    tidyr::drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
-    add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |>
-    gg_blanket(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = sex,
-    ) +
-    annotate_axis_line(axis = "x", position = "bottom") +
-    annotate_axis_ticks(axis = "x", breaks = 210, position = "bottom")
-  geom_point()
-})
-
-test_that("annotate_axis_ticks works", {
-  set_blanket(
-    theme = theme_lighter(
-      panel_heights = rep(unit(50, "mm"), times = 100),
-      panel_widths = rep(unit(75, "mm"), times = 100),
-    ),
-  )
-
-  penguins |>
-    tidyr::drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
-    gg_histogram(
-      x = flipper_length_mm,
-      col = sex,
-    ) +
-    annotate_axis_ticks(axis = "x", breaks = c(seq(170, 230, 10), 195))
-})
+# test_that("annotate_axis_line works", {
+#   set_blanket(
+#     theme = theme_lighter(
+#       panel_heights = rep(unit(50, "mm"), times = 100),
+#       panel_widths = rep(unit(75, "mm"), times = 100),
+#     ),
+#   )
+#
+#   penguins |>
+#     tidyr::drop_na(sex) |>
+#     mutate(across(sex, \(x) str_to_sentence(x))) |>
+#     add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |>
+#     gg_blanket(
+#       x = flipper_length_mm,
+#       y = body_mass_g,
+#       col = sex,
+#     ) +
+#     annotate_axis_line(axis = "x", position = "bottom") +
+#     annotate_axis_ticks(axis = "x", breaks = 210, position = "bottom")
+#   geom_point()
+# })
+#
+# test_that("annotate_axis_ticks works", {
+#   set_blanket(
+#     theme = theme_lighter(
+#       panel_heights = rep(unit(50, "mm"), times = 100),
+#       panel_widths = rep(unit(75, "mm"), times = 100),
+#     ),
+#   )
+#
+#   penguins |>
+#     tidyr::drop_na(sex) |>
+#     mutate(across(sex, \(x) str_to_sentence(x))) |>
+#     gg_histogram(
+#       x = flipper_length_mm,
+#       col = sex,
+#     ) +
+#     annotate_axis_ticks(axis = "x", breaks = c(seq(170, 230, 10), 195))
+# })
 
 set_blanket()

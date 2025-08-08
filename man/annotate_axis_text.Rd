@@ -39,7 +39,7 @@ annotate_axis_text(
 
 \item{family}{The font family of the text. Inherits from the current theme axis.text etc.}
 
-\item{length}{The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus margin.}
+\item{length}{The total distance from the axis line to the text as a grid unit. Defaults to the sum of set theme tick length and relevant margin part.}
 
 \item{margin}{The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components.}
 

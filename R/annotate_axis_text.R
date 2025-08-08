@@ -1,6 +1,6 @@
-#' Annotated axis text labels
+#' Annotated axis text label
 #'
-#' @description Add text labels positioned relative to axis tick marks using absolute measurements.
+#' @description Add text label positioned relative to axis tick marks using absolute measurements.
 #' This function only works when panel dimensions are set via panel.widths and panel.heights.
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
@@ -8,11 +8,11 @@
 #' @param position The position of the axis text. One of "top", "bottom", "left", or "right".
 #' @param x A vector of x-axis breaks for text positioning. Cannot be used together with y.
 #' @param y A vector of y-axis breaks for text positioning. Cannot be used together with x.
-#' @param labels A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the `scales::comma` on the breaks as labels.
+#' @param label A vector of text label or a function that takes breaks and returns label. If NULL, uses the `scales::comma` on the breaks as label.
 #' @param colour The colour of the text. Inherits from the current theme axis.text etc.
 #' @param size The size of the text. Inherits from the current theme axis.text etc.
 #' @param family The font family of the text. Inherits from the current theme axis.text etc.
-#' @param length The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus margin.
+#' @param length The total distance from the axis line to the text as a grid unit. Defaults to the sum of set theme tick length and relevant margin part.
 #' @param margin The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components.
 #' @param fill The fill colour of the background rectangle. If NULL, defaults to "transparent".
 #' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
@@ -27,7 +27,7 @@ annotate_axis_text <- function(
     position,
     x = NULL,
     y = NULL,
-    labels = NULL,
+    label = NULL,
     colour = NULL,
     size = NULL,
     family = NULL,
@@ -109,16 +109,16 @@ annotate_axis_text <- function(
     return(list())
   }
 
-  # Process labels
-  if (is.null(labels)) {
-    labels <- scales::comma(breaks)
-  } else if (is.function(labels)) {
-    labels <- labels(breaks)
+  # Process label
+  if (is.null(label)) {
+    label <- scales::comma(breaks)
+  } else if (is.function(label)) {
+    label <- label(breaks)
   }
 
-  # Ensure labels match breaks length
-  if (length(labels) != length(breaks)) {
-    rlang::abort("Length of labels must match length of breaks")
+  # Ensure label match breaks length
+  if (length(label) != length(breaks)) {
+    rlang::abort("Length of label must match length of breaks")
   }
 
   # Build hierarchy for axis text from most specific to least specific
@@ -289,7 +289,7 @@ annotate_axis_text <- function(
   # Create text annotations
   for (i in seq_along(breaks)) {
     break_val <- breaks[i]
-    label <- labels[i]
+    label <- label[i]
 
     # Create text grob with background
     text_grob <- if (position == "bottom") {
