@@ -1,6 +1,6 @@
 #' Annotate axis text segments
 #'
-#' @description Create axis text with annotated segments.
+#' @description Create annotated segments of the axis text.
 #'
 #' This function is designed to work with a theme that is globally set, so that the annotated text can be made consistent by default.
 #'

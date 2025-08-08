@@ -27,7 +27,7 @@ annotate_axis_line(
 A list of a annotate layer and theme elements.
 }
 \description{
-Create an axis line with an annotated segment.
+Create an annotated segment of the axis line.
 
 This function is designed to work with a theme that is globally set, so that the annotated line can be made consistent by default.
 

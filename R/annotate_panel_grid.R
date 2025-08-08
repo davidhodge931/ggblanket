@@ -1,6 +1,6 @@
 #' Annotate panel grid segments
 #'
-#' @description Create the panel grid with annotated segments.
+#' @description Create annotated segments of the panel grid.
 #'
 #' This function is designed to work with a theme that is globally set, so that the annotated panel grid segments can be made consistent by default.
 #'

@@ -55,7 +55,7 @@ annotate_axis_text(
 A list of annotation layers and theme elements.
 }
 \description{
-Create axis text with annotated segments.
+Create annotated segments of the axis text.
 
 This function is designed to work with a theme that is globally set, so that the annotated text can be made consistent by default.
 

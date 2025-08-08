@@ -1,6 +1,6 @@
 #' Annotate axis tick segments
 #'
-#' @description Create axis ticks with annotated segments.
+#' @description Create annotated segments of the axis ticks.
 #'
 #' This function is designed to work with a theme that is globally set, so that the annotated tick segments can be made consistent by default.
 #'
