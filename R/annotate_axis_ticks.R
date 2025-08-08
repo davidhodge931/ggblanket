@@ -5,12 +5,12 @@
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param ... Require named arguments (and support trailing commas).
-#' @param axis The axis to annotate. One of "x" or "y".
-#' @param breaks A vector of axis breaks for axis ticks.
-#' @param position The position of the axis ticks. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.
+#' @param position The position of the axis ticks. One of "top", "bottom", "left", or "right".
+#' @param x A vector of x-axis breaks for axis ticks. Cannot be used together with y.
+#' @param y A vector of y-axis breaks for axis ticks. Cannot be used together with x.
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.ticks etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.ticks etc.
-#' @param length The absolute length of the annotated segment as a grid unit. Defaults to unit(11/3, "pt").
+#' @param length The absolute length of the annotated segment as a grid unit. Defaults to theme's axis.ticks.length (typically rel(0.66)).
 #' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
 #'
 #' @return A list of a annotate layer and theme elements.
@@ -19,30 +19,25 @@
 #'
 annotate_axis_ticks <- function(
     ...,
-    axis,
-    breaks,
-    position = NULL,
+    position,
+    x = NULL,
+    y = NULL,
     colour = NULL,
     linewidth = NULL,
     length = NULL,
     theme_element = "transparent"
 ) {
   # Validate arguments
-  if (!axis %in% c("x", "y")) {
-    rlang::abort("axis must be one of 'x' or 'y'")
+  if (!position %in% c("top", "bottom", "left", "right")) {
+    rlang::abort("position must be one of 'top', 'bottom', 'left', or 'right'")
   }
 
-  # Set default position if not provided
-  if (rlang::is_null(position)) {
-    position <- if (axis == "x") "bottom" else "left"
+  if (is.null(x) && is.null(y)) {
+    rlang::abort("Either x or y must be specified")
   }
 
-  if (axis == "x" && !position %in% c("bottom", "top")) {
-    rlang::abort("For x-axis, position must be one of 'bottom' or 'top'")
-  }
-
-  if (axis == "y" && !position %in% c("left", "right")) {
-    rlang::abort("For y-axis, position must be one of 'left' or 'right'")
+  if (!is.null(x) && !is.null(y)) {
+    rlang::abort("Only one of x or y can be specified")
   }
 
   if (!theme_element %in% c("transparent", "keep", "blank")) {
@@ -50,6 +45,9 @@ annotate_axis_ticks <- function(
       "theme_element must be one of 'transparent', 'keep', or 'blank'"
     )
   }
+
+  # Determine axis from position
+  axis <- if (position %in% c("top", "bottom")) "x" else "y"
 
   # Get current theme and check panel dimensions
   current_theme <- ggplot2::theme_get()
@@ -96,12 +94,15 @@ annotate_axis_ticks <- function(
   tick_axis <- paste0("axis.ticks.", axis)
   tick_general <- "axis.ticks"
 
-  tick_hierarchy <- c(tick_specific, tick_axis, tick_general)
-
-  # Find the first non-blank resolved ticks element
-  resolved_tick_element <- tick_hierarchy |>
-    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
-    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+  # Use calc_element to properly resolve tick properties with inheritance
+  resolved_tick_element <- NULL
+  for (element_name in c(tick_specific, tick_axis, tick_general)) {
+    element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
+    if (!is.null(element) && !inherits(element, "element_blank")) {
+      resolved_tick_element <- element
+      break
+    }
+  }
 
   # If still no element found, create a minimal fallback
   if (is.null(resolved_tick_element)) {
@@ -113,12 +114,15 @@ annotate_axis_ticks <- function(
   length_axis <- paste0("axis.ticks.length.", axis)
   length_general <- "axis.ticks.length"
 
-  length_hierarchy <- c(length_specific, length_axis, length_general)
-
-  # Find the first non-blank resolved length element
-  resolved_length_element <- length_hierarchy |>
-    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
-    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+  # Use calc_element to properly resolve length with inheritance and rel() handling
+  resolved_length_element <- NULL
+  for (element_name in c(length_specific, length_axis, length_general)) {
+    element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
+    if (!is.null(element) && !inherits(element, "element_blank")) {
+      resolved_length_element <- element
+      break
+    }
+  }
 
   # Extract theme properties with proper resolution
   tick_colour <- if (rlang::is_null(colour)) {
@@ -140,43 +144,81 @@ annotate_axis_ticks <- function(
     }
   }
 
-  # Handle length with proper unit and rel() support
+  # Handle length with proper unit and rel() support - FIXED VERSION
   if (rlang::is_null(length)) {
-    # Use the resolved length element directly
-    length <- resolved_length_element %||% grid::unit(11 / 3, "pt")
+    # Use the resolved length element from calc_element
+    tick_length <- resolved_length_element
 
-    # Handle rel() objects for length
-    if (inherits(length, "rel")) {
-      # Convert rel() to absolute unit - use default base of 11/3 pt
-      length <- grid::unit(as.numeric(length) * 11 / 3, "pt")
-    } else if (!inherits(length, "unit")) {
-      # Ensure it's a proper unit object
-      length <- grid::unit(11 / 3, "pt")
+    if (is.null(tick_length)) {
+      # Fallback: manually calculate default rel(0.66)
+      base_size <- current_theme$text$size %||% 11
+      tick_length <- grid::unit(0.66 * base_size, "pt")
+    } else if (inherits(tick_length, "rel")) {
+      # calc_element returned a rel() object - we need to convert it
+      base_size <- current_theme$text$size %||% 11
+      tick_length <- grid::unit(as.numeric(tick_length) * base_size, "pt")
+    } else if (!inherits(tick_length, "unit")) {
+      # If calc_element didn't return a unit or rel, convert
+      if (is.numeric(tick_length)) {
+        tick_length <- grid::unit(tick_length, "pt")
+      } else {
+        # Ultimate fallback
+        base_size <- current_theme$text$size %||% 11
+        tick_length <- grid::unit(0.66 * base_size, "pt")
+      }
     }
+    # If tick_length is already a proper unit from calc_element, use as-is
   } else {
     # Handle user-provided length
     if (inherits(length, "rel")) {
-      # Get the resolved theme length as base
-      theme_length <- resolved_length_element %||% grid::unit(11 / 3, "pt")
+      # Get the base length for rel() calculation - this should be the THEME value before conversion
+      base_length_for_rel <- NULL
 
-      # Convert theme length to numeric points for rel() calculation
-      if (inherits(theme_length, "rel")) {
-        # If theme length is also rel(), use default base
-        base_length_pts <- 11 / 3
-      } else if (inherits(theme_length, "unit")) {
-        # Convert unit to points
-        base_length_pts <- as.numeric(grid::convertUnit(theme_length, "pt"))
-      } else {
-        base_length_pts <- 11 / 3
+      # First try to get the raw theme element (before calc_element processing)
+      for (element_name in c(length_specific, length_axis, length_general)) {
+        raw_element <- current_theme[[element_name]]
+        if (!is.null(raw_element) && !inherits(raw_element, "element_blank")) {
+          base_length_for_rel <- raw_element
+          break
+        }
       }
 
-      # Apply user's rel() to the base length
-      length <- grid::unit(as.numeric(length) * base_length_pts, "pt")
-    } else if (!inherits(length, "unit")) {
-      # Convert numeric to unit
-      length <- grid::unit(length, "pt")
+      if (!is.null(base_length_for_rel)) {
+        if (inherits(base_length_for_rel, "rel")) {
+          # Theme is also rel() - apply user's rel to the theme's rel
+          base_size <- current_theme$text$size %||% 11
+          theme_abs_length <- as.numeric(base_length_for_rel) * base_size
+          tick_length <- grid::unit(as.numeric(length) * theme_abs_length, "pt")
+        } else if (inherits(base_length_for_rel, "unit")) {
+          # Theme is absolute unit - apply user's rel to that
+          theme_abs_length <- as.numeric(grid::convertUnit(base_length_for_rel, "pt"))
+          tick_length <- grid::unit(as.numeric(length) * theme_abs_length, "pt")
+        } else if (is.numeric(base_length_for_rel)) {
+          # Theme is numeric - assume points
+          tick_length <- grid::unit(as.numeric(length) * base_length_for_rel, "pt")
+        } else {
+          # Fallback to default base
+          base_size <- current_theme$text$size %||% 11
+          default_length <- 0.66 * base_size
+          tick_length <- grid::unit(as.numeric(length) * default_length, "pt")
+        }
+      } else {
+        # No theme element found - use default rel(0.66) as base
+        base_size <- current_theme$text$size %||% 11
+        default_length <- 0.66 * base_size
+        tick_length <- grid::unit(as.numeric(length) * default_length, "pt")
+      }
+    } else if (inherits(length, "unit")) {
+      # If already a unit, use as-is
+      tick_length <- length
+    } else if (is.numeric(length)) {
+      # Convert numeric to unit (assume points)
+      tick_length <- grid::unit(length, "pt")
+    } else {
+      # Fallback
+      base_size <- current_theme$text$size %||% 11
+      tick_length <- grid::unit(0.66 * base_size, "pt")
     }
-    # If already a unit, use as-is
   }
 
   stamp <- list()
@@ -194,47 +236,37 @@ annotate_axis_ticks <- function(
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }
 
-  # Create tick annotations
-  for (break_val in breaks) {
-    if (axis == "x") {
+  # Create tick annotations for x breaks
+  if (!is.null(x)) {
+    for (break_val in x) {
       tick_grob <- if (position == "bottom") {
         grid::segmentsGrob(
           x0 = grid::unit(0.5, "npc"),
           x1 = grid::unit(0.5, "npc"),
           y0 = grid::unit(0, "npc"),
-          y1 = grid::unit(0, "npc") - length,
+          y1 = grid::unit(0, "npc") - tick_length,
           gp = grid::gpar(
             col = tick_colour,
             lwd = tick_linewidth * 72 / 25.4,
             lineend = "butt"
           )
         )
-      } else {
-        # top
+      } else if (position == "top") {
         grid::segmentsGrob(
           x0 = grid::unit(0.5, "npc"),
           x1 = grid::unit(0.5, "npc"),
           y0 = grid::unit(1, "npc"),
-          y1 = grid::unit(1, "npc") + length,
+          y1 = grid::unit(1, "npc") + tick_length,
           gp = grid::gpar(
             col = tick_colour,
             lwd = tick_linewidth * 72 / 25.4,
             lineend = "butt"
           )
         )
-      }
-
-      annotation_position <- if (position == "bottom") {
-        list(xmin = break_val, xmax = break_val, ymin = -Inf, ymax = -Inf)
-      } else {
-        list(xmin = break_val, xmax = break_val, ymin = Inf, ymax = Inf)
-      }
-    } else {
-      # y-axis
-      tick_grob <- if (position == "left") {
+      } else if (position == "left") {
         grid::segmentsGrob(
           x0 = grid::unit(0, "npc"),
-          x1 = grid::unit(0, "npc") - length,
+          x1 = grid::unit(0, "npc") - tick_length,
           y0 = grid::unit(0.5, "npc"),
           y1 = grid::unit(0.5, "npc"),
           gp = grid::gpar(
@@ -247,7 +279,7 @@ annotate_axis_ticks <- function(
         # right
         grid::segmentsGrob(
           x0 = grid::unit(1, "npc"),
-          x1 = grid::unit(1, "npc") + length,
+          x1 = grid::unit(1, "npc") + tick_length,
           y0 = grid::unit(0.5, "npc"),
           y1 = grid::unit(0.5, "npc"),
           gp = grid::gpar(
@@ -258,23 +290,106 @@ annotate_axis_ticks <- function(
         )
       }
 
-      annotation_position <- if (position == "left") {
+      annotation_position <- if (position == "bottom") {
+        list(xmin = break_val, xmax = break_val, ymin = -Inf, ymax = -Inf)
+      } else if (position == "top") {
+        list(xmin = break_val, xmax = break_val, ymin = Inf, ymax = Inf)
+      } else if (position == "left") {
         list(xmin = -Inf, xmax = -Inf, ymin = break_val, ymax = break_val)
       } else {
+        # right
         list(xmin = Inf, xmax = Inf, ymin = break_val, ymax = break_val)
       }
-    }
 
-    stamp <- c(
-      stamp,
-      list(
-        rlang::exec(
-          ggplot2::annotation_custom,
-          grob = tick_grob,
-          !!!annotation_position
+      stamp <- c(
+        stamp,
+        list(
+          rlang::exec(
+            ggplot2::annotation_custom,
+            grob = tick_grob,
+            !!!annotation_position
+          )
         )
       )
-    )
+    }
+  }
+
+  # Create tick annotations for y breaks
+  if (!is.null(y)) {
+    for (break_val in y) {
+      tick_grob <- if (position == "bottom") {
+        grid::segmentsGrob(
+          x0 = grid::unit(0.5, "npc"),
+          x1 = grid::unit(0.5, "npc"),
+          y0 = grid::unit(0, "npc"),
+          y1 = grid::unit(0, "npc") - tick_length,
+          gp = grid::gpar(
+            col = tick_colour,
+            lwd = tick_linewidth * 72 / 25.4,
+            lineend = "butt"
+          )
+        )
+      } else if (position == "top") {
+        grid::segmentsGrob(
+          x0 = grid::unit(0.5, "npc"),
+          x1 = grid::unit(0.5, "npc"),
+          y0 = grid::unit(1, "npc"),
+          y1 = grid::unit(1, "npc") + tick_length,
+          gp = grid::gpar(
+            col = tick_colour,
+            lwd = tick_linewidth * 72 / 25.4,
+            lineend = "butt"
+          )
+        )
+      } else if (position == "left") {
+        grid::segmentsGrob(
+          x0 = grid::unit(0, "npc"),
+          x1 = grid::unit(0, "npc") - tick_length,
+          y0 = grid::unit(0.5, "npc"),
+          y1 = grid::unit(0.5, "npc"),
+          gp = grid::gpar(
+            col = tick_colour,
+            lwd = tick_linewidth * 72 / 25.4,
+            lineend = "butt"
+          )
+        )
+      } else {
+        # right
+        grid::segmentsGrob(
+          x0 = grid::unit(1, "npc"),
+          x1 = grid::unit(1, "npc") + tick_length,
+          y0 = grid::unit(0.5, "npc"),
+          y1 = grid::unit(0.5, "npc"),
+          gp = grid::gpar(
+            col = tick_colour,
+            lwd = tick_linewidth * 72 / 25.4,
+            lineend = "butt"
+          )
+        )
+      }
+
+      annotation_position <- if (position == "bottom") {
+        list(xmin = break_val, xmax = break_val, ymin = -Inf, ymax = -Inf)
+      } else if (position == "top") {
+        list(xmin = break_val, xmax = break_val, ymin = Inf, ymax = Inf)
+      } else if (position == "left") {
+        list(xmin = -Inf, xmax = -Inf, ymin = break_val, ymax = break_val)
+      } else {
+        # right
+        list(xmin = Inf, xmax = Inf, ymin = break_val, ymax = break_val)
+      }
+
+      stamp <- c(
+        stamp,
+        list(
+          rlang::exec(
+            ggplot2::annotation_custom,
+            grob = tick_grob,
+            !!!annotation_position
+          )
+        )
+      )
+    }
   }
 
   return(stamp)

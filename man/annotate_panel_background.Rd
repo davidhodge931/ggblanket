@@ -6,8 +6,10 @@
 \usage{
 annotate_panel_background(
   ...,
-  x = c(-Inf, Inf),
-  y = c(-Inf, Inf),
+  xmin = -Inf,
+  xmax = Inf,
+  ymin = -Inf,
+  ymax = Inf,
   fill = "#8991A1FF",
   alpha = 0.25,
   colour = "transparent",
@@ -18,9 +20,13 @@ annotate_panel_background(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{x}{A vector of length 2. Defaults to c(-Inf, Inf).}
+\item{xmin}{A value of length 1.}
 
-\item{y}{A vector of length 2. Defaults to c(-Inf, Inf).}
+\item{xmax}{A value of length 1.}
+
+\item{ymin}{A value of length 1.}
+
+\item{ymax}{A value of length 1.}
 
 \item{fill}{The fill colour of the rectangle. Defaults to "#8991A1FF".}
 
@@ -43,14 +49,24 @@ It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 \examples{
 library(ggplot2)
 
-palmerpenguins::penguins |>
+p <- palmerpenguins::penguins |>
   gg_blanket(
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-  ) +
+  )
+
+p +
   annotate_panel_background(
-    x = c(225, Inf),
+    xmin = 225,
+    xmax = Inf,
+  ) +
+  geom_point()
+
+p +
+  annotate_panel_background(
+    xmin = I(0.9),
+    xmax = I(1),
   ) +
   geom_point()
 

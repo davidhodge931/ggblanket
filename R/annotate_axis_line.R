@@ -3,8 +3,7 @@
 #' @description Replace axis line with an annotated segment.
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("segment", ....)`. Require named arguments (and support trailing commas).
-#' @param axis The axis to annotate. One of "x" or "y".
-#' @param position The position of the axis. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.
+#' @param position The position of the axis line. One of "top", "bottom", "left", or "right".
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
@@ -29,11 +28,11 @@
 #'     y = body_mass_g,
 #'   ) +
 #'   annotate_axis_line(
-#'     axis = "x",
+#'     position = "bottom",
 #'     arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
 #'   ) +
-#'     annotate_axis_line(
-#'     axis = "y",
+#'   annotate_axis_line(
+#'     position = "left",
 #'     arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
 #'   ) +
 #'   geom_point(
@@ -43,28 +42,14 @@
 #'
 annotate_axis_line <- function(
     ...,
-    axis,
-    position = NULL,
+    position,
     colour = NULL,
     linewidth = NULL,
     theme_element = "transparent"
 ) {
   # Validate arguments
-  if (!axis %in% c("x", "y")) {
-    rlang::abort("axis must be one of 'x' or 'y'")
-  }
-
-  # Set default position if not provided
-  if (rlang::is_null(position)) {
-    position <- if (axis == "x") "bottom" else "left"
-  }
-
-  if (axis == "x" && !position %in% c("bottom", "top")) {
-    rlang::abort("For x-axis, position must be one of 'bottom' or 'top'")
-  }
-
-  if (axis == "y" && !position %in% c("left", "right")) {
-    rlang::abort("For y-axis, position must be one of 'left' or 'right'")
+  if (!position %in% c("top", "bottom", "left", "right")) {
+    rlang::abort("position must be one of 'top', 'bottom', 'left', or 'right'")
   }
 
   if (!theme_element %in% c("transparent", "keep", "blank")) {
@@ -72,6 +57,9 @@ annotate_axis_line <- function(
       "theme_element must be one of 'transparent', 'keep', or 'blank'"
     )
   }
+
+  # Determine axis from position
+  axis <- if (position %in% c("top", "bottom")) "x" else "y"
 
   # Get current theme and calculate resolved element properties
   current_theme <- ggplot2::theme_get()
@@ -115,82 +103,76 @@ annotate_axis_line <- function(
 
   stamp <- list()
 
-  # Create axis segment
-  if (axis == "x") {
-    if (position == "bottom") {
-      stamp <- c(
-        stamp,
-        list(
-          rlang::exec(
-            ggplot2::annotate,
-            "segment",
-            x = I(-Inf),
-            xend = I(Inf),
-            y = I(-Inf),
-            yend = I(-Inf),
-            colour = line_colour,
-            linewidth = line_linewidth,
-            ...
-          )
+  # Create axis segment based on position
+  if (position == "bottom") {
+    stamp <- c(
+      stamp,
+      list(
+        rlang::exec(
+          ggplot2::annotate,
+          "segment",
+          x = I(-Inf),
+          xend = I(Inf),
+          y = I(-Inf),
+          yend = I(-Inf),
+          colour = line_colour,
+          linewidth = line_linewidth,
+          ...
         )
       )
-    } else {
-      # top
-      stamp <- c(
-        stamp,
-        list(
-          rlang::exec(
-            ggplot2::annotate,
-            "segment",
-            x = I(-Inf),
-            xend = I(Inf),
-            y = I(Inf),
-            yend = I(Inf),
-            colour = line_colour,
-            linewidth = line_linewidth,
-            ...
-          )
+    )
+  } else if (position == "top") {
+    stamp <- c(
+      stamp,
+      list(
+        rlang::exec(
+          ggplot2::annotate,
+          "segment",
+          x = I(-Inf),
+          xend = I(Inf),
+          y = I(Inf),
+          yend = I(Inf),
+          colour = line_colour,
+          linewidth = line_linewidth,
+          ...
         )
       )
-    }
+    )
+  } else if (position == "left") {
+    stamp <- c(
+      stamp,
+      list(
+        rlang::exec(
+          ggplot2::annotate,
+          "segment",
+          x = I(-Inf),
+          xend = I(-Inf),
+          y = I(-Inf),
+          yend = I(Inf),
+          colour = line_colour,
+          linewidth = line_linewidth,
+          ...
+        )
+      )
+    )
   } else {
-    # y-axis
-    if (position == "left") {
-      stamp <- c(
-        stamp,
-        list(
-          rlang::exec(
-            ggplot2::annotate,
-            "segment",
-            x = I(-Inf),
-            xend = I(-Inf),
-            y = I(-Inf),
-            yend = I(Inf),
-            colour = line_colour,
-            linewidth = line_linewidth,
-            ...
-          )
+    # right
+    stamp <- c(
+      stamp,
+      list(
+        rlang::exec(
+          ggplot2::annotate,
+          "segment",
+          x = I(Inf),
+          xend = I(Inf),
+          y = I(-Inf),
+          yend = I(Inf),
+          colour = line_colour,
+          linewidth = line_linewidth,
+          ...
         )
       )
-    } else {
-      # right
-      stamp <- c(
-        stamp,
-        list(
-          rlang::exec(
-            ggplot2::annotate,
-            "segment",
-            x = I(Inf),
-            xend = I(Inf),
-            y = I(-Inf),
-            yend = I(Inf),
-            colour = line_colour,
-            linewidth = line_linewidth,
-            ...
-          )
-        )
-      )
-    }
+    )
   }
 
   # Add theme modification if requested

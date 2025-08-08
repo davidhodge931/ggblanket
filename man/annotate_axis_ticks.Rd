@@ -6,9 +6,9 @@
 \usage{
 annotate_axis_ticks(
   ...,
-  axis,
-  breaks,
-  position = NULL,
+  position,
+  x = NULL,
+  y = NULL,
   colour = NULL,
   linewidth = NULL,
   length = NULL,
@@ -18,17 +18,17 @@ annotate_axis_ticks(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{axis}{The axis to annotate. One of "x" or "y".}
+\item{position}{The position of the axis ticks. One of "top", "bottom", "left", or "right".}
 
-\item{breaks}{A vector of axis breaks for axis ticks.}
+\item{x}{A vector of x-axis breaks for axis ticks. Cannot be used together with y.}
 
-\item{position}{The position of the axis ticks. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.}
+\item{y}{A vector of y-axis breaks for axis ticks. Cannot be used together with x.}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.ticks etc.}
 
 \item{linewidth}{The linewidth of the annotated segment. Inherits from the current theme axis.ticks etc.}
 
-\item{length}{The absolute length of the annotated segment as a grid unit. Defaults to unit(11/3, "pt").}
+\item{length}{The absolute length of the annotated segment as a grid unit. Defaults to theme's axis.ticks.length (typically rel(0.66)).}
 
 \item{theme_element}{What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".}
 }

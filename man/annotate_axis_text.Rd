@@ -6,9 +6,9 @@
 \usage{
 annotate_axis_text(
   ...,
-  axis,
-  breaks,
-  position = NULL,
+  position,
+  x = NULL,
+  y = NULL,
   labels = NULL,
   colour = NULL,
   size = NULL,
@@ -25,11 +25,11 @@ annotate_axis_text(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{axis}{The axis to annotate. One of "x" or "y".}
+\item{position}{The position of the axis text. One of "top", "bottom", "left", or "right".}
 
-\item{breaks}{A vector of axis breaks for text positioning.}
+\item{x}{A vector of x-axis breaks for text positioning. Cannot be used together with y.}
 
-\item{position}{The position of the axis text. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.}
+\item{y}{A vector of y-axis breaks for text positioning. Cannot be used together with x.}
 
 \item{labels}{A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the breaks as labels.}
 
@@ -39,11 +39,11 @@ annotate_axis_text(
 
 \item{family}{The font family of the text. Inherits from the current theme axis.text etc.}
 
-\item{length}{The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus 3pt offset.}
+\item{length}{The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus margin.}
 
-\item{margin}{The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components. Defaults to unit(2, "pt").}
+\item{margin}{The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components.}
 
-\item{fill}{The fill colour of the background rectangle. If NULL, intelligently derived from theme (panel background for light themes, text colour for dark themes).}
+\item{fill}{The fill colour of the background rectangle. If NULL, defaults to "transparent".}
 
 \item{hjust, vjust}{Horizontal and vertical justification. Auto-calculated based on position if NULL.}
 
@@ -58,73 +58,4 @@ A list of annotation layers and theme elements.
 Add text labels positioned relative to axis tick marks using absolute measurements.
 This function only works when panel dimensions are set via panel.widths and panel.heights.
 It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
-}
-\examples{
-library(ggplot2)
-
-set_blanket(
-  theme = theme_lighter(
-    panel_heights = rep(unit(50, "mm"), 100),
-    panel_widths = rep(unit(75, "mm"), 100),
-  ),
-)
-
-p <- palmerpenguins::penguins |>
-  gg_blanket(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    x_title = "Flipper length",
-    y_title = "Body mass",
-  )
-
-y_breaks <- seq(2500, 6500, 500)
-
-key <- 4873
-
-p +
-  geom_hline(yintercept = key) +
-  annotate_axis_text(
-    axis = "y",
-    breaks = key,
-    position = "right",
-    labels = scales::comma(key),
-  ) +
-  geom_point(
-    colour = col_multiply(get_geom_defaults("point")$colour),
-  )
-
-p +
-  annotate_axis_text(
-    axis = "y",
-    breaks = 6500,
-    labels = "kg",
-    hjust = 0,
-    length = unit(0, "pt"),
-    theme_element = "keep",
-  ) +
-  annotate_axis_text(
-    axis = "x",
-    breaks = I(1),
-    labels = "mm",
-    hjust = 0,
-    margin = unit(1, "pt"),
-    theme_element = "keep",
-  ) +
-  geom_point(
-    colour = col_multiply(get_geom_defaults("point")$colour),
-  )
-
-p +
-  annotate_axis_text(
-    axis = "y",
-    breaks = y_breaks[-length(y_breaks)],
-    hjust = 0,
-    vjust = -0.4,
-    length = unit(0, "pt"),
-    theme_element = "blank",
-  ) +
-  geom_point(
-    colour = col_multiply(get_geom_defaults("point")$colour),
-  )
-
 }

@@ -6,8 +6,7 @@
 \usage{
 annotate_axis_line(
   ...,
-  axis,
-  position = NULL,
+  position,
   colour = NULL,
   linewidth = NULL,
   theme_element = "transparent"
@@ -16,9 +15,7 @@ annotate_axis_line(
 \arguments{
 \item{...}{Arguments passed to \code{ggplot2::annotate("segment", ....)}. Require named arguments (and support trailing commas).}
 
-\item{axis}{The axis to annotate. One of "x" or "y".}
-
-\item{position}{The position of the axis. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.}
+\item{position}{The position of the axis line. One of "top", "bottom", "left", or "right".}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 
@@ -49,11 +46,11 @@ palmerpenguins::penguins |>
     y = body_mass_g,
   ) +
   annotate_axis_line(
-    axis = "x",
+    position = "bottom",
     arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
   ) +
-    annotate_axis_line(
-    axis = "y",
+  annotate_axis_line(
+    position = "left",
     arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
   ) +
   geom_point(

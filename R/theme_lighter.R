@@ -58,49 +58,49 @@
 #'   )
 #'
 theme_lighter <- function(
-  ...,
-  base_size = 10,
-  base_family = "",
-  base_colour = "#121B24FF",
-  base_face = "plain",
-  legend_position = "right",
-  legend_axis_line_colour = plot_background_fill,
-  legend_axis_line_linewidth = axis_line_linewidth,
-  legend_background_fill = plot_background_fill,
-  legend_key_fill = plot_background_fill,
-  legend_ticks_colour = legend_axis_line_colour,
-  legend_ticks_linewidth = legend_axis_line_linewidth,
-  legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-  axis_line_colour = "#121B24FF",
-  axis_line_linewidth = 0.25,
-  axis_ticks_colour = axis_line_colour,
-  axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length = ggplot2::rel(0.66),
-  panel_background_fill = "#FFFFFFFF",
-  plot_background_fill = "#FFFFFFFF",
-  panel_grid_colour = "#F6F8FAFF",
-  panel_grid_linewidth = 1.33,
-  panel_grid_minor_linetype = 0,
-  panel_grid_minor_linewidth = ggplot2::rel(0.5),
-  panel_heights = NULL,
-  panel_widths = NULL,
-  title_size = ggplot2::rel(1.1),
-  title_family = base_family,
-  title_colour = base_colour,
-  title_face = "bold",
-  subtitle_size = ggplot2::rel(1),
-  subtitle_family = base_family,
-  subtitle_colour = base_colour,
-  subtitle_face = "plain",
-  caption_size = ggplot2::rel(0.85),
-  caption_family = base_family,
-  caption_colour = ifelse(
-    is_panel_light(),
-    col_screen(base_colour),
-    col_multiply(base_colour)
-  ),
-  caption_face = "plain",
-  caption_hjust = 0
+    ...,
+    base_size = 10,
+    base_family = "",
+    base_colour = "#121B24FF",
+    base_face = "plain",
+    legend_position = "right",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = axis_line_linewidth,
+    legend_background_fill = plot_background_fill,
+    legend_key_fill = plot_background_fill,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
+    axis_line_colour = "#121B24FF",
+    axis_line_linewidth = 0.25,
+    axis_ticks_colour = axis_line_colour,
+    axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length = ggplot2::rel(0.66),
+    panel_background_fill = "#FFFFFFFF",
+    plot_background_fill = "#FFFFFFFF",
+    panel_grid_colour = "#F6F8FAFF",
+    panel_grid_linewidth = 1.33,
+    panel_grid_minor_linetype = 0,
+    panel_grid_minor_linewidth = ggplot2::rel(0.5),
+    panel_heights = NULL,
+    panel_widths = NULL,
+    title_size = ggplot2::rel(1.1),
+    title_family = base_family,
+    title_colour = base_colour,
+    title_face = "bold",
+    subtitle_size = ggplot2::rel(1),
+    subtitle_family = base_family,
+    subtitle_colour = base_colour,
+    subtitle_face = "plain",
+    caption_size = ggplot2::rel(0.85),
+    caption_family = base_family,
+    caption_colour = ifelse(
+      is_panel_light(),
+      col_screen(base_colour),
+      col_multiply(base_colour)
+    ),
+    caption_face = "plain",
+    caption_hjust = 0
 ) {
   # Base theme (same for all legend positions)
   theme <- ggplot2::theme(
@@ -219,6 +219,8 @@ theme_lighter <- function(
     panel.ontop = FALSE,
     panel.heights = panel_heights,
     panel.widths = panel_widths,
+    spacing = grid::unit(5.5, "pt"),
+
     strip.background = ggplot2::element_rect(fill = NA, colour = NA),
     strip.clip = "off",
     strip.text = ggplot2::element_text(
@@ -323,11 +325,15 @@ relocate_legend <- function(legend_position = "right") {
 
       # Axis settings for right legend
       axis.title.x = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.75, l = 0)
+        margin = ggplot2::margin(t = 11 * -0.33, r = 0, b = 11 * 0.5, l = 0)
       ),
       axis.title.x.top = ggplot2::element_text(
-        margin = ggplot2::margin(t = 11 * -1, r = 0, b = 11 * 1, l = 0)
+        margin = ggplot2::margin(t = 11 * 0, r = 0, b = 11 * 0.75, l = 0)
       ),
+      # axis.title.x.top = ggplot2::element_text(
+      #   margin = ggplot2::margin(t = 11 * -1, r = 0, b = 11 * 1, l = 0)
+      # ),
+
       axis.title.y = ggplot2::element_text(
         margin = ggplot2::margin(t = 0, r = 11 * 1, b = 0, l = 0),
         angle = 90
@@ -338,12 +344,20 @@ relocate_legend <- function(legend_position = "right") {
       ),
       axis.text.x = ggplot2::element_text(
         vjust = 1,
-        margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
+        margin = ggplot2::margin(t = 11 * 0.5, r = 0, b = 11 * 1, l = 0)
       ),
+      # axis.text.x = ggplot2::element_text(
+      #   vjust = 1,
+      #   margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
+      # ),
       axis.text.x.top = ggplot2::element_text(
         vjust = 0,
-        margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
+        margin = ggplot2::margin(t = 11 * 0, r = 0, b = 11 * 0.5, l = 0)
       )
+      # axis.text.x.top = ggplot2::element_text(
+      #   vjust = 0,
+      #   margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
+      # )
     )
   } else if (legend_position == "top") {
     ggplot2::theme(
@@ -387,11 +401,11 @@ relocate_legend <- function(legend_position = "right") {
         angle = -90
       ),
       axis.text.x = ggplot2::element_text(
-        vjust = 1,
+        vjust = 0.5,
         margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
       ),
       axis.text.x.top = ggplot2::element_text(
-        vjust = 0,
+        vjust = 0.5,
         margin = ggplot2::margin(t = 0, r = 0, b = 11 * 0.3, l = 0)
       )
     )

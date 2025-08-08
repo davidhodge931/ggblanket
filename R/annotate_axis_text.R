@@ -5,16 +5,16 @@
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param ... Require named arguments (and support trailing commas).
-#' @param axis The axis to annotate. One of "x" or "y".
-#' @param breaks A vector of axis breaks for text positioning.
-#' @param position The position of the axis text. For x-axis: "bottom" or "top". For y-axis: "left" or "right". Defaults to "bottom" for x-axis and "left" for y-axis.
+#' @param position The position of the axis text. One of "top", "bottom", "left", or "right".
+#' @param x A vector of x-axis breaks for text positioning. Cannot be used together with y.
+#' @param y A vector of y-axis breaks for text positioning. Cannot be used together with x.
 #' @param labels A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the breaks as labels.
 #' @param colour The colour of the text. Inherits from the current theme axis.text etc.
 #' @param size The size of the text. Inherits from the current theme axis.text etc.
 #' @param family The font family of the text. Inherits from the current theme axis.text etc.
-#' @param length The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus 3pt offset.
-#' @param margin The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components. Defaults to unit(2, "pt").
-#' @param fill The fill colour of the background rectangle. If NULL, intelligently derived from theme (panel background for light themes, text colour for dark themes).
+#' @param length The total distance from the axis line to the text as a grid unit. Defaults to the sum of tick length plus margin.
+#' @param margin The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components.
+#' @param fill The fill colour of the background rectangle. If NULL, defaults to "transparent".
 #' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
 #' @param angle Text rotation angle. Defaults to 0.
 #' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
@@ -22,79 +22,11 @@
 #' @return A list of annotation layers and theme elements.
 #' @export
 #'
-#' @examples
-#' library(ggplot2)
-#'
-#' set_blanket(
-#'   theme = theme_lighter(
-#'     panel_heights = rep(unit(50, "mm"), 100),
-#'     panel_widths = rep(unit(75, "mm"), 100),
-#'   ),
-#' )
-#'
-#' p <- palmerpenguins::penguins |>
-#'   gg_blanket(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     x_title = "Flipper length",
-#'     y_title = "Body mass",
-#'   )
-#'
-#' y_breaks <- seq(2500, 6500, 500)
-#'
-#' key <- 4873
-#'
-#' p +
-#'   geom_hline(yintercept = key) +
-#'   annotate_axis_text(
-#'     axis = "y",
-#'     breaks = key,
-#'     position = "right",
-#'     labels = scales::comma(key),
-#'   ) +
-#'   geom_point(
-#'     colour = col_multiply(get_geom_defaults("point")$colour),
-#'   )
-#'
-#' p +
-#'   annotate_axis_text(
-#'     axis = "y",
-#'     breaks = 6500,
-#'     labels = "kg",
-#'     hjust = 0,
-#'     length = unit(0, "pt"),
-#'     theme_element = "keep",
-#'   ) +
-#'   annotate_axis_text(
-#'     axis = "x",
-#'     breaks = I(1),
-#'     labels = "mm",
-#'     hjust = 0,
-#'     margin = unit(1, "pt"),
-#'     theme_element = "keep",
-#'   ) +
-#'   geom_point(
-#'     colour = col_multiply(get_geom_defaults("point")$colour),
-#'   )
-#'
-#' p +
-#'   annotate_axis_text(
-#'     axis = "y",
-#'     breaks = y_breaks[-length(y_breaks)],
-#'     hjust = 0,
-#'     vjust = -0.4,
-#'     length = unit(0, "pt"),
-#'     theme_element = "blank",
-#'   ) +
-#'   geom_point(
-#'     colour = col_multiply(get_geom_defaults("point")$colour),
-#'   )
-#'
 annotate_axis_text <- function(
     ...,
-    axis,
-    breaks,
-    position = NULL,
+    position,
+    x = NULL,
+    y = NULL,
     labels = NULL,
     colour = NULL,
     size = NULL,
@@ -107,28 +39,35 @@ annotate_axis_text <- function(
     angle = 0,
     theme_element = "transparent"
 ) {
-  # Validate axis argument
-  if (!axis %in% c("x", "y")) {
-    rlang::abort("axis must be one of 'x' or 'y'")
+  # Validate arguments
+  if (!position %in% c("top", "bottom", "left", "right")) {
+    rlang::abort("position must be one of 'top', 'bottom', 'left', or 'right'")
   }
 
-  # Set default position based on axis
-  if (rlang::is_null(position)) {
-    position <- if (axis == "x") "bottom" else "left"
+  if (is.null(x) && is.null(y)) {
+    rlang::abort("Either x or y must be specified")
   }
 
-  # Validate position for each axis
-  if (axis == "x" && !position %in% c("bottom", "top")) {
-    rlang::abort("For x-axis, position must be one of 'bottom' or 'top'")
-  }
-  if (axis == "y" && !position %in% c("left", "right")) {
-    rlang::abort("For y-axis, position must be one of 'left' or 'right'")
+  if (!is.null(x) && !is.null(y)) {
+    rlang::abort("Only one of x or y can be specified")
   }
 
   if (!theme_element %in% c("transparent", "keep", "blank")) {
     rlang::abort(
       "theme_element must be one of 'transparent', 'keep', or 'blank'"
     )
+  }
+
+  # Determine axis from position and validate consistency with x/y
+  axis <- if (position %in% c("top", "bottom")) "x" else "y"
+  breaks <- if (!is.null(x)) x else y
+
+  # Validate that axis matches the provided breaks
+  if (axis == "x" && is.null(x)) {
+    rlang::abort("For top/bottom positions, x breaks must be specified")
+  }
+  if (axis == "y" && is.null(y)) {
+    rlang::abort("For left/right positions, y breaks must be specified")
   }
 
   # Process labels - support both vectors and functions
@@ -189,9 +128,75 @@ annotate_axis_text <- function(
     }
   }
 
-  # Set default margin for background rectangle
+  # Build hierarchy for axis text from most specific to least specific
+  text_specific <- paste0("axis.text.", axis, ".", position)
+  text_axis <- paste0("axis.text.", axis)
+  text_general <- "axis.text"
+
+  # Use calc_element to properly resolve text properties with inheritance
+  resolved_text_element <- NULL
+  for (element_name in c(text_specific, text_axis, text_general)) {
+    element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
+    if (!is.null(element) && !inherits(element, "element_blank")) {
+      resolved_text_element <- element
+      break
+    }
+  }
+
+  # If still no element found, create a minimal fallback
+  if (is.null(resolved_text_element)) {
+    resolved_text_element <- list(colour = "black", size = 11, family = "")
+  }
+
+  # Extract theme margin for the specific position using calc_element
   if (rlang::is_null(margin)) {
-    margin <- grid::unit(2, "pt")
+    # Build hierarchy for margin resolution
+    margin_specific <- paste0("axis.text.", axis, ".", position)
+    margin_axis <- paste0("axis.text.", axis)
+    margin_general <- "axis.text"
+
+    # Use calc_element to properly resolve margin with inheritance
+    resolved_margin <- NULL
+    for (element_name in c(margin_specific, margin_axis, margin_general)) {
+      element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
+      if (!is.null(element) && !inherits(element, "element_blank") && !is.null(element$margin)) {
+        resolved_margin <- element$margin
+        break
+      }
+    }
+
+    # Extract the relevant margin side based on position
+    if (!is.null(resolved_margin)) {
+      if (position == "bottom") {
+        margin <- resolved_margin[1]  # top margin (distance from axis line)
+      } else if (position == "top") {
+        margin <- resolved_margin[3]  # bottom margin (distance from axis line)
+      } else if (position == "left") {
+        margin <- resolved_margin[4]  # right margin (distance from axis line)
+      } else { # right
+        margin <- resolved_margin[2]  # left margin (distance from axis line)
+      }
+    } else {
+      # No margin found in current theme, use theme_grey() fallbacks
+      if (position == "bottom") {
+        fallback_element <- ggplot2::calc_element("axis.text.x.bottom", ggplot2::theme_grey())
+        margin <- fallback_element$margin[1]  # 2.2points
+      } else if (position == "top") {
+        fallback_element <- ggplot2::calc_element("axis.text.x.top", ggplot2::theme_grey())
+        margin <- fallback_element$margin[3]  # 2.2points
+      } else if (position == "left") {
+        fallback_element <- ggplot2::calc_element("axis.text.y.left", ggplot2::theme_grey())
+        margin <- fallback_element$margin[4]  # 0points
+      } else { # right
+        fallback_element <- ggplot2::calc_element("axis.text.y.right", ggplot2::theme_grey())
+        margin <- fallback_element$margin[2]  # 0points
+      }
+    }
+
+    # Final fallback if somehow still no margin
+    if (is.null(margin) || !inherits(margin, "unit")) {
+      margin <- grid::unit(2, "pt")
+    }
   }
 
   # Handle margin - can be single value or margin object
@@ -211,76 +216,6 @@ annotate_axis_text <- function(
     fill <- "transparent"
   }
 
-  # Build hierarchy for axis text from most specific to least specific
-  text_specific <- paste0("axis.text.", axis, ".", position)
-  text_axis <- paste0("axis.text.", axis)
-  text_general <- "axis.text"
-
-  text_hierarchy <- c(text_specific, text_axis, text_general)
-
-  # Find the first non-blank resolved text element
-  resolved_text_element <- text_hierarchy |>
-    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
-    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
-
-  # If still no element found, create a minimal fallback
-  if (is.null(resolved_text_element)) {
-    resolved_text_element <- list(colour = "black", size = 11, family = "")
-  }
-
-  # Build hierarchy for axis ticks length from most specific to least specific
-  length_specific <- paste0("axis.ticks.length.", axis, ".", position)
-  length_axis <- paste0("axis.ticks.length.", axis)
-  length_general <- "axis.ticks.length"
-
-  length_hierarchy <- c(length_specific, length_axis, length_general)
-
-  # Find the first non-blank resolved length element
-  resolved_length_element <- length_hierarchy |>
-    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
-    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
-
-  # Calculate default length with proper rel() handling
-  if (rlang::is_null(length)) {
-    # Get resolved tick length
-    tick_length <- resolved_length_element %||% grid::unit(11 / 3, "pt")
-
-    # Handle rel() objects for tick length
-    if (inherits(tick_length, "rel")) {
-      # Convert rel() to absolute unit - use default base of 11/3 pt
-      tick_length <- grid::unit(as.numeric(tick_length) * 11 / 3, "pt")
-    } else if (!inherits(tick_length, "unit")) {
-      # Ensure it's a proper unit object
-      tick_length <- grid::unit(11 / 3, "pt")
-    }
-
-    length <- tick_length + grid::unit(3, "pt")
-  } else {
-    # Handle user-provided length
-    if (inherits(length, "rel")) {
-      # Get the resolved theme tick length as base
-      theme_tick_length <- resolved_length_element %||% grid::unit(11 / 3, "pt")
-
-      # Convert theme length to numeric points for rel() calculation
-      if (inherits(theme_tick_length, "rel")) {
-        # If theme length is also rel(), use default base
-        base_length_pts <- 11 / 3
-      } else if (inherits(theme_tick_length, "unit")) {
-        # Convert unit to points
-        base_length_pts <- as.numeric(grid::convertUnit(theme_tick_length, "pt"))
-      } else {
-        base_length_pts <- 11 / 3
-      }
-
-      # Apply user's rel() to the base length, then add 3pt offset
-      length <- grid::unit(as.numeric(length) * base_length_pts, "pt") + grid::unit(3, "pt")
-    } else if (!inherits(length, "unit")) {
-      # Convert numeric to unit
-      length <- grid::unit(length, "pt")
-    }
-    # If already a unit, use as-is
-  }
-
   # Extract text properties with proper resolution
   text_colour <- if (rlang::is_null(colour)) {
     resolved_text_element$colour %||% "black"
@@ -291,11 +226,22 @@ annotate_axis_text <- function(
   # Handle size with proper rel() support
   if (rlang::is_null(size)) {
     text_size <- resolved_text_element$size %||% 11
+    # Handle case where theme size might be rel()
+    if (inherits(text_size, "rel")) {
+      base_size <- current_theme$text$size %||% 11
+      text_size <- as.numeric(text_size) * base_size
+    }
   } else {
     if (inherits(size, "rel")) {
       # Apply user's rel() to the resolved theme size
-      base_size <- resolved_text_element$size %||% 11
-      text_size <- as.numeric(size) * base_size
+      theme_size <- resolved_text_element$size %||% 11
+      if (inherits(theme_size, "rel")) {
+        base_size <- current_theme$text$size %||% 11
+        theme_abs_size <- as.numeric(theme_size) * base_size
+      } else {
+        theme_abs_size <- theme_size
+      }
+      text_size <- as.numeric(size) * theme_abs_size
     } else {
       text_size <- size
     }
@@ -307,8 +253,107 @@ annotate_axis_text <- function(
     family
   }
 
-  # Set text justification based on axis and position
-  if (axis == "x") {
+  # Build hierarchy for axis ticks length from most specific to least specific
+  length_specific <- paste0("axis.ticks.length.", axis, ".", position)
+  length_axis <- paste0("axis.ticks.length.", axis)
+  length_general <- "axis.ticks.length"
+
+  # Use calc_element to properly resolve length with inheritance
+  resolved_length_element <- NULL
+  for (element_name in c(length_specific, length_axis, length_general)) {
+    element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
+    if (!is.null(element) && !inherits(element, "element_blank")) {
+      resolved_length_element <- element
+      break
+    }
+  }
+
+  # Calculate default length with proper rel() handling
+  if (rlang::is_null(length)) {
+    # Get resolved tick length
+    tick_length <- resolved_length_element
+
+    if (is.null(tick_length)) {
+      # Fallback: use default rel(0.66) equivalent
+      base_size <- current_theme$text$size %||% 11
+      tick_length <- grid::unit(0.66 * base_size, "pt")
+    } else if (inherits(tick_length, "rel")) {
+      # calc_element returned a rel() object - convert it
+      base_size <- current_theme$text$size %||% 11
+      tick_length <- grid::unit(as.numeric(tick_length) * base_size, "pt")
+    } else if (!inherits(tick_length, "unit")) {
+      # If not a unit or rel, convert assuming points
+      if (is.numeric(tick_length)) {
+        tick_length <- grid::unit(tick_length, "pt")
+      } else {
+        # Ultimate fallback
+        base_size <- current_theme$text$size %||% 11
+        tick_length <- grid::unit(0.66 * base_size, "pt")
+      }
+    }
+    # If tick_length is already a proper unit, use as-is
+
+    length <- tick_length + grid::unit(3, "pt")
+  } else {
+    # Handle user-provided length
+    if (inherits(length, "rel")) {
+      # Get the base length for rel() calculation - look at raw theme element
+      base_length_for_rel <- NULL
+
+      for (element_name in c(length_specific, length_axis, length_general)) {
+        raw_element <- current_theme[[element_name]]
+        if (!is.null(raw_element) && !inherits(raw_element, "element_blank")) {
+          base_length_for_rel <- raw_element
+          break
+        }
+      }
+
+      if (!is.null(base_length_for_rel)) {
+        if (inherits(base_length_for_rel, "rel")) {
+          # Theme is also rel() - apply user's rel to the theme's rel
+          base_size <- current_theme$text$size %||% 11
+          theme_abs_length <- as.numeric(base_length_for_rel) * base_size
+          user_length <- grid::unit(as.numeric(length) * theme_abs_length, "pt")
+        } else if (inherits(base_length_for_rel, "unit")) {
+          # Theme is absolute unit - apply user's rel to that
+          theme_abs_length <- as.numeric(grid::convertUnit(base_length_for_rel, "pt"))
+          user_length <- grid::unit(as.numeric(length) * theme_abs_length, "pt")
+        } else if (is.numeric(base_length_for_rel)) {
+          # Theme is numeric - assume points
+          user_length <- grid::unit(as.numeric(length) * base_length_for_rel, "pt")
+        } else {
+          # Fallback to default base
+          base_size <- current_theme$text$size %||% 11
+          default_length <- 0.66 * base_size
+          user_length <- grid::unit(as.numeric(length) * default_length, "pt")
+        }
+      } else {
+        # No theme element found - use default rel(0.66) as base
+        base_size <- current_theme$text$size %||% 11
+        default_length <- 0.66 * base_size
+        user_length <- grid::unit(as.numeric(length) * default_length, "pt")
+      }
+
+      length <- user_length + grid::unit(3, "pt")
+    } else if (inherits(length, "unit")) {
+      # If already a unit, use as-is
+      length <- length
+    } else if (is.numeric(length)) {
+      # Convert numeric to unit
+      length <- grid::unit(length, "pt")
+    } else {
+      # Fallback
+      base_size <- current_theme$text$size %||% 11
+      length <- grid::unit(0.66 * base_size, "pt") + grid::unit(3, "pt")
+    }
+  }
+
+  #added this in. Don't know why it works
+  length <- length + grid::unit(2.2, "pt")
+
+  # Set text justification based on position
+  if (position %in% c("top", "bottom")) {
+    # x-axis text
     text_hjust <- if (rlang::is_null(hjust)) 0.5 else hjust # center horizontally
     text_vjust <- if (rlang::is_null(vjust)) {
       if (position == "bottom") 1 else 0 # top-align for bottom, bottom-align for top
@@ -316,6 +361,7 @@ annotate_axis_text <- function(
       vjust
     }
   } else {
+    # y-axis text
     text_hjust <- if (rlang::is_null(hjust)) {
       if (position == "left") 1 else 0 # right-align for left, left-align for right
     } else {
@@ -344,7 +390,8 @@ annotate_axis_text <- function(
 
   # Create text annotations for each break/label pair
   for (i in seq_along(breaks)) {
-    if (axis == "x") {
+    if (position %in% c("top", "bottom")) {
+      # x-axis text
       # Calculate text dimensions using a temporary text grob
       temp_text_grob <- grid::textGrob(
         label = labels[i],
@@ -364,8 +411,8 @@ annotate_axis_text <- function(
         } else {
           grid::unit(1, "npc") + length
         },
-        width = text_width + margin_left + margin_right, # Add left and right margins
-        height = text_height + margin_top + margin_bottom, # Add top and bottom margins
+        width = text_width + margin_left + margin_right,
+        height = text_height + margin_top + margin_bottom,
         hjust = text_hjust,
         vjust = text_vjust,
         gp = grid::gpar(
@@ -400,6 +447,7 @@ annotate_axis_text <- function(
         list(xmin = breaks[i], xmax = breaks[i], ymin = Inf, ymax = Inf)
       }
     } else {
+      # y-axis text
       # Calculate text dimensions using a temporary text grob
       temp_text_grob <- grid::textGrob(
         label = labels[i],
@@ -419,8 +467,8 @@ annotate_axis_text <- function(
           grid::unit(1, "npc") + length
         },
         y = grid::unit(0.5, "npc"),
-        width = text_width + margin_left + margin_right, # Add left and right margins
-        height = text_height + margin_top + margin_bottom, # Add top and bottom margins
+        width = text_width + margin_left + margin_right,
+        height = text_height + margin_top + margin_bottom,
         hjust = text_hjust,
         vjust = text_vjust,
         gp = grid::gpar(
