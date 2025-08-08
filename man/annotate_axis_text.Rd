@@ -31,7 +31,7 @@ annotate_axis_text(
 
 \item{y}{A vector of y-axis breaks for text positioning. Cannot be used together with x.}
 
-\item{labels}{A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the breaks as labels.}
+\item{labels}{A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the \code{scales::comma} on the breaks as labels.}
 
 \item{colour}{The colour of the text. Inherits from the current theme axis.text etc.}
 

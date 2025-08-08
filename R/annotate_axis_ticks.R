@@ -245,85 +245,81 @@ annotate_axis_ticks <- function(
   }
 
   # Create tick annotations
-  for (i in seq_along(breaks)) {
-    break_val <- breaks[i]
-
-    tick_grob <- if (position == "bottom") {
-      grid::segmentsGrob(
-        x0 = grid::unit(0.5, "npc"),
-        x1 = grid::unit(0.5, "npc"),
-        y0 = grid::unit(0, "npc"),
-        y1 = grid::unit(0, "npc") - tick_length,
-        gp = grid::gpar(
-          col = tick_colour,
-          lwd = tick_linewidth * 72 / 25.4,
-          lineend = "butt"
+  tick_annotations <- breaks |>
+    purrr::imap(\(break_val, i) {
+      tick_grob <- if (position == "bottom") {
+        grid::segmentsGrob(
+          x0 = grid::unit(0.5, "npc"),
+          x1 = grid::unit(0.5, "npc"),
+          y0 = grid::unit(0, "npc"),
+          y1 = grid::unit(0, "npc") - tick_length,
+          gp = grid::gpar(
+            col = tick_colour,
+            lwd = tick_linewidth * 72 / 25.4,
+            lineend = "butt"
+          )
         )
-      )
-    } else if (position == "top") {
-      grid::segmentsGrob(
-        x0 = grid::unit(0.5, "npc"),
-        x1 = grid::unit(0.5, "npc"),
-        y0 = grid::unit(1, "npc"),
-        y1 = grid::unit(1, "npc") + tick_length,
-        gp = grid::gpar(
-          col = tick_colour,
-          lwd = tick_linewidth * 72 / 25.4,
-          lineend = "butt"
+      } else if (position == "top") {
+        grid::segmentsGrob(
+          x0 = grid::unit(0.5, "npc"),
+          x1 = grid::unit(0.5, "npc"),
+          y0 = grid::unit(1, "npc"),
+          y1 = grid::unit(1, "npc") + tick_length,
+          gp = grid::gpar(
+            col = tick_colour,
+            lwd = tick_linewidth * 72 / 25.4,
+            lineend = "butt"
+          )
         )
-      )
-    } else if (position == "left") {
-      grid::segmentsGrob(
-        x0 = grid::unit(0, "npc"),
-        x1 = grid::unit(0, "npc") - tick_length,
-        y0 = grid::unit(0.5, "npc"),
-        y1 = grid::unit(0.5, "npc"),
-        gp = grid::gpar(
-          col = tick_colour,
-          lwd = tick_linewidth * 72 / 25.4,
-          lineend = "butt"
+      } else if (position == "left") {
+        grid::segmentsGrob(
+          x0 = grid::unit(0, "npc"),
+          x1 = grid::unit(0, "npc") - tick_length,
+          y0 = grid::unit(0.5, "npc"),
+          y1 = grid::unit(0.5, "npc"),
+          gp = grid::gpar(
+            col = tick_colour,
+            lwd = tick_linewidth * 72 / 25.4,
+            lineend = "butt"
+          )
         )
-      )
-    } else {  # right
-      grid::segmentsGrob(
-        x0 = grid::unit(1, "npc"),
-        x1 = grid::unit(1, "npc") + tick_length,
-        y0 = grid::unit(0.5, "npc"),
-        y1 = grid::unit(0.5, "npc"),
-        gp = grid::gpar(
-          col = tick_colour,
-          lwd = tick_linewidth * 72 / 25.4,
-          lineend = "butt"
-        )
-      )
-    }
-
-    # Set annotation position based on axis and position
-    if (axis == "x") {
-      annotation_position <- if (position == "bottom") {
-        list(xmin = break_val, xmax = break_val, ymin = -Inf, ymax = -Inf)
-      } else {  # top
-        list(xmin = break_val, xmax = break_val, ymin = Inf, ymax = Inf)
-      }
-    } else {  # y axis
-      annotation_position <- if (position == "left") {
-        list(xmin = -Inf, xmax = -Inf, ymin = break_val, ymax = break_val)
       } else {  # right
-        list(xmin = Inf, xmax = Inf, ymin = break_val, ymax = break_val)
-      }
-    }
-
-    stamp <- c(
-      stamp,
-      list(
-        rlang::exec(
-          ggplot2::annotation_custom,
-          grob = tick_grob,
-          !!!annotation_position
+        grid::segmentsGrob(
+          x0 = grid::unit(1, "npc"),
+          x1 = grid::unit(1, "npc") + tick_length,
+          y0 = grid::unit(0.5, "npc"),
+          y1 = grid::unit(0.5, "npc"),
+          gp = grid::gpar(
+            col = tick_colour,
+            lwd = tick_linewidth * 72 / 25.4,
+            lineend = "butt"
+          )
         )
+      }
+
+      # Set annotation position based on axis and position
+      if (axis == "x") {
+        annotation_position <- if (position == "bottom") {
+          list(xmin = break_val, xmax = break_val, ymin = -Inf, ymax = -Inf)
+        } else {  # top
+          list(xmin = break_val, xmax = break_val, ymin = Inf, ymax = Inf)
+        }
+      } else {  # y axis
+        annotation_position <- if (position == "left") {
+          list(xmin = -Inf, xmax = -Inf, ymin = break_val, ymax = break_val)
+        } else {  # right
+          list(xmin = Inf, xmax = Inf, ymin = break_val, ymax = break_val)
+        }
+      }
+
+      rlang::exec(
+        ggplot2::annotation_custom,
+        grob = tick_grob,
+        !!!annotation_position
       )
-    )
-  }
+    })
+
+  stamp <- c(stamp, tick_annotations)
 
   return(stamp)
 }

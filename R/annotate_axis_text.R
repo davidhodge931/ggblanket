@@ -8,7 +8,7 @@
 #' @param position The position of the axis text. One of "top", "bottom", "left", or "right".
 #' @param x A vector of x-axis breaks for text positioning. Cannot be used together with y.
 #' @param y A vector of y-axis breaks for text positioning. Cannot be used together with x.
-#' @param labels A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the breaks as labels.
+#' @param labels A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the `scales::comma` on the breaks as labels.
 #' @param colour The colour of the text. Inherits from the current theme axis.text etc.
 #' @param size The size of the text. Inherits from the current theme axis.text etc.
 #' @param family The font family of the text. Inherits from the current theme axis.text etc.
@@ -112,7 +112,6 @@ annotate_axis_text <- function(
   # Process labels
   if (is.null(labels)) {
     labels <- scales::comma(breaks)
-    # labels <- as.character(breaks)
   } else if (is.function(labels)) {
     labels <- labels(breaks)
   }
