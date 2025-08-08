@@ -100,7 +100,7 @@ annotate_axis_ticks <- function(
 
   # Extract theme properties with proper resolution
   tick_colour <- if (rlang::is_null(colour)) {
-    resolved_tick_element$colour %||% "#121B24FF"
+    resolved_tick_element$colour %||% "black"
   } else {
     colour
   }

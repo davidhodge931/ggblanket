@@ -82,7 +82,7 @@ annotate_axis_line <- function(
 
   # Extract theme properties with proper resolution
   line_colour <- if (rlang::is_null(colour)) {
-    resolved_element$colour %||% "#121B24FF"
+    resolved_element$colour %||% "black"
   } else {
     colour
   }

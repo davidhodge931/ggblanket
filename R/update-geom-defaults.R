@@ -280,63 +280,56 @@ update_geom_stroke <- function(
 #'
 #' @noRd
 update_geom_font <- function(
-  ...,
-  colour = NULL,
-  fill = NULL,
-  size = NULL,
-  family = NULL
+    ...,
+    colour = NULL,
+    fill = NULL,
+    size = NULL,
+    family = NULL
 ) {
-  # Get current theme for font defaults
-  current_theme <- ggplot2::get_theme()
+  # Get current theme
+  current_theme <- ggplot2::theme_get()
 
+  # Try to resolve from most specific axis text elements first
+  # Check axis.text.x.bottom, axis.text.x.top, axis.text.y.left, axis.text.y.right
+  axis_text_elements <- c(
+    "axis.text.x.bottom",
+    "axis.text.x.top",
+    "axis.text.y.left",
+    "axis.text.y.right"
+  )
+
+  # Find the first non-blank resolved element
+  resolved_element <- axis_text_elements |>
+    purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
+    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+
+  # If no specific axis text element found, fall back to general text
+  if (is.null(resolved_element)) {
+    resolved_element <- ggplot2::calc_element("text", current_theme)
+  }
+
+  # Handle size
   if (rlang::is_null(size)) {
-    # Get the raw size value from theme hierarchy
-    raw_size <- current_theme$axis.text.x$size %||%
-      current_theme$axis.text.y$size %||%
-      current_theme$axis.text$size %||%
-      current_theme$text$size
-    # If we found a theme size, handle rel() objects
-    if (!rlang::is_null(raw_size)) {
-      if (inherits(raw_size, "rel")) {
-        base_size <- current_theme$text$size
-        # If base_size is also rel() or NULL, use default
-        if (rlang::is_null(base_size) || inherits(base_size, "rel")) {
-          base_size <- 11
-        }
-        size <- as.numeric(raw_size) * base_size
-      } else {
-        size <- raw_size
-      }
-    } else {
-      # Only use the conversion factor for the final fallback
-      size <- 11
-    }
-    # Theme sizes are already in the correct units for fontsize
-    # No conversion needed
+    # Get resolved size from theme
+    size <- resolved_element$size %||% 11
+    # Size from theme is already in correct units for fontsize
   } else {
     # If size is provided by user in mm, convert to fontsize scale
     # fontsize expects points, so convert mm to points
     size <- as.numeric(size) / 0.352777778
   }
 
-  colour <- colour %||%
-    current_theme$axis.text.x$colour %||%
-    current_theme$axis.text.y$colour %||%
-    current_theme$axis.text$colour %||%
-    current_theme$text$colour %||%
-    "black"
+  # Handle colour
+  colour <- colour %||% resolved_element$colour %||% "black"
 
-  fill <- fill %||%
-    current_theme$panel.background$fill %||%
-    "white"
-
-  if (rlang::is_null(family)) {
-    family <- current_theme$axis.text.x$family %||%
-      current_theme$axis.text.y$family %||%
-      current_theme$axis.text$family %||%
-      current_theme$text$family %||%
-      ""
+  # Handle fill - use panel.background for fill default
+  if (rlang::is_null(fill)) {
+    resolved_panel <- ggplot2::calc_element("panel.background", current_theme)
+    fill <- resolved_panel$fill %||% "white"
   }
+
+  # Handle family
+  family <- family %||% resolved_element$family %||% ""
 
   ggplot2::update_theme(
     geom.text = ggplot2::element_geom(
