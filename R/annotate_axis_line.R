@@ -1,6 +1,10 @@
-#' Annotated axis line segment
+#' Annotate axis line segment
 #'
-#' @description Replace axis line with an annotated segment.
+#' @description Create an axis line with an annotated segment.
+#'
+#' This function is designed to work with a theme that is globally set, so that the annotated line can be made consistent by default.
+#'
+#' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("segment", ....)`. Require named arguments (and support trailing commas).
 #' @param position The position of the axis line. One of "top", "bottom", "left", or "right".

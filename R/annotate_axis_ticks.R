@@ -1,7 +1,11 @@
-#' Annotated axis ticks segments
+#' Annotate axis tick segments
 #'
-#' @description Replace axis ticks with annotated segments using absolute measurements.
-#' This function only works when panel dimensions are set via panel.widths and panel.heights.
+#' @description Create axis ticks with annotated segments.
+#'
+#' This function is designed to work with a theme that is globally set, so that the annotated tick segments can be made consistent by default.
+#'
+#' It only works when panel dimensions are set are set in the theme.
+#'
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param ... Require named arguments (and support trailing commas).

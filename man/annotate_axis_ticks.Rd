@@ -2,7 +2,7 @@
 % Please edit documentation in R/annotate_axis_ticks.R
 \name{annotate_axis_ticks}
 \alias{annotate_axis_ticks}
-\title{Annotated axis ticks segments}
+\title{Annotate axis tick segments}
 \usage{
 annotate_axis_ticks(
   ...,
@@ -36,7 +36,11 @@ annotate_axis_ticks(
 A list of a annotate layer and theme elements.
 }
 \description{
-Replace axis ticks with annotated segments using absolute measurements.
-This function only works when panel dimensions are set via panel.widths and panel.heights.
+Create axis ticks with annotated segments.
+
+This function is designed to work with a theme that is globally set, so that the annotated tick segments can be made consistent by default.
+
+It only works when panel dimensions are set are set in the theme.
+
 It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }

@@ -2,14 +2,14 @@
 % Please edit documentation in R/annotate_axis_text.R
 \name{annotate_axis_text}
 \alias{annotate_axis_text}
-\title{Annotated axis text labels}
+\title{Annotate axis text segments}
 \usage{
 annotate_axis_text(
   ...,
   position,
   x = NULL,
   y = NULL,
-  labels = NULL,
+  label = NULL,
   colour = NULL,
   size = NULL,
   family = NULL,
@@ -31,7 +31,7 @@ annotate_axis_text(
 
 \item{y}{A vector of y-axis breaks for text positioning. Cannot be used together with x.}
 
-\item{labels}{A vector of text labels or a function that takes breaks and returns labels. If NULL, uses the \code{scales::comma} on the breaks as labels.}
+\item{label}{A vector of text label or a function that takes breaks and returns label. If NULL, uses the \code{scales::comma} on the breaks as label.}
 
 \item{colour}{The colour of the text. Inherits from the current theme axis.text etc.}
 
@@ -55,7 +55,11 @@ annotate_axis_text(
 A list of annotation layers and theme elements.
 }
 \description{
-Add text labels positioned relative to axis tick marks using absolute measurements.
-This function only works when panel dimensions are set via panel.widths and panel.heights.
+Create axis text with annotated segments.
+
+This function is designed to work with a theme that is globally set, so that the annotated text can be made consistent by default.
+
+It only works when panel dimensions are set are set in the theme.
+
 It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }

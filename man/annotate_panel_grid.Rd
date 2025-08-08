@@ -2,7 +2,7 @@
 % Please edit documentation in R/annotate_panel_grid.R
 \name{annotate_panel_grid}
 \alias{annotate_panel_grid}
-\title{Annotated panel grid lines}
+\title{Annotate panel grid segments}
 \usage{
 annotate_panel_grid(
   ...,
@@ -33,8 +33,9 @@ annotate_panel_grid(
 A list of annotate layers and theme elements.
 }
 \description{
-Replace panel grid lines with annotated segments.
-It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
+Create the panel grid with annotated segments.
+
+This function is designed to work with a theme that is globally set, so that the annotated panel grid segments can be made consistent by default.
 }
 \examples{
 library(ggplot2)

@@ -1,7 +1,11 @@
-#' Annotated axis text label
+#' Annotate axis text segments
 #'
-#' @description Add text label positioned relative to axis tick marks using absolute measurements.
-#' This function only works when panel dimensions are set via panel.widths and panel.heights.
+#' @description Create axis text with annotated segments.
+#'
+#' This function is designed to work with a theme that is globally set, so that the annotated text can be made consistent by default.
+#'
+#' It only works when panel dimensions are set are set in the theme.
+#'
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param ... Require named arguments (and support trailing commas).

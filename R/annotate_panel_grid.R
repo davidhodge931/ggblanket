@@ -1,7 +1,8 @@
-#' Annotated panel grid lines
+#' Annotate panel grid segments
 #'
-#' @description Replace panel grid lines with annotated segments.
-#' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
+#' @description Create the panel grid with annotated segments.
+#'
+#' This function is designed to work with a theme that is globally set, so that the annotated panel grid segments can be made consistent by default.
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param axis The axis to annotate. One of "x" or "y".

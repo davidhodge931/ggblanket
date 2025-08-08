@@ -2,7 +2,7 @@
 % Please edit documentation in R/annotate_axis_line.R
 \name{annotate_axis_line}
 \alias{annotate_axis_line}
-\title{Annotated axis line segment}
+\title{Annotate axis line segment}
 \usage{
 annotate_axis_line(
   ...,
@@ -27,7 +27,11 @@ annotate_axis_line(
 A list of a annotate layer and theme elements.
 }
 \description{
-Replace axis line with an annotated segment.
+Create an axis line with an annotated segment.
+
+This function is designed to work with a theme that is globally set, so that the annotated line can be made consistent by default.
+
+It should be used with a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }
 \examples{
 library(ggplot2)
