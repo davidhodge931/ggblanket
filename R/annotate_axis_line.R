@@ -78,12 +78,12 @@ annotate_axis_line <- function(
 
   # If still no element found, create a minimal fallback
   if (is.null(resolved_element)) {
-    resolved_element <- list(colour = "#121B24FF", linewidth = 0.5)
+    resolved_element <- list(colour = "black", linewidth = 0.5)
   }
 
   # Extract theme properties with proper resolution
   line_colour <- if (rlang::is_null(colour)) {
-    resolved_element$colour %||% "#121B24FF"
+    resolved_element$colour %||% "black"
   } else {
     colour
   }

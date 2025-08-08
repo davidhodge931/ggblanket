@@ -111,7 +111,8 @@ annotate_axis_text <- function(
 
   # Process labels
   if (is.null(labels)) {
-    labels <- as.character(breaks)
+    labels <- scales::comma(breaks)
+    # labels <- as.character(breaks)
   } else if (is.function(labels)) {
     labels <- labels(breaks)
   }
