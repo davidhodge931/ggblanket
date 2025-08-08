@@ -104,6 +104,11 @@ annotate_axis_text <- function(
   # Get breaks
   breaks <- if (!is.null(x)) x else y
 
+  # Check for empty breaks
+  if (length(breaks) == 0) {
+    return(list())
+  }
+
   # Process labels
   if (is.null(labels)) {
     labels <- as.character(breaks)
@@ -240,24 +245,26 @@ annotate_axis_text <- function(
     rect_margin <- grid::unit(c(0, 0, 0, 0), "pt")
   }
 
-  # Set default hjust and vjust based on position
+  # Set hjust and vjust based on position
+  # We assume good themes use standard justification values
+  # Users can override with explicit hjust/vjust arguments if needed
   if (is.null(hjust)) {
     hjust <- if (position %in% c("top", "bottom")) {
-      0.5
+      0.5  # Centered for top/bottom
     } else if (position == "left") {
-      1
+      1    # Right-aligned for left axis
     } else {  # right
-      0
+      0    # Left-aligned for right axis
     }
   }
 
   if (is.null(vjust)) {
     vjust <- if (position == "bottom") {
-      1
+      1    # Top-aligned for bottom axis
     } else if (position == "top") {
-      0
+      0    # Bottom-aligned for top axis
     } else {  # left or right
-      0.5
+      0.5  # Centered for left/right
     }
   }
 
