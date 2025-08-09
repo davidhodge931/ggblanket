@@ -48,12 +48,23 @@ annotate_axis_text <- function(
     rlang::abort("position must be one of 'top', 'bottom', 'left', or 'right'")
   }
 
-  if (is.null(x) && is.null(y)) {
-    rlang::abort("Either x or y must be specified")
-  }
-
-  if (!is.null(x) && !is.null(y)) {
-    rlang::abort("Only one of x or y can be specified")
+  # Validate x/y based on position
+  if (position %in% c("top", "bottom")) {
+    # For top/bottom positions, only x should be provided
+    if (!is.null(y)) {
+      rlang::abort("For top or bottom positions, only x can be specified, not y")
+    }
+    if (is.null(x)) {
+      rlang::abort("For top or bottom positions, x must be specified")
+    }
+  } else {  # left or right
+    # For left/right positions, only y should be provided
+    if (!is.null(x)) {
+      rlang::abort("For left or right positions, only y can be specified, not x")
+    }
+    if (is.null(y)) {
+      rlang::abort("For left or right positions, y must be specified")
+    }
   }
 
   if (!theme_element %in% c("transparent", "keep", "blank")) {
