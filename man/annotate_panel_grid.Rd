@@ -6,20 +6,20 @@
 \usage{
 annotate_panel_grid(
   ...,
-  axis,
-  breaks,
+  x = NULL,
+  y = NULL,
   colour = NULL,
   linewidth = NULL,
   linetype = NULL,
-  theme_element = "transparent"
+  theme_element = "keep"
 )
 }
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{axis}{The axis to annotate. One of "x" or "y".}
+\item{x}{A vector of x-axis breaks for vertical grid lines. Cannot be used together with y.}
 
-\item{breaks}{A vector of axis breaks for the panel grid.}
+\item{y}{A vector of y-axis breaks for horizontal grid lines. Cannot be used together with x.}
 
 \item{colour}{The colour of grid lines. Inherits from current theme panel.grid.major etc.}
 
@@ -27,7 +27,7 @@ annotate_panel_grid(
 
 \item{linetype}{The linetype of grid lines. Inherits from current theme panel.grid.major etc.}
 
-\item{theme_element}{What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".}
+\item{theme_element}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
 }
 \value{
 A list of annotate layers and theme elements.
@@ -35,26 +35,5 @@ A list of annotate layers and theme elements.
 \description{
 Create annotated segments of the panel grid.
 
-This function is designed to work with a theme that is globally set, so that the annotated panel grid segments can be made consistent by default.
-}
-\examples{
-library(ggplot2)
-
-set_blanket()
-
-palmerpenguins::penguins |>
-  gg_blanket(
-    x = flipper_length_mm,
-    y = body_mass_g,
-  ) +
-  annotate_panel_grid(
-    axis = "y",
-    breaks = seq(2750, 6500, 500),
-    linewidth = rel(0.5),
-    theme_element = "keep",
-  ) +
-  geom_point(
-    colour = col_multiply(get_geom_defaults("point")$colour),
-  )
-
+This function is designed to work with a theme that is globally set with \link{set_blanket} or \link[ggplot2:get_theme]{ggplot2::set_theme}.
 }

@@ -2,7 +2,7 @@
 #'
 #' @description Create an annotated segment of the axis line.
 #'
-#' This function is designed to work with a theme that is globally set, so that the annotated line can be made consistent by default.
+#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
 #'
 #' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
@@ -10,7 +10,7 @@
 #' @param ... Arguments passed to `ggplot2::annotate("segment", ....)`. Require named arguments (and support trailing commas).
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
-#' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
+#' @param theme_element What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "transparent".
 #'
 #' @return A list of a annotate layer and theme elements.
 #' @export

@@ -19,7 +19,7 @@ annotate_axis_text(
   hjust = NULL,
   vjust = NULL,
   angle = 0,
-  theme_element = "transparent"
+  theme_element = "keep"
 )
 }
 \arguments{
@@ -49,7 +49,7 @@ annotate_axis_text(
 
 \item{angle}{Text rotation angle. Defaults to 0.}
 
-\item{theme_element}{What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".}
+\item{theme_element}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
 }
 \value{
 A list of annotation layers and theme elements.
@@ -57,9 +57,9 @@ A list of annotation layers and theme elements.
 \description{
 Create annotated segments of the axis text.
 
-This function is designed to work with a theme that is globally set, so that the annotated text can be made consistent by default.
+This function is designed to work with a theme that is globally set with \link{set_blanket} or \link[ggplot2:get_theme]{ggplot2::set_theme}.
+
+It should be used with a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 
 It only works when panel dimensions are set are set in the theme.
-
-It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }

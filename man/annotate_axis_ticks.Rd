@@ -12,7 +12,7 @@ annotate_axis_ticks(
   colour = NULL,
   linewidth = NULL,
   length = NULL,
-  theme_element = "transparent"
+  theme_element = "keep"
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ annotate_axis_ticks(
 
 \item{length}{The absolute length of the annotated segment as a grid unit. Defaults to theme's axis.ticks.length (typically rel(0.66)).}
 
-\item{theme_element}{What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".}
+\item{theme_element}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
 }
 \value{
 A list of a annotate layer and theme elements.
@@ -38,9 +38,9 @@ A list of a annotate layer and theme elements.
 \description{
 Create annotated segments of the axis ticks.
 
-This function is designed to work with a theme that is globally set, so that the annotated tick segments can be made consistent by default.
+This function is designed to work with a theme that is globally set with \link{set_blanket} or \link[ggplot2:get_theme]{ggplot2::set_theme}.
+
+It should be used with a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 
 It only works when panel dimensions are set are set in the theme.
-
-It requires a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }

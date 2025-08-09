@@ -2,11 +2,11 @@
 #'
 #' @description Create annotated segments of the axis text.
 #'
-#' This function is designed to work with a theme that is globally set, so that the annotated text can be made consistent by default.
+#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#'
+#' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' It only works when panel dimensions are set are set in the theme.
-#'
-#' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param position The position of the axis text. One of "top", "bottom", "left", or "right".
 #' @param ... Require named arguments (and support trailing commas).
@@ -21,7 +21,7 @@
 #' @param fill The fill colour of the background rectangle. If NULL, defaults to "transparent".
 #' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
 #' @param angle Text rotation angle. Defaults to 0.
-#' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
+#' @param theme_element What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
 #'
 #' @return A list of annotation layers and theme elements.
 #' @export
@@ -41,7 +41,7 @@ annotate_axis_text <- function(
     hjust = NULL,
     vjust = NULL,
     angle = 0,
-    theme_element = "transparent"
+    theme_element = "keep"
 ) {
   # Validate arguments
   if (!position %in% c("top", "bottom", "left", "right")) {

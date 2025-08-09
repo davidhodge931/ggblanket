@@ -2,7 +2,7 @@
 % Please edit documentation in R/annotate_panel_background.R
 \name{annotate_panel_background}
 \alias{annotate_panel_background}
-\title{Annotate a panel background rectangle}
+\title{Annotate panel background rectangle}
 \usage{
 annotate_panel_background(
   ...,
@@ -10,27 +10,27 @@ annotate_panel_background(
   xmax = Inf,
   ymin = -Inf,
   ymax = Inf,
-  fill = "#8991A1FF",
-  alpha = 0.25,
-  colour = "transparent",
-  linewidth = 0,
-  linetype = 1
+  fill = NULL,
+  alpha = 0.2,
+  colour = NULL,
+  linewidth = NULL,
+  linetype = NULL
 )
 }
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{xmin}{A value of length 1.}
+\item{xmin}{A value of length 1. Defaults to -Inf.}
 
-\item{xmax}{A value of length 1.}
+\item{xmax}{A value of length 1. Defaults to Inf.}
 
-\item{ymin}{A value of length 1.}
+\item{ymin}{A value of length 1. Defaults to -Inf.}
 
-\item{ymax}{A value of length 1.}
+\item{ymax}{A value of length 1. Defaults to Inf.}
 
-\item{fill}{The fill colour of the rectangle. Defaults to "#8991A1FF".}
+\item{fill}{The fill colour of the rectangle. Inherits from current theme panel.background if NULL.}
 
-\item{alpha}{The transparency of the rectangle. Defaults to 0.25.}
+\item{alpha}{The transparency of the rectangle. Defaults to 0.2.}
 
 \item{colour}{The border colour of the rectangle. Defaults to "transparent".}
 
@@ -42,9 +42,9 @@ annotate_panel_background(
 A list containing an annotation layer.
 }
 \description{
-Create a annotated rectangle in the panel background.
+Create an annotated rectangle in the panel background.
 
-Useful for easily showing periods of uncertainty, different phases, or other regions of interest.
+This function is designed to work with a theme that is globally set with \link{set_blanket} or \link[ggplot2:get_theme]{ggplot2::set_theme}.
 }
 \examples{
 library(ggplot2)

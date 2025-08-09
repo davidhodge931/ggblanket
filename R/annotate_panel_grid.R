@@ -2,7 +2,7 @@
 #'
 #' @description Create annotated segments of the panel grid.
 #'
-#' This function is designed to work with a theme that is globally set, so that the annotated panel grid segments can be made consistent by default.
+#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param x A vector of x-axis breaks for vertical grid lines. Cannot be used together with y.
@@ -10,7 +10,7 @@
 #' @param colour The colour of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linewidth The linewidth of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linetype The linetype of grid lines. Inherits from current theme panel.grid.major etc.
-#' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
+#' @param theme_element What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
 #'
 #' @return A list of annotate layers and theme elements.
 #' @export
@@ -22,7 +22,7 @@ annotate_panel_grid <- function(
     colour = NULL,
     linewidth = NULL,
     linetype = NULL,
-    theme_element = "transparent"
+    theme_element = "keep"
 ) {
   # Validate arguments
   if (is.null(x) && is.null(y)) {

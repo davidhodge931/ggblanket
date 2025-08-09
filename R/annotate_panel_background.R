@@ -2,9 +2,7 @@
 #'
 #' @description Create an annotated rectangle in the panel background.
 #'
-#' This function is designed to work with a theme that is globally set, so that the annotated rectangle can be made consistent by default.
-#'
-#' Useful for easily showing periods of uncertainty, different phases, or other regions of interest.
+#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param xmin A value of length 1. Defaults to -Inf.

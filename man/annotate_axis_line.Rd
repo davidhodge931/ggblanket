@@ -21,7 +21,7 @@ annotate_axis_line(
 
 \item{linewidth}{The linewidth of the annotated segment. Inherits from the current theme axis.line etc.}
 
-\item{theme_element}{What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".}
+\item{theme_element}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "transparent".}
 }
 \value{
 A list of a annotate layer and theme elements.
@@ -29,7 +29,7 @@ A list of a annotate layer and theme elements.
 \description{
 Create an annotated segment of the axis line.
 
-This function is designed to work with a theme that is globally set, so that the annotated line can be made consistent by default.
+This function is designed to work with a theme that is globally set with \link{set_blanket} or \link[ggplot2:get_theme]{ggplot2::set_theme}.
 
 It should be used with a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 }

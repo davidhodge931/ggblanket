@@ -2,11 +2,11 @@
 #'
 #' @description Create annotated segments of the axis ticks.
 #'
-#' This function is designed to work with a theme that is globally set, so that the annotated tick segments can be made consistent by default.
+#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#'
+#' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' It only works when panel dimensions are set are set in the theme.
-#'
-#' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param position The position of the axis ticks. One of "top", "bottom", "left", or "right".
 #' @param ... Require named arguments (and support trailing commas).
@@ -15,7 +15,7 @@
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.ticks etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.ticks etc.
 #' @param length The absolute length of the annotated segment as a grid unit. Defaults to theme's axis.ticks.length (typically rel(0.66)).
-#' @param theme_element What to do with the equivalent theme element. Either "transparent", "keep" or "blank". Defaults "transparent".
+#' @param theme_element What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
 #'
 #' @return A list of a annotate layer and theme elements.
 #'
@@ -29,7 +29,7 @@ annotate_axis_ticks <- function(
     colour = NULL,
     linewidth = NULL,
     length = NULL,
-    theme_element = "transparent"
+    theme_element = "keep"
 ) {
   # Validate arguments
   if (!position %in% c("top", "bottom", "left", "right")) {
