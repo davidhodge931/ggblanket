@@ -25,9 +25,9 @@ used by Cairo graphics engine. This should match the behavior of R's
 graphics device compositing operators.
 
 Formula from Cairo documentation:
-aR = aA + aB * (1 - aA)
-xR = (1/aR) * \link{(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)}
-where f(xA, xB) = xA + xB - xA * xB for screen blend mode
+\code{aR = aA + aB * (1 - aA)}
+\verb{xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]}
+where \code{f(xA, xB) = xA + xB - xA * xB} for screen blend mode
 }
 \examples{
 # Blend two colours

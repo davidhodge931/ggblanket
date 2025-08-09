@@ -1,15 +1,15 @@
-#' Multiply blend colours with proper alpha compositing
+#' Lighten blend colours with proper alpha compositing
 #'
 #' @description
-#' Blends two colours using multiply mode with proper alpha handling, creating
-#' a darker, more saturated effect. Implements the exact multiply blend formula
-#' used by Cairo graphics engine. This should match the behavior of R's
-#' graphics device compositing operators.
+#' Blends two colours using lighten mode with proper alpha handling, selecting
+#' the lighter of the color values in each component. Implements the exact
+#' lighten blend formula used by Cairo graphics engine. This should match the
+#' behavior of R's graphics device compositing operators.
 #'
 #' Formula from Cairo documentation:
 #' `aR = aA + aB * (1 - aA)`
 #' `xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]`
-#' where `f(xA, xB) = xA * xB` for multiply blend mode
+#' where `f(xA, xB) = max(xA, xB)` for lighten blend mode
 #'
 #' @param col A character vector of colours or a `scales::pal_*()` function
 #' @param col2 Optional second colour vector or palette function to blend with.
@@ -22,23 +22,24 @@
 #'
 #' @export
 #' @examples
-#' # Blend two colours
-#' col_multiply("#FF0000", "#0000FF")  # Red × Blue = Black
+#' # Blend two colours - takes the lighter component of each
+#' col_lighten("#FF0000", "#00FF00")  # Red vs Green = Yellow
+#' col_lighten("#404040", "#808080")  # Gray vs lighter gray = lighter gray
 #'
-#' # Square a colour (blend with itself)
-#' col_multiply("#FF6600")  # Orange squared = Darker orange
+#' # Lighten a colour with itself (no change)
+#' col_lighten("#FF6600")  # Orange lightened with itself = same orange
 #'
 #' # Work with vectors
-#' col_multiply(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
+#' col_lighten(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
 #'
 #' # Works with transparency
-#' col_multiply("#FF000080", "#0000FF80")  # Semi-transparent colors
-col_multiply <- function(col, col2 = NULL, ...) {
+#' col_lighten("#FF000080", "#0000FF80")  # Semi-transparent colors
+col_lighten <- function(col, col2 = NULL, ...) {
   # Check for unnamed arguments
   dots <- list(...)
   if (length(dots) > 0) {
     if (any(names(dots) == "" | rlang::is_null(names(dots)))) {
-      stop("All arguments must be named. Use col_multiply(col = ..., col2 = ..., ...)")
+      stop("All arguments must be named. Use col_lighten(col = ..., col2 = ..., ...)")
     }
     warning("Additional named arguments are ignored: ", paste(names(dots), collapse = ", "))
   }
@@ -47,7 +48,7 @@ col_multiply <- function(col, col2 = NULL, ...) {
   if (missing(col)) stop("col argument is required")
   if (length(col) == 0) stop("col cannot be empty")
 
-  # Handle NULL col2 - use col for self-multiplication
+  # Handle NULL col2 - use col for self-lightening
   if (rlang::is_null(col2)) col2 <- col
 
   # Handle different input combinations
@@ -57,12 +58,12 @@ col_multiply <- function(col, col2 = NULL, ...) {
       # Get colours from functions or use directly
       col_vctr <- if (is.function(col)) col(n) else rep_len(col, n)
       col2_vctr <- if (is.function(col2)) col2(n) else rep_len(col2, n)
-      # Perform multiply blend
-      multiply_blend(col_vctr, col2_vctr)
+      # Perform lighten blend
+      lighten_blend(col_vctr, col2_vctr)
     }
   } else if (is.character(col) && is.character(col2)) {
     # Blend the colour vectors directly
-    multiply_blend(col, col2)
+    lighten_blend(col, col2)
   } else {
     stop(
       "col and col2 must be either character vectors of colours or palette functions"
@@ -70,18 +71,18 @@ col_multiply <- function(col, col2 = NULL, ...) {
   }
 }
 
-#' Screen blend colours with proper alpha compositing
+#' Darken blend colours with proper alpha compositing
 #'
 #' @description
-#' Blends two colours using screen mode with proper alpha handling, creating
-#' a lighter, more luminous effect. Implements the exact screen blend formula
-#' used by Cairo graphics engine. This should match the behavior of R's
-#' graphics device compositing operators.
+#' Blends two colours using darken mode with proper alpha handling, selecting
+#' the darker of the color values in each component. Implements the exact
+#' darken blend formula used by Cairo graphics engine. This should match the
+#' behavior of R's graphics device compositing operators.
 #'
 #' Formula from Cairo documentation:
 #' `aR = aA + aB * (1 - aA)`
 #' `xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]`
-#' where `f(xA, xB) = xA + xB - xA * xB` for screen blend mode
+#' where `f(xA, xB) = min(xA, xB)` for darken blend mode
 #'
 #' @param col A character vector of colours or a `scales::pal_*()` function
 #' @param col2 Optional second colour vector or palette function to blend with.
@@ -94,23 +95,24 @@ col_multiply <- function(col, col2 = NULL, ...) {
 #'
 #' @export
 #' @examples
-#' # Blend two colours
-#' col_screen("#000080", "#800000")  # Dark blue + Dark red = Lighter purple
+#' # Blend two colours - takes the darker component of each
+#' col_darken("#FF00FF", "#FFFF00")  # Magenta vs Yellow = Red
+#' col_darken("#808080", "#404040")  # Gray vs darker gray = darker gray
 #'
-#' # Screen a colour with itself (makes it lighter)
-#' col_screen("#404040")  # Gray screened = Lighter gray
+#' # Darken a colour with itself (no change)
+#' col_darken("#FF6600")  # Orange darkened with itself = same orange
 #'
 #' # Work with vectors
-#' col_screen(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
+#' col_darken(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
 #'
 #' # Works with transparency
-#' col_screen("#80000080", "#00008080")  # Semi-transparent colors
-col_screen <- function(col, col2 = NULL, ...) {
+#' col_darken("#FF000080", "#0000FF80")  # Semi-transparent colors
+col_darken <- function(col, col2 = NULL, ...) {
   # Check for unnamed arguments
   dots <- list(...)
   if (length(dots) > 0) {
     if (any(names(dots) == "" | rlang::is_null(names(dots)))) {
-      stop("All arguments must be named. Use col_screen(col = ..., col2 = ..., ...)")
+      stop("All arguments must be named. Use col_darken(col = ..., col2 = ..., ...)")
     }
     warning("Additional named arguments are ignored: ", paste(names(dots), collapse = ", "))
   }
@@ -119,7 +121,7 @@ col_screen <- function(col, col2 = NULL, ...) {
   if (missing(col)) stop("col argument is required")
   if (length(col) == 0) stop("col cannot be empty")
 
-  # Handle NULL col2 - use col for self-screening
+  # Handle NULL col2 - use col for self-darkening
   if (rlang::is_null(col2)) col2 <- col
 
   # Handle different input combinations
@@ -129,12 +131,12 @@ col_screen <- function(col, col2 = NULL, ...) {
       # Get colours from functions or use directly
       col_vctr <- if (is.function(col)) col(n) else rep_len(col, n)
       col2_vctr <- if (is.function(col2)) col2(n) else rep_len(col2, n)
-      # Perform screen blend
-      screen_blend(col_vctr, col2_vctr)
+      # Perform darken blend
+      darken_blend(col_vctr, col2_vctr)
     }
   } else if (is.character(col) && is.character(col2)) {
     # Blend the colour vectors directly
-    screen_blend(col, col2)
+    darken_blend(col, col2)
   } else {
     stop(
       "col and col2 must be either character vectors of colours or palette functions"
@@ -142,10 +144,10 @@ col_screen <- function(col, col2 = NULL, ...) {
   }
 }
 
-#' Internal multiply blend function
+#' Internal lighten blend function
 #'
 #' @description
-#' Internal function that performs multiply blending using the Cairo formula.
+#' Internal function that performs lighten blending using the Cairo formula.
 #' Handles alpha transparency properly using Porter-Duff compositing.
 #'
 #' @param col Character vector of colours (source)
@@ -154,7 +156,7 @@ col_screen <- function(col, col2 = NULL, ...) {
 #' @return Character vector of blended colours
 #'
 #' @noRd
-multiply_blend <- function(col, col2) {
+lighten_blend <- function(col, col2) {
   # Input validation
   if (any(is.na(col)) || any(is.na(col2))) {
     warning("NA values in color inputs may produce unexpected results")
@@ -193,11 +195,11 @@ multiply_blend <- function(col, col2) {
     xaA <- xA * aA
     xaB <- xB * aB
 
-    # Apply Cairo multiply blend formula:
+    # Apply Cairo lighten blend formula:
     # xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]
-    # where f(xA, xB) = xA * xB for multiply
+    # where f(xA, xB) = max(xA, xB) for lighten
 
-    blend_function <- xA * xB  # f(xA, xB) for multiply
+    blend_function <- pmax(xA, xB)  # f(xA, xB) for lighten
 
     xR <- (1 / aR_safe) * (
       (1 - aB) * xaA +           # Contribution of source where dest is transparent
@@ -217,10 +219,10 @@ multiply_blend <- function(col, col2) {
                  maxColorValue = 1)
 }
 
-#' Internal screen blend function
+#' Internal darken blend function
 #'
 #' @description
-#' Internal function that performs screen blending using the Cairo formula.
+#' Internal function that performs darken blending using the Cairo formula.
 #' Handles alpha transparency properly using Porter-Duff compositing.
 #'
 #' @param col Character vector of colours (source)
@@ -229,7 +231,7 @@ multiply_blend <- function(col, col2) {
 #' @return Character vector of blended colours
 #'
 #' @noRd
-screen_blend <- function(col, col2) {
+darken_blend <- function(col, col2) {
   # Input validation
   if (any(is.na(col)) || any(is.na(col2))) {
     warning("NA values in color inputs may produce unexpected results")
@@ -268,11 +270,11 @@ screen_blend <- function(col, col2) {
     xaA <- xA * aA
     xaB <- xB * aB
 
-    # Apply Cairo screen blend formula:
+    # Apply Cairo darken blend formula:
     # xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]
-    # where f(xA, xB) = xA + xB - xA * xB for screen (inverse of multiply)
+    # where f(xA, xB) = min(xA, xB) for darken
 
-    blend_function <- xA + xB - xA * xB  # f(xA, xB) for screen
+    blend_function <- pmin(xA, xB)  # f(xA, xB) for darken
 
     xR <- (1 / aR_safe) * (
       (1 - aB) * xaA +           # Contribution of source where dest is transparent
