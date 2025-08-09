@@ -7,6 +7,7 @@
 #' @importFrom rlang !!!
 #' @importFrom rlang .data
 #' @importFrom rlang :=
+#' @importFrom rlang %||%
 
 utils::globalVariables(c(".x"))
 ## usethis namespace: end
