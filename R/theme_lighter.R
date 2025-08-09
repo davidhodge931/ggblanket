@@ -289,7 +289,7 @@ theme_lighter <- function(
   )
 
   # Apply legend position specific settings
-  theme + relocate_legend(legend_position)
+  theme + move_legend(legend_position)
 }
 
 #' Move legend position
@@ -301,7 +301,7 @@ theme_lighter <- function(
 #' @return A ggplot theme object with legend position settings.
 #' @noRd
 #'
-relocate_legend <- function(legend_position = "right") {
+move_legend <- function(legend_position = "right") {
   if (legend_position == "right") {
     ggplot2::theme(
       # Legend-specific settings for right position

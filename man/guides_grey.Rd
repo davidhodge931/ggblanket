@@ -5,8 +5,8 @@
 \title{Override legend aesthetic colours}
 \usage{
 guides_grey(
-  ...,
   aesthetic,
+  ...,
   col = "#8991A1",
   colour = NULL,
   fill = NULL,
@@ -16,10 +16,10 @@ guides_grey(
 )
 }
 \arguments{
-\item{...}{Arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}. Require named arguments (and support trailing commas).}
-
 \item{aesthetic}{Character string naming the aesthetic (e.g. "alpha", "shape",
 "linetype", "linewidth", "size")}
+
+\item{...}{Arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}. Require named arguments (and support trailing commas).}
 
 \item{col}{Base hex for the legend colour/fill. Defaults to "#8991A1".}
 

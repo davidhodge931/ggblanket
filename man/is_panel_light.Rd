@@ -4,9 +4,11 @@
 \alias{is_panel_light}
 \title{Check if theme panel background is light}
 \usage{
-is_panel_light(theme = NULL)
+is_panel_light(..., theme = NULL)
 }
 \arguments{
+\item{...}{Require named arguments (and support trailing commas).}
+
 \item{theme}{A ggplot2 theme object. If NULL (default), uses the current theme
 from \code{ggplot2::theme_get()}.}
 }

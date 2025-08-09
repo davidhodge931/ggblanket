@@ -55,3 +55,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Remotes:
     tidyverse/ggplot2
+    davidhodge931/ggblankmore

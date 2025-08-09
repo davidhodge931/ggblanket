@@ -5,8 +5,8 @@
 \title{Annotate axis tick segments}
 \usage{
 annotate_axis_ticks(
-  ...,
   position,
+  ...,
   x = NULL,
   y = NULL,
   colour = NULL,
@@ -16,9 +16,9 @@ annotate_axis_ticks(
 )
 }
 \arguments{
-\item{...}{Require named arguments (and support trailing commas).}
-
 \item{position}{The position of the axis ticks. One of "top", "bottom", "left", or "right".}
+
+\item{...}{Require named arguments (and support trailing commas).}
 
 \item{x}{A vector of x-axis breaks for axis ticks. Cannot be used together with y.}
 

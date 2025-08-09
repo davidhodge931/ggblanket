@@ -47,7 +47,7 @@ annotate_panel_background <- function(
     ymin = -Inf,
     ymax = Inf,
     fill = "#8991A1FF",
-    alpha = 0.25,
+    alpha = 0.2,
     colour = "transparent",
     linewidth = 0,
     linetype = 1

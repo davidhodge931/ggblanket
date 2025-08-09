@@ -6,9 +6,9 @@
 #' it blends the colour with itself (squaring effect).
 #'
 #' @param col A character vector of colours or a `scales::pal_*()` function
+#' @param ... Require named arguments (and support trailing commas).
 #' @param col2 A character vector of colours or a `scales::pal_*()` function, or NULL.
 #'   If NULL (default), col is blended with itself.
-#' @param ... Require named arguments (and support trailing commas).
 #'
 #' @return
 #' If inputs are character vectors, returns a character vector of blended colours.
@@ -32,7 +32,7 @@
 #' # Square a palette function
 #' pal_squared <- col_multiply(scales::pal_viridis())
 #' pal_squared(5)
-col_multiply <- function(col, col2 = NULL, ...) {
+col_multiply <- function(col, ..., col2 = NULL) {
   # If col2 is NULL, use col
   if (rlang::is_null(col2)) {
     col2 <- col

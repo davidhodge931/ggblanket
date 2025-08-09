@@ -4,15 +4,15 @@
 \alias{col_screen}
 \title{Screen blend colours}
 \usage{
-col_screen(col, col2 = NULL, ...)
+col_screen(col, ..., col2 = NULL)
 }
 \arguments{
 \item{col}{A character vector of colours or a \verb{scales::pal_*()} function}
 
+\item{...}{Require named arguments (and support trailing commas).}
+
 \item{col2}{A character vector of colours or a \verb{scales::pal_*()} function, or NULL.
 If NULL (default), col is blended with itself.}
-
-\item{...}{Require named arguments (and support trailing commas).}
 }
 \value{
 If inputs are character vectors, returns a character vector of blended colours.

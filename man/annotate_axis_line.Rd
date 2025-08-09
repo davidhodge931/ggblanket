@@ -5,17 +5,17 @@
 \title{Annotate axis line segment}
 \usage{
 annotate_axis_line(
-  ...,
   position,
+  ...,
   colour = NULL,
   linewidth = NULL,
   theme_element = "transparent"
 )
 }
 \arguments{
-\item{...}{Arguments passed to \code{ggplot2::annotate("segment", ....)}. Require named arguments (and support trailing commas).}
-
 \item{position}{The position of the axis line. One of "top", "bottom", "left", or "right".}
+
+\item{...}{Arguments passed to \code{ggplot2::annotate("segment", ....)}. Require named arguments (and support trailing commas).}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 

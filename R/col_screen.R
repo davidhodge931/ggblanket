@@ -7,9 +7,9 @@
 #' rather than darkens.
 #'
 #' @param col A character vector of colours or a `scales::pal_*()` function
+#' @param ... Require named arguments (and support trailing commas).
 #' @param col2 A character vector of colours or a `scales::pal_*()` function, or NULL.
 #'   If NULL (default), col is blended with itself.
-#' @param ... Require named arguments (and support trailing commas).
 #'
 #' @return
 #' If inputs are character vectors, returns a character vector of blended colours.
@@ -33,7 +33,7 @@
 #' # Screen a palette function with itself
 #' pal_screened <- col_screen(scales::pal_viridis())
 #' pal_screened(5)
-col_screen <- function(col, col2 = NULL, ...) {
+col_screen <- function(col, ..., col2 = NULL) {
   # If col2 is NULL, use col
   if (rlang::is_null(col2)) {
     col2 <- col

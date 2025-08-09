@@ -8,8 +8,8 @@
 #'
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
-#' @param ... Require named arguments (and support trailing commas).
 #' @param position The position of the axis text. One of "top", "bottom", "left", or "right".
+#' @param ... Require named arguments (and support trailing commas).
 #' @param x A vector of x-axis breaks for text positioning. Cannot be used together with y.
 #' @param y A vector of y-axis breaks for text positioning. Cannot be used together with x.
 #' @param label A vector of text label or a function that takes breaks and returns label. If NULL, uses the `scales::comma` on the breaks as label.
@@ -27,8 +27,8 @@
 #' @export
 #'
 annotate_axis_text <- function(
-    ...,
     position,
+    ...,
     x = NULL,
     y = NULL,
     label = NULL,
@@ -115,14 +115,16 @@ annotate_axis_text <- function(
 
   # Process label
   if (is.null(label)) {
-    label <- scales::comma(breaks)
+    labels <- scales::comma(breaks)
   } else if (is.function(label)) {
-    label <- label(breaks)
+    labels <- label(breaks)
+  } else {
+    labels <- label
   }
 
-  # Ensure label match breaks length
-  if (length(label) != length(breaks)) {
-    rlang::abort("Length of label must match length of breaks")
+  # Ensure labels match breaks length
+  if (length(labels) != length(breaks)) {
+    rlang::abort("Length of labels must match length of breaks")
   }
 
   # Build hierarchy for axis text from most specific to least specific
@@ -291,139 +293,136 @@ annotate_axis_text <- function(
   }
 
   # Create text annotations
-  for (i in seq_along(breaks)) {
-    break_val <- breaks[i]
-    label <- label[i]
+  text_annotations <- breaks |>
+    purrr::imap(\(break_val, i) {
+      label_val <- labels[i]
 
-    # Create text grob with background
-    text_grob <- if (position == "bottom") {
-      grid::grobTree(
-        grid::rectGrob(
-          x = grid::unit(0.5, "npc"),
-          y = grid::unit(0, "npc") - total_length,
-          width = grid::grobWidth(grid::textGrob(label, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-            rect_margin[2] + rect_margin[4],  # right + left margins
-          height = grid::unit(text_size, "pt") +
-            rect_margin[1] + rect_margin[3],  # top + bottom margins
-          just = c(hjust, vjust),
-          gp = grid::gpar(fill = text_fill, col = NA)
-        ),
-        grid::textGrob(
-          label,
-          x = grid::unit(0.5, "npc"),
-          y = grid::unit(0, "npc") - total_length,
-          just = c(hjust, vjust),
-          rot = angle,
-          gp = grid::gpar(
-            col = text_colour,
-            fontsize = text_size,
-            fontfamily = text_family
+      # Create text grob with background
+      text_grob <- if (position == "bottom") {
+        grid::grobTree(
+          grid::rectGrob(
+            x = grid::unit(0.5, "npc"),
+            y = grid::unit(0, "npc") - total_length,
+            width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
+              rect_margin[2] + rect_margin[4],  # right + left margins
+            height = grid::unit(text_size, "pt") +
+              rect_margin[1] + rect_margin[3],  # top + bottom margins
+            just = c(hjust, vjust),
+            gp = grid::gpar(fill = text_fill, col = NA)
+          ),
+          grid::textGrob(
+            label_val,
+            x = grid::unit(0.5, "npc"),
+            y = grid::unit(0, "npc") - total_length,
+            just = c(hjust, vjust),
+            rot = angle,
+            gp = grid::gpar(
+              col = text_colour,
+              fontsize = text_size,
+              fontfamily = text_family
+            )
           )
         )
-      )
-    } else if (position == "top") {
-      grid::grobTree(
-        grid::rectGrob(
-          x = grid::unit(0.5, "npc"),
-          y = grid::unit(1, "npc") + total_length,
-          width = grid::grobWidth(grid::textGrob(label, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-            rect_margin[2] + rect_margin[4],  # right + left margins
-          height = grid::unit(text_size, "pt") +
-            rect_margin[1] + rect_margin[3],  # top + bottom margins
-          just = c(hjust, vjust),
-          gp = grid::gpar(fill = text_fill, col = NA)
-        ),
-        grid::textGrob(
-          label,
-          x = grid::unit(0.5, "npc"),
-          y = grid::unit(1, "npc") + total_length,
-          just = c(hjust, vjust),
-          rot = angle,
-          gp = grid::gpar(
-            col = text_colour,
-            fontsize = text_size,
-            fontfamily = text_family
+      } else if (position == "top") {
+        grid::grobTree(
+          grid::rectGrob(
+            x = grid::unit(0.5, "npc"),
+            y = grid::unit(1, "npc") + total_length,
+            width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
+              rect_margin[2] + rect_margin[4],  # right + left margins
+            height = grid::unit(text_size, "pt") +
+              rect_margin[1] + rect_margin[3],  # top + bottom margins
+            just = c(hjust, vjust),
+            gp = grid::gpar(fill = text_fill, col = NA)
+          ),
+          grid::textGrob(
+            label_val,
+            x = grid::unit(0.5, "npc"),
+            y = grid::unit(1, "npc") + total_length,
+            just = c(hjust, vjust),
+            rot = angle,
+            gp = grid::gpar(
+              col = text_colour,
+              fontsize = text_size,
+              fontfamily = text_family
+            )
           )
         )
-      )
-    } else if (position == "left") {
-      grid::grobTree(
-        grid::rectGrob(
-          x = grid::unit(0, "npc") - total_length,
-          y = grid::unit(0.5, "npc"),
-          width = grid::grobWidth(grid::textGrob(label, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-            rect_margin[2] + rect_margin[4],  # right + left margins
-          height = grid::unit(text_size, "pt") +
-            rect_margin[1] + rect_margin[3],  # top + bottom margins
-          just = c(hjust, vjust),
-          gp = grid::gpar(fill = text_fill, col = NA)
-        ),
-        grid::textGrob(
-          label,
-          x = grid::unit(0, "npc") - total_length,
-          y = grid::unit(0.5, "npc"),
-          just = c(hjust, vjust),
-          rot = angle,
-          gp = grid::gpar(
-            col = text_colour,
-            fontsize = text_size,
-            fontfamily = text_family
+      } else if (position == "left") {
+        grid::grobTree(
+          grid::rectGrob(
+            x = grid::unit(0, "npc") - total_length,
+            y = grid::unit(0.5, "npc"),
+            width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
+              rect_margin[2] + rect_margin[4],  # right + left margins
+            height = grid::unit(text_size, "pt") +
+              rect_margin[1] + rect_margin[3],  # top + bottom margins
+            just = c(hjust, vjust),
+            gp = grid::gpar(fill = text_fill, col = NA)
+          ),
+          grid::textGrob(
+            label_val,
+            x = grid::unit(0, "npc") - total_length,
+            y = grid::unit(0.5, "npc"),
+            just = c(hjust, vjust),
+            rot = angle,
+            gp = grid::gpar(
+              col = text_colour,
+              fontsize = text_size,
+              fontfamily = text_family
+            )
           )
         )
-      )
-    } else {  # right
-      grid::grobTree(
-        grid::rectGrob(
-          x = grid::unit(1, "npc") + total_length,
-          y = grid::unit(0.5, "npc"),
-          width = grid::grobWidth(grid::textGrob(label, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-            rect_margin[2] + rect_margin[4],  # right + left margins
-          height = grid::unit(text_size, "pt") +
-            rect_margin[1] + rect_margin[3],  # top + bottom margins
-          just = c(hjust, vjust),
-          gp = grid::gpar(fill = text_fill, col = NA)
-        ),
-        grid::textGrob(
-          label,
-          x = grid::unit(1, "npc") + total_length,
-          y = grid::unit(0.5, "npc"),
-          just = c(hjust, vjust),
-          rot = angle,
-          gp = grid::gpar(
-            col = text_colour,
-            fontsize = text_size,
-            fontfamily = text_family
-          )
-        )
-      )
-    }
-
-    # Set annotation position based on axis and position
-    if (axis == "x") {
-      annotation_position <- if (position == "bottom") {
-        list(xmin = break_val, xmax = break_val, ymin = -Inf, ymax = -Inf)
-      } else {  # top
-        list(xmin = break_val, xmax = break_val, ymin = Inf, ymax = Inf)
-      }
-    } else {  # y axis
-      annotation_position <- if (position == "left") {
-        list(xmin = -Inf, xmax = -Inf, ymin = break_val, ymax = break_val)
       } else {  # right
-        list(xmin = Inf, xmax = Inf, ymin = break_val, ymax = break_val)
-      }
-    }
-
-    stamp <- c(
-      stamp,
-      list(
-        rlang::exec(
-          ggplot2::annotation_custom,
-          grob = text_grob,
-          !!!annotation_position
+        grid::grobTree(
+          grid::rectGrob(
+            x = grid::unit(1, "npc") + total_length,
+            y = grid::unit(0.5, "npc"),
+            width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
+              rect_margin[2] + rect_margin[4],  # right + left margins
+            height = grid::unit(text_size, "pt") +
+              rect_margin[1] + rect_margin[3],  # top + bottom margins
+            just = c(hjust, vjust),
+            gp = grid::gpar(fill = text_fill, col = NA)
+          ),
+          grid::textGrob(
+            label_val,
+            x = grid::unit(1, "npc") + total_length,
+            y = grid::unit(0.5, "npc"),
+            just = c(hjust, vjust),
+            rot = angle,
+            gp = grid::gpar(
+              col = text_colour,
+              fontsize = text_size,
+              fontfamily = text_family
+            )
+          )
         )
+      }
+
+      # Set annotation position based on axis and position
+      if (axis == "x") {
+        annotation_position <- if (position == "bottom") {
+          list(xmin = break_val, xmax = break_val, ymin = -Inf, ymax = -Inf)
+        } else {  # top
+          list(xmin = break_val, xmax = break_val, ymin = Inf, ymax = Inf)
+        }
+      } else {  # y axis
+        annotation_position <- if (position == "left") {
+          list(xmin = -Inf, xmax = -Inf, ymin = break_val, ymax = break_val)
+        } else {  # right
+          list(xmin = Inf, xmax = Inf, ymin = break_val, ymax = break_val)
+        }
+      }
+
+      rlang::exec(
+        ggplot2::annotation_custom,
+        grob = text_grob,
+        !!!annotation_position
       )
-    )
-  }
+    })
+
+  stamp <- c(stamp, text_annotations)
 
   return(stamp)
 }

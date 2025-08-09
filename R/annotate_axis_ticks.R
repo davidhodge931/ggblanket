@@ -8,8 +8,8 @@
 #'
 #' It requires a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
-#' @param ... Require named arguments (and support trailing commas).
 #' @param position The position of the axis ticks. One of "top", "bottom", "left", or "right".
+#' @param ... Require named arguments (and support trailing commas).
 #' @param x A vector of x-axis breaks for axis ticks. Cannot be used together with y.
 #' @param y A vector of y-axis breaks for axis ticks. Cannot be used together with x.
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.ticks etc.
@@ -22,8 +22,8 @@
 #' @export
 #'
 annotate_axis_ticks <- function(
-    ...,
     position,
+    ...,
     x = NULL,
     y = NULL,
     colour = NULL,

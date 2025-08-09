@@ -5,8 +5,8 @@
 \title{Annotate axis text segments}
 \usage{
 annotate_axis_text(
-  ...,
   position,
+  ...,
   x = NULL,
   y = NULL,
   label = NULL,
@@ -23,9 +23,9 @@ annotate_axis_text(
 )
 }
 \arguments{
-\item{...}{Require named arguments (and support trailing commas).}
-
 \item{position}{The position of the axis text. One of "top", "bottom", "left", or "right".}
+
+\item{...}{Require named arguments (and support trailing commas).}
 
 \item{x}{A vector of x-axis breaks for text positioning. Cannot be used together with y.}
 

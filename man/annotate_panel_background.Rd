@@ -59,14 +59,12 @@ p <- palmerpenguins::penguins |>
 p +
   annotate_panel_background(
     xmin = 225,
-    xmax = Inf,
   ) +
   geom_point()
 
 p +
   annotate_panel_background(
     xmin = I(0.9),
-    xmax = I(1),
   ) +
   geom_point()
 

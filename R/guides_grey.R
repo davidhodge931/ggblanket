@@ -3,9 +3,9 @@
 #' @description
 #' Override the colour/fill of legend elements for any aesthetic.
 #'
-#' @param ... Arguments passed to [ggplot2::guide_legend()]. Require named arguments (and support trailing commas).
 #' @param aesthetic Character string naming the aesthetic (e.g. "alpha", "shape",
 #'   "linetype", "linewidth", "size")
+#' @param ... Arguments passed to [ggplot2::guide_legend()]. Require named arguments (and support trailing commas).
 #' @param col Base hex for the legend colour/fill. Defaults to "#8991A1".
 #' @param colour Direct override for the colour aesthetic in the legend. If NULL,
 #'   determined by `col` and `border_transform_colour`.
@@ -18,8 +18,8 @@
 #' @return A ggplot guides specification.
 #' @export
 guides_grey <- function(
-  ...,
   aesthetic,
+  ...,
   col = "#8991A1",
   colour = NULL,
   fill = NULL,
