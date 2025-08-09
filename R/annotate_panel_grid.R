@@ -5,8 +5,8 @@
 #' This function is designed to work with a theme that is globally set, so that the annotated panel grid segments can be made consistent by default.
 #'
 #' @param ... Require named arguments (and support trailing commas).
-#' @param axis The axis to annotate. One of "x" or "y".
-#' @param breaks A vector of axis breaks for the panel grid.
+#' @param x A vector of x-axis breaks for vertical grid lines. Cannot be used together with y.
+#' @param y A vector of y-axis breaks for horizontal grid lines. Cannot be used together with x.
 #' @param colour The colour of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linewidth The linewidth of grid lines. Inherits from current theme panel.grid.major etc.
 #' @param linetype The linetype of grid lines. Inherits from current theme panel.grid.major etc.
@@ -15,38 +15,22 @@
 #' @return A list of annotate layers and theme elements.
 #' @export
 #'
-#' @examples
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' palmerpenguins::penguins |>
-#'   gg_blanket(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'   ) +
-#'   annotate_panel_grid(
-#'     axis = "y",
-#'     breaks = seq(2750, 6500, 500),
-#'     linewidth = rel(0.5),
-#'     theme_element = "keep",
-#'   ) +
-#'   geom_point(
-#'     colour = col_multiply(get_geom_defaults("point")$colour),
-#'   )
-#'
 annotate_panel_grid <- function(
     ...,
-    axis,
-    breaks,
+    x = NULL,
+    y = NULL,
     colour = NULL,
     linewidth = NULL,
     linetype = NULL,
     theme_element = "transparent"
 ) {
   # Validate arguments
-  if (!axis %in% c("x", "y")) {
-    rlang::abort("axis must be one of 'x' or 'y'")
+  if (is.null(x) && is.null(y)) {
+    rlang::abort("Either x or y must be specified")
+  }
+
+  if (!is.null(x) && !is.null(y)) {
+    rlang::abort("Only one of x or y can be specified")
   }
 
   if (!theme_element %in% c("transparent", "keep", "blank")) {
@@ -55,31 +39,30 @@ annotate_panel_grid <- function(
     )
   }
 
+  # Determine axis from x/y
+  axis <- if (!is.null(x)) "x" else "y"
+
+  # Get breaks
+  breaks <- if (!is.null(x)) x else y
+
+  # Check for empty breaks
+  if (length(breaks) == 0) {
+    return(list())
+  }
+
   # Get current theme
   current_theme <- ggplot2::theme_get()
 
   # Build hierarchy for panel grid from most specific to least specific
-  # Include both major and minor grid elements in hierarchy
-  grid_major_specific <- if (axis == "x") {
-    "panel.grid.major.x"
-  } else {
-    "panel.grid.major.y"
-  }
-
-  grid_minor_specific <- if (axis == "x") {
-    "panel.grid.minor.x"
-  } else {
-    "panel.grid.minor.y"
-  }
-
+  # Only use major grid elements for styling
+  grid_major_specific <- paste0("panel.grid.major.", axis)
   grid_major <- "panel.grid.major"
-  grid_minor <- "panel.grid.minor"
   grid_general <- "panel.grid"
 
-  # Check both major and minor hierarchies to find the best styling
+  # Use only major grid hierarchy for styling
   grid_hierarchy <- c(
-    grid_major_specific, grid_minor_specific,
-    grid_major, grid_minor,
+    grid_major_specific,
+    grid_major,
     grid_general
   )
 
@@ -91,18 +74,14 @@ annotate_panel_grid <- function(
   # If still no element found, create a minimal fallback
   if (is.null(resolved_grid_element)) {
     resolved_grid_element <- list(
-      colour = "#E6E9EFFF",
+      colour = "grey90",
       linewidth = 0.5,
       linetype = "solid"
     )
   }
 
   # Extract theme properties with proper resolution
-  grid_colour <- if (rlang::is_null(colour)) {
-    resolved_grid_element$colour %||% "#E6E9EFFF"
-  } else {
-    colour
-  }
+  grid_colour <- colour %||% resolved_grid_element$colour %||% "grey90"
 
   # Handle linewidth with proper rel() support
   if (rlang::is_null(linewidth)) {
@@ -117,11 +96,7 @@ annotate_panel_grid <- function(
     }
   }
 
-  grid_linetype <- if (rlang::is_null(linetype)) {
-    resolved_grid_element$linetype %||% "solid"
-  } else {
-    linetype
-  }
+  grid_linetype <- linetype %||% resolved_grid_element$linetype %||% "solid"
 
   stamp <- list()
 
@@ -137,8 +112,7 @@ annotate_panel_grid <- function(
           )
         )
       )
-    } else {
-      # y
+    } else {  # y
       stamp <- c(
         stamp,
         list(
@@ -160,8 +134,7 @@ annotate_panel_grid <- function(
           )
         )
       )
-    } else {
-      # y
+    } else {  # y
       stamp <- c(
         stamp,
         list(
@@ -180,8 +153,7 @@ annotate_panel_grid <- function(
     stamp <- c(
       stamp,
       list(
-        rlang::exec(
-          ggplot2::annotate,
+        ggplot2::annotate(
           "segment",
           x = breaks,
           xend = breaks,
@@ -193,14 +165,12 @@ annotate_panel_grid <- function(
         )
       )
     )
-  } else {
-    # y-axis
+  } else {  # y axis
     # Add horizontal grid lines
     stamp <- c(
       stamp,
       list(
-        rlang::exec(
-          ggplot2::annotate,
+        ggplot2::annotate(
           "segment",
           x = -Inf,
           xend = Inf,
