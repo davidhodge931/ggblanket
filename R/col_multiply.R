@@ -6,9 +6,9 @@
 #' it blends the colour with itself (squaring effect).
 #'
 #' @param col A character vector of colours or a `scales::pal_*()` function
-#' @param ... Require named arguments (and support trailing commas).
-#' @param col2 A character vector of colours or a `scales::pal_*()` function, or NULL.
-#'   If NULL (default), col is blended with itself.
+#' @param col2 Optional second colour vector or palette function to blend with.
+#'   If NULL (default), col is blended with itself (squared).
+#' @param ... Additional arguments (currently unused, reserved for future extensions)
 #'
 #' @return
 #' If inputs are character vectors, returns a character vector of blended colours.
@@ -17,10 +17,10 @@
 #' @export
 #' @examples
 #' # Blend two colours
-#' col_multiply("#FF0000", "#0000FF")
+#' col_multiply("#FF0000", "#0000FF")  # Red × Blue = Black
 #'
 #' # Square a colour (blend with itself)
-#' col_multiply("#FF6600")
+#' col_multiply("#FF6600")  # Orange squared = Darker orange
 #'
 #' # Work with vectors
 #' col_multiply(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
@@ -32,11 +32,12 @@
 #' # Square a palette function
 #' pal_squared <- col_multiply(scales::pal_viridis())
 #' pal_squared(5)
-col_multiply <- function(col, ..., col2 = NULL) {
-  # If col2 is NULL, use col
-  if (rlang::is_null(col2)) {
-    col2 <- col
-  }
+#'
+#' # Works with transparency
+#' col_multiply("#FF000080", "#0000FF80")  # 50% red × 50% blue = 25% black
+col_multiply <- function(col, col2 = NULL, ...) {
+  # If col2 is NULL, use col (self-multiplication/squaring)
+  col2 <- col2 %||% col
 
   # Handle different input combinations
   if (is.function(col) || is.function(col2)) {
@@ -45,7 +46,6 @@ col_multiply <- function(col, ..., col2 = NULL) {
       # Get colours from functions or use directly
       col_vctr <- if (is.function(col)) col(n) else rep_len(col, n)
       col2_vctr <- if (is.function(col2)) col2(n) else rep_len(col2, n)
-
       # Perform multiply blend
       multiply_blend(col_vctr, col2_vctr)
     }
@@ -64,6 +64,7 @@ col_multiply <- function(col, ..., col2 = NULL) {
 #' @description
 #' Internal function that performs multiply blending between two colours.
 #' This mimics the "multiply" blend mode from graphics software.
+#' Supports alpha channel blending.
 #'
 #' @param col Character vector of colours
 #' @param col2 Character vector of colours
@@ -77,13 +78,25 @@ multiply_blend <- function(col, col2) {
   col <- rep_len(col, len)
   col2 <- rep_len(col2, len)
 
-  # Convert colours to RGB (values 0-1)
-  rgb1 <- grDevices::col2rgb(col) / 255
-  rgb2 <- grDevices::col2rgb(col2) / 255
+  # Convert colours to RGBA (values 0-1)
+  rgba1 <- grDevices::col2rgb(col, alpha = TRUE) / 255
+  rgba2 <- grDevices::col2rgb(col2, alpha = TRUE) / 255
 
-  # Apply multiply blend mode: result = colour1 * colour2
-  blended_rgb <- rgb1 * rgb2
+  # Ensure we always have matrices (not vectors for single colors)
+  if (!is.matrix(rgba1)) {
+    rgba1 <- matrix(rgba1, nrow = 4, ncol = 1)
+  }
+  if (!is.matrix(rgba2)) {
+    rgba2 <- matrix(rgba2, nrow = 4, ncol = 1)
+  }
 
-  # Convert back to hex colours
-  grDevices::rgb(blended_rgb[1, ], blended_rgb[2, ], blended_rgb[3, ])
+  # Apply multiply blend mode to RGB channels: result = colour1 * colour2
+  blended_rgb <- rgba1[1:3, , drop = FALSE] * rgba2[1:3, , drop = FALSE]
+
+  # Blend alpha channels (multiply as well for consistency)
+  blended_alpha <- rgba1[4, ] * rgba2[4, ]
+
+  # Convert back to hex colours with alpha
+  grDevices::rgb(blended_rgb[1, ], blended_rgb[2, ], blended_rgb[3, ],
+                 blended_alpha, maxColorValue = 1)
 }

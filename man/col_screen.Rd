@@ -4,15 +4,15 @@
 \alias{col_screen}
 \title{Screen blend colours}
 \usage{
-col_screen(col, ..., col2 = NULL)
+col_screen(col, col2 = NULL, ...)
 }
 \arguments{
 \item{col}{A character vector of colours or a \verb{scales::pal_*()} function}
 
-\item{...}{Require named arguments (and support trailing commas).}
-
-\item{col2}{A character vector of colours or a \verb{scales::pal_*()} function, or NULL.
+\item{col2}{Optional second colour vector or palette function to blend with.
 If NULL (default), col is blended with itself.}
+
+\item{...}{Additional arguments (currently unused, reserved for future extensions)}
 }
 \value{
 If inputs are character vectors, returns a character vector of blended colours.
@@ -26,10 +26,10 @@ rather than darkens.
 }
 \examples{
 # Blend two colours
-col_screen("#FF0000", "#0000FF")  # Red + Blue = Magenta
+col_screen("#000080", "#800000")  # Dark blue + Dark red = Lighter purple
 
-# Screen a colour with itself
-col_screen("#FF6600")
+# Screen a colour with itself (makes it lighter)
+col_screen("#404040")  # Gray screened = Lighter gray
 
 # Work with vectors
 col_screen(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
@@ -41,4 +41,7 @@ pal(5)
 # Screen a palette function with itself
 pal_screened <- col_screen(scales::pal_viridis())
 pal_screened(5)
+
+# Works with transparency
+col_screen("#00008080", "#80000080")  # 50\% dark blue + 50\% dark red
 }

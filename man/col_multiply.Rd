@@ -4,15 +4,15 @@
 \alias{col_multiply}
 \title{Multiply blend colours}
 \usage{
-col_multiply(col, ..., col2 = NULL)
+col_multiply(col, col2 = NULL, ...)
 }
 \arguments{
 \item{col}{A character vector of colours or a \verb{scales::pal_*()} function}
 
-\item{...}{Require named arguments (and support trailing commas).}
+\item{col2}{Optional second colour vector or palette function to blend with.
+If NULL (default), col is blended with itself (squared).}
 
-\item{col2}{A character vector of colours or a \verb{scales::pal_*()} function, or NULL.
-If NULL (default), col is blended with itself.}
+\item{...}{Additional arguments (currently unused, reserved for future extensions)}
 }
 \value{
 If inputs are character vectors, returns a character vector of blended colours.
@@ -25,10 +25,10 @@ it blends the colour with itself (squaring effect).
 }
 \examples{
 # Blend two colours
-col_multiply("#FF0000", "#0000FF")
+col_multiply("#FF0000", "#0000FF")  # Red × Blue = Black
 
 # Square a colour (blend with itself)
-col_multiply("#FF6600")
+col_multiply("#FF6600")  # Orange squared = Darker orange
 
 # Work with vectors
 col_multiply(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
@@ -40,4 +40,7 @@ pal(5)
 # Square a palette function
 pal_squared <- col_multiply(scales::pal_viridis())
 pal_squared(5)
+
+# Works with transparency
+col_multiply("#FF000080", "#0000FF80")  # 50\% red × 50\% blue = 25\% black
 }
