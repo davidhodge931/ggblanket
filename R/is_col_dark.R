@@ -11,9 +11,9 @@
 #' @export
 #'
 #' @examples
-#' is_col_dark("#0095A8FF")
+#' .is_col_dark("#0095A8FF")
 #'
-is_col_dark <- function(col) {
+.is_col_dark <- function(col) {
   # Handle NULL or missing input
   if (rlang::is_null(col) || length(col) == 0) {
     return(FALSE)
@@ -43,10 +43,10 @@ is_col_dark <- function(col) {
 #' @return TRUE if light (luminance > 50) and FALSE otherwise.
 #'
 #' @examples
-#' is_col_light("#0095A8FF")
+#' .is_col_light("#0095A8FF")
 #'
-#' @export
-is_col_light <- function(col) {
+#' @noRd
+.is_col_light <- function(col) {
   # Handle NULL or missing input
   if (rlang::is_null(col) || length(col) == 0) {
     return(FALSE)

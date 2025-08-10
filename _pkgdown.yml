@@ -28,10 +28,12 @@ reference:
   - label_every_nth
   - guides_grey
 
-  - col_multiply
-  - col_screen
+  - blend_multiply
+  - blend_screen
+
   - is_panel_dark
   - is_panel_light
+
   - jumble
   - pal_viridis_by_panel
   - viridis_by_panel

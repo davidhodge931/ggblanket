@@ -13,10 +13,10 @@
 #' @noRd
 #'
 #' @examples
-#' get_contrast(col = c("#000000", "#FFFFFF", "#808080"))  # Uses theme colours
-#' get_contrast(col = c("navy", "yellow", "orange"), dark = "navy", light = "lightblue")
+#' .get_contrast(col = c("#000000", "#FFFFFF", "#808080"))  # Uses theme colours
+#' .get_contrast(col = c("navy", "yellow", "orange"), dark = "navy", light = "lightblue")
 #'
-get_contrast <- function(..., col, dark = NULL, light = NULL) {
+.get_contrast <- function(..., col, dark = NULL, light = NULL) {
   # Only get theme if we need it
   if (rlang::is_null(dark) || rlang::is_null(light)) {
     # Get current theme
@@ -128,13 +128,13 @@ aes_contrast <- function(..., dark = NULL, light = NULL, aesthetic = "colour") {
   if (aesthetic == "colour") {
     ggplot2::aes(
       colour = ggplot2::after_scale(
-        get_contrast(.data$fill, dark = dark, light = light)
+        .get_contrast(.data$fill, dark = dark, light = light)
       )
     )
   } else if (aesthetic == "fill") {
     ggplot2::aes(
       fill = ggplot2::after_scale(
-        get_contrast(.data$colour, dark = dark, light = light)
+        .get_contrast(.data$colour, dark = dark, light = light)
       )
     )
   } else {
