@@ -41,8 +41,8 @@ theme_darker(
   subtitle_face = "plain",
   caption_size = ggplot2::rel(0.85),
   caption_family = base_family,
-  caption_colour = ifelse(is_panel_light(), col_screen(base_colour),
-    col_multiply(base_colour)),
+  caption_colour = ifelse(is_panel_light(), blend_screen(base_colour),
+    blend_multiply(base_colour)),
   caption_face = "plain",
   caption_hjust = 0
 )

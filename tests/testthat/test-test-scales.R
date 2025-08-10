@@ -379,7 +379,7 @@ test_that("pal_cont_viridis", {
         x = bill_depth_mm,
         y = bill_length_mm,
         col = bill_length_mm,
-        colour_palette = col_multiply(scales::pal_viridis(option = "F")),
+        colour_palette = blend_multiply(scales::pal_viridis(option = "F")),
         fill_palette = scales::pal_viridis(option = "F")
       )
   )
@@ -395,7 +395,7 @@ test_that("pal_disc_violin", {
         y = bill_length_mm,
         col = species,
         col_border = FALSE,
-        colour_palette = col_multiply(scales::pal_hue(h.start = 15)),
+        colour_palette = blend_multiply(scales::pal_hue(h.start = 15)),
         fill_palette = scales::pal_hue(h.start = 15)
       )
   )
@@ -410,7 +410,7 @@ test_that("pal_disc_viridis", {
         x = bill_depth_mm,
         y = bill_length_mm,
         col = species,
-        colour_palette = col_multiply(scales::pal_viridis()),
+        colour_palette = blend_multiply(scales::pal_viridis()),
         fill_palette = scales::pal_viridis()
       )
   )
@@ -488,7 +488,7 @@ test_that("steps_breaks_n", {
         col_breaks_n = 10,
         col_labels = \(x) paste0("$", x),
         col_limits_include = 20,
-        colour_palette = col_multiply(pal_viridis_by_panel(option = "F")),
+        colour_palette = blend_multiply(pal_viridis_by_panel(option = "F")),
         fill_palette = pal_viridis_by_panel(option = "F")
       )
   )

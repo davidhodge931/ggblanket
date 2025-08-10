@@ -150,7 +150,7 @@ test_that("disc_override", {
         x = body_mass_g,
         y = species,
         col = island,
-        colour_palette = col_multiply(scales::pal_viridis()),
+        colour_palette = blend_multiply(scales::pal_viridis()),
         fill_palette = scales::pal_viridis()
       )
   )
@@ -194,7 +194,7 @@ test_that("disc_no_blanket", {
         x = body_mass_g,
         y = species,
         col = island,
-        colour_palette = col_multiply(scales::pal_viridis()),
+        colour_palette = blend_multiply(scales::pal_viridis()),
         fill_palette = scales::pal_viridis()
       )
   )

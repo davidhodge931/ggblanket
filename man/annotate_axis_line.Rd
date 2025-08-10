@@ -58,7 +58,7 @@ palmerpenguins::penguins |>
     arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
   ) +
   geom_point(
-    colour = col_multiply(get_geom_defaults("point")$colour),
+    colour = blend_multiply(get_geom_defaults("point")$colour),
     size = 3,
   )
 

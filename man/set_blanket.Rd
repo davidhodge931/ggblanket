@@ -13,8 +13,8 @@ set_blanket(
   col_palette_o = NULL,
   col_na = "#A6A6A6FF",
   border_transform_colour = function(x) {
-     ifelse(is_panel_light(), col_multiply(x),
-    col_screen(x))
+     ifelse(is_panel_light(),
+    blend_multiply(x), blend_screen(x))
  },
   border_transform_fill = NULL,
   shape = 21,

@@ -96,8 +96,8 @@ theme_darker <- function(
   caption_family = base_family,
   caption_colour = ifelse(
     is_panel_light(),
-    col_screen(base_colour),
-    col_multiply(base_colour)
+    blend_screen(base_colour),
+    blend_multiply(base_colour)
   ),
   caption_face = "plain",
   caption_hjust = 0

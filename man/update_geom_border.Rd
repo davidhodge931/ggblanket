@@ -7,8 +7,8 @@
 update_geom_border(
   ...,
   border_transform_colour = function(x) {
-     ifelse(is_panel_light(), col_multiply(x),
-    col_screen(x))
+     ifelse(is_panel_light(),
+    blend_multiply(x), blend_screen(x))
  },
   border_transform_fill = NULL,
   borderwidth = 0.25
@@ -17,7 +17,7 @@ update_geom_border(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{border_transform_colour}{A function with input of the set \code{col}. Defaults to \code{col_screen}/\code{col_multiply} based on the panel.}
+\item{border_transform_colour}{A function with input of the set \code{col}. Defaults to \code{blend_screen}/\code{blend_multiply} based on the panel.}
 
 \item{border_transform_fill}{A function with input of the set \code{col}. Defaults to NULL.}
 

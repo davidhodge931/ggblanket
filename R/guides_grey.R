@@ -63,9 +63,9 @@ guides_grey <- function(
       if (rlang::is_null(border_transform_colour)) {
         current_theme <- ggplot2::theme_get()
         border_transform_colour <- if (is_panel_dark(theme = current_theme)) {
-          col_screen
+          blend_screen
         } else {
-          col_multiply
+          blend_multiply
         }
       }
 
