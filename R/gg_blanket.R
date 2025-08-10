@@ -71,105 +71,105 @@
 #'   )
 #'
 gg_blanket <- function(
-  data = NULL,
-  ...,
-  geom = "blank",
-  stat = "identity",
-  position = ggplot2::position_identity(),
-  coord = NULL,
-  aspect = NULL,
-  aspect_axis_line = NULL,
-  aspect_axis_ticks = NULL,
-  aspect_panel_grid = NULL,
+    data = NULL,
+    ...,
+    geom = "blank",
+    stat = "identity",
+    position = ggplot2::position_identity(),
+    coord = NULL,
+    aspect = NULL,
+    aspect_axis_line = NULL,
+    aspect_axis_ticks = NULL,
+    aspect_panel_grid = NULL,
 
-  blend = NULL,
-  x = NULL,
-  xmin = NULL,
-  xmax = NULL,
-  xend = NULL,
-  y = NULL,
-  ymin = NULL,
-  ymax = NULL,
-  yend = NULL,
-  z = NULL,
-  col = NULL,
-  colour = NULL,
-  fill = NULL,
-  alpha = NULL,
-  shape = NULL,
-  linetype = NULL,
-  linewidth = NULL,
-  size = NULL,
-  facet = NULL,
-  facet2 = NULL,
-  group = NULL,
-  subgroup = NULL,
-  label = NULL,
-  text = NULL,
-  sample = NULL,
-  mapping = NULL,
-  border = NULL,
-  border_transform_colour = NULL,
-  border_transform_fill = NULL,
+    blend = NULL,
+    x = NULL,
+    xmin = NULL,
+    xmax = NULL,
+    xend = NULL,
+    y = NULL,
+    ymin = NULL,
+    ymax = NULL,
+    yend = NULL,
+    z = NULL,
+    col = NULL,
+    colour = NULL,
+    fill = NULL,
+    alpha = NULL,
+    shape = NULL,
+    linetype = NULL,
+    linewidth = NULL,
+    size = NULL,
+    facet = NULL,
+    facet2 = NULL,
+    group = NULL,
+    subgroup = NULL,
+    label = NULL,
+    text = NULL,
+    sample = NULL,
+    mapping = NULL,
+    border = NULL,
+    border_transform_colour = NULL,
+    border_transform_fill = NULL,
 
-  x_breaks = NULL,
-  x_breaks_n = NULL,
-  x_expand = NULL,
-  x_limits_include = NULL,
-  x_title = snakecase::to_sentence_case,
-  x_labels = NULL,
-  x_position = "bottom",
-  x_sec_axis = ggplot2::waiver(),
-  x_limits_to_breaks = NULL,
-  x_transform = NULL,
-  y_breaks = NULL,
-  y_breaks_n = NULL,
-  y_expand = NULL,
-  y_limits_include = NULL,
-  y_title = snakecase::to_sentence_case,
-  y_labels = NULL,
-  y_position = "left",
-  y_sec_axis = ggplot2::waiver(),
-  y_limits_to_breaks = NULL,
-  y_transform = NULL,
-  col_breaks = ggplot2::waiver(),
-  col_breaks_n = NULL,
-  col_drop = FALSE,
-  col_limits_include = NULL,
-  col_title = snakecase::to_sentence_case,
-  col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_palette = NULL,
-  col_na = NULL,
-  col_legend_rev = FALSE,
-  col_rescale = scales::rescale(),
-  col_scale_type = "gradient",
-  col_transform = NULL,
-  colour_palette = NULL,
-  colour_na = NULL,
-  fill_palette = NULL,
-  fill_na = NULL,
-  alpha_title = snakecase::to_sentence_case,
-  shape_palette = NULL,
-  shape_na = NULL,
-  shape_title = snakecase::to_sentence_case,
-  linetype_palette = NULL,
-  linetype_title = snakecase::to_sentence_case,
-  linewidth_title = snakecase::to_sentence_case,
-  size_title = snakecase::to_sentence_case,
-  facet_axes = NULL,
-  facet_axis_labels = "margins",
-  facet_drop = FALSE,
-  facet_labels = NULL,
-  facet_layout = NULL,
-  facet_ncol = NULL,
-  facet_nrow = NULL,
-  facet_scales = "fixed",
-  facet_space = "fixed",
-  title = NULL,
-  subtitle = NULL,
-  caption = NULL
+    x_breaks = NULL,
+    x_breaks_n = NULL,
+    x_expand = NULL,
+    x_limits_include = NULL,
+    x_title = snakecase::to_sentence_case,
+    x_labels = NULL,
+    x_position = "bottom",
+    x_sec_axis = ggplot2::waiver(),
+    x_limits_to_breaks = NULL,
+    x_transform = NULL,
+    y_breaks = NULL,
+    y_breaks_n = NULL,
+    y_expand = NULL,
+    y_limits_include = NULL,
+    y_title = snakecase::to_sentence_case,
+    y_labels = NULL,
+    y_position = "left",
+    y_sec_axis = ggplot2::waiver(),
+    y_limits_to_breaks = NULL,
+    y_transform = NULL,
+    col_breaks = ggplot2::waiver(),
+    col_breaks_n = NULL,
+    col_drop = FALSE,
+    col_limits_include = NULL,
+    col_title = snakecase::to_sentence_case,
+    col_labels = NULL,
+    col_legend_ncol = NULL,
+    col_legend_nrow = NULL,
+    col_palette = NULL,
+    col_na = NULL,
+    col_legend_rev = FALSE,
+    col_rescale = scales::rescale(),
+    col_scale_type = "gradient",
+    col_transform = NULL,
+    colour_palette = NULL,
+    colour_na = NULL,
+    fill_palette = NULL,
+    fill_na = NULL,
+    alpha_title = snakecase::to_sentence_case,
+    shape_palette = NULL,
+    shape_na = NULL,
+    shape_title = snakecase::to_sentence_case,
+    linetype_palette = NULL,
+    linetype_title = snakecase::to_sentence_case,
+    linewidth_title = snakecase::to_sentence_case,
+    size_title = snakecase::to_sentence_case,
+    facet_axes = NULL,
+    facet_axis_labels = "margins",
+    facet_drop = FALSE,
+    facet_labels = NULL,
+    facet_layout = NULL,
+    facet_ncol = NULL,
+    facet_nrow = NULL,
+    facet_scales = "fixed",
+    facet_space = "fixed",
+    title = NULL,
+    subtitle = NULL,
+    caption = NULL
 ) {
   suppressMessages({
     suppressWarnings({
@@ -319,7 +319,7 @@ gg_blanket <- function(
       # then treat as non-border behavior
       if (
         (has_colour_aesthetic && user_set_fill_na) ||
-          (has_fill_aesthetic && user_set_colour_na)
+        (has_fill_aesthetic && user_set_colour_na)
       ) {
         is_border_geom <- FALSE
       }
@@ -396,8 +396,8 @@ gg_blanket <- function(
               colour_palette_d <- border_transform_colour(col_palette_d)
             } else if (
               is.character(col_palette_d) &&
-                is.function(border_transform_colour) &&
-                length(col_palette_d) > 0
+              is.function(border_transform_colour) &&
+              length(col_palette_d) > 0
             ) {
               colour_palette_d <- purrr::map_chr(
                 col_palette_d,
@@ -413,8 +413,8 @@ gg_blanket <- function(
               colour_palette_c <- border_transform_colour(col_palette_c)
             } else if (
               is.character(col_palette_c) &&
-                is.function(border_transform_colour) &&
-                length(col_palette_c) > 0
+              is.function(border_transform_colour) &&
+              length(col_palette_c) > 0
             ) {
               colour_palette_c <- purrr::map_chr(
                 col_palette_c,
@@ -430,8 +430,8 @@ gg_blanket <- function(
               colour_palette_o <- border_transform_colour(col_palette_o)
             } else if (
               is.character(col_palette_o) &&
-                is.function(border_transform_colour) &&
-                length(col_palette_o) > 0
+              is.function(border_transform_colour) &&
+              length(col_palette_o) > 0
             ) {
               colour_palette_o <- purrr::map_chr(
                 col_palette_o,
@@ -479,8 +479,8 @@ gg_blanket <- function(
               fill_palette_d <- border_transform_fill(col_palette_d)
             } else if (
               is.character(col_palette_d) &&
-                is.function(border_transform_fill) &&
-                length(col_palette_d) > 0
+              is.function(border_transform_fill) &&
+              length(col_palette_d) > 0
             ) {
               fill_palette_d <- purrr::map_chr(
                 col_palette_d,
@@ -496,8 +496,8 @@ gg_blanket <- function(
               fill_palette_c <- border_transform_fill(col_palette_c)
             } else if (
               is.character(col_palette_c) &&
-                is.function(border_transform_fill) &&
-                length(col_palette_c) > 0
+              is.function(border_transform_fill) &&
+              length(col_palette_c) > 0
             ) {
               fill_palette_c <- purrr::map_chr(
                 col_palette_c,
@@ -513,8 +513,8 @@ gg_blanket <- function(
               fill_palette_o <- border_transform_fill(col_palette_o)
             } else if (
               is.character(col_palette_o) &&
-                is.function(border_transform_fill) &&
-                length(col_palette_o) > 0
+              is.function(border_transform_fill) &&
+              length(col_palette_o) > 0
             ) {
               fill_palette_o <- purrr::map_chr(
                 col_palette_o,
@@ -597,8 +597,8 @@ gg_blanket <- function(
             # No colour value, but col is set as fixed value (and it's not NA)
             if (
               is_border_geom &&
-                !rlang::is_null(border_transform_colour) &&
-                is.function(border_transform_colour)
+              !rlang::is_null(border_transform_colour) &&
+              is.function(border_transform_colour)
             ) {
               fixed_params$colour <- border_transform_colour(
                 col_map_or_set$value
@@ -619,8 +619,8 @@ gg_blanket <- function(
 
           if (
             is_border_geom &&
-              !rlang::is_null(border_transform_colour) &&
-              is.function(border_transform_colour)
+            !rlang::is_null(border_transform_colour) &&
+            is.function(border_transform_colour)
           ) {
             fixed_params$colour <- border_transform_colour(default_colour)
           } else {
@@ -644,8 +644,8 @@ gg_blanket <- function(
             # No fill value, but col is set as fixed value (and it's not NA)
             if (
               is_border_geom &&
-                !rlang::is_null(border_transform_fill) &&
-                is.function(border_transform_fill)
+              !rlang::is_null(border_transform_fill) &&
+              is.function(border_transform_fill)
             ) {
               fixed_params$fill <- border_transform_fill(col_map_or_set$value)
             } else {
@@ -664,8 +664,8 @@ gg_blanket <- function(
 
           if (
             is_border_geom &&
-              !rlang::is_null(border_transform_fill) &&
-              is.function(border_transform_fill)
+            !rlang::is_null(border_transform_fill) &&
+            is.function(border_transform_fill)
           ) {
             fixed_params$fill <- border_transform_fill(default_fill)
           } else {
@@ -680,8 +680,8 @@ gg_blanket <- function(
         # For colour: only remove if it wasn't explicitly set by the user and not in mapping
         if (
           !colour_map_or_set$is_aesthetic &&
-            rlang::is_null(colour_map_or_set$value) &&
-            !colour_in_mapping
+          rlang::is_null(colour_map_or_set$value) &&
+          !colour_in_mapping
         ) {
           # colour was not provided by user, so remove the default
           fixed_params$colour <- NULL
@@ -689,8 +689,8 @@ gg_blanket <- function(
         # For fill: only remove if it wasn't explicitly set by the user and not in mapping
         if (
           !fill_map_or_set$is_aesthetic &&
-            rlang::is_null(fill_map_or_set$value) &&
-            !fill_in_mapping
+          rlang::is_null(fill_map_or_set$value) &&
+          !fill_in_mapping
         ) {
           # fill was not provided by user, so remove the default
           fixed_params$fill <- NULL
@@ -700,7 +700,7 @@ gg_blanket <- function(
       # Handle other fixed values with theme defaults
       if (
         !shape_map_or_set$is_aesthetic &&
-          !rlang::is_null(shape_map_or_set$value)
+        !rlang::is_null(shape_map_or_set$value)
       ) {
         fixed_params$shape <- shape_map_or_set$value
       } else if (!shape_map_or_set$is_aesthetic) {
@@ -714,7 +714,7 @@ gg_blanket <- function(
 
       if (
         !linetype_map_or_set$is_aesthetic &&
-          !rlang::is_null(linetype_map_or_set$value)
+        !rlang::is_null(linetype_map_or_set$value)
       ) {
         fixed_params$linetype <- linetype_map_or_set$value
       } else if (!linetype_map_or_set$is_aesthetic) {
@@ -726,7 +726,7 @@ gg_blanket <- function(
 
       if (
         !linewidth_map_or_set$is_aesthetic &&
-          !rlang::is_null(linewidth_map_or_set$value)
+        !rlang::is_null(linewidth_map_or_set$value)
       ) {
         fixed_params$linewidth <- linewidth_map_or_set$value
       } else if (!linewidth_map_or_set$is_aesthetic) {
@@ -753,7 +753,7 @@ gg_blanket <- function(
 
       if (
         !alpha_map_or_set$is_aesthetic &&
-          !rlang::is_null(alpha_map_or_set$value)
+        !rlang::is_null(alpha_map_or_set$value)
       ) {
         fixed_params$alpha <- alpha_map_or_set$value
       } else if (!alpha_map_or_set$is_aesthetic) {
@@ -793,8 +793,8 @@ gg_blanket <- function(
         rlang::enquo(colour)
       } else if (
         col_map_or_set$is_aesthetic &&
-          (rlang::is_null(colour_map_or_set$value) ||
-            !is.na(colour_map_or_set$value))
+        (rlang::is_null(colour_map_or_set$value) ||
+         !is.na(colour_map_or_set$value))
       ) {
         rlang::enquo(col) # Inherit from col only if colour wasn't explicitly NA
       } else {
@@ -806,8 +806,8 @@ gg_blanket <- function(
         rlang::enquo(fill)
       } else if (
         col_map_or_set$is_aesthetic &&
-          (rlang::is_null(fill_map_or_set$value) ||
-            !is.na(fill_map_or_set$value))
+        (rlang::is_null(fill_map_or_set$value) ||
+         !is.na(fill_map_or_set$value))
       ) {
         rlang::enquo(col) # Inherit from col only if fill wasn't explicitly NA
       } else {
@@ -845,9 +845,9 @@ gg_blanket <- function(
       # This prevents unwanted fill colors when user only wants outlines
       if (
         colour_map_or_set$is_aesthetic &&
-          !fill_map_or_set$is_aesthetic &&
-          !col_map_or_set$is_aesthetic &&
-          rlang::is_null(fill_map_or_set$value)
+        !fill_map_or_set$is_aesthetic &&
+        !col_map_or_set$is_aesthetic &&
+        rlang::is_null(fill_map_or_set$value)
       ) {
         # User mapped colour but not fill or col, and didn't set fill
         # Default to NA fill to show only outlines
@@ -856,9 +856,9 @@ gg_blanket <- function(
 
       if (
         fill_map_or_set$is_aesthetic &&
-          !colour_map_or_set$is_aesthetic &&
-          !col_map_or_set$is_aesthetic &&
-          rlang::is_null(colour_map_or_set$value)
+        !colour_map_or_set$is_aesthetic &&
+        !col_map_or_set$is_aesthetic &&
+        rlang::is_null(colour_map_or_set$value)
       ) {
         # User mapped fill but not colour or col, and didn't set colour
         # Default to NA colour to show only fills

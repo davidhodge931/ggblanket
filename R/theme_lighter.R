@@ -103,7 +103,9 @@ theme_lighter <- function(
     caption_hjust = 0
 ) {
   # Base theme (same for all legend positions)
-  theme <- ggplot2::theme(
+  theme <-
+    # ggplot2::theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    ggplot2::theme(
     text = ggplot2::element_text(
       size = base_size,
       family = base_family,
@@ -289,7 +291,7 @@ theme_lighter <- function(
   )
 
   # Apply legend position specific settings
-  theme + move_legend(legend_position)
+  theme + .move_legend(legend_position)
 }
 
 #' Move legend position
@@ -301,7 +303,7 @@ theme_lighter <- function(
 #' @return A ggplot theme object with legend position settings.
 #' @noRd
 #'
-move_legend <- function(legend_position = "right") {
+.move_legend <- function(legend_position = "right") {
   if (legend_position == "right") {
     ggplot2::theme(
       # Legend-specific settings for right position
@@ -330,10 +332,6 @@ move_legend <- function(legend_position = "right") {
       axis.title.x.top = ggplot2::element_text(
         margin = ggplot2::margin(t = 11 * 0, r = 0, b = 11 * 0.75, l = 0)
       ),
-      # axis.title.x.top = ggplot2::element_text(
-      #   margin = ggplot2::margin(t = 11 * -1, r = 0, b = 11 * 1, l = 0)
-      # ),
-
       axis.title.y = ggplot2::element_text(
         margin = ggplot2::margin(t = 0, r = 11 * 1, b = 0, l = 0),
         angle = 90
@@ -346,18 +344,10 @@ move_legend <- function(legend_position = "right") {
         vjust = 1,
         margin = ggplot2::margin(t = 11 * 0.5, r = 0, b = 11 * 1, l = 0)
       ),
-      # axis.text.x = ggplot2::element_text(
-      #   vjust = 1,
-      #   margin = ggplot2::margin(t = 11 * 0.3, r = 0, b = 11 * 1, l = 0)
-      # ),
       axis.text.x.top = ggplot2::element_text(
         vjust = 0,
         margin = ggplot2::margin(t = 11 * 0, r = 0, b = 11 * 0.5, l = 0)
       )
-      # axis.text.x.top = ggplot2::element_text(
-      #   vjust = 0,
-      #   margin = ggplot2::margin(t = 11 * -0.5, r = 0, b = 11 * 0.3, l = 0)
-      # )
     )
   } else if (legend_position == "top") {
     ggplot2::theme(
