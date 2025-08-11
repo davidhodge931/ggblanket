@@ -70,16 +70,16 @@ get_geom_params <- function(geom_name, ...) {
 #' Add initial layer to plot
 #' @noRd
 add_initial_layer <- function(
-  plot,
-  geom,
-  geom_name,
-  stat,
-  stat_name,
-  position,
-  params,
-  show_legend,
-  coord,
-  blend
+    plot,
+    geom,
+    geom_name,
+    stat,
+    stat_name,
+    position,
+    params,
+    show_legend,
+    coord,
+    blend
 ) {
   # Determine if using sf
   is_sf <- stringr::str_detect(stat_name, "sf")
@@ -142,11 +142,11 @@ get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class) {
 #' Determine if x should be symmetric
 #' @noRd
 is_x_limits_to_breaks <- function(
-  x_limits_to_breaks = NULL,
-  stat_name,
-  facet_scales,
-  x_scale_class,
-  y_scale_class
+    x_limits_to_breaks = NULL,
+    stat_name,
+    facet_scales,
+    x_scale_class,
+    y_scale_class
 ) {
   if (!rlang::is_null(x_limits_to_breaks)) {
     return(x_limits_to_breaks)
@@ -154,18 +154,18 @@ is_x_limits_to_breaks <- function(
 
   # Conditions where x should NOT be symmetric
   !(stringr::str_detect(stat_name, "sf") ||
-    facet_scales %in% c("free", "free_x") ||
-    !(y_scale_class == "discrete" && x_scale_class != "discrete"))
+      facet_scales %in% c("free", "free_x") ||
+      !(y_scale_class == "discrete" && x_scale_class != "discrete"))
 }
 
 #' Determine if y should be symmetric
 #' @noRd
 is_y_limits_to_breaks <- function(
-  y_limits_to_breaks = NULL,
-  stat_name,
-  facet_scales,
-  x_scale_class,
-  y_scale_class
+    y_limits_to_breaks = NULL,
+    stat_name,
+    facet_scales,
+    x_scale_class,
+    y_scale_class
 ) {
   if (!rlang::is_null(y_limits_to_breaks)) {
     return(y_limits_to_breaks)
@@ -173,8 +173,8 @@ is_y_limits_to_breaks <- function(
 
   # Conditions where y should NOT be symmetric
   !(stringr::str_detect(stat_name, "sf") ||
-    facet_scales %in% c("free", "free_y") ||
-    (y_scale_class == "discrete" && x_scale_class != "discrete"))
+      facet_scales %in% c("free", "free_y") ||
+      (y_scale_class == "discrete" && x_scale_class != "discrete"))
 }
 
 # Input validation functions ----
@@ -182,13 +182,13 @@ is_y_limits_to_breaks <- function(
 #' Validate inputs are valid
 #' @noRd
 validate_inputs <- function(
-  mapping,
-  aspect,
-  x_limits_to_breaks,
-  y_limits_to_breaks,
-  x_transform,
-  y_transform,
-  stat_name
+    mapping,
+    aspect,
+    x_limits_to_breaks,
+    y_limits_to_breaks,
+    x_transform,
+    y_transform,
+    stat_name
 ) {
   # Check mapping doesn't include facets
   if (!rlang::is_null(mapping)) {
@@ -209,9 +209,9 @@ validate_inputs <- function(
 
   if (
     both_symmetric &&
-      (non_identity_x_transform ||
-        non_identity_y_transform ||
-        non_identity_stat_name)
+    (non_identity_x_transform ||
+     non_identity_y_transform ||
+     non_identity_stat_name)
   ) {
     rlang::abort(c(
       "symmetric == 'both' not supported where",
@@ -249,8 +249,8 @@ process_data <- function(data, aes_list, aspect) {
     dplyr::mutate(dplyr::across(
       c(!!!active_aes) &
         (tidyselect::where(is.character) |
-          tidyselect::where(is.factor) |
-          tidyselect::where(is.logical)),
+           tidyselect::where(is.factor) |
+           tidyselect::where(is.logical)),
       labelled::to_factor # or haven::as_factor, but does not seem to maintain order always
     )) |>
     # Reverse y factors for top-to-bottom reading
@@ -366,19 +366,19 @@ get_facet_axes <- function(facet_axes, x_limits_to_breaks) {
 #' Add facet layer to plot
 #' @noRd
 add_facet_layer <- function(
-  plot,
-  aes_list,
-  data,
-  facet_layout,
-  facet_scales,
-  facet_space,
-  facet_drop,
-  facet_axes,
-  facet_axis_labels,
-  facet_nrow,
-  facet_ncol,
-  facet_labels,
-  y_scale_class
+    plot,
+    aes_list,
+    data,
+    facet_layout,
+    facet_scales,
+    facet_space,
+    facet_drop,
+    facet_axes,
+    facet_axis_labels,
+    facet_nrow,
+    facet_ncol,
+    facet_labels,
+    y_scale_class
 ) {
   # Check if we need to reverse facet
   reverse_facet <- y_scale_class == "discrete" &&
@@ -412,17 +412,17 @@ add_facet_layer <- function(
 #' Add facet layer with reversed facet
 #' @noRd
 add_facet_layer_rev <- function(
-  plot,
-  aes_list,
-  facet_layout,
-  facet_scales,
-  facet_space,
-  facet_drop,
-  facet_axes,
-  facet_axis_labels,
-  facet_nrow,
-  facet_ncol,
-  facet_labels
+    plot,
+    aes_list,
+    facet_layout,
+    facet_scales,
+    facet_space,
+    facet_drop,
+    facet_axes,
+    facet_axis_labels,
+    facet_nrow,
+    facet_ncol,
+    facet_labels
 ) {
   # Build facet vars with reversal
   facet_vars <- build_facet_vars(aes_list, reverse_facet = TRUE)
@@ -445,17 +445,17 @@ add_facet_layer_rev <- function(
 #' Add facet layer normal (not reversed)
 #' @noRd
 add_facet_layer_std <- function(
-  plot,
-  aes_list,
-  facet_layout,
-  facet_scales,
-  facet_space,
-  facet_drop,
-  facet_axes,
-  facet_axis_labels,
-  facet_nrow,
-  facet_ncol,
-  facet_labels
+    plot,
+    aes_list,
+    facet_layout,
+    facet_scales,
+    facet_space,
+    facet_drop,
+    facet_axes,
+    facet_axis_labels,
+    facet_nrow,
+    facet_ncol,
+    facet_labels
 ) {
   # Build facet vars without reversal
   facet_vars <- build_facet_vars(aes_list, reverse_facet = FALSE)
@@ -500,17 +500,17 @@ build_facet_vars <- function(aes_list, reverse_facet = FALSE) {
 #' Add facet by layout type
 #' @noRd
 add_facet_by_layout <- function(
-  plot,
-  facet_vars,
-  facet_layout,
-  facet_scales,
-  facet_space,
-  facet_drop,
-  facet_axes,
-  facet_axis_labels,
-  facet_nrow,
-  facet_ncol,
-  facet_labels
+    plot,
+    facet_vars,
+    facet_layout,
+    facet_scales,
+    facet_space,
+    facet_drop,
+    facet_axes,
+    facet_axis_labels,
+    facet_nrow,
+    facet_ncol,
+    facet_labels
 ) {
   if (facet_layout == "wrap") {
     # Combine facet vars for wrap
@@ -562,7 +562,7 @@ get_col_n <- function(aes_list, data, plot_data, stat_name = NULL) {
   # Special handling for contour_filled and density2d_filled
   if (
     !rlang::is_null(stat_name) &&
-      stat_name %in% c("contour_filled", "density2d_filled")
+    stat_name %in% c("contour_filled", "density2d_filled")
   ) {
     # For contour plots, check if there's a 'level' column in plot_data
     if ("level" %in% names(plot_data)) {
@@ -617,11 +617,11 @@ is_aes_identical_to_col <- function(plot_build, aesthetic) {
 
   # Check if labels match
   (!rlang::is_null(colour_label) &&
-    !rlang::is_null(aes_label) &&
-    rlang::as_name(colour_label[1]) == rlang::as_name(aes_label[1])) ||
-    (!rlang::is_null(fill_label) &&
       !rlang::is_null(aes_label) &&
-      rlang::as_name(fill_label[1]) == rlang::as_name(aes_label[1]))
+      rlang::as_name(colour_label[1]) == rlang::as_name(aes_label[1])) ||
+    (!rlang::is_null(fill_label) &&
+       !rlang::is_null(aes_label) &&
+       rlang::as_name(fill_label[1]) == rlang::as_name(aes_label[1]))
 }
 
 # Scale determination functions ----
@@ -738,18 +738,18 @@ get_col_scale_class <- function(plot_scales, col_quo, data) {
 #' Add continuous x scale
 #' @noRd
 add_x_scale_continuous <- function(
-  plot,
-  stat_name,
-  x_breaks,
-  x_breaks_n,
-  x_labels,
-  x_expand,
-  x_limits_include,
-  x_position,
-  x_sec_axis,
-  x_limits_to_breaks,
-  x_transform,
-  plot_data
+    plot,
+    stat_name,
+    x_breaks,
+    x_breaks_n,
+    x_labels,
+    x_expand,
+    x_limits_include,
+    x_position,
+    x_sec_axis,
+    x_limits_to_breaks,
+    x_transform,
+    plot_data
 ) {
   # Handle sf special case
   if (stringr::str_detect(stat_name, "sf")) {
@@ -796,18 +796,18 @@ add_x_scale_continuous <- function(
 #' Add continuous y scale
 #' @noRd
 add_y_scale_continuous <- function(
-  plot,
-  stat_name,
-  y_breaks,
-  y_breaks_n,
-  y_labels,
-  y_expand,
-  y_limits_include,
-  y_position,
-  y_sec_axis,
-  y_limits_to_breaks,
-  y_transform,
-  plot_data
+    plot,
+    stat_name,
+    y_breaks,
+    y_breaks_n,
+    y_labels,
+    y_expand,
+    y_limits_include,
+    y_position,
+    y_sec_axis,
+    y_limits_to_breaks,
+    y_transform,
+    plot_data
 ) {
   # Handle sf special case
   if (stringr::str_detect(stat_name, "sf")) {
@@ -968,17 +968,17 @@ create_ordinal_palette_wrapper <- function(palette) {
 #' Add matching aesthetic guides
 #' @noRd
 add_matching_aesthetic_guides <- function(
-  plot,
-  plot_build,
-  col_legend_rev,
-  col_legend_ncol,
-  col_legend_nrow,
-  geom_name = NULL,
-  is_border_geom = FALSE,
-  border_transform_colour = NULL,
-  border_transform_fill = NULL,
-  aes_list = NULL,
-  data = NULL
+    plot,
+    plot_build,
+    col_legend_rev,
+    col_legend_ncol,
+    col_legend_nrow,
+    geom_name = NULL,
+    is_border_geom = FALSE,
+    border_transform_colour = NULL,
+    border_transform_fill = NULL,
+    aes_list = NULL,
+    data = NULL
 ) {
   # Fixed grey color for legend key overrides
   grey_col <- "#8991A1"
@@ -1043,13 +1043,13 @@ add_matching_aesthetic_guides <- function(
         "shape" = {
           if (
             geom_name %in%
-              c("point", "jitter", "count", "qq", "pointrange") &&
-              is_border_geom
+            c("point", "jitter", "count", "qq", "pointrange") &&
+            is_border_geom
           ) {
             list(
               colour = if (
                 !rlang::is_null(border_transform_colour) &&
-                  is.function(border_transform_colour)
+                is.function(border_transform_colour)
               ) {
                 border_transform_colour(grey_col)
               } else {
@@ -1057,7 +1057,7 @@ add_matching_aesthetic_guides <- function(
               },
               fill = if (
                 !rlang::is_null(border_transform_fill) &&
-                  is.function(border_transform_fill)
+                is.function(border_transform_fill)
               ) {
                 border_transform_fill(grey_col)
               } else {
@@ -1072,13 +1072,13 @@ add_matching_aesthetic_guides <- function(
         "alpha" = {
           if (
             geom_name %in%
-              c("point", "jitter", "count", "qq", "pointrange") &&
-              is_border_geom
+            c("point", "jitter", "count", "qq", "pointrange") &&
+            is_border_geom
           ) {
             list(
               colour = if (
                 !rlang::is_null(border_transform_colour) &&
-                  is.function(border_transform_colour)
+                is.function(border_transform_colour)
               ) {
                 border_transform_colour(grey_col)
               } else {
@@ -1086,7 +1086,7 @@ add_matching_aesthetic_guides <- function(
               },
               fill = if (
                 !rlang::is_null(border_transform_fill) &&
-                  is.function(border_transform_fill)
+                is.function(border_transform_fill)
               ) {
                 border_transform_fill(grey_col)
               } else {
@@ -1100,8 +1100,8 @@ add_matching_aesthetic_guides <- function(
         "linewidth" = {
           if (
             is_border_geom &&
-              !rlang::is_null(border_transform_colour) &&
-              is.function(border_transform_colour)
+            !rlang::is_null(border_transform_colour) &&
+            is.function(border_transform_colour)
           ) {
             list(colour = border_transform_colour(grey_col), fill = grey_col)
           } else {
@@ -1130,17 +1130,17 @@ add_matching_aesthetic_guides <- function(
 #' Create symmetric x scale
 #' @noRd
 scale_x_limits_to_breaks <- function(
-  data = NULL,
-  x = NULL,
-  symmetric = TRUE,
-  breaks = NULL,
-  breaks_n = 6,
-  expand = NULL,
-  expand_limits = NULL,
-  labels = NULL,
-  position = "bottom",
-  sec_axis = ggplot2::waiver(),
-  transform = "identity"
+    data = NULL,
+    x = NULL,
+    symmetric = TRUE,
+    breaks = NULL,
+    breaks_n = 6,
+    expand = NULL,
+    expand_limits = NULL,
+    labels = NULL,
+    position = "bottom",
+    sec_axis = ggplot2::waiver(),
+    transform = "identity"
 ) {
   # Get transform
   transform <- get_transform(transform = transform)
@@ -1149,7 +1149,7 @@ scale_x_limits_to_breaks <- function(
   if (symmetric) {
     if (
       any(stringr::str_detect(transform, "log-")) |
-        any(transform %in% c("log", "log2", "log10"))
+      any(transform %in% c("log", "log2", "log10"))
     ) {
       rlang::abort("ggblanket does not currently support symmetric log axes")
     }
@@ -1192,7 +1192,7 @@ scale_x_limits_to_breaks <- function(
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
       } else if (
         any(stringr::str_detect(transform, "log-")) |
-          any(transform %in% c("log", "log2", "log10"))
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)(range)
       } else {
@@ -1244,7 +1244,7 @@ scale_x_limits_to_breaks <- function(
         breaks <- scales::breaks_pretty(n = breaks_n)
       } else if (
         any(stringr::str_detect(transform, "log-")) |
-          any(transform %in% c("log", "log2", "log10"))
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)
       } else {
@@ -1286,17 +1286,17 @@ scale_x_limits_to_breaks <- function(
 #' Create symmetric y scale
 #' @noRd
 scale_y_limits_to_breaks <- function(
-  data = NULL,
-  y = NULL,
-  symmetric = TRUE,
-  breaks = NULL,
-  breaks_n = 6,
-  expand = NULL,
-  expand_limits = NULL,
-  labels = NULL,
-  position = "left",
-  sec_axis = ggplot2::waiver(),
-  transform = "identity"
+    data = NULL,
+    y = NULL,
+    symmetric = TRUE,
+    breaks = NULL,
+    breaks_n = 6,
+    expand = NULL,
+    expand_limits = NULL,
+    labels = NULL,
+    position = "left",
+    sec_axis = ggplot2::waiver(),
+    transform = "identity"
 ) {
   # Get transform
   transform <- get_transform(transform = transform)
@@ -1305,7 +1305,7 @@ scale_y_limits_to_breaks <- function(
   if (symmetric) {
     if (
       any(stringr::str_detect(transform, "log-")) |
-        any(transform %in% c("log", "log2", "log10"))
+      any(transform %in% c("log", "log2", "log10"))
     ) {
       rlang::abort("ggblanket does not currently support symmetric log axes")
     }
@@ -1348,7 +1348,7 @@ scale_y_limits_to_breaks <- function(
         breaks <- scales::breaks_pretty(n = breaks_n)(range)
       } else if (
         any(stringr::str_detect(transform, "log-")) |
-          any(transform %in% c("log", "log2", "log10"))
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)(range)
       } else {
@@ -1400,7 +1400,7 @@ scale_y_limits_to_breaks <- function(
         breaks <- scales::breaks_pretty(n = breaks_n)
       } else if (
         any(stringr::str_detect(transform, "log-")) |
-          any(transform %in% c("log", "log2", "log10"))
+        any(transform %in% c("log", "log2", "log10"))
       ) {
         breaks <- scales::breaks_log(n = breaks_n)
       } else {
@@ -1444,9 +1444,9 @@ scale_y_limits_to_breaks <- function(
 #' Get transparency defaults
 #' @noRd
 get_aspect_behaviour <- function(
-  aspect_axis_line,
-  aspect_axis_ticks,
-  aspect_panel_grid
+    aspect_axis_line,
+    aspect_axis_ticks,
+    aspect_panel_grid
 ) {
   list(
     aspect_axis_line = aspect_axis_line %||%
@@ -1461,13 +1461,13 @@ get_aspect_behaviour <- function(
 #' Add transparency based on aspect
 #' @noRd
 add_aspect <- function(
-  plot,
-  aspect,
-  aspect_axis_line,
-  aspect_axis_ticks,
-  aspect_panel_grid,
-  x_scale_class,
-  y_scale_class
+    plot,
+    aspect,
+    aspect_axis_line,
+    aspect_axis_ticks,
+    aspect_panel_grid,
+    x_scale_class,
+    y_scale_class
 ) {
   theme_updates <- list()
 
@@ -1584,8 +1584,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           if (arg_name %in% c("col", "colour", "fill")) {
             if (
               is.character(eval_value) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1594,8 +1594,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "shape") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1604,8 +1604,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "linetype") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1614,8 +1614,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "linewidth") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1624,8 +1624,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "size") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1634,8 +1634,8 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
           } else if (arg_name == "alpha") {
             if (
               (is.numeric(eval_value) || is.character(eval_value)) &&
-                length(eval_value) == 1 &&
-                !inherits(eval_value, "AsIs")
+              length(eval_value) == 1 &&
+              !inherits(eval_value, "AsIs")
             ) {
               return(list(is_aesthetic = FALSE, value = eval_value))
             } else if (length(eval_value) == 1 && is.na(eval_value)) {
@@ -1664,47 +1664,47 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
         if (arg_name %in% c("col", "colour", "fill")) {
           if (
             (is.character(eval_value) && length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "shape") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "linetype") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "linewidth") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "size") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
         } else if (arg_name == "alpha") {
           if (
             ((is.numeric(eval_value) || is.character(eval_value)) &&
-              length(eval_value) == 1) ||
-              (length(eval_value) == 1 && is.na(eval_value))
+             length(eval_value) == 1) ||
+            (length(eval_value) == 1 && is.na(eval_value))
           ) {
             return(list(is_aesthetic = FALSE, value = eval_value))
           }
@@ -1729,47 +1729,47 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
       if (arg_name %in% c("col", "colour", "fill")) {
         if (
           (is.character(eval_value) && length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "shape") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "linetype") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "linewidth") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "size") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
       } else if (arg_name == "alpha") {
         if (
           ((is.numeric(eval_value) || is.character(eval_value)) &&
-            length(eval_value) == 1) ||
-            (length(eval_value) == 1 && is.na(eval_value))
+           length(eval_value) == 1) ||
+          (length(eval_value) == 1 && is.na(eval_value))
         ) {
           return(list(is_aesthetic = FALSE, value = eval_value))
         }
@@ -1842,9 +1842,9 @@ is_border <- function(geom_name, theme_defaults) {
 #' Create base ggplot from aesthetic list
 #' @noRd
 initialise_ggplot_from_list <- function(
-  data,
-  aes_list,
-  mapping = NULL
+    data,
+    aes_list,
+    mapping = NULL
 ) {
   # Build base aesthetics from the provided aes_list
   base_aes <- ggplot2::aes()
@@ -2006,37 +2006,37 @@ initialise_ggplot_from_list <- function(
 #' Add color scales
 #' @noRd
 add_col_scale <- function(
-  plot,
-  geom_name,
-  stat_name = NULL,
-  col_scale_class,
-  aes_list,
-  data,
-  plot_data,
-  plot_build,
-  x_limits_to_breaks,
-  is_border_geom,
-  col_breaks,
-  col_breaks_n,
-  col_drop,
-  col_limits_include,
-  col_labels,
-  col_legend_ncol,
-  col_legend_nrow,
-  col_legend_rev,
-  col_rescale,
-  col_scale_type,
-  col_transform,
-  colour_palette_d,
-  colour_palette_c,
-  colour_palette_o,
-  colour_na,
-  fill_palette_d,
-  fill_palette_c,
-  fill_palette_o,
-  fill_na,
-  border_transform_colour = NULL,
-  border_transform_fill = NULL
+    plot,
+    geom_name,
+    stat_name = NULL,
+    col_scale_class,
+    aes_list,
+    data,
+    plot_data,
+    plot_build,
+    x_limits_to_breaks,
+    is_border_geom,
+    col_breaks,
+    col_breaks_n,
+    col_drop,
+    col_limits_include,
+    col_labels,
+    col_legend_ncol,
+    col_legend_nrow,
+    col_legend_rev,
+    col_rescale,
+    col_scale_type,
+    col_transform,
+    colour_palette_d,
+    colour_palette_c,
+    colour_palette_o,
+    colour_na,
+    fill_palette_d,
+    fill_palette_c,
+    fill_palette_o,
+    fill_na,
+    border_transform_colour = NULL,
+    border_transform_fill = NULL
 ) {
   # Get NA colors with defaults
   na_colour <- colour_na %||% "#CDC5BFFF"
@@ -2147,23 +2147,23 @@ add_col_scale <- function(
 #' Add discrete color scale
 #' @noRd
 add_col_scale_discrete <- function(
-  plot,
-  aes_list,
-  data,
-  plot_data,
-  colour_palette,
-  fill_palette,
-  na_colour,
-  na_fill,
-  col_breaks,
-  col_labels,
-  col_drop,
-  col_legend_ncol,
-  col_legend_nrow,
-  col_legend_rev,
-  x_limits_to_breaks,
-  plot_build,
-  stat_name = NULL
+    plot,
+    aes_list,
+    data,
+    plot_data,
+    colour_palette,
+    fill_palette,
+    na_colour,
+    na_fill,
+    col_breaks,
+    col_labels,
+    col_drop,
+    col_legend_ncol,
+    col_legend_nrow,
+    col_legend_rev,
+    x_limits_to_breaks,
+    plot_build,
+    stat_name = NULL
 ) {
   # Calculate number of colors needed
   col_n <- get_col_n(aes_list, data, plot_data, stat_name)
@@ -2291,22 +2291,22 @@ add_col_scale_discrete <- function(
 #' Add ordinal color scale
 #' @noRd
 add_col_scale_ordinal <- function(
-  plot,
-  aes_list,
-  data,
-  plot_data,
-  colour_palette,
-  fill_palette,
-  na_colour,
-  na_fill,
-  col_breaks,
-  col_labels,
-  col_drop,
-  col_legend_ncol,
-  col_legend_nrow,
-  col_legend_rev,
-  plot_build,
-  stat_name = NULL
+    plot,
+    aes_list,
+    data,
+    plot_data,
+    colour_palette,
+    fill_palette,
+    na_colour,
+    na_fill,
+    col_breaks,
+    col_labels,
+    col_drop,
+    col_legend_ncol,
+    col_legend_nrow,
+    col_legend_rev,
+    plot_build,
+    stat_name = NULL
 ) {
   # Calculate number of colors needed
   col_n <- get_col_n(aes_list, data, plot_data, stat_name)
@@ -2397,21 +2397,21 @@ add_col_scale_ordinal <- function(
 #' Add continuous color scale
 #' @noRd
 add_col_scale_continuous <- function(
-  plot,
-  colour_palette,
-  fill_palette,
-  na_colour,
-  na_fill,
-  is_border_geom,
-  col_breaks,
-  col_breaks_n,
-  col_labels,
-  col_legend_rev,
-  col_rescale,
-  col_scale_type,
-  col_transform,
-  aes_list,
-  plot_build
+    plot,
+    colour_palette,
+    fill_palette,
+    na_colour,
+    na_fill,
+    is_border_geom,
+    col_breaks,
+    col_breaks_n,
+    col_labels,
+    col_legend_rev,
+    col_rescale,
+    col_scale_type,
+    col_transform,
+    aes_list,
+    plot_build
 ) {
   # Process palette functions to get color vectors
   colour_palette_values <- process_continuous_palette(colour_palette)
@@ -2580,17 +2580,17 @@ check_same_colour_fill_mapping <- function(plot) {
 #' Apply grey styling to legend key override guides
 #' @noRd
 apply_secondary_grey_guides <- function(
-  plot,
-  aes_list,
-  data,
-  geom_name,
-  is_border_geom,
-  border_transform_colour,
-  border_transform_fill,
-  col_legend_ncol,
-  col_legend_nrow,
-  shape_legend_rev,
-  linetype_legend_rev
+    plot,
+    aes_list,
+    data,
+    geom_name,
+    is_border_geom,
+    border_transform_colour,
+    border_transform_fill,
+    col_legend_ncol,
+    col_legend_nrow,
+    shape_legend_rev,
+    linetype_legend_rev
 ) {
   grey_col <- "#8991A1"
 
@@ -2621,13 +2621,13 @@ apply_secondary_grey_guides <- function(
     if (!same_as_col) {
       if (
         geom_name %in%
-          c("point", "jitter", "count", "qq", "pointrange") &&
-          is_border_geom
+        c("point", "jitter", "count", "qq", "pointrange") &&
+        is_border_geom
       ) {
         override_aes <- list(
           colour = if (
             !rlang::is_null(border_transform_colour) &&
-              is.function(border_transform_colour)
+            is.function(border_transform_colour)
           ) {
             border_transform_colour(grey_col)
           } else {
@@ -2635,7 +2635,7 @@ apply_secondary_grey_guides <- function(
           },
           fill = if (
             !rlang::is_null(border_transform_fill) &&
-              is.function(border_transform_fill)
+            is.function(border_transform_fill)
           ) {
             border_transform_fill(grey_col)
           } else {
@@ -2684,18 +2684,18 @@ apply_secondary_grey_guides <- function(
 
 # Helper function to process titles using ggplot2's label system
 process_title <- function(
-  title_param,
-  aes_quo,
-  mapping,
-  aes_name,
-  stat_name,
-  data,
-  fallback = "X",
-  plot = NULL
+    title_param,
+    aes_quo,
+    mapping,
+    aes_name,
+    stat_name,
+    data,
+    fallback = "X",
+    plot = NULL
 ) {
   if (
     rlang::is_null(title_param) ||
-      (stringr::str_detect(stat_name, "sf") && aes_name %in% c("x", "y"))
+    (stringr::str_detect(stat_name, "sf") && aes_name %in% c("x", "y"))
   ) {
     return(NULL)
   } else if (!is.function(title_param)) {

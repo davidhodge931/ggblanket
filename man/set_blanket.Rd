@@ -9,7 +9,8 @@ set_blanket(
   theme = theme_lighter(),
   col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
   col_palette_d = scales::pal_hue(),
-  col_palette_c = pal_viridis_by_panel(option = "mako", begin = 0.1, end = 0.9),
+  col_palette_c = pal_direction(scales::pal_viridis(option = "mako", begin = 0.1, end =
+    0.9)),
   col_palette_o = NULL,
   col_na = "#A6A6A6FF",
   border_transform_colour = function(x) {

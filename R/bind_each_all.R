@@ -73,12 +73,12 @@
 #'   labs(x = NULL)
 #'
 bind_each_all <- function(
-  data,
-  ...,
-  name = "each_all",
-  each = "Each",
-  all = "All",
-  all_after = Inf
+    data,
+    ...,
+    name = "each_all",
+    each = "Each",
+    all = "All",
+    all_after = Inf
 ) {
   if (...length() != 1) {
     stop("Please provide one variable")

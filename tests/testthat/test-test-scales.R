@@ -488,8 +488,8 @@ test_that("steps_breaks_n", {
         col_breaks_n = 10,
         col_labels = \(x) paste0("$", x),
         col_limits_include = 20,
-        colour_palette = blend_multiply(pal_viridis_by_panel(option = "F")),
-        fill_palette = pal_viridis_by_panel(option = "F")
+        colour_palette = blend_multiply(pal_direction(scales::pal_viridis(option = "F"))),
+        fill_palette = pal_direction(scales::pal_viridis(option = "F"))
       )
   )
 })
