@@ -71,7 +71,7 @@ gg_errorbar(
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
-  col_legend_rev = FALSE,
+  col_legend_rev = NULL,
   col_palette = NULL,
   col_na = NULL,
   col_rescale = scales::rescale(),
@@ -158,7 +158,7 @@ gg_errorbar(
 
 \item{col_legend_ncol, col_legend_nrow}{The number of columns and rows in a legend guide.}
 
-\item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
+\item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide.}
 
 \item{col_palette, colour_palette, fill_palette}{colour_palette,fill_palette A character vector of hex codes (or names) or a \verb{scales::pal_*()} function.}
 

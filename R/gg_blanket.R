@@ -33,7 +33,7 @@
 #' @param x_transform,y_transform,col_transform For a continuous scale, a transformation object (e.g. [scales::transform_log10()]) or character string of this minus the `transform_` prefix (e.g. `"log10"`).
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
-#' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide. Defaults to `FALSE`.
+#' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide.
 #' @param col_rescale For a continuous variable, a `scales::rescale()` function.
 #' @param col_palette,colour_palette,fill_palette colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_na,colour_na,fill_na A hex code (or name) for the `NA` value.
@@ -142,7 +142,7 @@ gg_blanket <- function(
     col_legend_nrow = NULL,
     col_palette = NULL,
     col_na = NULL,
-    col_legend_rev = FALSE,
+    col_legend_rev = NULL,
     col_rescale = scales::rescale(),
     col_scale_type = "gradient",
     col_transform = NULL,
@@ -1061,8 +1061,9 @@ gg_blanket <- function(
           fill_palette_c = fill_palette_c,
           fill_palette_o = fill_palette_o,
           fill_na = fill_na,
-          border_transform_colour = border_transform_colour,
-          border_transform_fill = border_transform_fill
+          # border_transform_colour = border_transform_colour,
+          # border_transform_fill = border_transform_fill,
+          aspect = aspect
         )
       }
 

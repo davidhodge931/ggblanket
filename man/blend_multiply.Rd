@@ -20,29 +20,5 @@ If any input is a function, returns a function that generates blended colours.
 }
 \description{
 Blends colours using multiply mode with proper alpha handling, creating
-a darker, more saturated effect. Implements the exact multiply blend formula
-used by Cairo graphics engine. This should match the behavior of R's
-graphics device compositing operators.
-
-Formula from Cairo documentation:
-\code{aR = aA + aB * (1 - aA)}
-\verb{xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]}
-where \code{f(xA, xB) = xA * xB} for multiply blend mode
-}
-\examples{
-# Blend two colours
-blend_multiply("#FF0000", "#0000FF")  # Red × Blue = Black
-
-# Square a colour (blend with itself)
-blend_multiply("#FF6600")  # Orange squared = Darker orange
-
-# Work with vectors
-blend_multiply(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
-
-# Works with transparency
-blend_multiply("#FF000080", "#0000FF80")  # Semi-transparent colors
-
-# Works with palette functions
-pal <- blend_multiply(scales::pal_viridis(), scales::pal_brewer("Set1"))
-pal(5)  # Generate 5 blended colours
+a darker, more saturated effect.
 }

@@ -96,7 +96,7 @@ gg_jitter <- function(
   col_labels = NULL,
   col_legend_ncol = NULL,
   col_legend_nrow = NULL,
-  col_legend_rev = FALSE,
+  col_legend_rev = NULL,
   col_palette = NULL,
   col_na = NULL,
 

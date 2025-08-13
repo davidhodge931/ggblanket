@@ -50,8 +50,15 @@ set_blanket <- function(
     col_palette_c = pal_direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
     col_palette_o = NULL,
     col_na = "#A6A6A6FF",
+    # border_transform_colour = \(x) {
+    #   ifelse(is_panel_light(), blend_multiply(x), blend_screen(x))
+    # },
     border_transform_colour = \(x) {
-      ifelse(is_panel_light(), blend_multiply(x), blend_screen(x))
+      if (is_panel_light()) {
+        blend_multiply(x)
+      } else {
+        blend_screen(x)
+      }
     },
     border_transform_fill = NULL,
     shape = 21,

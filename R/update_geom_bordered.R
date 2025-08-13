@@ -13,9 +13,17 @@
 #' @export
 update_geom_border <- function(
   ...,
+  # border_transform_colour = \(x) {
+  #   ifelse(is_panel_light(), blend_multiply(x), blend_screen(x))
+  # },
   border_transform_colour = \(x) {
-    ifelse(is_panel_light(), blend_multiply(x), blend_screen(x))
+    if (is_panel_light()) {
+      blend_multiply(x)
+    } else {
+      blend_screen(x)
+    }
   },
+
   border_transform_fill = NULL,
   borderwidth = 0.25
 ) {

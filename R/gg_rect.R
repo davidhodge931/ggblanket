@@ -106,7 +106,7 @@ gg_rect <- function(
   col_legend_nrow = NULL,
   col_palette = NULL,
   col_na = NULL,
-  col_legend_rev = FALSE,
+  col_legend_rev = NULL,
 
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",

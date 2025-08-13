@@ -2,14 +2,7 @@
 #'
 #' @description
 #' Blends colours using multiply mode with proper alpha handling, creating
-#' a darker, more saturated effect. Implements the exact multiply blend formula
-#' used by Cairo graphics engine. This should match the behavior of R's
-#' graphics device compositing operators.
-#'
-#' Formula from Cairo documentation:
-#' `aR = aA + aB * (1 - aA)`
-#' `xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]`
-#' where `f(xA, xB) = xA * xB` for multiply blend mode
+#' a darker, more saturated effect.
 #'
 #' @param ... Either one or two colour arguments:
 #'   - If one argument: the colour is blended with itself (squared)
@@ -21,22 +14,6 @@
 #' If any input is a function, returns a function that generates blended colours.
 #'
 #' @export
-#' @examples
-#' # Blend two colours
-#' blend_multiply("#FF0000", "#0000FF")  # Red × Blue = Black
-#'
-#' # Square a colour (blend with itself)
-#' blend_multiply("#FF6600")  # Orange squared = Darker orange
-#'
-#' # Work with vectors
-#' blend_multiply(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
-#'
-#' # Works with transparency
-#' blend_multiply("#FF000080", "#0000FF80")  # Semi-transparent colors
-#'
-#' # Works with palette functions
-#' pal <- blend_multiply(scales::pal_viridis(), scales::pal_brewer("Set1"))
-#' pal(5)  # Generate 5 blended colours
 blend_multiply <- function(...) {
   dots <- list(...)
 
@@ -63,10 +40,58 @@ blend_multiply <- function(...) {
   # Handle different input combinations
   if (is.function(col) || is.function(col2)) {
     # Return a function that blends the palette outputs
-    function(n) {
+    function(x) {
       # Get colours from functions or use directly
-      col_vctr <- if (is.function(col)) col(n) else rep_len(col, n)
-      col2_vctr <- if (is.function(col2)) col2(n) else rep_len(col2, n)
+      col_vctr <- if (is.function(col)) {
+        # Try to call the palette with x
+        tryCatch(
+          col(x),
+          error = function(e) {
+            # If it fails and x is a vector, it might be a discrete palette
+            # being called with continuous values
+            if (length(x) > 1 && inherits(col, "pal_discrete")) {
+              # Convert discrete palette to continuous
+              n_colors <- attr(col, "nlevels") %||% 256
+              colors <- col(min(n_colors, 256))
+              gradient_fn <- scales::pal_gradient_n(colours = colors)
+              gradient_fn(x)
+            } else if (length(x) == 1 && is.numeric(x)) {
+              # Single value - might need to generate a sequence
+              col(seq(0, 1, length.out = x))
+            } else {
+              stop(e)
+            }
+          }
+        )
+      } else {
+        rep_len(col, length(x))
+      }
+
+      col2_vctr <- if (is.function(col2)) {
+        # Try to call the palette with x
+        tryCatch(
+          col2(x),
+          error = function(e) {
+            # If it fails and x is a vector, it might be a discrete palette
+            # being called with continuous values
+            if (length(x) > 1 && inherits(col2, "pal_discrete")) {
+              # Convert discrete palette to continuous
+              n_colors <- attr(col2, "nlevels") %||% 256
+              colors <- col2(min(n_colors, 256))
+              gradient_fn <- scales::pal_gradient_n(colours = colors)
+              gradient_fn(x)
+            } else if (length(x) == 1 && is.numeric(x)) {
+              # Single value - might need to generate a sequence
+              col2(seq(0, 1, length.out = x))
+            } else {
+              stop(e)
+            }
+          }
+        )
+      } else {
+        rep_len(col2, length(x))
+      }
+
       # Perform multiply blend
       .blend_multiply(col_vctr, col2_vctr)
     }
@@ -77,6 +102,86 @@ blend_multiply <- function(...) {
     stop("Arguments must be either character vectors of colours or palette functions")
   }
 }
+
+#' #' Multiply blend colours with proper alpha compositing
+#' #'
+#' #' @description
+#' #' Blends colours using multiply mode with proper alpha handling, creating
+#' #' a darker, more saturated effect. Implements the exact multiply blend formula
+#' #' used by Cairo graphics engine. This should match the behavior of R's
+#' #' graphics device compositing operators.
+#' #'
+#' #' Formula from Cairo documentation:
+#' #' `aR = aA + aB * (1 - aA)`
+#' #' `xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]`
+#' #' where `f(xA, xB) = xA * xB` for multiply blend mode
+#' #'
+#' #' @param ... Either one or two colour arguments:
+#' #'   - If one argument: the colour is blended with itself (squared)
+#' #'   - If two arguments: the first is blended with the second
+#' #'   Each argument can be a character vector of colours or a `scales::pal_*()` function
+#' #'
+#' #' @return
+#' #' If inputs are character vectors, returns a character vector of blended colours.
+#' #' If any input is a function, returns a function that generates blended colours.
+#' #'
+#' #' @export
+#' #' @examples
+#' #' # Blend two colours
+#' #' blend_multiply("#FF0000", "#0000FF")  # Red × Blue = Black
+#' #'
+#' #' # Square a colour (blend with itself)
+#' #' blend_multiply("#FF6600")  # Orange squared = Darker orange
+#' #'
+#' #' # Work with vectors
+#' #' blend_multiply(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
+#' #'
+#' #' # Works with transparency
+#' #' blend_multiply("#FF000080", "#0000FF80")  # Semi-transparent colors
+#' #'
+#' #' # Works with palette functions
+#' #' pal <- blend_multiply(scales::pal_viridis(), scales::pal_brewer("Set1"))
+#' #' pal(5)  # Generate 5 blended colours
+#' blend_multiply <- function(...) {
+#'   dots <- list(...)
+#'
+#'   # Validate number of arguments
+#'   if (length(dots) == 0) {
+#'     stop("At least one colour argument is required")
+#'   } else if (length(dots) == 1) {
+#'     # Self-multiplication
+#'     col <- dots[[1]]
+#'     col2 <- col
+#'   } else if (length(dots) == 2) {
+#'     # Blend two colours
+#'     col <- dots[[1]]
+#'     col2 <- dots[[2]]
+#'   } else {
+#'     stop("blend_multiply accepts at most 2 colour arguments, got ", length(dots))
+#'   }
+#'
+#'   # Validate inputs are not NULL
+#'   if (is.null(col) || is.null(col2)) {
+#'     stop("Colour arguments cannot be NULL")
+#'   }
+#'
+#'   # Handle different input combinations
+#'   if (is.function(col) || is.function(col2)) {
+#'     # Return a function that blends the palette outputs
+#'     function(n) {
+#'       # Get colours from functions or use directly
+#'       col_vctr <- if (is.function(col)) col(n) else rep_len(col, n)
+#'       col2_vctr <- if (is.function(col2)) col2(n) else rep_len(col2, n)
+#'       # Perform multiply blend
+#'       .blend_multiply(col_vctr, col2_vctr)
+#'     }
+#'   } else if (is.character(col) && is.character(col2)) {
+#'     # Blend the colour vectors directly
+#'     .blend_multiply(col, col2)
+#'   } else {
+#'     stop("Arguments must be either character vectors of colours or palette functions")
+#'   }
+#' }
 
 #' Screen blend colours with proper alpha compositing
 #'

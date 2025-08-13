@@ -1,379 +1,714 @@
-# ============================================================================
-# INTERNAL HELPER FUNCTIONS (start with .)
-# ============================================================================
+# Complete Color Scale Functions with Border Transformation Support
 
-#' Check if a color value is transparent or NA
-#'
-#' @param col A colour value to check
-#' @return TRUE if the color is transparent, NA, or NULL
+#' Process palette to vector for border transformation
 #' @noRd
-.is_transparent_or_na <- function(col) {
-  rlang::is_null(col) ||
-    length(col) == 0 ||
-    is.na(col) ||
-    identical(col, "transparent") ||
-    identical(col, NA_character_) ||
-    (is.character(col) && tolower(col) == "transparent")
-}
-
-#' Check if a colour is dark
-#'
-#' @param col A colour value
-#' @return TRUE if dark (luminance <= 50) and FALSE otherwise
-#' @noRd
-.is_col_dark <- function(col) {
-  # Handle NULL, NA, transparent, or missing input
-  if (.is_transparent_or_na(col)) {
-    return(FALSE)  # Default to light for transparent/missing colors
-  }
-
-  # Try to calculate luminance, with error handling
-  col_luminance <- tryCatch({
-    farver::get_channel(
-      colour = col,
-      channel = "l",
-      space = "hcl"
-    )
-  }, error = function(e) {
-    warning(paste("Could not parse color:", col, "- defaulting to light"))
-    return(100)  # Return high luminance (light)
-  })
-
-  # Return TRUE if dark (low luminance), FALSE if light
-  col_luminance <= 50
-}
-
-#' Check if a colour is light
-#'
-#' @param col A colour value
-#' @return TRUE if light (luminance > 50) and FALSE otherwise
-#' @noRd
-.is_col_light <- function(col) {
-  # Handle NULL, NA, transparent, or missing input
-  if (.is_transparent_or_na(col)) {
-    return(TRUE)  # Default to light for transparent/missing colors
-  }
-
-  # Try to calculate luminance, with error handling
-  col_luminance <- tryCatch({
-    farver::get_channel(
-      colour = col,
-      channel = "l",
-      space = "hcl"
-    )
-  }, error = function(e) {
-    warning(paste("Could not parse color:", col, "- defaulting to light"))
-    return(100)  # Return high luminance (light)
-  })
-
-  # Return TRUE if light (high luminance), FALSE if dark
-  col_luminance > 50
-}
-
-#' Check if palette string is in paletteer format
-#'
-#' @param x A string to check
-#' @return TRUE if string is in "package::palette" format
-#' @noRd
-.is_paletteer_string <- function(x) {
-  is.character(x) &&
-    length(x) == 1 &&
-    stringr::str_detect(x, stringr::fixed("::"))
-}
-
-# ============================================================================
-# EXPORTED PANEL DETECTION FUNCTIONS
-# ============================================================================
-
-#' Check if theme panel background is dark
-#'
-#' @description
-#' Determines whether the current ggplot2 theme has a dark or light panel background
-#' by examining its luminance. Falls back to plot background if panel is transparent.
-#'
-#' @param ... Require named arguments (and support trailing commas).
-#' @param theme A ggplot2 theme object. If NULL (default), uses the current theme
-#'        from `ggplot2::theme_get()`.
-#'
-#' @return TRUE if dark (luminance <= 50) and FALSE otherwise.
-#'
-#' @export
-is_panel_dark <- function(..., theme = NULL) {
-  # Get theme if not provided
-  if (rlang::is_null(theme)) {
-    theme <- ggplot2::theme_get()
-  }
-
-  # Get panel background colour from theme
-  panel_col <- ggplot2::calc_element(theme = theme, element = "panel.background")$fill
-
-  # If panel is transparent/NA, check plot background as fallback
-  if (.is_transparent_or_na(panel_col)) {
-    plot_col <- ggplot2::calc_element(theme = theme, element = "plot.background")$fill
-
-    # If plot background is also transparent/NA, assume light (most common default)
-    if (.is_transparent_or_na(plot_col)) {
-      return(FALSE)  # Default to light
-    }
-
-    return(.is_col_dark(plot_col))
-  }
-
-  # Use .is_col_dark to check if the panel colour is dark
-  .is_col_dark(panel_col)
-}
-
-#' Check if theme panel background is light
-#'
-#' @description
-#' Determines whether the current ggplot2 theme has a light panel background
-#' by examining its luminance. Falls back to plot background if panel is transparent.
-#'
-#' @param ... Require named arguments (and support trailing commas).
-#' @param theme A ggplot2 theme object. If NULL (default), uses the current theme
-#'        from `ggplot2::theme_get()`.
-#'
-#' @return TRUE if light (luminance > 50) and FALSE otherwise.
-#'
-#' @export
-is_panel_light <- function(..., theme = NULL) {
-  # Get theme if not provided
-  if (rlang::is_null(theme)) {
-    theme <- ggplot2::theme_get()
-  }
-
-  # Get panel background colour from theme
-  panel_col <- ggplot2::calc_element(theme = theme, element = "panel.background")$fill
-
-  # If panel is transparent/NA, check plot background as fallback
-  if (.is_transparent_or_na(panel_col)) {
-    plot_col <- ggplot2::calc_element(theme = theme, element = "plot.background")$fill
-
-    # If plot background is also transparent/NA, assume light (most common default)
-    if (.is_transparent_or_na(plot_col)) {
-      return(TRUE)  # Default to light
-    }
-
-    return(.is_col_light(plot_col))
-  }
-
-  # Use .is_col_light to check if the panel colour is light
-  .is_col_light(panel_col)
-}
-
-# ============================================================================
-# MAIN ADAPTIVE PALETTE FUNCTION
-# ============================================================================
-
-#' Generic Adaptive Palette Function with Optional Paletteer Support
-#'
-#' @description
-#' Returns a palette function that automatically adjusts direction based on
-#' panel background luminance to maximize contrast. Works with any continuous
-#' color palette. If paletteer is installed, also supports paletteer syntax.
-#'
-#' @param palette Either:
-#'   - A string in paletteer format: "package::palette" (requires paletteer)
-#'   - A palette function that takes `n` as its first argument
-#'   - A character vector of colors to interpolate
-#'   - A single color name/code (will create gradient)
-#' @param ... Additional arguments passed to the palette function
-#' @param rev Logical. If `TRUE`, reverses the behavior of the direction
-#'   adjustment based on panel background. Default is `FALSE`.
-#' @param interpolate Logical. If `TRUE` and palette is a vector of colors,
-#'   interpolate between them. Default is `TRUE`.
-#'
-#' @return A function that takes a single argument `n` and returns a vector
-#'   of `n` colors
-#' @export
-#'
-#' @examples
-#' # With palette functions (no paletteer needed)
-#' pal <- pal_adaptive(scales::viridis_pal())
-#' pal(5)
-#'
-#' # With color vectors (no paletteer needed)
-#' pal <- pal_adaptive(c("#f0f0f0", "#0095A8FF"))
-#'
-#' \dontrun{
-#' # With paletteer syntax (requires paletteer package)
-#' pal <- pal_adaptive("scico::berlin")
-#' pal(5)
-#' }
-pal_adaptive <- function(
-    palette,
-    ...,
-    rev = FALSE,
-    interpolate = TRUE
-) {
-  # Capture the arguments in the closure
-  force(palette)
-  force(rev)
-  force(interpolate)
-  dots <- list(...)
-
-  # Return a function that determines direction at call time
-  function(n) {
-    # Determine if we should reverse based on panel
-    should_reverse <- if (!rev) {
-      is_panel_light()
-    } else {
-      !is_panel_light()
-    }
-
-    # Handle different palette types
-    if (.is_paletteer_string(palette)) {
-      # Check if paletteer is available
-      if (!requireNamespace("paletteer", quietly = TRUE)) {
-        stop("Package 'paletteer' is required to use palette string '", palette, "'.\n",
-             "Please install it with: install.packages('paletteer')")
+process_palette_to_vector <- function(palette, n = NULL, scale_type = "continuous") {
+  if (is.function(palette)) {
+    if (scale_type == "discrete" || scale_type == "ordinal") {
+      # For discrete/ordinal, we need to know how many colors
+      if (is.null(n)) {
+        # Default to a reasonable number if not specified
+        n <- 10
       }
-
-      # Parse paletteer string
-      palette_parts <- stringr::str_split(palette, stringr::fixed("::"))[[1]]
-
-      if (length(palette_parts) != 2) {
-        stop("Palette string must be in format 'package::palette'")
-      }
-
-      # Try continuous palettes first, then discrete if that fails
-      colors <- tryCatch({
-        # Try continuous palette
-        paletteer::paletteer_c(palette, n = n, direction = 1)
-      }, error = function(e) {
-        # Try discrete palette with interpolation
-        tryCatch({
-          discrete_colors <- paletteer::paletteer_d(palette)
-          if (length(discrete_colors) == n) {
-            discrete_colors
-          } else if (interpolate) {
-            scales::colour_ramp(discrete_colors)(seq(0, 1, length.out = n))
-          } else {
-            stop("Discrete palette has ", length(discrete_colors),
-                 " colors but n = ", n, ". Set interpolate = TRUE.")
-          }
-        }, error = function(e2) {
-          stop("Could not find palette '", palette, "' in paletteer")
-        })
-      })
-
-    } else if (is.function(palette)) {
-      # Palette is a function - call it with n and any extra args
-      colors <- do.call(palette, c(list(n), dots))
-
-    } else if (is.character(palette)) {
-      if (length(palette) == 1 && !stringr::str_detect(palette, stringr::fixed("::"))) {
-        # Single color: create gradient from white/black to this color
-        # The specified color should always be at the "high" end
-        if (should_reverse) {
-          # Light background: reverse so high values are dark
-          colors <- scales::seq_gradient_pal("white", palette)(seq(0, 1, length.out = n))
-        } else {
-          # Dark background: normal direction, high values are the specified color
-          colors <- scales::seq_gradient_pal("black", palette)(seq(0, 1, length.out = n))
+      # Try to call the palette function
+      tryCatch(
+        palette(n),
+        error = function(e) {
+          # If it fails, try as continuous with sequence
+          palette(seq(0, 1, length.out = n))
         }
-        # Return early as we've already handled reversal
-        return(colors)
-      } else if (interpolate && length(palette) != n) {
-        # Multiple colors: interpolate if needed
-        colors <- scales::colour_ramp(palette)(seq(0, 1, length.out = n))
-      } else if (length(palette) == n) {
-        # Exact number of colors provided
-        colors <- palette
-      } else {
-        # Not interpolating and wrong number of colors
-        stop("Palette has ", length(palette), " colors but n = ", n,
-             ". Set interpolate = TRUE or provide exactly n colors.")
-      }
+      )
     } else {
-      stop("Palette must be a function or character vector of colors")
+      # For continuous/binned scales, generate a gradient
+      # Get a representative set of colors
+      tryCatch(
+        {
+          # Try calling with values from 0 to 1
+          palette(seq(0, 1, length.out = 256))
+        },
+        error = function(e) {
+          # If that fails, try calling with n
+          palette(256)
+        }
+      )
     }
-
-    # For multi-color palettes, check if we need to reverse based on first/last color luminance
-    if (should_reverse && length(colors) > 1) {
-      # On light background, we want dark colors at the high end
-      # Check if the last color is lighter than the first
-      first_is_dark <- .is_col_dark(colors[1])
-      last_is_dark <- .is_col_dark(colors[length(colors)])
-
-      # If last color is lighter than first (wrong direction for light background), reverse
-      if (first_is_dark && !last_is_dark) {
-        colors <- rev(colors)
-      }
-    } else if (!should_reverse && length(colors) > 1) {
-      # On dark background, we want light colors at the high end
-      # Check if the last color is darker than the first
-      first_is_dark <- .is_col_dark(colors[1])
-      last_is_dark <- .is_col_dark(colors[length(colors)])
-
-      # If last color is darker than first (wrong direction for dark background), reverse
-      if (!first_is_dark && last_is_dark) {
-        colors <- rev(colors)
-      }
-    }
-
-    colors
+  } else if (is.character(palette) || is.numeric(palette)) {
+    # Already a vector
+    palette
+  } else {
+    # Unknown type, return as-is
+    palette
   }
 }
 
-# ============================================================================
-# UTILITY FUNCTIONS
-# ============================================================================
+# Complete Color Scale Functions - Final Version
 
-#' Check if Paletteer is Available
-#'
-#' @description
-#' Helper function to check if paletteer package is installed.
-#'
-#' @return Logical indicating if paletteer is available
-#' @export
-#'
-#' @examples
-#' has_paletteer()
-has_paletteer <- function() {
-  requireNamespace("paletteer", quietly = TRUE)
-}
+#' Reverse discrete palette for horizontal plots
+#' @noRd
+reverse_discrete_palette <- function(palette, n = NULL, aspect = "x") {
+  # Only reverse if aspect is "y"
+  if (aspect != "y") {
+    return(palette)
+  }
 
-#' Show Adaptive Palette Support Status
-#'
-#' @description
-#' Shows which palette formats are currently available based on installed packages.
-#'
-#' @return Invisibly returns a list of available formats
-#' @export
-#'
-#' @examples
-#' show_palette_support()
-show_palette_support <- function() {
-  cat("Adaptive Palette Support Status:\n")
-  cat("================================\n\n")
+  if (is.function(palette)) {
+    # Capture all attributes from the original function
+    original_attrs <- attributes(palette)
 
-  cat("✓ Always available:\n")
-  cat("  - Palette functions (e.g., scales::viridis_pal())\n")
-  cat("  - Color vectors (e.g., c('#FF0000', '#0000FF'))\n")
-  cat("  - Single colors (e.g., 'darkred')\n")
-  cat("  - Built-in R palettes via scales\n\n")
+    # For functions, return a wrapper that reverses the output
+    wrapped_fn <- function(n) {
+      colors <- palette(n)
+      rev(colors)
+    }
 
-  if (has_paletteer()) {
-    cat("✓ Paletteer support: ENABLED\n")
-    cat("  - Use palettes like 'scico::berlin'\n")
-    cat("  - Access to 2000+ palettes from 50+ packages\n")
+    # CRITICAL: Preserve ALL attributes from the original function
+    # This includes class, type, nlevels, etc.
+    attributes(wrapped_fn) <- original_attrs
 
-    # Show counts if paletteer is available
-    if (requireNamespace("paletteer", quietly = TRUE)) {
-      n_continuous <- nrow(paletteer::palettes_c_names)
-      n_discrete <- nrow(paletteer::palettes_d_names)
-      cat(sprintf("  - %d continuous palettes available\n", n_continuous))
-      cat(sprintf("  - %d discrete palettes available\n", n_discrete))
+    return(wrapped_fn)
+  } else if (is.character(palette) || is.numeric(palette)) {
+    # For vectors
+    if (any(rlang::have_name(palette))) {
+      # Named vector - reverse the whole thing
+      rev(palette)
+    } else {
+      # Unnamed vector - subset first if n is provided, then reverse
+      if (!is.null(n)) {
+        palette <- palette[1:min(n, length(palette))]
+      }
+      rev(palette)
     }
   } else {
-    cat("○ Paletteer support: NOT AVAILABLE\n")
-    cat("  - Install with: install.packages('paletteer')\n")
-    cat("  - This enables syntax like 'scico::berlin'\n")
+    # Unknown type, return as-is
+    palette
+  }
+}
+
+#' Check if colour and fill are mapped to same variable in plot
+#' @noRd
+check_same_colour_fill_mapping <- function(plot) {
+  # Get the mapping from the plot object
+  plot_mapping <- plot$mapping
+
+  # Check if both colour and fill exist in the mapping
+  has_colour <- !rlang::is_null(plot_mapping$colour)
+  has_fill <- !rlang::is_null(plot_mapping$fill)
+
+  if (has_colour && has_fill) {
+    # Compare the expressions
+    colour_expr <- rlang::quo_text(plot_mapping$colour)
+    fill_expr <- rlang::quo_text(plot_mapping$fill)
+    return(identical(colour_expr, fill_expr))
   }
 
-  invisible(list(
-    base = TRUE,
-    paletteer = has_paletteer()
-  ))
+  return(FALSE)
+}
+
+#' Add color scales wrapper
+#' @noRd
+add_col_scale <- function(
+    plot,
+    geom_name,
+    stat_name = NULL,
+    col_scale_class,
+    aes_list,
+    data,
+    plot_data,
+    plot_build,
+    x_limits_to_breaks,
+    is_border_geom,
+    col_breaks,
+    col_breaks_n,
+    col_drop,
+    col_limits_include,
+    col_labels,
+    col_legend_ncol,
+    col_legend_nrow,
+    col_legend_rev,
+    col_rescale,
+    col_scale_type,
+    col_transform,
+    colour_palette_d,
+    colour_palette_c,
+    colour_palette_o,
+    colour_na,
+    fill_palette_d,
+    fill_palette_c,
+    fill_palette_o,
+    fill_na,
+    # border_transform_colour = NULL,
+    # border_transform_fill = NULL,
+    aspect = "x"  # ADD THIS PARAMETER
+) {
+  # Get NA colors with defaults
+  na_colour <- colour_na %||% "#CDC5BFFF"
+  na_fill <- fill_na %||% "#CDC5BFFF"
+
+  # Get transform and labels
+  if (rlang::is_null(col_transform)) {
+    # Special handling for color transforms
+    if (!rlang::quo_is_null(aes_list$col) && col_scale_class == "continuous") {
+      col_data <- rlang::eval_tidy(aes_list$col, data)
+      if (inherits(col_data, "hms")) {
+        col_transform <- "hms"
+      } else {
+        col_transform <- get_transform(NULL, col_scale_class)
+      }
+    } else {
+      col_transform <- get_transform(NULL, col_scale_class)
+    }
+  }
+  col_labels <- get_col_label(col_labels, col_scale_class, col_transform)
+
+  # Apply scales based on type
+  if (col_scale_class == "discrete") {
+    plot <- add_col_scale_discrete(
+      plot,
+      aes_list,
+      data,
+      plot_data,
+      colour_palette_d,
+      fill_palette_d,
+      na_colour,
+      na_fill,
+      col_breaks,
+      col_labels,
+      col_drop,
+      col_legend_ncol,
+      col_legend_nrow,
+      col_legend_rev,
+      x_limits_to_breaks,
+      plot_build,
+      stat_name = stat_name,
+      # border_transform_colour = border_transform_colour,
+      # border_transform_fill = border_transform_fill,
+      is_border_geom = is_border_geom,
+      aspect = aspect  # PASS ASPECT
+    )
+  } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
+    plot <- add_col_scale_continuous(
+      plot,
+      colour_palette_c,
+      fill_palette_c,
+      na_colour,
+      na_fill,
+      is_border_geom,
+      col_breaks,
+      col_breaks_n,
+      col_labels,
+      col_legend_rev,
+      col_rescale,
+      col_scale_type,
+      col_transform,
+      aes_list,
+      plot_build,
+      # border_transform_colour = border_transform_colour,
+      # border_transform_fill = border_transform_fill,
+      aspect = aspect  # PASS ASPECT (though not used)
+    )
+  } else if (col_scale_class == "ordinal") {
+    plot <- add_col_scale_ordinal(
+      plot,
+      aes_list,
+      data,
+      plot_data,
+      colour_palette_o,
+      fill_palette_o,
+      na_colour,
+      na_fill,
+      col_breaks,
+      col_labels,
+      col_drop,
+      col_legend_ncol,
+      col_legend_nrow,
+      col_legend_rev,
+      plot_build,
+      stat_name = stat_name,
+      # border_transform_colour = border_transform_colour,
+      # border_transform_fill = border_transform_fill,
+      is_border_geom = is_border_geom,
+      aspect = aspect  # PASS ASPECT (though not used)
+    )
+  }
+
+  # Handle guides for other aesthetics - pass aes_list directly
+  plot <- add_matching_aesthetic_guides(
+    plot,
+    plot_build,
+    col_legend_rev,
+    col_legend_ncol,
+    col_legend_nrow,
+    geom_name = geom_name,
+    is_border_geom = is_border_geom,
+    # border_transform_colour = border_transform_colour,
+    # border_transform_fill = border_transform_fill,
+    aes_list = aes_list,
+    data = data
+  )
+
+  # Expand limits if necessary
+  if (!rlang::is_null(col_limits_include)) {
+    plot <- plot +
+      ggplot2::expand_limits(
+        colour = col_limits_include,
+        fill = col_limits_include
+      )
+  }
+
+  plot
+}
+
+#' Add discrete color scale
+#' @noRd
+add_col_scale_discrete <- function(
+    plot,
+    aes_list,
+    data,
+    plot_data,
+    colour_palette,
+    fill_palette,
+    na_colour,
+    na_fill,
+    col_breaks,
+    col_labels,
+    col_drop,
+    col_legend_ncol,
+    col_legend_nrow,
+    col_legend_rev,
+    x_limits_to_breaks,
+    plot_build,
+    stat_name = NULL,
+    # border_transform_colour = NULL,
+    # border_transform_fill = NULL,
+    is_border_geom = FALSE,
+    aspect = "x"
+) {
+  # Determine legend reversal based on aspect if not explicitly set
+  if (rlang::is_null(col_legend_rev)) {
+    if (aspect == "y") {
+      col_legend_rev <- TRUE
+    } else {
+      col_legend_rev <- FALSE
+    }
+  }
+
+  # Calculate number of colors needed
+  col_n <- get_col_n(aes_list, data, plot_data, stat_name)
+
+  # Reverse palettes if aspect is "y"
+  colour_palette <- reverse_discrete_palette(colour_palette, n = col_n, aspect = aspect)
+  fill_palette <- reverse_discrete_palette(fill_palette, n = col_n, aspect = aspect)
+
+  # Apply border transformations
+  # if (is_border_geom && !is.null(border_transform_colour) && is.function(border_transform_colour)) {
+  #   colour_palette <- border_transform_colour(colour_palette)
+  # } else {
+  #   colour_palette <- colour_palette
+  # }
+
+  # if (is_border_geom && !is.null(border_transform_fill) && is.function(border_transform_fill)) {
+  #   fill_palette <- border_transform_fill(fill_palette)
+  # } else {
+  #   fill_palette <- fill_palette
+  # }
+
+  # Apply scales with the appropriate palette
+  if (!rlang::is_null(colour_palette)) {
+    plot <- plot +
+      ggplot2::scale_colour_discrete(
+        palette = colour_palette,
+        breaks = col_breaks,
+        labels = col_labels,
+        na.value = na_colour,
+        drop = col_drop
+      )
+  }
+
+  if (!rlang::is_null(fill_palette)) {
+    plot <- plot +
+      ggplot2::scale_fill_discrete(
+        palette = fill_palette,
+        breaks = col_breaks,
+        labels = col_labels,
+        na.value = na_fill,
+        drop = col_drop
+      )
+  }
+
+  # Check if colour and fill map to the same variable using plot object
+  same_mapping <- check_same_colour_fill_mapping(plot)
+
+  if (same_mapping) {
+    # Same variable mapped to both - typically show both for discrete
+    plot <- plot +
+      ggplot2::guides(
+        colour = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow
+        ),
+        fill = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow
+        )
+      )
+  } else {
+    # Different variables or only one is mapped - show appropriate guides
+    plot_mapping <- plot$mapping
+    has_colour_mapping <- !rlang::is_null(plot_mapping$colour)
+    has_fill_mapping <- !rlang::is_null(plot_mapping$fill)
+
+    guide_list <- list()
+
+    if (has_colour_mapping) {
+      guide_list$colour <- ggplot2::guide_legend(
+        reverse = col_legend_rev,
+        ncol = col_legend_ncol,
+        nrow = col_legend_nrow
+      )
+    }
+
+    if (has_fill_mapping) {
+      guide_list$fill <- ggplot2::guide_legend(
+        reverse = col_legend_rev,
+        ncol = col_legend_ncol,
+        nrow = col_legend_nrow
+      )
+    }
+
+    if (length(guide_list) > 0) {
+      plot <- plot + rlang::exec(ggplot2::guides, !!!guide_list)
+    }
+  }
+
+  plot
+}
+
+#' Add continuous color scale
+#' @noRd
+add_col_scale_continuous <- function(
+    plot,
+    colour_palette,
+    fill_palette,
+    na_colour,
+    na_fill,
+    is_border_geom,
+    col_breaks,
+    col_breaks_n,
+    col_labels,
+    col_legend_rev,
+    col_rescale,
+    col_scale_type,
+    col_transform,
+    aes_list,
+    plot_build,
+    # border_transform_colour = NULL,
+    # border_transform_fill = NULL,
+    aspect = "x"  # Add aspect parameter (but not used for continuous)
+) {
+  # For continuous scales, aspect doesn't affect legend reversal
+  if (rlang::is_null(col_legend_rev)) {
+    col_legend_rev <- FALSE
+  }
+
+  # Apply border transformations directly to palette functions if needed
+  # if (is_border_geom && !is.null(border_transform_colour) && is.function(border_transform_colour)) {
+  #   colour_palette <- border_transform_colour(colour_palette)
+  # } else {
+  #   colour_palette <- colour_palette
+  # }
+
+  # if (is_border_geom && !is.null(border_transform_fill) && is.function(border_transform_fill)) {
+  #   fill_palette <- border_transform_fill(fill_palette)
+  # } else {
+  #   fill_palette <- fill_palette
+  # }
+
+  # Choose scale type
+  if (col_scale_type == "binned") {
+    # Use binned scales
+    plot <- plot +
+      ggplot2::scale_colour_binned(
+        palette = colour_palette,
+        breaks = col_breaks,
+        n.breaks = col_breaks_n,
+        labels = col_labels,
+        transform = col_transform,
+        oob = scales::oob_keep,
+        na.value = na_colour
+      ) +
+      ggplot2::scale_fill_binned(
+        palette = fill_palette,
+        breaks = col_breaks,
+        n.breaks = col_breaks_n,
+        labels = col_labels,
+        transform = col_transform,
+        oob = scales::oob_keep,
+        na.value = na_fill
+      )
+
+    # Check if colour and fill map to the same variable
+    same_mapping <- check_same_colour_fill_mapping(plot)
+
+    if (same_mapping) {
+      # Same variable mapped to both - hide one guide
+      if (is_border_geom) {
+        plot <- plot +
+          ggplot2::guides(
+            colour = ggplot2::guide_none(),
+            fill = ggplot2::guide_coloursteps(
+              reverse = col_legend_rev,
+              theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+            )
+          )
+      } else {
+        plot <- plot +
+          ggplot2::guides(
+            colour = ggplot2::guide_coloursteps(
+              reverse = col_legend_rev,
+              theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+            ),
+            fill = ggplot2::guide_none()
+          )
+      }
+    } else {
+      # Different variables or only one is mapped - show appropriate guides
+      plot_mapping <- plot$mapping
+      has_colour_mapping <- !rlang::is_null(plot_mapping$colour)
+      has_fill_mapping <- !rlang::is_null(plot_mapping$fill)
+
+      guide_list <- list()
+
+      if (has_colour_mapping) {
+        guide_list$colour <- ggplot2::guide_coloursteps(
+          reverse = col_legend_rev,
+          theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+        )
+      }
+
+      if (has_fill_mapping) {
+        guide_list$fill <- ggplot2::guide_coloursteps(
+          reverse = col_legend_rev,
+          theme = ggplot2::theme(legend.ticks = ggplot2::element_blank())
+        )
+      }
+
+      if (length(guide_list) > 0) {
+        plot <- plot + rlang::exec(ggplot2::guides, !!!guide_list)
+      }
+    }
+  } else {
+    # Default to gradient/continuous scales
+    plot <- plot +
+      ggplot2::scale_colour_continuous(
+        palette = colour_palette,
+        breaks = col_breaks,
+        n.breaks = col_breaks_n,
+        labels = col_labels,
+        transform = col_transform,
+        oob = scales::oob_keep,
+        na.value = na_colour
+      ) +
+      ggplot2::scale_fill_continuous(
+        palette = fill_palette,
+        breaks = col_breaks,
+        n.breaks = col_breaks_n,
+        labels = col_labels,
+        transform = col_transform,
+        oob = scales::oob_keep,
+        na.value = na_fill
+      )
+
+    # Check if colour and fill map to the same variable
+    same_mapping <- check_same_colour_fill_mapping(plot)
+
+    if (same_mapping) {
+      # Same variable mapped to both - hide one guide
+      if (is_border_geom) {
+        plot <- plot +
+          ggplot2::guides(
+            colour = ggplot2::guide_none(),
+            fill = ggplot2::guide_colourbar(reverse = col_legend_rev)
+          )
+      } else {
+        plot <- plot +
+          ggplot2::guides(
+            colour = ggplot2::guide_colourbar(reverse = col_legend_rev),
+            fill = ggplot2::guide_none()
+          )
+      }
+    } else {
+      # Different variables or only one is mapped - show appropriate guides
+      plot_mapping <- plot$mapping
+      has_colour_mapping <- !rlang::is_null(plot_mapping$colour)
+      has_fill_mapping <- !rlang::is_null(plot_mapping$fill)
+
+      guide_list <- list()
+
+      if (has_colour_mapping) {
+        guide_list$colour <- ggplot2::guide_colourbar(reverse = col_legend_rev)
+      }
+
+      if (has_fill_mapping) {
+        guide_list$fill <- ggplot2::guide_colourbar(reverse = col_legend_rev)
+      }
+
+      if (length(guide_list) > 0) {
+        plot <- plot + rlang::exec(ggplot2::guides, !!!guide_list)
+      }
+    }
+  }
+
+  plot
+}
+
+#' Add ordinal color scale
+#' @noRd
+add_col_scale_ordinal <- function(
+    plot,
+    aes_list,
+    data,
+    plot_data,
+    colour_palette,
+    fill_palette,
+    na_colour,
+    na_fill,
+    col_breaks,
+    col_labels,
+    col_drop,
+    col_legend_ncol,
+    col_legend_nrow,
+    col_legend_rev,
+    plot_build,
+    stat_name = NULL,
+    # border_transform_colour = NULL,
+    # border_transform_fill = NULL,
+    is_border_geom = FALSE,
+    aspect = "x"  # Add aspect parameter (but not used for ordinal)
+) {
+  # Calculate number of colors needed
+  col_n <- get_col_n(aes_list, data, plot_data, stat_name)
+
+  # For ordinal scales, aspect doesn't affect legend reversal
+  # Just handle the default and always invert
+  if (rlang::is_null(col_legend_rev)) {
+    col_legend_rev <- TRUE  # Default before inversion
+  }
+
+  # Always invert for ordinal scales
+  # col_legend_rev <- !col_legend_rev
+
+  # Apply border transformations directly to palette functions if needed
+  # if (is_border_geom && !is.null(border_transform_colour) && is.function(border_transform_colour)) {
+  #   colour_palette <- border_transform_colour(colour_palette)
+  # } else {
+  #   colour_palette <- colour_palette
+  # }
+
+  # if (is_border_geom && !is.null(border_transform_fill) && is.function(border_transform_fill)) {
+  #   fill_palette <- border_transform_fill(fill_palette)
+  # } else {
+  #   fill_palette <- fill_palette
+  # }
+
+  # For ordinal scales, use discrete_scale directly to avoid the duplicate palette argument issue
+  if (!rlang::is_null(colour_palette)) {
+    if (is.function(colour_palette)) {
+      plot <- plot +
+        ggplot2::discrete_scale(
+          aesthetics = "colour",
+          scale_name = "ordinal",
+          palette = colour_palette,
+          breaks = col_breaks,
+          labels = col_labels,
+          na.value = na_colour,
+          drop = col_drop
+        )
+    } else {
+      # If it's a vector, use scale_colour_manual
+      plot <- plot +
+        ggplot2::scale_colour_manual(
+          values = colour_palette,
+          breaks = col_breaks,
+          labels = col_labels,
+          na.value = na_colour,
+          drop = col_drop
+        )
+    }
+  }
+
+  if (!rlang::is_null(fill_palette)) {
+    if (is.function(fill_palette)) {
+      plot <- plot +
+        ggplot2::discrete_scale(
+          aesthetics = "fill",
+          scale_name = "ordinal",
+          palette = fill_palette,
+          breaks = col_breaks,
+          labels = col_labels,
+          na.value = na_fill,
+          drop = col_drop
+        )
+    } else {
+      # If it's a vector, use scale_fill_manual
+      plot <- plot +
+        ggplot2::scale_fill_manual(
+          values = fill_palette,
+          breaks = col_breaks,
+          labels = col_labels,
+          na.value = na_fill,
+          drop = col_drop
+        )
+    }
+  }
+
+  # Check if colour and fill map to the same variable using plot object
+  same_mapping <- check_same_colour_fill_mapping(plot)
+
+  if (same_mapping) {
+    # Same variable mapped to both - show both guides for ordinal
+    plot <- plot +
+      ggplot2::guides(
+        colour = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow
+        ),
+        fill = ggplot2::guide_legend(
+          reverse = col_legend_rev,
+          ncol = col_legend_ncol,
+          nrow = col_legend_nrow
+        )
+      )
+  } else {
+    # Different variables or only one is mapped - show appropriate guides
+    plot_mapping <- plot$mapping
+    has_colour_mapping <- !rlang::is_null(plot_mapping$colour)
+    has_fill_mapping <- !rlang::is_null(plot_mapping$fill)
+
+    guide_list <- list()
+
+    if (has_colour_mapping) {
+      guide_list$colour <- ggplot2::guide_legend(
+        reverse = col_legend_rev,
+        ncol = col_legend_ncol,
+        nrow = col_legend_nrow
+      )
+    }
+
+    if (has_fill_mapping) {
+      guide_list$fill <- ggplot2::guide_legend(
+        reverse = col_legend_rev,
+        ncol = col_legend_ncol,
+        nrow = col_legend_nrow
+      )
+    }
+
+    if (length(guide_list) > 0) {
+      plot <- plot + rlang::exec(ggplot2::guides, !!!guide_list)
+    }
+  }
+
+  plot
 }
