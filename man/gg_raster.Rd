@@ -73,7 +73,7 @@ gg_raster(
   col_legend_nrow = NULL,
   col_palette = NULL,
   col_na = NULL,
-  col_legend_rev = FALSE,
+  col_legend_rev = NULL,
   col_rescale = scales::rescale(),
   col_scale_type = "gradient",
   col_transform = NULL,
@@ -162,7 +162,7 @@ gg_raster(
 
 \item{col_na, colour_na, fill_na}{A hex code (or name) for the \code{NA} value.}
 
-\item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide. Defaults to \code{FALSE}.}
+\item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide.}
 
 \item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
 
