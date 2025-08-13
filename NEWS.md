@@ -19,6 +19,7 @@ TO DO
 * Breaking: removed `lightness` and `darkness`.
 * Breaking: adjusted `annotate_axis_line` arguments.
 * Breaking: removed `titles_case`.
+* Breaking: renamed `col_rescale` to `col_rescaler`.
 * Added defaults to `aes_contrast` to make it determine NULL colours based on theme.
 * Supported setting col/colour/fill palettes.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.

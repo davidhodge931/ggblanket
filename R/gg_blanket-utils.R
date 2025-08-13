@@ -2308,7 +2308,7 @@ add_col_scale <- function(
     col_legend_ncol,
     col_legend_nrow,
     col_legend_rev,
-    col_rescale,
+    col_rescaler,
     col_scale_type,
     col_transform,
     colour_palette_d,
@@ -2376,7 +2376,7 @@ add_col_scale <- function(
       col_breaks_n,
       col_labels,
       col_legend_rev,
-      col_rescale,
+      col_rescaler,
       col_scale_type,
       col_transform,
       aes_list,
@@ -2556,7 +2556,7 @@ add_col_scale_continuous <- function(
     col_breaks_n,
     col_labels,
     col_legend_rev,
-    col_rescale,
+    col_rescaler,
     col_scale_type,
     col_transform,
     aes_list,
@@ -2577,7 +2577,7 @@ add_col_scale_continuous <- function(
         breaks = col_breaks,
         n.breaks = col_breaks_n,
         labels = col_labels,
-        transform = col_transform,
+        transform = col_transform, rescaler = col_rescaler,
         oob = scales::oob_keep,
         na.value = na_colour
       ) +
@@ -2586,7 +2586,7 @@ add_col_scale_continuous <- function(
         breaks = col_breaks,
         n.breaks = col_breaks_n,
         labels = col_labels,
-        transform = col_transform,
+        transform = col_transform, rescaler = col_rescaler,
         oob = scales::oob_keep,
         na.value = na_fill
       )
@@ -2649,7 +2649,7 @@ add_col_scale_continuous <- function(
         breaks = col_breaks,
         n.breaks = col_breaks_n,
         labels = col_labels,
-        transform = col_transform,
+        transform = col_transform, rescaler = col_rescaler,
         oob = scales::oob_keep,
         na.value = na_colour
       ) +
@@ -2658,7 +2658,7 @@ add_col_scale_continuous <- function(
         breaks = col_breaks,
         n.breaks = col_breaks_n,
         labels = col_labels,
-        transform = col_transform,
+        transform = col_transform, rescaler = col_rescaler,
         oob = scales::oob_keep,
         na.value = na_fill
       )

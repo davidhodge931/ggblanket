@@ -34,7 +34,7 @@
 #' @param col_drop,facet_drop For a discrete variable, FALSE or TRUE of whether to drop unused levels.
 #' @param col_legend_ncol,col_legend_nrow The number of columns and rows in a legend guide.
 #' @param col_legend_rev `TRUE` or `FALSE` of whether to reverse the elements of a legend guide.
-#' @param col_rescale For a continuous variable, a `scales::rescale()` function.
+#' @param col_rescaler For a continuous variable, a `scales::rescale` function.
 #' @param col_palette,colour_palette,fill_palette colour_palette,fill_palette A character vector of hex codes (or names) or a `scales::pal_*()` function.
 #' @param col_na,colour_na,fill_na A hex code (or name) for the `NA` value.
 #' @param col_scale_type Either `"gradient"` or `"steps"`. Defaults to `"gradient"`.
@@ -143,7 +143,7 @@ gg_blanket <- function(
     col_palette = NULL,
     col_na = NULL,
     col_legend_rev = NULL,
-    col_rescale = scales::rescale(),
+    col_rescaler = scales::rescale,
     col_scale_type = "gradient",
     col_transform = NULL,
     colour_palette = NULL,
@@ -1050,7 +1050,7 @@ gg_blanket <- function(
           col_legend_ncol = col_legend_ncol,
           col_legend_nrow = col_legend_nrow,
           col_legend_rev = col_legend_rev,
-          col_rescale = col_rescale,
+          col_rescaler = col_rescaler,
           col_scale_type = col_scale_type,
           col_transform = col_transform,
           colour_palette_d = colour_palette_d,
