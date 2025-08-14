@@ -33,8 +33,8 @@
     theme_panel <- current_theme$panel.background$fill %||%
       "white"
 
-    # Determine which is dark and which is light using .is_col_dark
-    if (.is_col_dark(theme_text)) {
+    # Determine which is dark and which is light using is_col_dark
+    if (is_col_dark(theme_text)) {
       # Dark text theme (light mode)
       dark <- dark %||% theme_text
       light <- light %||% theme_panel
@@ -45,8 +45,8 @@
     }
   }
 
-  # Use .is_col_dark to determine which colour to return
-  ifelse(!.is_col_dark(col), dark, light)
+  # Use is_col_dark to determine which colour to return
+  ifelse(!is_col_dark(col), dark, light)
 }
 
 #' Modify an aesthetic for contrast
@@ -113,8 +113,8 @@ aes_contrast <- function(..., dark = NULL, light = NULL, aesthetic = "colour") {
     theme_panel <- current_theme$panel.background$fill %||%
       "white"
 
-    # Determine which is dark and which is light using .is_col_dark
-    if (.is_col_dark(theme_text)) {
+    # Determine which is dark and which is light using is_col_dark
+    if (is_col_dark(theme_text)) {
       # Dark text theme (light mode)
       dark <- dark %||% theme_text
       light <- light %||% theme_panel
