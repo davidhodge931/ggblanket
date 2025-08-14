@@ -3,6 +3,7 @@ library(testthat)
 library(vdiffr)
 library(ggplot2)
 library(dplyr)
+library(scales)
 
 # Horizontal orientation tests
 test_that("h_linetype_only", {

@@ -1,7 +1,8 @@
 library(testthat)
 library(vdiffr)
+library(dplyr)
 library(ggplot2)
-library(palmerpenguins)
+library(scales)
 
 set_blanket()
 

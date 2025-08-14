@@ -1,16 +1,8 @@
-testthat::skip_if(getRversion() <= package_version("4.1.0"))
-testthat::skip_on_os(c("mac", "linux"))
-
-## ----setup------------------------------------------------------------------------------------------
+library(testthat)
+library(vdiffr)
 library(dplyr)
-library(tidyr)
-library(forcats)
-library(stringr)
 library(ggplot2)
 library(scales)
-library(ggblanket)
-library(patchwork)
-library(palmerpenguins)
 
 set_blanket()
 
@@ -36,7 +28,7 @@ test_that("reordering works", {
 
   diamonds |>
     count(color) |>
-    mutate(color = fct_rev(fct_reorder(color, n))) |>
+    mutate(color = forcats::fct_rev(forcats::fct_reorder(color, n))) |>
     gg_col(
       x = n,
       y = color,
@@ -130,7 +122,7 @@ test_that("symmetric scales work", {
       y = bill_length_mm,
       stat = "summary",
       position = position_dodge(),
-      x_labels = \(x) str_sub(x, 1, 1),
+      x_labels = \(x) stringr::str_sub(x, 1, 1),
     )
 
   palmerpenguins::penguins |>
@@ -139,7 +131,7 @@ test_that("symmetric scales work", {
       y = bill_length_mm,
       stat = "summary",
       position = position_dodge(),
-      x_labels = \(x) str_sub(x, 1, 1),
+      x_labels = \(x) stringr::str_sub(x, 1, 1),
       y_symmetric = FALSE,
     )
 
@@ -150,7 +142,7 @@ test_that("symmetric scales work", {
       stat = "summary",
       position = position_dodge(),
       width = 0.5,
-      x_labels = \(x) str_sub(x, 1, 1),
+      x_labels = \(x) stringr::str_sub(x, 1, 1),
       y_symmetric = FALSE,
     )
 })
@@ -170,7 +162,7 @@ test_that("position changes work", {
 })
 
 test_that("zooming works", {
-  penguins |>
+  palmerpenguins::penguins |>
     gg_smooth(
       x = body_mass_g,
       y = bill_depth_mm,
@@ -179,14 +171,14 @@ test_that("zooming works", {
       se = TRUE,
     )
 
-  penguins |>
+  palmerpenguins::penguins |>
     filter(bill_depth_mm < 15) |>
     gg_point(
       x = bill_depth_mm,
       y = body_mass_g,
     )
 
-  penguins |>
+  palmerpenguins::penguins |>
     gg_smooth(
       x = body_mass_g,
       y = bill_depth_mm,
@@ -240,7 +232,7 @@ test_that("legend positioning works", {
 })
 
 test_that("panel sizes work", {
-  penguins |>
+  palmerpenguins::penguins |>
     gg_point(
       x = bill_length_mm,
       y = body_mass_g,
@@ -248,9 +240,9 @@ test_that("panel sizes work", {
       size = 1,
     )
 
-  penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_point(
       x = bill_length_mm,
       y = body_mass_g,
@@ -268,27 +260,27 @@ test_that("standardise_width works", {
     ),
   )
 
-  penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_bar(
       x = species,
       col = sex,
       width = 0.25,
     )
 
-  penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_bar(
       x = sex,
       col = species,
       width = standardise_width(n = 2)
     )
 
-  penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_bar(
       x = sex,
       col = species,
@@ -296,9 +288,9 @@ test_that("standardise_width works", {
       width = standardise_width(n = 2, dodge_n = 3)
     )
 
-  penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_bar(
       y = sex,
       col = species,
@@ -319,9 +311,9 @@ test_that("standardise_width works", {
 #     ),
 #   )
 #
-#   penguins |>
-#     tidyr::drop_na(sex) |>
-#     mutate(across(sex, \(x) str_to_sentence(x))) |>
+#   palmerpenguins::penguins |>
+#     tidyr::tidyr::drop_na(sex) |>
+#     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
 #     add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |>
 #     gg_blanket(
 #       x = flipper_length_mm,
@@ -341,9 +333,9 @@ test_that("standardise_width works", {
 #     ),
 #   )
 #
-#   penguins |>
-#     tidyr::drop_na(sex) |>
-#     mutate(across(sex, \(x) str_to_sentence(x))) |>
+#   palmerpenguins::penguins |>
+#     tidyr::tidyr::drop_na(sex) |>
+#     mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
 #     gg_histogram(
 #       x = flipper_length_mm,
 #       col = sex,

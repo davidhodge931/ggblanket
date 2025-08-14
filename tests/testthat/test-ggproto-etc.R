@@ -1,11 +1,8 @@
-testthat::skip_if(getRversion() <= package_version("4.1.0"))
-testthat::skip_on_os(c("mac", "linux"))
-
+library(testthat)
+library(vdiffr)
 library(ggplot2)
 library(dplyr)
-library(stringr)
-library(tidyr)
-library(palmerpenguins)
+
 set_blanket()
 
 ## ---------------------------------------------------------------------------------------------------
@@ -13,9 +10,9 @@ test_name <- "default"
 
 test_that(test_name, {
   set.seed(123)
-  p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_blanket(
       geom = "violin",
       stat = "ydensity",
@@ -32,9 +29,9 @@ test_name <- "GeomViolin"
 
 test_that(test_name, {
   set.seed(123)
-  p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_blanket(
       geom = GeomViolin,
       stat = "ydensity",
@@ -51,9 +48,9 @@ test_name <- "StatYdensity"
 
 test_that(test_name, {
   set.seed(123)
-  p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_blanket(
       geom = "violin",
       stat = StatYdensity,
@@ -70,9 +67,9 @@ test_name <- "PositionDodge"
 
 test_that(test_name, {
   set.seed(123)
-  p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_blanket(
       geom = "violin",
       stat = "ydensity",
@@ -89,9 +86,9 @@ test_name <- "all 3"
 
 test_that(test_name, {
   set.seed(123)
-  p <- penguins |>
-    drop_na(sex) |>
-    mutate(across(sex, \(x) str_to_sentence(x))) |>
+  p <- palmerpenguins::penguins |>
+    tidyr::drop_na(sex) |>
+    mutate(across(sex, \(x) stringr::str_to_sentence(x))) |>
     gg_blanket(
       geom = GeomViolin,
       stat = StatYdensity,

@@ -1,9 +1,7 @@
 # Visual regression tests for ggblanket package
 library(testthat)
 library(vdiffr)
-library(palmerpenguins)
 library(dplyr)
-library(stringr)
 library(ggplot2)
 library(scales)
 
@@ -15,7 +13,7 @@ penguins2 <- palmerpenguins::penguins |>
     flipper_length_mm = "Flipper length (mm)",
     body_mass_g = "Body mass (g)",
   ) |>
-  mutate(sex = str_to_sentence(sex)) |>
+  mutate(sex = stringr::str_to_sentence(sex)) |>
   tidyr::drop_na(sex)
 
 set_blanket()

@@ -11,13 +11,13 @@
   col2 <- rep_len(col2, len)
 
   # Convert to RGB matrices - handle single color case
-  rgb1 <- col2rgb(col1, alpha = TRUE)
+  rgb1 <- grDevices::col2rgb(col1, alpha = TRUE)
   if (is.null(dim(rgb1)) || length(dim(rgb1)) == 1) {
     rgb1 <- matrix(rgb1, nrow = 4, ncol = 1)
   }
   rgb1 <- rgb1 / 255
 
-  rgb2 <- col2rgb(col2, alpha = TRUE)
+  rgb2 <- grDevices::col2rgb(col2, alpha = TRUE)
   if (is.null(dim(rgb2)) || length(dim(rgb2)) == 1) {
     rgb2 <- matrix(rgb2, nrow = 4, ncol = 1)
   }
@@ -65,7 +65,7 @@
   alpha_result <- pmax(0, pmin(1, alpha_result))
 
   # Convert back to hex colours
-  rgb(rgb_result[1, ], rgb_result[2, ], rgb_result[3, ], alpha_result)
+  grDevices::rgb(rgb_result[1, ], rgb_result[2, ], rgb_result[3, ], alpha_result)
 }
 
 #' Internal screen blend implementation
@@ -81,13 +81,13 @@
   col2 <- rep_len(col2, len)
 
   # Convert to RGB matrices - handle single color case
-  rgb1 <- col2rgb(col1, alpha = TRUE)
+  rgb1 <- grDevices::col2rgb(col1, alpha = TRUE)
   if (is.null(dim(rgb1)) || length(dim(rgb1)) == 1) {
     rgb1 <- matrix(rgb1, nrow = 4, ncol = 1)
   }
   rgb1 <- rgb1 / 255
 
-  rgb2 <- col2rgb(col2, alpha = TRUE)
+  rgb2 <- grDevices::col2rgb(col2, alpha = TRUE)
   if (is.null(dim(rgb2)) || length(dim(rgb2)) == 1) {
     rgb2 <- matrix(rgb2, nrow = 4, ncol = 1)
   }
@@ -138,7 +138,7 @@
   alpha_result <- pmax(0, pmin(1, alpha_result))
 
   # Convert back to hex colours
-  rgb(rgb_result[1, ], rgb_result[2, ], rgb_result[3, ], alpha_result)
+  grDevices::rgb(rgb_result[1, ], rgb_result[2, ], rgb_result[3, ], alpha_result)
 }
 
 #' Internal lighten blend implementation
@@ -154,13 +154,13 @@
   col2 <- rep_len(col2, len)
 
   # Convert to RGB matrices - handle single color case
-  rgb1 <- col2rgb(col1, alpha = TRUE)
+  rgb1 <- grDevices::col2rgb(col1, alpha = TRUE)
   if (is.null(dim(rgb1)) || length(dim(rgb1)) == 1) {
     rgb1 <- matrix(rgb1, nrow = 4, ncol = 1)
   }
   rgb1 <- rgb1 / 255
 
-  rgb2 <- col2rgb(col2, alpha = TRUE)
+  rgb2 <- grDevices::col2rgb(col2, alpha = TRUE)
   if (is.null(dim(rgb2)) || length(dim(rgb2)) == 1) {
     rgb2 <- matrix(rgb2, nrow = 4, ncol = 1)
   }
@@ -211,7 +211,7 @@
   alpha_result <- pmax(0, pmin(1, alpha_result))
 
   # Convert back to hex colours
-  rgb(rgb_result[1, ], rgb_result[2, ], rgb_result[3, ], alpha_result)
+  grDevices::rgb(rgb_result[1, ], rgb_result[2, ], rgb_result[3, ], alpha_result)
 }
 
 #' Internal darken blend implementation
@@ -227,13 +227,13 @@
   col2 <- rep_len(col2, len)
 
   # Convert to RGB matrices - handle single color case
-  rgb1 <- col2rgb(col1, alpha = TRUE)
+  rgb1 <- grDevices::col2rgb(col1, alpha = TRUE)
   if (is.null(dim(rgb1)) || length(dim(rgb1)) == 1) {
     rgb1 <- matrix(rgb1, nrow = 4, ncol = 1)
   }
   rgb1 <- rgb1 / 255
 
-  rgb2 <- col2rgb(col2, alpha = TRUE)
+  rgb2 <- grDevices::col2rgb(col2, alpha = TRUE)
   if (is.null(dim(rgb2)) || length(dim(rgb2)) == 1) {
     rgb2 <- matrix(rgb2, nrow = 4, ncol = 1)
   }
@@ -284,7 +284,7 @@
   alpha_result <- pmax(0, pmin(1, alpha_result))
 
   # Convert back to hex colours
-  rgb(rgb_result[1, ], rgb_result[2, ], rgb_result[3, ], alpha_result)
+  grDevices::rgb(rgb_result[1, ], rgb_result[2, ], rgb_result[3, ], alpha_result)
 }
 
 # Blend Functions with Cairo Algorithms

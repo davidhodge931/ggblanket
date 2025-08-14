@@ -1,14 +1,8 @@
-testthat::skip_if(getRversion() <= package_version("4.1.0"))
-testthat::skip_on_os(c("mac", "linux"))
-
+library(testthat)
+library(vdiffr)
 library(dplyr)
-library(tidyr)
-library(stringr)
 library(ggplot2)
 library(scales)
-library(ggblanket)
-library(palmerpenguins)
-library(patchwork)
 
 set_blanket()
 
@@ -26,7 +20,7 @@ test_that("basic point plot works", {
 
 test_that("col aesthetic works", {
   palmerpenguins::penguins |>
-    drop_na(sex) |>
+    tidyr::drop_na(sex) |>
     gg_violin(
       x = flipper_length_mm,
       y = island,
@@ -53,7 +47,7 @@ test_that("facet2 works", {
 
 test_that("other aesthetics work", {
   palmerpenguins::penguins |>
-    drop_na(sex) |>
+    tidyr::drop_na(sex) |>
     gg_jitter(
       x = species,
       y = flipper_length_mm,
@@ -113,7 +107,7 @@ test_that("theme_darker works", {
 
 test_that("aspect side-effects work", {
   palmerpenguins::penguins |>
-    drop_na() |>
+    tidyr::drop_na() |>
     gg_jitter(
       x = sex,
       y = bill_depth_mm,
@@ -121,7 +115,7 @@ test_that("aspect side-effects work", {
     )
 
   palmerpenguins::penguins |>
-    drop_na() |>
+    tidyr::drop_na() |>
     gg_jitter(
       x = bill_depth_mm,
       y = sex,
@@ -141,7 +135,7 @@ test_that("multiple layers work", {
 
 test_that("complex multiple layers work", {
   palmerpenguins::penguins |>
-    drop_na(sex) |>
+    tidyr::drop_na(sex) |>
     group_by(species, sex) |>
     summarise(
       lower = quantile(bill_depth_mm, probs = 0.05),

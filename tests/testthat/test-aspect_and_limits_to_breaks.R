@@ -1,6 +1,8 @@
 library(testthat)
-library(ggplot2)
 library(vdiffr)
+library(dplyr)
+library(ggplot2)
+library(scales)
 
 set_blanket()
 

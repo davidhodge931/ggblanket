@@ -1,8 +1,10 @@
-# test-palettes-discrete-vectors.R
 library(testthat)
 library(vdiffr)
-library(ggplot2)
 library(dplyr)
+library(ggplot2)
+library(scales)
+
+set_blanket()
 
 test_that("disc_vec_col_trans", {
   # Test with col_palette_d using color transformation
