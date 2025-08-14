@@ -2,6 +2,8 @@ library(testthat)
 library(ggplot2)
 library(vdiffr)
 
+set_blanket()
+
 test_that("gg_point basic plot", {
   p <- palmerpenguins::penguins |>
     gg_point(

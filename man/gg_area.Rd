@@ -74,7 +74,7 @@ gg_area(
   col_legend_rev = NULL,
   col_palette = NULL,
   col_na = NULL,
-  col_rescale = scales::rescale(),
+  col_rescaler = scales::rescale,
   col_scale_type = "gradient",
   col_transform = NULL,
   colour_palette = NULL,
@@ -164,7 +164,7 @@ gg_area(
 
 \item{col_na, colour_na, fill_na}{A hex code (or name) for the \code{NA} value.}
 
-\item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
+\item{col_rescaler}{For a continuous variable, a \code{scales::rescale} function.}
 
 \item{col_scale_type}{Either \code{"gradient"} or \code{"steps"}. Defaults to \code{"gradient"}.}
 

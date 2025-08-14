@@ -4,6 +4,8 @@ library(vdiffr)
 library(ggplot2)
 library(dplyr)
 
+set_blanket()
+
 # Horizontal orientation tests
 test_that("h_shape_only", {
   expect_doppelganger(

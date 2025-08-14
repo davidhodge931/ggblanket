@@ -96,7 +96,7 @@ gg_violin <- function(
   col_palette = NULL,
   col_na = NULL,
 
-  col_rescale = scales::rescale(),
+  col_rescaler = scales::rescale,
   col_scale_type = "gradient",
   col_transform = NULL,
   colour_palette = NULL,
@@ -197,7 +197,7 @@ gg_violin <- function(
     col_palette = col_palette,
     col_na = col_na,
 
-    col_rescale = col_rescale,
+    col_rescaler = col_rescaler,
     col_scale_type = col_scale_type,
     col_title = col_title,
     col_transform = col_transform,

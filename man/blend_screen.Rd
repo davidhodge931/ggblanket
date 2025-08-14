@@ -2,47 +2,7 @@
 % Please edit documentation in R/blend.R
 \name{blend_screen}
 \alias{blend_screen}
-\title{#' Multiply blend colours with proper alpha compositing
-#'
-#' @description
-#' Blends colours using multiply mode with proper alpha handling, creating
-#' a darker, more saturated effect. Implements the exact multiply blend formula
-#' used by Cairo graphics engine. This should match the behavior of R's
-#' graphics device compositing operators.
-#'
-#' Formula from Cairo documentation:
-#' \code{aR = aA + aB * (1 - aA)}
-#' \verb{xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]}
-#' where \code{f(xA, xB) = xA * xB} for multiply blend mode
-#'
-#' @param ... Either one or two colour arguments:
-#'   - If one argument: the colour is blended with itself (squared)
-#'   - If two arguments: the first is blended with the second
-#'   Each argument can be a character vector of colours or a \verb{scales::pal_*()} function
-#'
-#' @return
-#' If inputs are character vectors, returns a character vector of blended colours.
-#' If any input is a function, returns a function that generates blended colours.
-#'
-#' @export
-#' @examples
-#' # Blend two colours
-#' blend_multiply("#FF0000", "#0000FF")  # Red × Blue = Black
-#'
-#' # Square a colour (blend with itself)
-#' blend_multiply("#FF6600")  # Orange squared = Darker orange
-#'
-#' # Work with vectors
-#' blend_multiply(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
-#'
-#' # Works with transparency
-#' blend_multiply("#FF000080", "#0000FF80")  # Semi-transparent colors
-#'
-#' # Works with palette functions
-#' pal <- blend_multiply(scales::pal_viridis(), scales::pal_brewer("Set1"))
-#' pal(5)  # Generate 5 blended colours
-blend_multiply <- function(...) {
-dots <- list(...)}
+\title{Screen blend colours with proper alpha compositing}
 \usage{
 blend_screen(...)
 }
@@ -60,51 +20,5 @@ If any input is a function, returns a function that generates blended colours.
 }
 \description{
 Blends colours using screen mode with proper alpha handling, creating
-a lighter, more luminous effect. Implements the exact screen blend formula
-used by Cairo graphics engine. This should match the behavior of R's
-graphics device compositing operators.
-
-Formula from Cairo documentation:
-\code{aR = aA + aB * (1 - aA)}
-\verb{xR = (1/aR) * [(1 - aB) * xaA + (1 - aA) * xaB + aA * aB * f(xA, xB)]}
-where \code{f(xA, xB) = xA + xB - xA * xB} for screen blend mode
-}
-\section{Validate number of arguments}{
-if (length(dots) == 0) {
-stop("At least one colour argument is required")
-} else if (length(dots) == 1) {
-# Self-multiplication
-col <- dots[\link{1}]
-col2 <- col
-} else if (length(dots) == 2) {
-# Blend two colours
-col <- dots[\link{1}]
-col2 <- dots[\link{2}]
-} else {
-stop("blend_multiply accepts at most 2 colour arguments, got ", length(dots))
-}
-}
-
-\section{Validate inputs are not NULL}{
-if (is.null(col) || is.null(col2)) {
-stop("Colour arguments cannot be NULL")
-}
-}
-
-\section{Handle different input combinations}{
-
-}
-
-\examples{
-# Blend two colours
-blend_screen("#000080", "#800000")  # Dark blue + Dark red = Lighter purple
-
-# Screen a colour with itself (makes it lighter)
-blend_screen("#404040")  # Gray screened = Lighter gray
-
-# Work with vectors
-blend_screen(c("#FF0000", "#00FF00"), c("#0000FF", "#FF00FF"))
-
-# Works with transparency
-blend_screen("#80000080", "#00008080")  # Semi-transparent colors
+a lighter, brighter effect (inverse of multiply).
 }

@@ -354,7 +354,7 @@ faithfuld |>
 
 ### Rescale a diverging col scale
 
-Use `col_rescale` to rescale a diverging scale around a central point. 
+Use `col_rescaler` to rescale a diverging scale around a central point. 
 
 ```{r}
 rescale_vctr <- sort(c(range(mpg$cty), 15))
@@ -364,7 +364,7 @@ mpg  |>
     x = displ, 
     y = hwy, 
     col = cty,
-    col_rescale = scales::rescale(rescale_vctr),
+    col_rescaler = scales::rescale(rescale_vctr),
     col_breaks = scales::breaks_width(5),
     col_palette = c(jumble[c(3, 1)], "white", jumble[c(2, 4)]),
   )

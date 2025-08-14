@@ -3,6 +3,8 @@ library(vdiffr)
 library(ggplot2)
 library(palmerpenguins)
 
+set_blanket()
+
 # Breaks tests
 test_that("breaks_cont_fn", {
   expect_doppelganger(

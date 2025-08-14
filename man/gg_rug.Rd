@@ -74,7 +74,7 @@ gg_rug(
   col_palette = NULL,
   col_na = NULL,
   col_legend_rev = NULL,
-  col_rescale = scales::rescale(),
+  col_rescaler = scales::rescale,
   col_scale_type = "gradient",
   col_transform = NULL,
   colour_palette = NULL,
@@ -164,7 +164,7 @@ gg_rug(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide.}
 
-\item{col_rescale}{For a continuous variable, a \code{scales::rescale()} function.}
+\item{col_rescaler}{For a continuous variable, a \code{scales::rescale} function.}
 
 \item{col_scale_type}{Either \code{"gradient"} or \code{"steps"}. Defaults to \code{"gradient"}.}
 

@@ -4,6 +4,8 @@ library(vdiffr)
 library(ggplot2)
 library(dplyr)
 
+set_blanket()
+
 test_that("disc_pal_fn_vec", {
   # Test with palette function
   set_blanket(col_palette_d = scales::pal_hue(h.start = 15))

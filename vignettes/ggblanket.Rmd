@@ -314,7 +314,7 @@ Note all continuous scales ensure all data is kept using `scales::oob_keep` - an
 
 Certain geoms are classified as being with a border (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered with a border. 
 
-This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthetics. By default border polygons are applied a `col_multiply` blend, and fill is left unchanged. 
+This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthetics. By default border polygons are applied a `blend_multiply` blend, and fill is left unchanged. 
 
 Use `border = FALSE` to turn this off within the `gg_*` function (or globally with `set_blanket(border_colour_transform = \(x) x, border_fill_transform = \(x) x, ...)`).
 
@@ -341,7 +341,7 @@ All other functions wrap this function with a fixed `geom`, and their own defaul
 
 This function can often be used (1) where a annotation is needed to be plotted first, or (2) where a geom is needed to be plotted that is not provided as a `gg_*` function.
 
-The `blank` geom gets `border = TRUE` unless otherwise specified. As such, border colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Where `col` is not mapped, use `col_multiply` and `col_screen` in subsequent layers to replicate the default ggblanket look.
+The `blank` geom gets `border = TRUE` unless otherwise specified. As such, border colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Where `col` is not mapped, use `blend_multiply` and `blend_screen` in subsequent layers to replicate the default ggblanket look.
 
 ```{r}
 palmerpenguins::penguins |>
@@ -358,7 +358,7 @@ palmerpenguins::penguins |>
            ymin = -Inf, ymax = Inf,
            colour = NA,
            fill = jumble[9]) +
-  geom_point(colour = col_multiply(get_geom_defaults("point")$colour))
+  geom_point(colour = blend_multiply(get_geom_defaults("point")$colour))
 ```
 
 ```{r}

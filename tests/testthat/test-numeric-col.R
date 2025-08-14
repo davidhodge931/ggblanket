@@ -5,7 +5,7 @@
 # library(ggplot2)
 # set_blanket(col = "#121b24")
 #
-# test_name <- "theme_lighter_right"
+# test_name <- "numeric"
 #
 # test_that(test_name, {
 #   set.seed(123)
@@ -16,7 +16,6 @@
 #       y = island,
 #       col = bill_depth_mm,
 #       mapping = aes(alpha = species, shape = species),
-#       theme = theme_lighter()
 #     ) +
 #     scale_alpha_manual(values = c(1, 1, 0.33))
 #
@@ -33,9 +32,7 @@
 #       x = flipper_length_mm,
 #       y = island,
 #       col = bill_depth_mm,
-#       facet = sex,
 #       mapping = aes(alpha = species, shape = species),
-#       theme = theme_lighter(legend_position = "top")
 #     ) +
 #     scale_alpha_manual(values = c(1, 1, 0.33))
 #
@@ -52,9 +49,7 @@
 #       x = flipper_length_mm,
 #       y = island,
 #       col = bill_depth_mm,
-#       facet = sex,
 #       mapping = aes(alpha = species, shape = species),
-#       theme = theme_lighter(legend_position = "bottom")
 #     ) +
 #     scale_alpha_manual(values = c(1, 1, 0.33))
 #
