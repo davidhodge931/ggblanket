@@ -20,6 +20,6 @@ If any input is a function, returns a function that generates blended colours.
 }
 \description{
 Blends colours using difference mode with proper alpha handling. Difference
-creates an inversion effect based on the difference between colors, useful
-for comparing colors or creating psychedelic effects.
+creates an inversion effect based on the difference between colours, useful
+for comparing colours or creating psychedelic effects.
 }

@@ -2,8 +2,8 @@
 #'
 #' @description
 #' Blends colours using difference mode with proper alpha handling. Difference
-#' creates an inversion effect based on the difference between colors, useful
-#' for comparing colors or creating psychedelic effects.
+#' creates an inversion effect based on the difference between colours, useful
+#' for comparing colours or creating psychedelic effects.
 #'
 #' @param ... Either one or two colour arguments:
 #'   - If one argument: the colour is blended with itself (returns black)
@@ -49,9 +49,9 @@ blend_difference <- function(...) {
             # being called with continuous values
             if (length(x) > 1 && inherits(col, "pal_discrete")) {
               # Convert discrete palette to continuous
-              n_colors <- attr(col, "nlevels") %||% 256
-              colors <- col(min(n_colors, 256))
-              gradient_fn <- scales::pal_gradient_n(colours = colors)
+              n_colours <- attr(col, "nlevels") %||% 256
+              colours <- col(min(n_colours, 256))
+              gradient_fn <- scales::pal_gradient_n(colours = colours)
               gradient_fn(x)
             } else if (length(x) == 1 && is.numeric(x)) {
               # Single value - might need to generate a sequence
@@ -73,9 +73,9 @@ blend_difference <- function(...) {
             # being called with continuous values
             if (length(x) > 1 && inherits(col2, "pal_discrete")) {
               # Convert discrete palette to continuous
-              n_colors <- attr(col2, "nlevels") %||% 256
-              colors <- col2(min(n_colors, 256))
-              gradient_fn <- scales::pal_gradient_n(colours = colors)
+              n_colours <- attr(col2, "nlevels") %||% 256
+              colours <- col2(min(n_colours, 256))
+              gradient_fn <- scales::pal_gradient_n(colours = colours)
               gradient_fn(x)
             } else if (length(x) == 1 && is.numeric(x)) {
               # Single value - might need to generate a sequence
@@ -111,7 +111,7 @@ blend_difference <- function(...) {
   col1 <- rep_len(col1, len)
   col2 <- rep_len(col2, len)
 
-  # Convert to RGB matrices - handle single color case
+  # Convert to RGB matrices - handle single colour case
   rgb1 <- grDevices::col2rgb(col1, alpha = TRUE)
   if (is.null(dim(rgb1))) rgb1 <- matrix(rgb1, nrow = 4, ncol = 1)
   rgb1 <- rgb1 / 255
@@ -129,11 +129,11 @@ blend_difference <- function(...) {
   alpha_result <- alpha1 + alpha2 * (1 - alpha1)
 
   # Initialize result matrix
-  n_colors <- ncol(rgb1)
-  rgb_result <- matrix(0, nrow = 3, ncol = n_colors)
+  n_colours <- ncol(rgb1)
+  rgb_result <- matrix(0, nrow = 3, ncol = n_colours)
 
   for (i in 1:3) {
-    # Get color channel values
+    # Get colour channel values
     c1 <- rgb1[i, ]
     c2 <- rgb2[i, ]
 
@@ -170,10 +170,10 @@ blend_difference <- function(...) {
 #' @description
 #' Blends colours using exclusion mode with proper alpha handling. Exclusion
 #' creates a lower-contrast inversion effect similar to difference but softer,
-#' useful for subtle color comparisons.
+#' useful for subtle colour comparisons.
 #'
 #' @param ... Either one or two colour arguments:
-#'   - If one argument: the colour is blended with itself (returns gray)
+#'   - If one argument: the colour is blended with itself (returns grey)
 #'   - If two arguments: the first is blended with the second
 #'   Each argument can be a character vector of colours or a `scales::pal_*()` function
 #'
@@ -188,7 +188,7 @@ blend_exclusion <- function(...) {
   if (length(dots) == 0) {
     stop("At least one colour argument is required")
   } else if (length(dots) == 1) {
-    # Self-exclusion (produces gray)
+    # Self-exclusion (produces grey)
     col <- dots[[1]]
     col2 <- col
   } else if (length(dots) == 2) {
@@ -216,9 +216,9 @@ blend_exclusion <- function(...) {
             # being called with continuous values
             if (length(x) > 1 && inherits(col, "pal_discrete")) {
               # Convert discrete palette to continuous
-              n_colors <- attr(col, "nlevels") %||% 256
-              colors <- col(min(n_colors, 256))
-              gradient_fn <- scales::pal_gradient_n(colours = colors)
+              n_colours <- attr(col, "nlevels") %||% 256
+              colours <- col(min(n_colours, 256))
+              gradient_fn <- scales::pal_gradient_n(colours = colours)
               gradient_fn(x)
             } else if (length(x) == 1 && is.numeric(x)) {
               # Single value - might need to generate a sequence
@@ -240,9 +240,9 @@ blend_exclusion <- function(...) {
             # being called with continuous values
             if (length(x) > 1 && inherits(col2, "pal_discrete")) {
               # Convert discrete palette to continuous
-              n_colors <- attr(col2, "nlevels") %||% 256
-              colors <- col2(min(n_colors, 256))
-              gradient_fn <- scales::pal_gradient_n(colours = colors)
+              n_colours <- attr(col2, "nlevels") %||% 256
+              colours <- col2(min(n_colours, 256))
+              gradient_fn <- scales::pal_gradient_n(colours = colours)
               gradient_fn(x)
             } else if (length(x) == 1 && is.numeric(x)) {
               # Single value - might need to generate a sequence
@@ -278,7 +278,7 @@ blend_exclusion <- function(...) {
   col1 <- rep_len(col1, len)
   col2 <- rep_len(col2, len)
 
-  # Convert to RGB matrices - handle single color case
+  # Convert to RGB matrices - handle single colour case
   rgb1 <- grDevices::col2rgb(col1, alpha = TRUE)
   if (is.null(dim(rgb1))) rgb1 <- matrix(rgb1, nrow = 4, ncol = 1)
   rgb1 <- rgb1 / 255
@@ -296,11 +296,11 @@ blend_exclusion <- function(...) {
   alpha_result <- alpha1 + alpha2 * (1 - alpha1)
 
   # Initialize result matrix
-  n_colors <- ncol(rgb1)
-  rgb_result <- matrix(0, nrow = 3, ncol = n_colors)
+  n_colours <- ncol(rgb1)
+  rgb_result <- matrix(0, nrow = 3, ncol = n_colours)
 
   for (i in 1:3) {
-    # Get color channel values
+    # Get colour channel values
     c1 <- rgb1[i, ]
     c2 <- rgb2[i, ]
 

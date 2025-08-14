@@ -11,8 +11,8 @@ pal_direction(palette, ..., reverse = FALSE)
 \itemize{
 \item A function that takes n (e.g., \code{scales::pal_viridis()})
 \item A function that takes values 0-1 (e.g., \code{scales::pal_gradient_n()})
-\item A character vector of colors
-\item Other color objects
+\item A character vector of colours
+\item Other colour objects
 }}
 
 \item{...}{Additional arguments (for extensibility)}

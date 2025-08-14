@@ -375,12 +375,12 @@ gg_blanket <- function(
         col_palette_o <- col_palette
       }
 
-      # Get NA color - use col_na if provided, otherwise global option
+      # Get NA colour - use col_na if provided, otherwise global option
       if (rlang::is_null(col_na)) {
         col_na <- getOption("ggblanket.col_na", "grey50")
       }
 
-      # Apply border adjustments to palettes and NA colors - FIXED VERSION
+      # Apply border adjustments to palettes and NA colours - FIXED VERSION
       if (is_border_geom) {
         if (!rlang::is_null(border_transform_colour)) {
           # ... existing border logic but add NULL checks
@@ -442,7 +442,7 @@ gg_blanket <- function(
             }
           }
 
-          # For NA color: priority is colour_na > col_na (transformed)
+          # For NA colour: priority is colour_na > col_na (transformed)
           if (
             rlang::is_null(colour_na) && is.function(border_transform_colour)
           ) {
@@ -525,7 +525,7 @@ gg_blanket <- function(
             }
           }
 
-          # For NA color: priority is fill_na > col_na (transformed)
+          # For NA colour: priority is fill_na > col_na (transformed)
           if (rlang::is_null(fill_na) && is.function(border_transform_fill)) {
             fill_na <- border_transform_fill(col_na)
           }
@@ -842,7 +842,7 @@ gg_blanket <- function(
       }
 
       # Step 9.5: Auto-set fill=NA when only colour is mapped (and vice versa)
-      # This prevents unwanted fill colors when user only wants outlines
+      # This prevents unwanted fill colours when user only wants outlines
       if (
         colour_map_or_set$is_aesthetic &&
         !fill_map_or_set$is_aesthetic &&

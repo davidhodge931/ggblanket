@@ -59,7 +59,7 @@ annotate_panel_background <- function(
   if (is.null(fill)) {
     panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
     if (!is.null(panel_bg) && !inherits(panel_bg, "element_blank")) {
-      # Use a contrasting color if panel background exists
+      # Use a contrasting colour if panel background exists
       # If panel is light, use darker shade; if dark, use lighter shade
       bg_fill <- panel_bg$fill %||% "white"
       # Simple approach: use a grey that contrasts
@@ -68,7 +68,7 @@ annotate_panel_background <- function(
       } else if (bg_fill == "black" || bg_fill == "#000000") {
         fill <- "grey20"
       } else {
-        # For other colors, just use a neutral grey
+        # For other colours, just use a neutral grey
         fill <- "grey70"
       }
     } else {

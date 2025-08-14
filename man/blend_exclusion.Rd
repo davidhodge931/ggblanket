@@ -9,7 +9,7 @@ blend_exclusion(...)
 \arguments{
 \item{...}{Either one or two colour arguments:
 \itemize{
-\item If one argument: the colour is blended with itself (returns gray)
+\item If one argument: the colour is blended with itself (returns grey)
 \item If two arguments: the first is blended with the second
 Each argument can be a character vector of colours or a \verb{scales::pal_*()} function
 }}
@@ -21,5 +21,5 @@ If any input is a function, returns a function that generates blended colours.
 \description{
 Blends colours using exclusion mode with proper alpha handling. Exclusion
 creates a lower-contrast inversion effect similar to difference but softer,
-useful for subtle color comparisons.
+useful for subtle colour comparisons.
 }

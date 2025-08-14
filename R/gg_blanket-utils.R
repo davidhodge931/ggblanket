@@ -556,7 +556,7 @@ add_facet_by_layout <- function(
   }
 }
 
-#' Calculate number of colors needed
+#' Calculate number of colours needed
 #' @noRd
 get_col_n <- function(aes_list, data, plot_data, stat_name = NULL) {
   # Special handling for contour_filled and density2d_filled
@@ -573,7 +573,7 @@ get_col_n <- function(aes_list, data, plot_data, stat_name = NULL) {
         return(length(unique(level_data[!is.na(level_data)])))
       }
     }
-    # If no level column yet, fall through to standard color counting
+    # If no level column yet, fall through to standard colour counting
     # The actual levels will be determined by ggplot2's stat_name computation
   }
 
@@ -585,7 +585,7 @@ get_col_n <- function(aes_list, data, plot_data, stat_name = NULL) {
     NA
   }
 
-  # Count distinct colors in plot data - only if columns exist
+  # Count distinct colours in plot data - only if columns exist
   colour_n <- if ("colour" %in% names(plot_data)) {
     plot_data |>
       dplyr::select(tidyselect::any_of("colour")) |>
@@ -666,7 +666,7 @@ get_scale_class <- function(plot_build, aes_list, data) {
     }
   }
 
-  # Determine color scale class
+  # Determine colour scale class
   col_scale_class <- get_col_scale_class(plot_scales, aes_list$col, data)
 
   list(
@@ -702,7 +702,7 @@ get_y_scale_class <- function(plot_scales) {
   }
 }
 
-#' Get color scale class
+#' Get colour scale class
 #' @noRd
 get_col_scale_class <- function(plot_scales, col_quo, data) {
   # Find scale_colour_* or scale_fill_* and extract the third word
@@ -721,7 +721,7 @@ get_col_scale_class <- function(plot_scales, col_quo, data) {
     scale_class <- "continuous" # default
   }
 
-  # Special case for hms - color scales remain continuous
+  # Special case for hms - colour scales remain continuous
   if (!rlang::quo_is_null(col_quo) && scale_class == "continuous") {
     col_data <- rlang::eval_tidy(col_quo, data)
     if (inherits(col_data, "hms")) {
@@ -851,7 +851,7 @@ add_y_scale_continuous <- function(
   }
 }
 
-#' Get color labels
+#' Get colour labels
 #' @noRd
 get_col_label <- function(col_labels, col_scale_class, col_transform) {
   if (!rlang::is_null(col_labels)) {
@@ -921,7 +921,7 @@ create_ordinal_palette_wrapper <- function(palette) {
             return(palette(seq(0, 1, length.out = n)))
           },
           error = function(e2) {
-            warning("Palette function failed, using default colors")
+            warning("Palette function failed, using default colours")
             return(scales::viridis_pal()(n))
           }
         )
@@ -945,7 +945,7 @@ add_matching_aesthetic_guides <- function(
     aes_list = NULL,
     data = NULL
 ) {
-  # Fixed grey color for legend key overrides
+  # Fixed grey colour for legend key overrides
   grey_col <- "#8991A1"
 
   # Check if col is mapped (either directly or through colour/fill)
@@ -2181,14 +2181,14 @@ process_title <- function(
   }
 }
 
-# Complete Color Scale Functions with Border Transformation Support
+# Complete Colour Scale Functions with Border Transformation Support
 
 #' Process palette to vector for border transformation
 #' @noRd
 process_palette_to_vector <- function(palette, n = NULL, scale_type = "continuous") {
   if (is.function(palette)) {
     if (scale_type == "discrete" || scale_type == "ordinal") {
-      # For discrete/ordinal, we need to know how many colors
+      # For discrete/ordinal, we need to know how many colours
       if (is.null(n)) {
         # Default to a reasonable number if not specified
         n <- 10
@@ -2203,7 +2203,7 @@ process_palette_to_vector <- function(palette, n = NULL, scale_type = "continuou
       )
     } else {
       # For continuous/binned scales, generate a gradient
-      # Get a representative set of colors
+      # Get a representative set of colours
       tryCatch(
         {
           # Try calling with values from 0 to 1
@@ -2224,7 +2224,7 @@ process_palette_to_vector <- function(palette, n = NULL, scale_type = "continuou
   }
 }
 
-# Complete Color Scale Functions - Final Version
+# Complete Colour Scale Functions - Final Version
 
 #' Reverse discrete palette for horizontal plots
 #' @noRd
@@ -2240,8 +2240,8 @@ reverse_discrete_palette <- function(palette, n = NULL, aspect = "x") {
 
     # For functions, return a wrapper that reverses the output
     wrapped_fn <- function(n) {
-      colors <- palette(n)
-      rev(colors)
+      colours <- palette(n)
+      rev(colours)
     }
 
     # CRITICAL: Preserve ALL attributes from the original function
@@ -2287,7 +2287,7 @@ check_same_colour_fill_mapping <- function(plot) {
   return(FALSE)
 }
 
-#' Add color scales wrapper
+#' Add colour scales wrapper
 #' @noRd
 add_col_scale <- function(
     plot,
@@ -2321,13 +2321,13 @@ add_col_scale <- function(
     fill_na,
     aspect = "x"  # ADD THIS PARAMETER
 ) {
-  # Get NA colors with defaults
+  # Get NA colours with defaults
   na_colour <- colour_na %||% "#CDC5BFFF"
   na_fill <- fill_na %||% "#CDC5BFFF"
 
   # Get transform and labels
   if (rlang::is_null(col_transform)) {
-    # Special handling for color transforms
+    # Special handling for colour transforms
     if (!rlang::quo_is_null(aes_list$col) && col_scale_class == "continuous") {
       col_data <- rlang::eval_tidy(aes_list$col, data)
       if (inherits(col_data, "hms")) {
@@ -2431,7 +2431,7 @@ add_col_scale <- function(
   plot
 }
 
-#' Add discrete color scale
+#' Add discrete colour scale
 #' @noRd
 add_col_scale_discrete <- function(
     plot,
@@ -2463,7 +2463,7 @@ add_col_scale_discrete <- function(
     }
   }
 
-  # Calculate number of colors needed
+  # Calculate number of colours needed
   col_n <- get_col_n(aes_list, data, plot_data, stat_name)
 
   # Reverse palettes if aspect is "y"
@@ -2543,7 +2543,7 @@ add_col_scale_discrete <- function(
   plot
 }
 
-#' Add continuous color scale
+#' Add continuous colour scale
 #' @noRd
 add_col_scale_continuous <- function(
     plot,
@@ -2706,7 +2706,7 @@ add_col_scale_continuous <- function(
   plot
 }
 
-#' Add ordinal color scale
+#' Add ordinal colour scale
 #' @noRd
 add_col_scale_ordinal <- function(
     plot,
@@ -2730,7 +2730,7 @@ add_col_scale_ordinal <- function(
     is_border_geom = FALSE,
     aspect = "x"  # Add aspect parameter (but not used for ordinal)
 ) {
-  # Calculate number of colors needed
+  # Calculate number of colours needed
   col_n <- get_col_n(aes_list, data, plot_data, stat_name)
 
   # For ordinal scales, aspect doesn't affect legend reversal

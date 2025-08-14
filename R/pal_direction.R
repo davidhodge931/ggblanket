@@ -135,12 +135,12 @@ is_panel_light <- function(..., theme = NULL) {
     panel_col <- plot_col
   }
 
-  .get_color_luminance(panel_col)
+  .get_colour_luminance(panel_col)
 }
 
-#' Get color luminance
+#' Get colour luminance
 #' @noRd
-.get_color_luminance <- function(col) {
+.get_colour_luminance <- function(col) {
   if (.is_transparent_or_na(col)) {
     return(100)  # Default to light
   }
@@ -152,7 +152,7 @@ is_panel_light <- function(..., theme = NULL) {
   })
 }
 
-#' Check if a color value is transparent or NA
+#' Check if a colour value is transparent or NA
 #' @noRd
 .is_transparent_or_na <- function(col) {
   rlang::is_null(col) ||
@@ -174,8 +174,8 @@ is_panel_light <- function(..., theme = NULL) {
 #' @param palette A palette in any format:
 #'   - A function that takes n (e.g., `scales::pal_viridis()`)
 #'   - A function that takes values 0-1 (e.g., `scales::pal_gradient_n()`)
-#'   - A character vector of colors
-#'   - Other color objects
+#'   - A character vector of colours
+#'   - Other colour objects
 #' @param ... Additional arguments (for extensibility)
 #' @param reverse Logical. If FALSE (default), maximum contrast is placed
 #'   at high values. If TRUE, maximum contrast is placed at low values.
@@ -196,20 +196,20 @@ pal_direction <- function(palette, ..., reverse = FALSE) {
     if (inherits(palette, "pal_discrete")) {
       # n-based function
       wrapped_fn <- function(n) {
-        colors <- palette(n)
-        .apply_direction(colors, reverse)
+        colours <- palette(n)
+        .apply_direction(colours, reverse)
       }
     } else if (inherits(palette, "pal_continuous")) {
       # value-based function
       wrapped_fn <- function(x) {
-        colors <- palette(x)
-        .apply_direction(colors, reverse)
+        colours <- palette(x)
+        .apply_direction(colours, reverse)
       }
     } else {
       # Unknown function type - return wrapped version that tries to detect
       wrapped_fn <- function(x) {
-        # Try to get colors from the palette
-        colors <- tryCatch(
+        # Try to get colours from the palette
+        colours <- tryCatch(
           palette(x),
           error = function(e) {
             # If x is a single number, might be n-based, try as values
@@ -220,7 +220,7 @@ pal_direction <- function(palette, ..., reverse = FALSE) {
             }
           }
         )
-        .apply_direction(colors, reverse)
+        .apply_direction(colours, reverse)
       }
     }
 
@@ -235,42 +235,42 @@ pal_direction <- function(palette, ..., reverse = FALSE) {
   }
 
   # Handle non-functions (vectors)
-  colors <- as.character(palette)
+  colours <- as.character(palette)
 
-  # Single color: return unchanged
-  if (length(colors) == 1) {
+  # Single colour: return unchanged
+  if (length(colours) == 1) {
     return(palette)  # Return in original format
   }
 
-  # Multiple colors: apply direction
-  oriented_colors <- .apply_direction(colors, reverse)
+  # Multiple colours: apply direction
+  oriented_colours <- .apply_direction(colours, reverse)
 
   # Return in same format as input
   if (inherits(palette, "character")) {
-    return(oriented_colors)
+    return(oriented_colours)
   } else {
     # Preserve original class if possible
     tryCatch(
-      structure(oriented_colors, class = class(palette)),
-      error = function(e) oriented_colors
+      structure(oriented_colours, class = class(palette)),
+      error = function(e) oriented_colours
     )
   }
 }
 
-#' Apply direction logic to a color vector
+#' Apply direction logic to a colour vector
 #' @noRd
-.apply_direction <- function(colors, reverse = FALSE) {
-  # Single color or empty: return unchanged
-  if (length(colors) <= 1) {
-    return(colors)
+.apply_direction <- function(colours, reverse = FALSE) {
+  # Single colour or empty: return unchanged
+  if (length(colours) <= 1) {
+    return(colours)
   }
 
   # Get panel luminance
   panel_luminance <- .get_panel_luminance()
 
-  # Get luminance of first and last colors
-  first_lum <- .get_color_luminance(colors[1])
-  last_lum <- .get_color_luminance(colors[length(colors)])
+  # Get luminance of first and last colours
+  first_lum <- .get_colour_luminance(colours[1])
+  last_lum <- .get_colour_luminance(colours[length(colours)])
 
   # Calculate contrast with panel
   first_contrast <- abs(first_lum - panel_luminance)
@@ -286,8 +286,8 @@ pal_direction <- function(palette, ..., reverse = FALSE) {
   }
 
   if (needs_reversal) {
-    rev(colors)
+    rev(colours)
   } else {
-    colors
+    colours
   }
 }
