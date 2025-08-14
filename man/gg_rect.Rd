@@ -164,7 +164,7 @@ gg_rect(
 
 \item{col_legend_rev}{\code{TRUE} or \code{FALSE} of whether to reverse the elements of a legend guide.}
 
-\item{col_rescaler}{For a continuous variable, a \code{scales::rescale} function.}
+\item{col_rescaler}{For a continuous variable, a \code{scales::rescale} function. E.g. \verb{(x, ...) scales::rescale_mid(x, mid = 100)}.}
 
 \item{col_scale_type}{Either \code{"gradient"} or \code{"steps"}. Defaults to \code{"gradient"}.}
 

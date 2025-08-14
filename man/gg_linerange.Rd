@@ -164,7 +164,7 @@ gg_linerange(
 
 \item{col_na, colour_na, fill_na}{A hex code (or name) for the \code{NA} value.}
 
-\item{col_rescaler}{For a continuous variable, a \code{scales::rescale} function.}
+\item{col_rescaler}{For a continuous variable, a \code{scales::rescale} function. E.g. \verb{(x, ...) scales::rescale_mid(x, mid = 100)}.}
 
 \item{col_scale_type}{Either \code{"gradient"} or \code{"steps"}. Defaults to \code{"gradient"}.}
 
