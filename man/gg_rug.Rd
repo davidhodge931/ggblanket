@@ -40,7 +40,7 @@ gg_rug(
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  border = NULL,
+  bordered = NULL,
   colour_bordered_transform = NULL,
   fill_bordered_transform = NULL,
   x_breaks = NULL,
@@ -75,7 +75,7 @@ gg_rug(
   col_na = NULL,
   col_legend_rev = NULL,
   col_rescaler = scales::rescale,
-  col_scale_type = "gradient",
+  col_scale_type = "continuous",
   col_transform = NULL,
   colour_palette = NULL,
   colour_na = NULL,
@@ -128,6 +128,8 @@ gg_rug(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} for advanced edge-case situations (e.g.delayed evaluation etc).}
 
+\item{bordered}{\code{TRUE} or \code{FALSE} of whether the \code{colour_bordered_transform} and \code{fill_bordered_transform} should be applied.}
+
 \item{colour_bordered_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
 
 \item{fill_bordered_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
@@ -164,7 +166,7 @@ gg_rug(
 
 \item{col_rescaler}{For a continuous variable, a \code{scales::rescale} function. E.g. \verb{(x, ...) scales::rescale_mid(x, mid = 100)}.}
 
-\item{col_scale_type}{Either \code{"gradient"} or \code{"steps"}. Defaults to \code{"gradient"}.}
+\item{col_scale_type}{Either \code{"continuous"} or \code{"binned"}. Defaults to \code{"continuous"}.}
 
 \item{shape_palette}{A numeric vector of shape codes or a \verb{scales::pal_*()} function. If NULL, uses the value from \code{getOption("ggblanket.shape_palette")}.}
 

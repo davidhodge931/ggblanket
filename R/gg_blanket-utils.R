@@ -128,17 +128,25 @@ get_transform <- function(transform = NULL, scale_class = NULL) {
     )
 }
 
-#' Get aspect based on scale classes
-#' @noRd
-get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class) {
-  aspect %||%
+get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class, stat_name, aes_list, mapping = NULL) {
+  aspect %||% {
+    # Check if x is mapped (either in aes_list or mapping)
+    has_x <- !rlang::quo_is_null(aes_list$x) || (!rlang::is_null(mapping) && "x" %in% names(mapping))
+
+    # Check if y is mapped (either in aes_list or mapping)
+    has_y <- !rlang::quo_is_null(aes_list$y) || (!rlang::is_null(mapping) && "y" %in% names(mapping))
+
     if (y_scale_class == "discrete" && x_scale_class != "discrete") {
       "y"
+    } else if (stat_name %in% c("bin", "density") && !has_x) {
+      "y"
+    } else if (stat_name %in% c("bin", "density") && has_x && !has_y) {
+      "x"  # This is your second case - x mapped, y computed
     } else {
       "x"
     }
+  }
 }
-
 #' Determine if x should be symmetric
 #' @noRd
 is_x_limits_to_breaks <- function(

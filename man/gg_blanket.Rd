@@ -74,7 +74,7 @@ gg_blanket(
   col_na = NULL,
   col_legend_rev = NULL,
   col_rescaler = scales::rescale,
-  col_scale_type = "gradient",
+  col_scale_type = "continuous",
   col_transform = NULL,
   colour_bordered_transform = NULL,
   colour_palette = NULL,
@@ -163,7 +163,7 @@ gg_blanket(
 
 \item{col_rescaler}{For a continuous variable, a \code{scales::rescale} function. E.g. \verb{(x, ...) scales::rescale_mid(x, mid = 100)}.}
 
-\item{col_scale_type}{Either \code{"gradient"} or \code{"steps"}. Defaults to \code{"gradient"}.}
+\item{col_scale_type}{Either \code{"continuous"} or \code{"binned"}. Defaults to \code{"continuous"}.}
 
 \item{colour_bordered_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
 

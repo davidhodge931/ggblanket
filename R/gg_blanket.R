@@ -34,7 +34,7 @@
 #' @param col_na,colour_na,fill_na A hex code (or name) for the `NA` value.
 #' @param colour_bordered_transform A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
 #' @param fill_bordered_transform A function with input of `col` or `col_palette`. Defaults to NULL.
-#' @param col_scale_type Either `"gradient"` or `"steps"`. Defaults to `"gradient"`.
+#' @param col_scale_type Either `"continuous"` or `"binned"`. Defaults to `"continuous"`.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
@@ -141,7 +141,7 @@ gg_blanket <- function(
     col_na = NULL,
     col_legend_rev = NULL,
     col_rescaler = scales::rescale,
-    col_scale_type = "gradient",
+    col_scale_type = "continuous",
     col_transform = NULL,
     colour_bordered_transform = NULL,
     colour_palette = NULL,
@@ -923,7 +923,10 @@ gg_blanket <- function(
       aspect <- get_aspect(
         aspect = aspect,
         x_scale_class = x_scale_class,
-        y_scale_class = y_scale_class
+        y_scale_class = y_scale_class,
+        stat_name = stat_name,
+        aes_list = aes_list,
+        mapping = mapping
       )
 
       if (rlang::is_null(x_limits_to_breaks)) {

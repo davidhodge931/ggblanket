@@ -266,7 +266,7 @@ set_blanket()
 
 ### 12. An `aspect` for vertical/horizontal ease 
 
-The `aspect` parameter describes the intended way that a person would look at a plot - and then applies the `aspect_axis_line`, `aspect_axis_ticks` and `aspect_panel_grid` behaviour to the plot.
+The `aspect` parameter describes the intended way that a person would look at a plot - and then applies the `axis_line_aspect`, `axis_ticks_aspect` and `panel_grid_aspect` behaviour to the plot.
 
 The intention for this is to enable asymmetric axis lines, ticks and gridlines for vertical and horizontal plots using a single theme.
 

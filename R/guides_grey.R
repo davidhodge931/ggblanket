@@ -23,7 +23,7 @@ guides_grey <- function(
   col = "#8991A1",
   colour = NULL,
   fill = NULL,
-  border = NULL,
+  bordered = NULL,
   colour_bordered_transform = NULL,
   fill_bordered_transform = NULL
 ) {
