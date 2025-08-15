@@ -11,9 +11,9 @@ gg_linerange(
   position = ggplot2::position_identity(),
   coord = ggplot2::coord_cartesian(clip = "off"),
   aspect = NULL,
-  aspect_axis_line = NULL,
-  aspect_axis_ticks = NULL,
-  aspect_panel_grid = NULL,
+  axis_line_aspect = NULL,
+  axis_ticks_aspect = NULL,
+  panel_grid_aspect = NULL,
   blend = NULL,
   x = NULL,
   xmin = NULL,
@@ -116,11 +116,11 @@ gg_linerange(
 
 \item{aspect}{The aspect of plot, which affects the theme components that are removed. Either \code{"x"} or \code{"y"}.}
 
-\item{aspect_axis_line}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis line for an \code{"x"} \code{aspect}, and vice versa.}
+\item{axis_line_aspect}{Either \code{"transparent"}, \code{"keep"} , or \code{"blank"} of how to treat the y axis line for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{aspect_axis_ticks}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis ticks for an \code{"x"} \code{aspect}, and vice versa.}
+\item{axis_ticks_aspect}{Either \code{"transparent"}, \code{"keep"} , or \code{"blank"} of how to treat the y axis ticks for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{aspect_panel_grid}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
+\item{panel_grid_aspect}{Either \code{"transparent"}, \code{"keep"} , or \code{"blank"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
 
 \item{blend}{The blending mode per \code{\link[ggblend:blend]{ggblend::blend()}} (e.g. "multiply").}
 

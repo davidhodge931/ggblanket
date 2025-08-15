@@ -6,9 +6,10 @@
 \usage{
 update_geom_palettes(
   ...,
-  col_palette_d = scales::pal_hue(),
-  col_palette_c = direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
-  col_palette_o = NULL,
+  col_palette_discrete = scales::pal_hue(),
+  col_palette_continuous = direction(scales::pal_viridis(option = "mako", begin = 0.1,
+    end = 0.9)),
+  col_palette_ordinal = NULL,
   col_na = "#A6A6A6FF",
   shape_palette_d = c(21, 24, 22, 23, 25),
   shape_na = 4,
@@ -18,11 +19,11 @@ update_geom_palettes(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{col_palette_d}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
+\item{col_palette_discrete}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{col_palette_c}{For a continuous colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
+\item{col_palette_continuous}{For a continuous colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{col_palette_o}{For a ordinal colour/fill scale, a \verb{scales::pal_*} function. If NULL, determined from \code{col_palette_c}.}
+\item{col_palette_ordinal}{For a ordinal colour/fill scale, a \verb{scales::pal_*} function. If NULL, determined from \code{col_palette_continuous}.}
 
 \item{col_na}{A hex code (or name) for the \code{NA} value.}
 

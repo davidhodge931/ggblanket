@@ -7,8 +7,8 @@ library(scales)
 set_blanket()
 
 test_that("disc_vec_col_trans", {
-  # Test with col_palette_d using color transformation
-  set_blanket(col_palette_d = scales::col_darker(scales::pal_hue()(3)))
+  # Test with col_palette_discrete using color transformation
+  set_blanket(col_palette_discrete = scales::col_darker(scales::pal_hue()(3)))
 
   expect_doppelganger(
     "disc_vec_dark_jit",

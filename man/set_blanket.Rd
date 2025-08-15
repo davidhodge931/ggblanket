@@ -8,9 +8,10 @@ set_blanket(
   ...,
   theme = theme_lighter(),
   col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
-  col_palette_d = scales::pal_hue(),
-  col_palette_c = direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
-  col_palette_o = NULL,
+  col_palette_discrete = scales::pal_hue(),
+  col_palette_continuous = direction(scales::pal_viridis(option = "mako", begin = 0.1,
+    end = 0.9)),
+  col_palette_ordinal = NULL,
   col_na = "#A6A6A6FF",
   colour_bordered_transform = function(x) {
      if (is_panel_light()) {
@@ -31,9 +32,9 @@ set_blanket(
   linewidth_bordered = 0.25,
   size = 1.5,
   stroke = 0.5,
-  aspect_axis_line = "transparent",
-  aspect_axis_ticks = "transparent",
-  aspect_panel_grid = "transparent"
+  axis_line_aspect = "transparent",
+  axis_ticks_aspect = "transparent",
+  panel_grid_aspect = "transparent"
 )
 }
 \arguments{
@@ -43,11 +44,11 @@ set_blanket(
 
 \item{col}{A default hex code for the colour and fill of most geoms.}
 
-\item{col_palette_d}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
+\item{col_palette_discrete}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{col_palette_c}{For a continuous colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
+\item{col_palette_continuous}{For a continuous colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{col_palette_o}{For a ordinal colour/fill scale, a \verb{scales::pal_*} function. If NULL, determined from \code{col_palette_c}.}
+\item{col_palette_ordinal}{For a ordinal colour/fill scale, a \verb{scales::pal_*} function. If NULL, determined from \code{col_palette_continuous}.}
 
 \item{col_na}{A NA colour/fill value.}
 
@@ -73,26 +74,26 @@ set_blanket(
 
 \item{stroke}{A default stroke for point geoms.}
 
-\item{aspect_axis_line}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis line for an \code{"x"} \code{aspect}, and vice versa.}
+\item{axis_line_aspect}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis line for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{aspect_axis_ticks}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis ticks for an \code{"x"} \code{aspect}, and vice versa.}
+\item{axis_ticks_aspect}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis ticks for an \code{"x"} \code{aspect}, and vice versa.}
 
-\item{aspect_panel_grid}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
+\item{panel_grid_aspect}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
 }
 \value{
 Invisibly returns NULL. Sets global styling options as a side effect.
 }
 \description{
 Set a consistent style. Most users will only need
-\code{theme}, \code{col}, \code{col_palette_d}, \code{col_palette_c} and \verb{aspect_*} arguments.
+\code{theme}, \code{col}, \code{col_palette_discrete}, \code{col_palette_continuous} and \verb{aspect_*} arguments.
 }
 \examples{
 library(ggplot2)
 library(ggblanket)
 
-# Use col_palette_d for both colour and fill
+# Use col_palette_discrete for both colour and fill
 set_blanket(
-  col_palette_d = c("#E69F00", "#56B4E9", "#009E73")
+  col_palette_discrete = c("#E69F00", "#56B4E9", "#009E73")
 )
 
 }

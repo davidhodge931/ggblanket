@@ -9,7 +9,7 @@ set_blanket()
 
 test_that("disc_pal_fn_vec", {
   # Test with palette function
-  set_blanket(col_palette_d = scales::pal_hue(h.start = 15))
+  set_blanket(col_palette_discrete = scales::pal_hue(h.start = 15))
   expect_doppelganger(
     "disc_pal_fn",
     palmerpenguins::penguins |>
@@ -21,7 +21,7 @@ test_that("disc_pal_fn_vec", {
   )
 
   # Test with palette vector (pre-evaluated)
-  set_blanket(col_palette_d = scales::pal_hue(h.start = 15)(3))
+  set_blanket(col_palette_discrete = scales::pal_hue(h.start = 15)(3))
   expect_doppelganger(
     "disc_pal_vec",
     palmerpenguins::penguins |>
@@ -33,7 +33,7 @@ test_that("disc_pal_fn_vec", {
   )
 
   # Test with palette function and legend reverse
-  set_blanket(col_palette_d = scales::pal_hue(h.start = 15))
+  set_blanket(col_palette_discrete = scales::pal_hue(h.start = 15))
   expect_doppelganger(
     "disc_pal_fn_rev",
     palmerpenguins::penguins |>
@@ -50,7 +50,7 @@ test_that("disc_pal_fn_vec", {
 
 test_that("cont_pal_fn_vec", {
   # Test with palette function
-  set_blanket(col_palette_c = scales::pal_viridis(option = "A"))
+  set_blanket(col_palette_continuous = scales::pal_viridis(option = "A"))
   expect_doppelganger(
     "cont_pal_fn",
     palmerpenguins::penguins |>
@@ -62,7 +62,7 @@ test_that("cont_pal_fn_vec", {
   )
 
   # Test with palette vector (pre-evaluated)
-  set_blanket(col_palette_c = scales::pal_viridis(option = "A")(256))
+  set_blanket(col_palette_continuous = scales::pal_viridis(option = "A")(256))
   expect_doppelganger(
     "cont_pal_vec",
     palmerpenguins::penguins |>
@@ -74,7 +74,7 @@ test_that("cont_pal_fn_vec", {
   )
 
   # Test with palette function and legend reverse
-  set_blanket(col_palette_c = scales::pal_viridis(option = "A"))
+  set_blanket(col_palette_continuous = scales::pal_viridis(option = "A"))
   expect_doppelganger(
     "cont_pal_fn_rev",
     palmerpenguins::penguins |>
@@ -87,7 +87,7 @@ test_that("cont_pal_fn_vec", {
   )
 
   # Test with palette vector and legend reverse
-  set_blanket(col_palette_c = scales::pal_viridis(option = "A")(256))
+  set_blanket(col_palette_continuous = scales::pal_viridis(option = "A")(256))
   expect_doppelganger(
     "cont_pal_vec_rev",
     palmerpenguins::penguins |>

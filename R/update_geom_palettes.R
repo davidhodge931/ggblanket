@@ -5,9 +5,9 @@
 #' Sets global options for other palettes.
 #'
 #' @param ... Require named arguments (and support trailing commas).
-#' @param col_palette_d For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
-#' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
-#' @param col_palette_o For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_c`.
+#' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
 #' @param col_na A hex code (or name) for the `NA` value.
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
 #' @param shape_na A NA shape value.
@@ -18,9 +18,9 @@
 #' @export
 update_geom_palettes <- function(
     ...,
-    col_palette_d = scales::pal_hue(),
-    col_palette_c = direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
-    col_palette_o = NULL,
+    col_palette_discrete = scales::pal_hue(),
+    col_palette_continuous = direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
+    col_palette_ordinal = NULL,
     col_na = "#A6A6A6FF",
     shape_palette_d = c(21, 24, 22, 23, 25),
     shape_na = 4,
@@ -28,27 +28,27 @@ update_geom_palettes <- function(
 ) {
   # Update theme-level palettes
   ggplot2::update_theme(
-    palette.colour.discrete = col_palette_d,
-    palette.fill.discrete = col_palette_d,
-    palette.colour.continuous = col_palette_c,
-    palette.fill.continuous = col_palette_c
+    palette.colour.discrete = col_palette_discrete,
+    palette.fill.discrete = col_palette_discrete,
+    palette.colour.continuous = col_palette_continuous,
+    palette.fill.continuous = col_palette_continuous
   )
 
   # Handle ordinal palette default
-  if (rlang::is_null(col_palette_o)) {
+  if (rlang::is_null(col_palette_ordinal)) {
     # If continuous palette is a vector, convert to gradient function
-    if (is.character(col_palette_c) || is.numeric(col_palette_c)) {
-      col_palette_o <- scales::pal_gradient_n(colours = col_palette_c)
-    } else if (is.function(col_palette_c)) {
+    if (is.character(col_palette_continuous) || is.numeric(col_palette_continuous)) {
+      col_palette_ordinal <- scales::pal_gradient_n(colours = col_palette_continuous)
+    } else if (is.function(col_palette_continuous)) {
       # If it's already a function, use it directly
-      col_palette_o <- col_palette_c
+      col_palette_ordinal <- col_palette_continuous
     }
   }
 
   # Set global ggblanket options for the rest
   options(
     # Ordinal col palette
-    ggblanket.col_palette_o = col_palette_o,
+    ggblanket.col_palette_ordinal = col_palette_ordinal,
 
     # NA col value
     ggblanket.col_na = col_na,

@@ -29,7 +29,7 @@ library(dplyr)
 library(stringr)
 
 set_blanket(
-  col_palette_d = jumble,
+  col_palette_discrete = jumble,
 )
 
 p <- palmerpenguins::penguins |>

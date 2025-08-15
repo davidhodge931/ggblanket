@@ -1409,17 +1409,17 @@ scale_y_limits_to_breaks <- function(
 #' Get transparency defaults
 #' @noRd
 get_aspect_behaviour <- function(
-    aspect_axis_line,
-    aspect_axis_ticks,
-    aspect_panel_grid
+    axis_line_aspect,
+    axis_ticks_aspect,
+    panel_grid_aspect
 ) {
   list(
-    aspect_axis_line = aspect_axis_line %||%
-      getOption("ggblanket.aspect_axis_line", "keep"),
-    aspect_axis_ticks = aspect_axis_ticks %||%
-      getOption("ggblanket.aspect_axis_ticks", "keep"),
-    aspect_panel_grid = aspect_panel_grid %||%
-      getOption("ggblanket.aspect_panel_grid", "keep")
+    axis_line_aspect = axis_line_aspect %||%
+      getOption("ggblanket.axis_line_aspect", "keep"),
+    axis_ticks_aspect = axis_ticks_aspect %||%
+      getOption("ggblanket.axis_ticks_aspect", "keep"),
+    panel_grid_aspect = panel_grid_aspect %||%
+      getOption("ggblanket.panel_grid_aspect", "keep")
   )
 }
 
@@ -1428,40 +1428,40 @@ get_aspect_behaviour <- function(
 add_aspect <- function(
     plot,
     aspect,
-    aspect_axis_line,
-    aspect_axis_ticks,
-    aspect_panel_grid,
+    axis_line_aspect,
+    axis_ticks_aspect,
+    panel_grid_aspect,
     x_scale_class,
     y_scale_class
 ) {
   theme_updates <- list()
 
   if (aspect == "x") {
-    if (aspect_axis_line == "transparent") {
+    if (axis_line_aspect == "transparent") {
       theme_updates$axis.line.y.left <- element_line_transparent()
       theme_updates$axis.line.y.right <- element_line_transparent()
     }
-    if (aspect_axis_ticks == "transparent") {
+    if (axis_ticks_aspect == "transparent") {
       theme_updates$axis.ticks.y.left <- element_line_transparent()
       theme_updates$axis.ticks.y.right <- element_line_transparent()
 
       theme_updates$axis.minor.ticks.y.left <- element_line_transparent()
       theme_updates$axis.minor.ticks.y.right <- element_line_transparent()
     }
-    if (aspect_panel_grid == "transparent") {
+    if (panel_grid_aspect == "transparent") {
       theme_updates$panel.grid.major.x <- element_line_transparent()
       theme_updates$panel.grid.minor.x <- element_line_transparent()
     }
 
-    if (aspect_axis_line == "blank") {
+    if (axis_line_aspect == "blank") {
       theme_updates$axis.line.y.left <- ggplot2::element_blank()
       theme_updates$axis.line.y.right <- ggplot2::element_blank()
     }
-    if (aspect_axis_ticks == "blank") {
+    if (axis_ticks_aspect == "blank") {
       theme_updates$axis.ticks.y.left <- ggplot2::element_blank()
       theme_updates$axis.ticks.y.right <- ggplot2::element_blank()
     }
-    if (aspect_panel_grid == "blank") {
+    if (panel_grid_aspect == "blank") {
       theme_updates$panel.grid.major.x <- ggplot2::element_blank()
       theme_updates$panel.grid.minor.x <- ggplot2::element_blank()
     }
@@ -1474,31 +1474,31 @@ add_aspect <- function(
       theme_updates$axis.minor.ticks.x.top <- element_line_transparent()
     }
   } else if (aspect == "y") {
-    if (aspect_axis_line == "transparent") {
+    if (axis_line_aspect == "transparent") {
       theme_updates$axis.line.x.bottom <- element_line_transparent()
       theme_updates$axis.line.x.top <- element_line_transparent()
     }
-    if (aspect_axis_ticks == "transparent") {
+    if (axis_ticks_aspect == "transparent") {
       theme_updates$axis.ticks.x.bottom <- element_line_transparent()
       theme_updates$axis.ticks.x.top <- element_line_transparent()
 
       theme_updates$axis.ticks.x.bottom <- element_line_transparent()
       theme_updates$axis.minor.ticks.x.top <- element_line_transparent()
     }
-    if (aspect_panel_grid == "transparent") {
+    if (panel_grid_aspect == "transparent") {
       theme_updates$panel.grid.major.y <- element_line_transparent()
       theme_updates$panel.grid.minor.y <- element_line_transparent()
     }
 
-    if (aspect_axis_line == "blank") {
+    if (axis_line_aspect == "blank") {
       theme_updates$axis.line.x.bottom <- ggplot2::element_blank()
       theme_updates$axis.line.x.top <- ggplot2::element_blank()
     }
-    if (aspect_axis_ticks == "blank") {
+    if (axis_ticks_aspect == "blank") {
       theme_updates$axis.ticks.x.bottom <- ggplot2::element_blank()
       theme_updates$axis.ticks.x.top <- ggplot2::element_blank()
     }
-    if (aspect_panel_grid == "blank") {
+    if (panel_grid_aspect == "blank") {
       theme_updates$panel.grid.major.y <- ggplot2::element_blank()
       theme_updates$panel.grid.minor.y <- ggplot2::element_blank()
     }

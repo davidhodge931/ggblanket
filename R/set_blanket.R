@@ -2,14 +2,14 @@
 #'
 #' @description
 #' Set a consistent style. Most users will only need
-#' `theme`, `col`, `col_palette_d`, `col_palette_c` and `aspect_*` arguments.
+#' `theme`, `col`, `col_palette_discrete`, `col_palette_continuous` and `aspect_*` arguments.
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
 #' @param col A default hex code for the colour and fill of most geoms.
-#' @param col_palette_d For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
-#' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
-#' @param col_palette_o For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_c`.
+#' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
 #' @param col_na A NA colour/fill value.
 #' @param colour_bordered_transform A function with input of the `col` or `col_palette`.
 #' @param fill_bordered_transform A function with input of the `col` or `col_palette`.
@@ -22,9 +22,9 @@
 #' @param linewidth_bordered A default linewidth for geoms that have a border. A number.
 #' @param size A default size for point geoms.
 #' @param stroke A default stroke for point geoms.
-#' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
-#' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
-#' @param aspect_panel_grid `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
+#' @param axis_line_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
+#' @param axis_ticks_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
+#' @param panel_grid_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
 #'
 #' @return Invisibly returns NULL. Sets global styling options as a side effect.
 #'
@@ -37,18 +37,18 @@
 #' library(ggplot2)
 #' library(ggblanket)
 #'
-#' # Use col_palette_d for both colour and fill
+#' # Use col_palette_discrete for both colour and fill
 #' set_blanket(
-#'   col_palette_d = c("#E69F00", "#56B4E9", "#009E73")
+#'   col_palette_discrete = c("#E69F00", "#56B4E9", "#009E73")
 #' )
 #'
 set_blanket <- function(
     ...,
     theme = theme_lighter(),
     col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
-    col_palette_d = scales::pal_hue(),
-    col_palette_c = direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
-    col_palette_o = NULL,
+    col_palette_discrete = scales::pal_hue(),
+    col_palette_continuous = direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
+    col_palette_ordinal = NULL,
     col_na = "#A6A6A6FF",
     colour_bordered_transform = \(x) {
       if (is_panel_light()) {
@@ -67,9 +67,9 @@ set_blanket <- function(
     linewidth_bordered = 0.25,
     size = 1.5,
     stroke = 0.5,
-    aspect_axis_line = "transparent",
-    aspect_axis_ticks = "transparent",
-    aspect_panel_grid = "transparent"
+    axis_line_aspect = "transparent",
+    axis_ticks_aspect = "transparent",
+    panel_grid_aspect = "transparent"
 ) {
   # Set the theme first
   ggplot2::set_theme(theme)
@@ -85,9 +85,9 @@ set_blanket <- function(
   update_geom_stroke(stroke = stroke)
 
   update_geom_palettes(
-    col_palette_d = col_palette_d,
-    col_palette_c = col_palette_c,
-    col_palette_o = col_palette_o,
+    col_palette_discrete = col_palette_discrete,
+    col_palette_continuous = col_palette_continuous,
+    col_palette_ordinal = col_palette_ordinal,
     col_na = col_na,
     shape_palette_d = shape_palette_d,
     shape_na = shape_na,
@@ -105,8 +105,8 @@ set_blanket <- function(
   update_geom_hvline()
 
   update_aspect(
-    aspect_axis_line = aspect_axis_line,
-    aspect_axis_ticks = aspect_axis_ticks,
-    aspect_panel_grid = aspect_panel_grid
+    axis_line_aspect = axis_line_aspect,
+    axis_ticks_aspect = axis_ticks_aspect,
+    panel_grid_aspect = panel_grid_aspect
   )
 }

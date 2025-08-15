@@ -30,10 +30,20 @@ reference:
 
   - blend_multiply
   - blend_screen
+  - blend_darken
+  - blend_lighten
+  - blend_colour_burn
+  - blend_colour_dodge
+  - blend_overlay
+  - blend_hard_light
+  - blend_soft_light
+  - blend_difference
+  - blend_exclusion
 
+  - is_col_dark
+  - is_col_light
   - is_panel_dark
   - is_panel_light
+  - direction_contrast
 
   - jumble
-  - pal_viridis_by_panel
-  - viridis_by_panel

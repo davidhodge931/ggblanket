@@ -173,7 +173,7 @@ test_that("customised set_blanket works", {
       panel_grid_linewidth = 0.25,
     ),
     col = "tan",
-    col_palette_d = c("#003f5c", "#bc5090", "#ffa600", "#357BA2"),
+    col_palette_discrete = c("#003f5c", "#bc5090", "#ffa600", "#357BA2"),
   )
 
   palmerpenguins::penguins |>

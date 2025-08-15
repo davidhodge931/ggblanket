@@ -33,9 +33,9 @@ gg_jitter <- function(
   coord = ggplot2::coord_cartesian(clip = "off"),
 
   aspect = NULL,
-  aspect_axis_line = NULL,
-  aspect_axis_ticks = NULL,
-  aspect_panel_grid = NULL,
+  axis_line_aspect = NULL,
+  axis_ticks_aspect = NULL,
+  panel_grid_aspect = NULL,
   blend = NULL,
 
   x = NULL,
@@ -136,9 +136,9 @@ gg_jitter <- function(
     coord = coord,
 
     aspect = aspect,
-    aspect_axis_line = aspect_axis_line,
-    aspect_axis_ticks = aspect_axis_ticks,
-    aspect_panel_grid = aspect_panel_grid,
+    axis_line_aspect = axis_line_aspect,
+    axis_ticks_aspect = axis_ticks_aspect,
+    panel_grid_aspect = panel_grid_aspect,
     blend = blend,
     x = {{ x }},
     y = {{ y }},

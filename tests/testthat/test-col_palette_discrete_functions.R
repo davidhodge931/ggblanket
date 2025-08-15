@@ -7,8 +7,8 @@ library(scales)
 set_blanket()
 
 test_that("disc_col_trans", {
-  # Test with col_palette_d using color transformation
-  set_blanket(col_palette_d = scales::col_darker(scales::pal_hue()))
+  # Test with col_palette_discrete using color transformation
+  set_blanket(col_palette_discrete = scales::col_darker(scales::pal_hue()))
 
   expect_doppelganger(
     "disc_dark_hue_jit",
@@ -36,7 +36,7 @@ test_that("disc_col_trans", {
 test_that("disc_sep_col_fill", {
   # Test with separate colour_palette_d and fill_palette_d
   set_blanket(
-    col_palette_d = scales::col_darker(scales::pal_hue(h.start = 15)),
+    col_palette_discrete = scales::col_darker(scales::pal_hue(h.start = 15)),
   )
 
   expect_doppelganger(

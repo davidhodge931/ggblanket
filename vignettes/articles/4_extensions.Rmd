@@ -407,7 +407,7 @@ The paletteer package provides access to most of the palettes within R.
 library(paletteer)
 
 set_blanket(
-  col_palette_d = as.vector(paletteer_d("RColorBrewer::Dark2")),
+  col_palette_discrete = as.vector(paletteer_d("RColorBrewer::Dark2")),
 )
 
 p1 <- penguins2 |>
