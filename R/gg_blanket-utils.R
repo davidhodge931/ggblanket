@@ -939,9 +939,9 @@ add_matching_aesthetic_guides <- function(
     col_legend_ncol,
     col_legend_nrow,
     geom_name = NULL,
-    is_border_geom = FALSE,
-    border_transform_colour = NULL,
-    border_transform_fill = NULL,
+    is_bordered_geom = FALSE,
+    colour_bordered_transform = NULL,
+    fill_bordered_transform = NULL,
     aes_list = NULL,
     data = NULL
 ) {
@@ -1009,22 +1009,22 @@ add_matching_aesthetic_guides <- function(
           if (
             geom_name %in%
             c("point", "jitter", "count", "qq", "pointrange") &&
-            is_border_geom
+            is_bordered_geom
           ) {
             list(
               colour = if (
-                !rlang::is_null(border_transform_colour) &&
-                is.function(border_transform_colour)
+                !rlang::is_null(colour_bordered_transform) &&
+                is.function(colour_bordered_transform)
               ) {
-                border_transform_colour(grey_col)
+                colour_bordered_transform(grey_col)
               } else {
                 grey_col
               },
               fill = if (
-                !rlang::is_null(border_transform_fill) &&
-                is.function(border_transform_fill)
+                !rlang::is_null(fill_bordered_transform) &&
+                is.function(fill_bordered_transform)
               ) {
-                border_transform_fill(grey_col)
+                fill_bordered_transform(grey_col)
               } else {
                 grey_col
               }
@@ -1038,22 +1038,22 @@ add_matching_aesthetic_guides <- function(
           if (
             geom_name %in%
             c("point", "jitter", "count", "qq", "pointrange") &&
-            is_border_geom
+            is_bordered_geom
           ) {
             list(
               colour = if (
-                !rlang::is_null(border_transform_colour) &&
-                is.function(border_transform_colour)
+                !rlang::is_null(colour_bordered_transform) &&
+                is.function(colour_bordered_transform)
               ) {
-                border_transform_colour(grey_col)
+                colour_bordered_transform(grey_col)
               } else {
                 grey_col
               },
               fill = if (
-                !rlang::is_null(border_transform_fill) &&
-                is.function(border_transform_fill)
+                !rlang::is_null(fill_bordered_transform) &&
+                is.function(fill_bordered_transform)
               ) {
-                border_transform_fill(grey_col)
+                fill_bordered_transform(grey_col)
               } else {
                 grey_col
               }
@@ -1064,11 +1064,11 @@ add_matching_aesthetic_guides <- function(
         },
         "linewidth" = {
           if (
-            is_border_geom &&
-            !rlang::is_null(border_transform_colour) &&
-            is.function(border_transform_colour)
+            is_bordered_geom &&
+            !rlang::is_null(colour_bordered_transform) &&
+            is.function(colour_bordered_transform)
           ) {
-            list(colour = border_transform_colour(grey_col), fill = grey_col)
+            list(colour = colour_bordered_transform(grey_col), fill = grey_col)
           } else {
             list(colour = grey_col, fill = grey_col)
           }
@@ -1761,9 +1761,9 @@ is_in_mapping <- function(mapping, aesthetic) {
 
 #' Determine if geom_name should be treated as having borders
 #' @noRd
-is_border <- function(geom_name, theme_defaults) {
+is_bordered <- function(geom_name, theme_defaults) {
   # Define which geom_names are treated as border polygons
-  border_polygons <- c(
+  bordered_polygons <- c(
     "area",
     "blank",
     "bar",
@@ -1790,18 +1790,18 @@ is_border <- function(geom_name, theme_defaults) {
   )
 
   # Define point geom_names that can be border based on shape
-  border_points <- c("point", "jitter", "count", "qq", "pointrange")
+  bordered_points <- c("point", "jitter", "count", "qq", "pointrange")
 
-  is_border_polygon <- geom_name %in% border_polygons
+  is_bordered_polygon <- geom_name %in% bordered_polygons
 
-  is_border_point <- geom_name %in%
-    border_points &&
+  is_bordered_point <- geom_name %in%
+    bordered_points &&
     !rlang::is_null(theme_defaults$geom$pointshape) &&
     theme_defaults$geom$pointshape %in% 21:25
 
-  is_border <- is_border_polygon || is_border_point
+  is_bordered <- is_bordered_polygon || is_bordered_point
 
-  return(is_border)
+  return(is_bordered)
 }
 
 #' Create base ggplot from aesthetic list
@@ -1994,9 +1994,9 @@ apply_secondary_grey_guides <- function(
     aes_list,
     data,
     geom_name,
-    is_border_geom,
-    border_transform_colour,
-    border_transform_fill,
+    is_bordered_geom,
+    colour_bordered_transform,
+    fill_bordered_transform,
     col_legend_ncol,
     col_legend_nrow,
     shape_legend_rev,
@@ -2032,22 +2032,22 @@ apply_secondary_grey_guides <- function(
       if (
         geom_name %in%
         c("point", "jitter", "count", "qq", "pointrange") &&
-        is_border_geom
+        is_bordered_geom
       ) {
         override_aes <- list(
           colour = if (
-            !rlang::is_null(border_transform_colour) &&
-            is.function(border_transform_colour)
+            !rlang::is_null(colour_bordered_transform) &&
+            is.function(colour_bordered_transform)
           ) {
-            border_transform_colour(grey_col)
+            colour_bordered_transform(grey_col)
           } else {
             grey_col
           },
           fill = if (
-            !rlang::is_null(border_transform_fill) &&
-            is.function(border_transform_fill)
+            !rlang::is_null(fill_bordered_transform) &&
+            is.function(fill_bordered_transform)
           ) {
-            border_transform_fill(grey_col)
+            fill_bordered_transform(grey_col)
           } else {
             grey_col
           }
@@ -2299,7 +2299,7 @@ add_col_scale <- function(
     plot_data,
     plot_build,
     x_limits_to_breaks,
-    is_border_geom,
+    is_bordered_geom,
     col_breaks,
     col_breaks_n,
     col_drop,
@@ -2361,7 +2361,7 @@ add_col_scale <- function(
       x_limits_to_breaks,
       plot_build,
       stat_name = stat_name,
-      is_border_geom = is_border_geom,
+      is_bordered_geom = is_bordered_geom,
       aspect = aspect  # PASS ASPECT
     )
   } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
@@ -2371,7 +2371,7 @@ add_col_scale <- function(
       fill_palette_c,
       na_colour,
       na_fill,
-      is_border_geom,
+      is_bordered_geom,
       col_breaks,
       col_breaks_n,
       col_labels,
@@ -2401,7 +2401,7 @@ add_col_scale <- function(
       col_legend_rev,
       plot_build,
       stat_name = stat_name,
-      is_border_geom = is_border_geom,
+      is_bordered_geom = is_bordered_geom,
       aspect = aspect  # PASS ASPECT (though not used)
     )
   }
@@ -2414,7 +2414,7 @@ add_col_scale <- function(
     col_legend_ncol,
     col_legend_nrow,
     geom_name = geom_name,
-    is_border_geom = is_border_geom,
+    is_bordered_geom = is_bordered_geom,
     aes_list = aes_list,
     data = data
   )
@@ -2451,7 +2451,7 @@ add_col_scale_discrete <- function(
     x_limits_to_breaks,
     plot_build,
     stat_name = NULL,
-    is_border_geom = FALSE,
+    is_bordered_geom = FALSE,
     aspect = "x"
 ) {
   # Determine legend reversal based on aspect if not explicitly set
@@ -2551,7 +2551,7 @@ add_col_scale_continuous <- function(
     fill_palette,
     na_colour,
     na_fill,
-    is_border_geom,
+    is_bordered_geom,
     col_breaks,
     col_breaks_n,
     col_labels,
@@ -2596,7 +2596,7 @@ add_col_scale_continuous <- function(
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (is_border_geom) {
+      if (is_bordered_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),
@@ -2668,7 +2668,7 @@ add_col_scale_continuous <- function(
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (is_border_geom) {
+      if (is_bordered_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),
@@ -2725,9 +2725,9 @@ add_col_scale_ordinal <- function(
     col_legend_rev,
     plot_build,
     stat_name = NULL,
-    # border_transform_colour = NULL,
-    # border_transform_fill = NULL,
-    is_border_geom = FALSE,
+    # colour_bordered_transform = NULL,
+    # fill_bordered_transform = NULL,
+    is_bordered_geom = FALSE,
     aspect = "x"  # Add aspect parameter (but not used for ordinal)
 ) {
   # Calculate number of colours needed

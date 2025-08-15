@@ -195,8 +195,8 @@ test_that("customised set_blanket works", {
 test_that("bordered style works", {
   set_blanket(
     theme = theme_lighter(),
-    bordered_colour = \(x) scales::col_darker(x, amount = 40),
-    bordered_linewidth = 0.5,
+    colour_bordered_transform = \(x) scales::col_darker(x, amount = 40),
+    linewidth_bordered = 0.5,
   )
 
   palmerpenguins::penguins |>

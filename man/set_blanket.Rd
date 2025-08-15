@@ -9,11 +9,10 @@ set_blanket(
   theme = theme_lighter(),
   col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
   col_palette_d = scales::pal_hue(),
-  col_palette_c = pal_direction(scales::pal_viridis(option = "mako", begin = 0.1, end =
-    0.9)),
+  col_palette_c = direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
   col_palette_o = NULL,
   col_na = "#A6A6A6FF",
-  border_transform_colour = function(x) {
+  colour_bordered_transform = function(x) {
      if (is_panel_light()) {
         
     blend_multiply(x)
@@ -22,14 +21,14 @@ set_blanket(
          blend_screen(x)
      }
  },
-  border_transform_fill = NULL,
+  fill_bordered_transform = NULL,
   shape = 21,
   shape_palette_d = c(21, 24, 22, 23, 25),
   shape_na = 4,
   linetype = 1,
   linetype_palette_d = 1:6,
   linewidth = 0.66,
-  borderwidth = 0.25,
+  linewidth_bordered = 0.25,
   size = 1.5,
   stroke = 0.5,
   aspect_axis_line = "transparent",
@@ -52,9 +51,9 @@ set_blanket(
 
 \item{col_na}{A NA colour/fill value.}
 
-\item{border_transform_colour}{A function with input of the \code{col} or \code{col_palette}.}
+\item{colour_bordered_transform}{A function with input of the \code{col} or \code{col_palette}.}
 
-\item{border_transform_fill}{A function with input of the \code{col} or \code{col_palette}.}
+\item{fill_bordered_transform}{A function with input of the \code{col} or \code{col_palette}.}
 
 \item{shape}{A default shape for point geoms. Must be an integer between 0 and 25.}
 
@@ -68,7 +67,7 @@ set_blanket(
 
 \item{linewidth}{A default linewidth for geoms. A number.}
 
-\item{borderwidth}{A default linewidth for geoms that have a border. A number.}
+\item{linewidth_bordered}{A default linewidth for geoms that have a border. A number.}
 
 \item{size}{A default size for point geoms.}
 

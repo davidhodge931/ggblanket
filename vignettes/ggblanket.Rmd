@@ -50,7 +50,7 @@ Computational speed has been traded-off.
 11. Set and forget with `set_blanket()`
 12. An `aspect` for vertical/horizontal ease 
 13. A `*_limits_to_breaks` continuous scale
-14. `border` style ease
+14. `bordered` style ease
 15. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
@@ -210,7 +210,7 @@ palmerpenguins::penguins |>
 
 `theme_lighter` and `theme_darker`. 
 
-These functions were built for use within `set_blanket`, as then `border_colour_transform` and `border_fill_transform` adjustments can apply based on these (e.g. if the panel is dark). 
+These functions were built for use within `set_blanket`, as then `colour_bordered_transform` and `fill_bordered_transform` adjustments can apply based on these (e.g. if the panel is dark). 
 
 ```{r, fig.asp=0.65}
 set_blanket(theme = theme_darker())
@@ -310,19 +310,19 @@ The default `*_limits_to_breaks`is largely determined by the `aspect` of the plo
 
 Note all continuous scales ensure all data is kept using `scales::oob_keep` - and, by default, are unclipped (i.e. `coord_cartesian(clip = "off")`. 
 
-### 14.`border` style ease 
+### 14.`bordered` style ease 
 
-Certain geoms are classified as being with a border (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered with a border. 
+Certain geoms are classified as being with a bordered (e.g. bar, area, tile, polygon etc). Point geoms with shapes 21-25 are also considered with a bordered. 
 
-This classification determines whether border logic applies to the underlying colour/fill and equivalent palettes for these aesthetics. By default border polygons are applied a `blend_multiply` blend, and fill is left unchanged. 
+This classification determines whether bordered logic applies to the underlying colour/fill and equivalent palettes for these aesthetics. By default bordered geoms on light backgrounds are applied a `blend_multiply` blend, and fill is left unchanged. On dark backgrounds, the `blend_screen` function is applied.  
 
-Use `border = FALSE` to turn this off within the `gg_*` function (or globally with `set_blanket(border_colour_transform = \(x) x, border_fill_transform = \(x) x, ...)`).
+Use `bordered = FALSE` to turn this off within the `gg_*` function (or globally with `set_blanket(bordered_colour_transform = \(x) x, bordered_fill_transform = \(x) x, ...)`).
 
 ```{r}
 set_blanket(
   theme = theme_lighter(),
-  border_colour_transform = \(x) scales::col_darker(x, amount = 40),
-  border_linewidth = 0.5,
+  bordered_colour_transform = \(x) scales::col_darker(x, amount = 40),
+  bordered_linewidth = 0.5,
 )
   
 palmerpenguins::penguins |> 
@@ -341,7 +341,7 @@ All other functions wrap this function with a fixed `geom`, and their own defaul
 
 This function can often be used (1) where a annotation is needed to be plotted first, or (2) where a geom is needed to be plotted that is not provided as a `gg_*` function.
 
-The `blank` geom gets `border = TRUE` unless otherwise specified. As such, border colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Where `col` is not mapped, use `blend_multiply` and `blend_screen` in subsequent layers to replicate the default ggblanket look.
+The `blank` geom gets `bordered = TRUE` unless otherwise specified. As such, bordered colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Where `col` is not mapped, use `blend_multiply` and `blend_screen` in subsequent layers to replicate the default ggblanket look.
 
 ```{r}
 palmerpenguins::penguins |>
@@ -351,7 +351,7 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     size = bill_length_mm,
     shape = sex,
-    border = TRUE,
+    bordered = TRUE,
   ) +
   annotate("rect", 
            xmin = I(0.9), xmax = Inf,
@@ -382,4 +382,4 @@ expand.grid(x = 1:10, y = 1:10) |>
 ## Further information 
 
 See the ggblanket [website](https://davidhodge931.github.io/ggblanket/index.html) for further information, including [articles](https://davidhodge931.github.io/ggblanket/articles/) and [function reference](https://davidhodge931.github.io/ggblanket/reference/index.html).
-border_linewidth = border_linewidth
+bordered_linewidth = bordered_linewidth

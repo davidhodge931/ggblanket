@@ -42,8 +42,6 @@ gg_blanket(
   sample = NULL,
   mapping = NULL,
   border = NULL,
-  border_transform_colour = NULL,
-  border_transform_fill = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -78,8 +76,10 @@ gg_blanket(
   col_rescaler = scales::rescale,
   col_scale_type = "gradient",
   col_transform = NULL,
+  colour_bordered_transform = NULL,
   colour_palette = NULL,
   colour_na = NULL,
+  fill_bordered_transform = NULL,
   fill_palette = NULL,
   fill_na = NULL,
   alpha_title = snakecase::to_sentence_case,
@@ -131,12 +131,6 @@ gg_blanket(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} for advanced edge-case situations (e.g.delayed evaluation etc).}
 
-\item{border}{\code{TRUE} or \code{FALSE} of whether the \code{border_transform_colour} and \code{border_transform_fill} should be applied.}
-
-\item{border_transform_colour}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
-
-\item{border_transform_fill}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
-
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 
 \item{x_breaks_n, y_breaks_n, col_breaks_n}{A number of desired breaks.}
@@ -171,6 +165,10 @@ gg_blanket(
 
 \item{col_scale_type}{Either \code{"gradient"} or \code{"steps"}. Defaults to \code{"gradient"}.}
 
+\item{colour_bordered_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
+
+\item{fill_bordered_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
+
 \item{shape_palette}{A numeric vector of shape codes or a \verb{scales::pal_*()} function. If NULL, uses the value from \code{getOption("ggblanket.shape_palette")}.}
 
 \item{shape_na}{A NA shape value.}
@@ -194,6 +192,8 @@ gg_blanket(
 \item{subtitle}{Subtitle string.}
 
 \item{caption}{Caption title string.}
+
+\item{bordered}{\code{TRUE} or \code{FALSE} of whether the \code{colour_bordered_transform} and \code{fill_bordered_transform} should be applied.}
 }
 \value{
 A ggplot object.

@@ -182,7 +182,7 @@ is_panel_light <- function(..., theme = NULL) {
 #'
 #' @return The palette in the same format as input, oriented for optimal contrast
 #' @export
-pal_direction <- function(palette, ..., reverse = FALSE) {
+direction <- function(palette, ..., reverse = FALSE) {
   # Force evaluation
   force(palette)
   force(reverse)
@@ -195,8 +195,8 @@ pal_direction <- function(palette, ..., reverse = FALSE) {
     # Return a wrapped function that applies direction at call time
     if (inherits(palette, "pal_discrete")) {
       # n-based function
-      wrapped_fn <- function(n) {
-        colours <- palette(n)
+      wrapped_fn <- function(x) {
+        colours <- palette(x)
         .apply_direction(colours, reverse)
       }
     } else if (inherits(palette, "pal_continuous")) {
@@ -228,8 +228,8 @@ pal_direction <- function(palette, ..., reverse = FALSE) {
     # This includes class, type, nlevels, etc.
     attributes(wrapped_fn) <- original_attrs
 
-    # Add a marker that this has been wrapped with pal_direction
-    attr(wrapped_fn, "pal_direction_wrapped") <- TRUE
+    # Add a marker that this has been wrapped with direction
+    attr(wrapped_fn, "direction_wrapped") <- TRUE
 
     return(wrapped_fn)
   }

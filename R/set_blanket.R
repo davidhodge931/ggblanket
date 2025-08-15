@@ -11,15 +11,15 @@
 #' @param col_palette_c For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_o For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_c`.
 #' @param col_na A NA colour/fill value.
-#' @param border_transform_colour A function with input of the `col` or `col_palette`.
-#' @param border_transform_fill A function with input of the `col` or `col_palette`.
+#' @param colour_bordered_transform A function with input of the `col` or `col_palette`.
+#' @param fill_bordered_transform A function with input of the `col` or `col_palette`.
 #' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes.
 #' @param shape_na A NA shape value.
 #' @param linetype A default linetype for most geoms.
 #' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function.
 #' @param linewidth A default linewidth for geoms. A number.
-#' @param borderwidth A default linewidth for geoms that have a border. A number.
+#' @param linewidth_bordered A default linewidth for geoms that have a border. A number.
 #' @param size A default size for point geoms.
 #' @param stroke A default stroke for point geoms.
 #' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
@@ -47,27 +47,24 @@ set_blanket <- function(
     theme = theme_lighter(),
     col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
     col_palette_d = scales::pal_hue(),
-    col_palette_c = pal_direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
+    col_palette_c = direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
     col_palette_o = NULL,
     col_na = "#A6A6A6FF",
-    # border_transform_colour = \(x) {
-    #   ifelse(is_panel_light(), blend_multiply(x), blend_screen(x))
-    # },
-    border_transform_colour = \(x) {
+    colour_bordered_transform = \(x) {
       if (is_panel_light()) {
         blend_multiply(x)
       } else {
         blend_screen(x)
       }
     },
-    border_transform_fill = NULL,
+    fill_bordered_transform = NULL,
     shape = 21,
     shape_palette_d = c(21, 24, 22, 23, 25),
     shape_na = 4,
     linetype = 1,
     linetype_palette_d = 1:6,
     linewidth = 0.66,
-    borderwidth = 0.25,
+    linewidth_bordered = 0.25,
     size = 1.5,
     stroke = 0.5,
     aspect_axis_line = "transparent",
@@ -97,10 +94,10 @@ set_blanket <- function(
     linetype_palette_d = linetype_palette_d
   )
 
-  update_geom_border(
-    border_transform_colour = border_transform_colour,
-    border_transform_fill = border_transform_fill,
-    borderwidth = borderwidth
+  update_geom_bordered(
+    colour_bordered_transform = colour_bordered_transform,
+    fill_bordered_transform = fill_bordered_transform,
+    linewidth_bordered = linewidth_bordered
   )
 
   update_geom_font()
