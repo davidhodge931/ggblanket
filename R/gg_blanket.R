@@ -12,9 +12,9 @@
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
 #' @param coord A coordinate system. A `coord_*()` function that outputs a constructed ggproto Coord subclass object (e.g. [ggplot2::coord_cartesian()]).
 #' @param aspect The aspect of plot, which affects the theme components that are removed. Either `"x"` or `"y"`.
-#' @param aspect_axis_line `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
-#' @param aspect_axis_ticks `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
-#' @param aspect_panel_grid `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
+#' @param aspect_axis_line Either `"transparent"`, `"keep"` , or `"blank"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
+#' @param aspect_axis_ticks Either `"transparent"`, `"keep"` , or `"blank"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
+#' @param aspect_panel_grid Either `"transparent"`, `"keep"` , or `"blank"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
 #' @param blend The blending mode per [ggblend::blend()] (e.g. "multiply").
 #' @param x,xmin,xmax,xend,y,ymin,ymax,yend,z,col,colour,fill,shape,linetype,alpha,linewidth,size,facet,facet2,group,subgroup,label,text,sample A mapped (unquoted) aesthetic variable. Or a set aesthetic value.
 #' @param mapping A set of additional aesthetic mappings in [ggplot2::aes()] for advanced edge-case situations (e.g.delayed evaluation etc).
