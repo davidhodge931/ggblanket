@@ -11,7 +11,7 @@
 #'   determined by `col` and `colour_bordered_transform`.
 #' @param fill Direct override for the fill aesthetic in the legend. If NULL,
 #'   determined by `fill` and `fill_bordered_transform`.
-#' @param border TRUE or FALSE of whether to treat as a border geom.
+#' @param bordered TRUE or FALSE of whether to treat as a border geom.
 #' @param colour_bordered_transform Function to transform the colour and colour_palette for border geoms.
 #' @param fill_bordered_transform Function to transform the fill and fill_palette for border geoms.
 #'

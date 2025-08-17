@@ -487,7 +487,7 @@ test_that("steps_breaks_n", {
         x = bill_depth_mm,
         y = bill_length_mm,
         col = bill_length_mm,
-        col_scale_type = "binned",
+        col_scale_class = "binned",
         col_breaks_n = 10,
         col_labels = \(x) paste0("$", x),
         col_limits_include = 20,
@@ -506,7 +506,7 @@ test_that("steps_breaks_width", {
         x = bill_depth_mm,
         y = bill_length_mm,
         col = bill_length_mm,
-        col_scale_type = "binned",
+        col_scale_class = "binned",
         col_breaks = scales::breaks_width(2.5)
       )
   )

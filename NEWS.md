@@ -13,7 +13,7 @@ TO DO
 * Breaking: added `col` to `set_blanket` instead of `colour`/`fill`.
 * Breaking: lines turned off through `linetype = 0` instead of `linewidth = 0`.
 * Breaking: renamed and redesigned themes to `theme_lighter` and `theme_darker`.
-* Breaking: changed `col_steps = TRUE` argument to `col_scale_type = "steps"`.
+* Breaking: changed `col_steps = TRUE` argument to `col_scale_class = "binned"`.
 * Breaking: removed `theme` from `gg_*`. 
 * Breaking: removed `gg_text` and `gg_label`. 
 * Breaking: removed `lightness` and `darkness`.
@@ -24,7 +24,7 @@ TO DO
 * Supported setting col/colour/fill palettes.
 * For dates etc, defaulted labels to `scales::label_date_short(leading = "")`.
 * Added `colour_palette` and `fill_palette` arguments to `gg_*` functions.
-* Added `col_multiply` and `col_screen`.
+* Added `blend_multiply`, `blend_screen` etc.
 * Added `bind_each_all` to assist with plotting groups alongside the total.
 * Added `standardise_width`.
 * Added `annotate_axis_ticks` and `annotate_panel_grid`.

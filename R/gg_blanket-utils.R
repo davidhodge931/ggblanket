@@ -117,10 +117,10 @@ add_initial_layer <- function(
 
 #' Get transform based on scale class
 #' @noRd
-get_transform <- function(transform = NULL, scale_class = NULL) {
+get_transform <- function(transform = NULL, scale_subclass= NULL) {
   transform %||%
     switch(
-      scale_class,
+      scale_subclass,
       time = "hms", # time scale class uses hms transform
       datetime = "time", # datetime scales use "time" transform
       date = "date",
@@ -128,7 +128,7 @@ get_transform <- function(transform = NULL, scale_class = NULL) {
     )
 }
 
-get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class, stat_name, aes_list, mapping = NULL) {
+get_aspect <- function(aspect = NULL, x_scale_subclass, y_scale_subclass, stat_name, aes_list, mapping = NULL) {
   aspect %||% {
     # Check if x is mapped (either in aes_list or mapping)
     has_x <- !rlang::quo_is_null(aes_list$x) || (!rlang::is_null(mapping) && "x" %in% names(mapping))
@@ -136,7 +136,7 @@ get_aspect <- function(aspect = NULL, x_scale_class, y_scale_class, stat_name, a
     # Check if y is mapped (either in aes_list or mapping)
     has_y <- !rlang::quo_is_null(aes_list$y) || (!rlang::is_null(mapping) && "y" %in% names(mapping))
 
-    if (y_scale_class == "discrete" && x_scale_class != "discrete") {
+    if (y_scale_subclass== "discrete" && x_scale_subclass!= "discrete") {
       "y"
     } else if (stat_name %in% c("bin", "density") && !has_x) {
       "y"
@@ -153,8 +153,8 @@ is_x_limits_to_breaks <- function(
     x_limits_to_breaks = NULL,
     stat_name,
     facet_scales,
-    x_scale_class,
-    y_scale_class
+    x_scale_subclass,
+    y_scale_subclass
 ) {
   if (!rlang::is_null(x_limits_to_breaks)) {
     return(x_limits_to_breaks)
@@ -163,7 +163,7 @@ is_x_limits_to_breaks <- function(
   # Conditions where x should NOT be symmetric
   !(stringr::str_detect(stat_name, "sf") ||
       facet_scales %in% c("free", "free_x") ||
-      !(y_scale_class == "discrete" && x_scale_class != "discrete"))
+      !(y_scale_subclass== "discrete" && x_scale_subclass!= "discrete"))
 }
 
 #' Determine if y should be symmetric
@@ -172,8 +172,8 @@ is_y_limits_to_breaks <- function(
     y_limits_to_breaks = NULL,
     stat_name,
     facet_scales,
-    x_scale_class,
-    y_scale_class
+    x_scale_subclass,
+    y_scale_subclass
 ) {
   if (!rlang::is_null(y_limits_to_breaks)) {
     return(y_limits_to_breaks)
@@ -182,7 +182,7 @@ is_y_limits_to_breaks <- function(
   # Conditions where y should NOT be symmetric
   !(stringr::str_detect(stat_name, "sf") ||
       facet_scales %in% c("free", "free_y") ||
-      (y_scale_class == "discrete" && x_scale_class != "discrete"))
+      (y_scale_subclass== "discrete" && x_scale_subclass!= "discrete"))
 }
 
 # Input validation functions ----
@@ -386,10 +386,10 @@ add_facet_layer <- function(
     facet_nrow,
     facet_ncol,
     facet_labels,
-    y_scale_class
+    y_scale_subclass
 ) {
   # Check if we need to reverse facet
-  reverse_facet <- y_scale_class == "discrete" &&
+  reverse_facet <- y_scale_subclass== "discrete" &&
     identical(
       rlang::eval_tidy(aes_list$y, data),
       rlang::eval_tidy(aes_list$facet, data)
@@ -636,7 +636,7 @@ is_aes_identical_to_col <- function(plot_build, aesthetic) {
 
 #' Determine scale types from plot build
 #' @noRd
-get_scale_class <- function(plot_build, aes_list, data) {
+get_scale_subclass<- function(plot_build, aes_list, data) {
   # Extract scale names from plot
   plot_scales <- plot_build$plot$scales$scales |>
     purrr::map_chr(\(x) {
@@ -645,48 +645,48 @@ get_scale_class <- function(plot_build, aes_list, data) {
     })
 
   # Determine x scale class
-  x_scale_class <- get_x_scale_class(plot_scales)
+  x_scale_subclass<- get_x_scale_subclass(plot_scales)
 
   # Check actual data type for x if needed
-  if (x_scale_class == "continuous" && !rlang::quo_is_null(aes_list$x)) {
+  if (x_scale_subclass== "continuous" && !rlang::quo_is_null(aes_list$x)) {
     x_data <- rlang::eval_tidy(aes_list$x, data)
     if (inherits(x_data, "POSIXt") || inherits(x_data, "POSIXct")) {
-      x_scale_class <- "datetime"
+      x_scale_subclass<- "datetime"
     } else if (inherits(x_data, "Date")) {
-      x_scale_class <- "date"
+      x_scale_subclass<- "date"
     } else if (inherits(x_data, "hms")) {
-      x_scale_class <- "hms"
+      x_scale_subclass<- "hms"
     }
   }
 
   # Determine y scale class
-  y_scale_class <- get_y_scale_class(plot_scales)
+  y_scale_subclass<- get_y_scale_subclass(plot_scales)
 
   # Check actual data type for y if needed
-  if (y_scale_class == "continuous" && !rlang::quo_is_null(aes_list$y)) {
+  if (y_scale_subclass== "continuous" && !rlang::quo_is_null(aes_list$y)) {
     y_data <- rlang::eval_tidy(aes_list$y, data)
     if (inherits(y_data, "POSIXt") || inherits(y_data, "POSIXct")) {
-      y_scale_class <- "datetime"
+      y_scale_subclass<- "datetime"
     } else if (inherits(y_data, "Date")) {
-      y_scale_class <- "date"
+      y_scale_subclass<- "date"
     } else if (inherits(y_data, "hms")) {
-      y_scale_class <- "hms"
+      y_scale_subclass<- "hms"
     }
   }
 
   # Determine colour scale class
-  col_scale_class <- get_col_scale_class(plot_scales, aes_list$col, data)
+  col_scale_subclass<- get_col_scale_subclass(plot_scales, aes_list$col, data)
 
   list(
-    x_scale_class = x_scale_class,
-    y_scale_class = y_scale_class,
-    col_scale_class = col_scale_class
+    x_scale_subclass= x_scale_subclass,
+    y_scale_subclass= y_scale_subclass,
+    col_scale_subclass= col_scale_subclass
   )
 }
 
 #' Get x scale class
 #' @noRd
-get_x_scale_class <- function(plot_scales) {
+get_x_scale_subclass<- function(plot_scales) {
   # Find scale_x_* and extract the third word
   x_scale <- plot_scales[stringr::str_detect(plot_scales, "^scale_x_")]
   if (length(x_scale) > 0) {
@@ -699,7 +699,7 @@ get_x_scale_class <- function(plot_scales) {
 
 #' Get y scale class
 #' @noRd
-get_y_scale_class <- function(plot_scales) {
+get_y_scale_subclass<- function(plot_scales) {
   # Find scale_y_* and extract the third word
   y_scale <- plot_scales[stringr::str_detect(plot_scales, "^scale_y_")]
   if (length(y_scale) > 0) {
@@ -712,7 +712,7 @@ get_y_scale_class <- function(plot_scales) {
 
 #' Get colour scale class
 #' @noRd
-get_col_scale_class <- function(plot_scales, col_quo, data) {
+get_col_scale_subclass<- function(plot_scales, col_quo, data) {
   # Find scale_colour_* or scale_fill_* and extract the third word
   col_scale <- plot_scales[stringr::str_detect(
     plot_scales,
@@ -721,24 +721,24 @@ get_col_scale_class <- function(plot_scales, col_quo, data) {
 
   if (length(col_scale) > 0) {
     # Extract third word (after scale_colour_ or scale_fill_)
-    scale_class <- stringr::str_extract(
+    scale_subclass<- stringr::str_extract(
       col_scale[1],
       "(?<=scale_colour_|scale_fill_)\\w+"
     )
   } else {
-    scale_class <- "continuous" # default
+    scale_subclass<- "continuous" # default
   }
 
   # Special case for hms - colour scales remain continuous
-  if (!rlang::quo_is_null(col_quo) && scale_class == "continuous") {
+  if (!rlang::quo_is_null(col_quo) && scale_subclass== "continuous") {
     col_data <- rlang::eval_tidy(col_quo, data)
     if (inherits(col_data, "hms")) {
-      # Keep scale_class as "continuous" but we'll use hms transform
-      scale_class <- "continuous"
+      # Keep scale_subclassas "continuous" but we'll use hms transform
+      scale_subclass<- "continuous"
     }
   }
 
-  scale_class
+  scale_subclass
 }
 
 # Helper functions for scales ----
@@ -861,12 +861,12 @@ add_y_scale_continuous <- function(
 
 #' Get colour labels
 #' @noRd
-get_col_label <- function(col_labels, col_scale_class, col_transform) {
+get_col_label <- function(col_labels, col_scale_subclass, col_transform) {
   if (!rlang::is_null(col_labels)) {
     return(col_labels)
   }
 
-  if (col_scale_class %in% c("discrete", "ordinal")) {
+  if (col_scale_subclass%in% c("discrete", "ordinal")) {
     ggplot2::waiver()
   } else if (col_transform == "hms") {
     scales::label_time()
@@ -1439,8 +1439,8 @@ add_aspect <- function(
     axis_line_aspect,
     axis_ticks_aspect,
     panel_grid_aspect,
-    x_scale_class,
-    y_scale_class
+    x_scale_subclass,
+    y_scale_subclass
 ) {
   theme_updates <- list()
 
@@ -1474,7 +1474,7 @@ add_aspect <- function(
       theme_updates$panel.grid.minor.x <- ggplot2::element_blank()
     }
 
-    if (x_scale_class == "discrete") {
+    if (x_scale_subclass== "discrete") {
       theme_updates$axis.ticks.x.bottom <- element_line_transparent()
       theme_updates$axis.ticks.x.top <- element_line_transparent()
 
@@ -1511,7 +1511,7 @@ add_aspect <- function(
       theme_updates$panel.grid.minor.y <- ggplot2::element_blank()
     }
 
-    if (y_scale_class == "discrete") {
+    if (y_scale_subclass== "discrete") {
       theme_updates$axis.ticks.y.left <- element_line_transparent()
       theme_updates$axis.ticks.y.right <- element_line_transparent()
 
@@ -2301,7 +2301,7 @@ add_col_scale <- function(
     plot,
     geom_name,
     stat_name = NULL,
-    col_scale_class,
+    col_scale_subclass,
     aes_list,
     data,
     plot_data,
@@ -2317,7 +2317,7 @@ add_col_scale <- function(
     col_legend_nrow,
     col_legend_rev,
     col_rescaler,
-    col_scale_type,
+    col_scale_class,
     col_transform,
     colour_palette_d,
     colour_palette_c,
@@ -2336,21 +2336,21 @@ add_col_scale <- function(
   # Get transform and labels
   if (rlang::is_null(col_transform)) {
     # Special handling for colour transforms
-    if (!rlang::quo_is_null(aes_list$col) && col_scale_class == "continuous") {
+    if (!rlang::quo_is_null(aes_list$col) && col_scale_subclass== "continuous") {
       col_data <- rlang::eval_tidy(aes_list$col, data)
       if (inherits(col_data, "hms")) {
         col_transform <- "hms"
       } else {
-        col_transform <- get_transform(NULL, col_scale_class)
+        col_transform <- get_transform(NULL, col_scale_subclass)
       }
     } else {
-      col_transform <- get_transform(NULL, col_scale_class)
+      col_transform <- get_transform(NULL, col_scale_subclass)
     }
   }
-  col_labels <- get_col_label(col_labels, col_scale_class, col_transform)
+  col_labels <- get_col_label(col_labels, col_scale_subclass, col_transform)
 
   # Apply scales based on type
-  if (col_scale_class == "discrete") {
+  if (col_scale_subclass== "discrete") {
     plot <- add_col_scale_discrete(
       plot,
       aes_list,
@@ -2372,7 +2372,7 @@ add_col_scale <- function(
       is_bordered_geom = is_bordered_geom,
       aspect = aspect  # PASS ASPECT
     )
-  } else if (col_scale_class %in% c("continuous", "date", "datetime", "time")) {
+  } else if (col_scale_subclass%in% c("continuous", "date", "datetime", "time")) {
     plot <- add_col_scale_continuous(
       plot,
       colour_palette_c,
@@ -2385,13 +2385,13 @@ add_col_scale <- function(
       col_labels,
       col_legend_rev,
       col_rescaler,
-      col_scale_type,
+      col_scale_class,
       col_transform,
       aes_list,
       plot_build,
       aspect = aspect  # PASS ASPECT (though not used)
     )
-  } else if (col_scale_class == "ordinal") {
+  } else if (col_scale_subclass== "ordinal") {
     plot <- add_col_scale_ordinal(
       plot,
       aes_list,
@@ -2565,7 +2565,7 @@ add_col_scale_continuous <- function(
     col_labels,
     col_legend_rev,
     col_rescaler,
-    col_scale_type,
+    col_scale_class,
     col_transform,
     aes_list,
     plot_build,
@@ -2577,7 +2577,7 @@ add_col_scale_continuous <- function(
   }
 
   # Choose scale type
-  if (col_scale_type == "binned") {
+  if (col_scale_class == "binned") {
     # Use binned scales
     plot <- plot +
       ggplot2::scale_colour_binned(

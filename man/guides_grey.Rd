@@ -29,11 +29,11 @@ determined by \code{col} and \code{colour_bordered_transform}.}
 \item{fill}{Direct override for the fill aesthetic in the legend. If NULL,
 determined by \code{fill} and \code{fill_bordered_transform}.}
 
+\item{bordered}{TRUE or FALSE of whether to treat as a border geom.}
+
 \item{colour_bordered_transform}{Function to transform the colour and colour_palette for border geoms.}
 
 \item{fill_bordered_transform}{Function to transform the fill and fill_palette for border geoms.}
-
-\item{border}{TRUE or FALSE of whether to treat as a border geom.}
 }
 \value{
 A ggplot guides specification.

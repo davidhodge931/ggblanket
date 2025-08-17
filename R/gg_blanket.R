@@ -34,7 +34,7 @@
 #' @param col_na,colour_na,fill_na A hex code (or name) for the `NA` value.
 #' @param colour_bordered_transform A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
 #' @param fill_bordered_transform A function with input of `col` or `col_palette`. Defaults to NULL.
-#' @param col_scale_type Either `"continuous"` or `"binned"`. Defaults to `"continuous"`.
+#' @param col_scale_class Either `"continuous"` or `"binned"`. Defaults to `"continuous"`.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
@@ -141,7 +141,7 @@ gg_blanket <- function(
     col_na = NULL,
     col_legend_rev = NULL,
     col_rescaler = scales::rescale,
-    col_scale_type = "continuous",
+    col_scale_class = "continuous",
     col_transform = NULL,
     colour_bordered_transform = NULL,
     colour_palette = NULL,
@@ -900,11 +900,11 @@ gg_blanket <- function(
       })
 
       # Determine scale types
-      scale_class <- get_scale_class(plot_build, aes_list, data)
+      scale_subclass <- get_scale_subclass(plot_build, aes_list, data)
 
-      x_scale_class <- scale_class$x_scale_class
-      y_scale_class <- scale_class$y_scale_class
-      col_scale_class <- scale_class$col_scale_class
+      x_scale_subclass <- scale_subclass$x_scale_subclass
+      y_scale_subclass <- scale_subclass$y_scale_subclass
+      col_scale_subclass <- scale_subclass$col_scale_subclass
 
       # Check which aesthetics are mapped
       shape_mapped <- !rlang::quo_is_null(aes_list$shape)
@@ -917,13 +917,13 @@ gg_blanket <- function(
       x_drop <- facet_scales %in% c("free_x", "free")
       y_drop <- facet_scales %in% c("free_y", "free")
 
-      x_transform <- get_transform(x_transform, scale_class = x_scale_class)
-      y_transform <- get_transform(y_transform, scale_class = y_scale_class)
+      x_transform <- get_transform(x_transform, scale_subclass = x_scale_subclass)
+      y_transform <- get_transform(y_transform, scale_subclass = y_scale_subclass)
 
       aspect <- get_aspect(
         aspect = aspect,
-        x_scale_class = x_scale_class,
-        y_scale_class = y_scale_class,
+        x_scale_subclass = x_scale_subclass,
+        y_scale_subclass = y_scale_subclass,
         stat_name = stat_name,
         aes_list = aes_list,
         mapping = mapping
@@ -1017,7 +1017,7 @@ gg_blanket <- function(
         facet_nrow,
         facet_ncol,
         facet_labels,
-        y_scale_class
+        y_scale_subclass
       )
 
       # Step 17: Get plot build again
@@ -1032,12 +1032,12 @@ gg_blanket <- function(
       })
 
       # Step 18: Make colour scale
-      if (!is.na(col_scale_class)) {
+      if (!is.na(col_scale_subclass)) {
         plot <- add_col_scale(
           plot = plot,
           geom_name = geom_name,
           stat_name = stat_name,
-          col_scale_class = col_scale_class,
+          col_scale_subclass = col_scale_subclass,
           aes_list = aes_list,
           data = data,
           plot_data = plot_data,
@@ -1053,7 +1053,7 @@ gg_blanket <- function(
           col_legend_nrow = col_legend_nrow,
           col_legend_rev = col_legend_rev,
           col_rescaler = col_rescaler,
-          col_scale_type = col_scale_type,
+          col_scale_class = col_scale_class,
           col_transform = col_transform,
           colour_palette_d = colour_palette_d,
           colour_palette_c = colour_palette_c,
@@ -1170,7 +1170,7 @@ gg_blanket <- function(
 
       # Step 20.5: Apply grey styling to secondary aesthetic guides
       # This must come AFTER all scales are added
-      if (!is.na(col_scale_class)) {
+      if (!is.na(col_scale_subclass)) {
         # Check if col is mapped
         col_mapped <- !rlang::quo_is_null(aes_list$col) ||
           !rlang::quo_is_null(aes_list$colour) ||
@@ -1195,7 +1195,7 @@ gg_blanket <- function(
 
       # Step 21: Add positional scales
       # Make x scale
-      if (x_scale_class == "discrete") {
+      if (x_scale_subclass == "discrete") {
         if (rlang::is_null(x_expand)) {
           x_expand <- ggplot2::waiver()
         }
@@ -1233,7 +1233,7 @@ gg_blanket <- function(
       }
 
       # Make y scale
-      if (y_scale_class == "discrete") {
+      if (y_scale_subclass == "discrete") {
         if (rlang::is_null(y_expand)) {
           y_expand <- ggplot2::waiver()
         }
@@ -1385,8 +1385,8 @@ gg_blanket <- function(
         transparency$axis_line_aspect,
         transparency$axis_ticks_aspect,
         transparency$panel_grid_aspect,
-        x_scale_class,
-        y_scale_class
+        x_scale_subclass,
+        y_scale_subclass
       )
 
       return(plot)
