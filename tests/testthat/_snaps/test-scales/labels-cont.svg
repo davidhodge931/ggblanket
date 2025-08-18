@@ -393,11 +393,20 @@
 <rect x='638.02' y='21.92' width='60.06' height='100.84' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <text x='646.24' y='29.84' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='62.80px' lengthAdjust='spacingAndGlyphs'>Bill length mm</text>
 <image width='10.37' height='86.40' x='646.24' y='36.36' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAAA+ElEQVQ4jaWUu3HEMAxE366KcAcO3H9/ugAUQYCUHTjB6PT2Q0Izx/fXz20wljQGgIUIwASDatCQNCDPJ9UnbykL1czLsfR6DRgSMHKVaCsn4r0WLbp6weboUe2+WTkviHTI8xbAMaDQW1V8pGzJAZw2xrjFIXmnIYnt8kTNn/e7jTLYxaTYlI5FUtpiq03SknvA24GWgEb13AMO5drKm3cr/5vyD2/bEGA1r8uHT6C+iAQvCxO/eTUPJB2OMSWdprdJeNZ+pG+OV+p8B1guIANcnxwpdwFB9Uhqh6kjdfPdxbOmK6hG8tVtwmYO1fOhqmP8bSaQFKEfF4cTm5TNqVQAAAAASUVORK5CYII='/>
+<polyline points='653.58,113.53 656.61,113.53 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='653.58,97.87 656.61,97.87 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='653.58,82.22 656.61,82.22 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='653.58,66.56 656.61,66.56 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='653.58,50.90 656.61,50.90 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='646.24,113.53 646.24,113.53 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='646.24,97.87 646.24,97.87 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='646.24,82.22 646.24,82.22 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='646.24,66.56 646.24,66.56 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
+<polyline points='646.24,50.90 646.24,50.90 ' style='stroke-width: 0.53; stroke: #FFFFFF; stroke-linecap: butt;' />
+<text x='662.09' y='116.97' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>$35</text>
 <text x='662.09' y='101.31' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>$40</text>
+<text x='662.09' y='85.66' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>$45</text>
 <text x='662.09' y='70.00' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>$50</text>
+<text x='662.09' y='54.34' style='font-size: 10.00px; fill: #121B24; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>$55</text>
 </g>
 </svg>

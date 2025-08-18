@@ -117,7 +117,7 @@ add_initial_layer <- function(
 
 #' Get transform based on scale class
 #' @noRd
-get_transform <- function(transform = NULL, scale_subclass= NULL) {
+.get_transform <- function(transform = NULL, scale_subclass= NULL) {
   transform %||%
     switch(
       scale_subclass,
@@ -128,7 +128,7 @@ get_transform <- function(transform = NULL, scale_subclass= NULL) {
     )
 }
 
-get_aspect <- function(aspect = NULL, x_scale_subclass, y_scale_subclass, stat_name, aes_list, mapping = NULL) {
+.get_aspect <- function(aspect = NULL, x_scale_subclass, y_scale_subclass, stat_name, aes_list, mapping = NULL) {
   aspect %||% {
     # Check if x is mapped (either in aes_list or mapping)
     has_x <- !rlang::quo_is_null(aes_list$x) || (!rlang::is_null(mapping) && "x" %in% names(mapping))
@@ -147,49 +147,12 @@ get_aspect <- function(aspect = NULL, x_scale_subclass, y_scale_subclass, stat_n
     }
   }
 }
-#' Determine if x should be symmetric
-#' @noRd
-is_x_limits_to_breaks <- function(
-    x_limits_to_breaks = NULL,
-    stat_name,
-    facet_scales,
-    x_scale_subclass,
-    y_scale_subclass
-) {
-  if (!rlang::is_null(x_limits_to_breaks)) {
-    return(x_limits_to_breaks)
-  }
-
-  # Conditions where x should NOT be symmetric
-  !(stringr::str_detect(stat_name, "sf") ||
-      facet_scales %in% c("free", "free_x") ||
-      !(y_scale_subclass== "discrete" && x_scale_subclass!= "discrete"))
-}
-
-#' Determine if y should be symmetric
-#' @noRd
-is_y_limits_to_breaks <- function(
-    y_limits_to_breaks = NULL,
-    stat_name,
-    facet_scales,
-    x_scale_subclass,
-    y_scale_subclass
-) {
-  if (!rlang::is_null(y_limits_to_breaks)) {
-    return(y_limits_to_breaks)
-  }
-
-  # Conditions where y should NOT be symmetric
-  !(stringr::str_detect(stat_name, "sf") ||
-      facet_scales %in% c("free", "free_y") ||
-      (y_scale_subclass== "discrete" && x_scale_subclass!= "discrete"))
-}
 
 # Input validation functions ----
 
 #' Validate inputs are valid
 #' @noRd
-validate_inputs <- function(
+.validate_inputs <- function(
     mapping,
     aspect,
     x_limits_to_breaks,
@@ -232,7 +195,7 @@ validate_inputs <- function(
 
 #' Process data for factors and reversing
 #' @noRd
-process_data <- function(data, aes_list, aspect) {
+.process_data <- function(data, aes_list, aspect) {
   # Get non-NULL aesthetics
   active_aes <- list(
     aes_list$x,
@@ -268,12 +231,12 @@ process_data <- function(data, aes_list, aspect) {
       forcats::fct_rev
     )) |>
     # Handle col factor reversal for flipped plots
-    reverse_if_needed(aes_list, aspect)
+    .reverse_if_needed(aes_list, aspect)
 }
 
 #' Reverse factor if needed
 #' @noRd
-reverse_if_needed <- function(data, aes_list, aspect) {
+.reverse_if_needed <- function(data, aes_list, aspect) {
   if (aspect == "y") {
     # Reverse col if it's not the same as y
     if (!rlang::quo_is_null(aes_list$col)) {
@@ -349,7 +312,7 @@ reverse_if_needed <- function(data, aes_list, aspect) {
 
 #' Get facet layout
 #' @noRd
-get_facet_layout <- function(facet_layout, aes_list) {
+.get_facet_layout <- function(facet_layout, aes_list) {
   if (!rlang::is_null(facet_layout)) {
     return(facet_layout)
   }
@@ -367,13 +330,13 @@ get_facet_layout <- function(facet_layout, aes_list) {
 
 #' Get facet axes default
 #' @noRd
-get_facet_axes <- function(facet_axes, x_limits_to_breaks) {
+.get_facet_axes <- function(facet_axes, x_limits_to_breaks) {
   facet_axes %||% if (x_limits_to_breaks) "all_y" else "all_x"
 }
 
 #' Add facet layer to plot
 #' @noRd
-add_facet_layer <- function(
+.add_facet_layer <- function(
     plot,
     aes_list,
     data,
@@ -397,9 +360,9 @@ add_facet_layer <- function(
 
   # Choose appropriate faceting function
   facet_fn <- if (reverse_facet) {
-    add_facet_layer_rev
+    .add_facet_layer_rev
   } else {
-    add_facet_layer_std
+    .add_facet_layer_std
   }
 
   facet_fn(
@@ -419,7 +382,7 @@ add_facet_layer <- function(
 
 #' Add facet layer with reversed facet
 #' @noRd
-add_facet_layer_rev <- function(
+.add_facet_layer_rev <- function(
     plot,
     aes_list,
     facet_layout,
@@ -433,9 +396,9 @@ add_facet_layer_rev <- function(
     facet_labels
 ) {
   # Build facet vars with reversal
-  facet_vars <- build_facet_vars(aes_list, reverse_facet = TRUE)
+  facet_vars <- .build_facet_vars(aes_list, reverse_facet = TRUE)
 
-  add_facet_by_layout(
+  .add_facet_by_layout(
     plot,
     facet_vars,
     facet_layout,
@@ -452,7 +415,7 @@ add_facet_layer_rev <- function(
 
 #' Add facet layer normal (not reversed)
 #' @noRd
-add_facet_layer_std <- function(
+.add_facet_layer_std <- function(
     plot,
     aes_list,
     facet_layout,
@@ -466,9 +429,9 @@ add_facet_layer_std <- function(
     facet_labels
 ) {
   # Build facet vars without reversal
-  facet_vars <- build_facet_vars(aes_list, reverse_facet = FALSE)
+  facet_vars <- .build_facet_vars(aes_list, reverse_facet = FALSE)
 
-  add_facet_by_layout(
+  .add_facet_by_layout(
     plot,
     facet_vars,
     facet_layout,
@@ -485,7 +448,7 @@ add_facet_layer_std <- function(
 
 #' Build facet variables
 #' @noRd
-build_facet_vars <- function(aes_list, reverse_facet = FALSE) {
+.build_facet_vars <- function(aes_list, reverse_facet = FALSE) {
   has_facet <- !rlang::quo_is_null(aes_list$facet)
   has_facet2 <- !rlang::quo_is_null(aes_list$facet2)
 
@@ -507,7 +470,7 @@ build_facet_vars <- function(aes_list, reverse_facet = FALSE) {
 
 #' Add facet by layout type
 #' @noRd
-add_facet_by_layout <- function(
+.add_facet_by_layout <- function(
     plot,
     facet_vars,
     facet_layout,
@@ -566,7 +529,7 @@ add_facet_by_layout <- function(
 
 #' Calculate number of colours needed
 #' @noRd
-get_col_n <- function(aes_list, data, plot_data, stat_name = NULL) {
+.get_col_n <- function(aes_list, data, plot_data, stat_name = NULL) {
   # Special handling for contour_filled and density2d_filled
   if (
     !rlang::is_null(stat_name) &&
@@ -616,27 +579,11 @@ get_col_n <- function(aes_list, data, plot_data, stat_name = NULL) {
   max(col_n_factor, colour_n, fill_n, na.rm = TRUE)
 }
 
-#' Check if aesthetic matches colour
-#' @noRd
-is_aes_identical_to_col <- function(plot_build, aesthetic) {
-  colour_label <- plot_build$plot$labels$colour
-  fill_label <- plot_build$plot$labels$fill
-  aes_label <- plot_build$plot$labels[[aesthetic]]
-
-  # Check if labels match
-  (!rlang::is_null(colour_label) &&
-      !rlang::is_null(aes_label) &&
-      rlang::as_name(colour_label[1]) == rlang::as_name(aes_label[1])) ||
-    (!rlang::is_null(fill_label) &&
-       !rlang::is_null(aes_label) &&
-       rlang::as_name(fill_label[1]) == rlang::as_name(aes_label[1]))
-}
-
 # Scale determination functions ----
 
 #' Determine scale types from plot build
 #' @noRd
-get_scale_subclass<- function(plot_build, aes_list, data) {
+.get_scale_subclass<- function(plot_build, aes_list, data) {
   # Extract scale names from plot
   plot_scales <- plot_build$plot$scales$scales |>
     purrr::map_chr(\(x) {
@@ -645,7 +592,7 @@ get_scale_subclass<- function(plot_build, aes_list, data) {
     })
 
   # Determine x scale class
-  x_scale_subclass<- get_x_scale_subclass(plot_scales)
+  x_scale_subclass<- .get_x_scale_subclass(plot_scales)
 
   # Check actual data type for x if needed
   if (x_scale_subclass== "continuous" && !rlang::quo_is_null(aes_list$x)) {
@@ -660,7 +607,7 @@ get_scale_subclass<- function(plot_build, aes_list, data) {
   }
 
   # Determine y scale class
-  y_scale_subclass<- get_y_scale_subclass(plot_scales)
+  y_scale_subclass<- .get_y_scale_subclass(plot_scales)
 
   # Check actual data type for y if needed
   if (y_scale_subclass== "continuous" && !rlang::quo_is_null(aes_list$y)) {
@@ -675,7 +622,7 @@ get_scale_subclass<- function(plot_build, aes_list, data) {
   }
 
   # Determine colour scale class
-  col_scale_subclass<- get_col_scale_subclass(plot_scales, aes_list$col, data)
+  col_scale_subclass<- .get_col_scale_subclass(plot_scales, aes_list$col, data)
 
   list(
     x_scale_subclass= x_scale_subclass,
@@ -686,7 +633,7 @@ get_scale_subclass<- function(plot_build, aes_list, data) {
 
 #' Get x scale class
 #' @noRd
-get_x_scale_subclass<- function(plot_scales) {
+.get_x_scale_subclass<- function(plot_scales) {
   # Find scale_x_* and extract the third word
   x_scale <- plot_scales[stringr::str_detect(plot_scales, "^scale_x_")]
   if (length(x_scale) > 0) {
@@ -699,7 +646,7 @@ get_x_scale_subclass<- function(plot_scales) {
 
 #' Get y scale class
 #' @noRd
-get_y_scale_subclass<- function(plot_scales) {
+.get_y_scale_subclass<- function(plot_scales) {
   # Find scale_y_* and extract the third word
   y_scale <- plot_scales[stringr::str_detect(plot_scales, "^scale_y_")]
   if (length(y_scale) > 0) {
@@ -712,7 +659,7 @@ get_y_scale_subclass<- function(plot_scales) {
 
 #' Get colour scale class
 #' @noRd
-get_col_scale_subclass<- function(plot_scales, col_quo, data) {
+.get_col_scale_subclass<- function(plot_scales, col_quo, data) {
   # Find scale_colour_* or scale_fill_* and extract the third word
   col_scale <- plot_scales[stringr::str_detect(
     plot_scales,
@@ -745,7 +692,7 @@ get_col_scale_subclass<- function(plot_scales, col_quo, data) {
 
 #' Add continuous x scale
 #' @noRd
-add_x_scale_continuous <- function(
+.add_x_scale_continuous <- function(
     plot,
     stat_name,
     x_breaks,
@@ -772,7 +719,7 @@ add_x_scale_continuous <- function(
       dplyr::filter(!is.na(.data$x))
 
     plot +
-      scale_x_limits_to_breaks(
+      .scale_x_limits_to_breaks(
         data = data_x,
         x = NULL, # Not needed since data already has 'x' column
         symmetric = TRUE,
@@ -787,7 +734,7 @@ add_x_scale_continuous <- function(
       )
   } else {
     plot +
-      scale_x_limits_to_breaks(
+      .scale_x_limits_to_breaks(
         symmetric = FALSE,
         breaks = x_breaks,
         breaks_n = x_breaks_n,
@@ -803,7 +750,7 @@ add_x_scale_continuous <- function(
 
 #' Add continuous y scale
 #' @noRd
-add_y_scale_continuous <- function(
+.add_y_scale_continuous <- function(
     plot,
     stat_name,
     y_breaks,
@@ -830,7 +777,7 @@ add_y_scale_continuous <- function(
       dplyr::filter(!is.na(.data$y))
 
     plot +
-      scale_y_limits_to_breaks(
+      .scale_y_limits_to_breaks(
         data = data_y,
         y = NULL, # Not needed since data already has 'y' column
         symmetric = TRUE,
@@ -845,7 +792,7 @@ add_y_scale_continuous <- function(
       )
   } else {
     plot +
-      scale_y_limits_to_breaks(
+      .scale_y_limits_to_breaks(
         symmetric = FALSE,
         breaks = y_breaks,
         breaks_n = y_breaks_n,
@@ -861,7 +808,7 @@ add_y_scale_continuous <- function(
 
 #' Get colour labels
 #' @noRd
-get_col_label <- function(col_labels, col_scale_subclass, col_transform) {
+.get_col_label <- function(col_labels, col_scale_subclass, col_transform) {
   if (!rlang::is_null(col_labels)) {
     return(col_labels)
   }
@@ -877,79 +824,18 @@ get_col_label <- function(col_labels, col_scale_subclass, col_transform) {
   }
 }
 
-#' Process discrete palette
-#' @noRd
-process_discrete_palette <- function(palette, col_n) {
-  if (rlang::is_null(palette)) {
-    return(NULL)
-  }
-
-  if (is.function(palette)) {
-    if (!rlang::is_null(col_n)) {
-      palette(col_n)
-    } else {
-      palette
-    }
-  } else if (!any(rlang::have_name(palette))) {
-    # For unnamed vectors
-    if (!rlang::is_null(col_n)) {
-      # Use recycling if palette is shorter than needed
-      if (length(palette) < col_n) {
-        palette <- rep_len(palette, col_n)
-      }
-      palette[1:col_n]
-    } else {
-      palette
-    }
-  } else {
-    # For named vectors
-    palette
-  }
-}
-
-#' Create ordinal palette wrapper
-#' @noRd
-create_ordinal_palette_wrapper <- function(palette) {
-  function(n) {
-    if (n == 0) {
-      return(character(0))
-    }
-    tryCatch(
-      {
-        colours <- palette(n)
-        if (length(colours) == n) {
-          return(colours)
-        } else {
-          return(palette(seq(0, 1, length.out = n)))
-        }
-      },
-      error = function(e) {
-        tryCatch(
-          {
-            return(palette(seq(0, 1, length.out = n)))
-          },
-          error = function(e2) {
-            warning("Palette function failed, using default colours")
-            return(scales::viridis_pal()(n))
-          }
-        )
-      }
-    )
-  }
-}
-
 #' Add matching aesthetic guides
 #' @noRd
-add_matching_aesthetic_guides <- function(
+.add_matching_aesthetic_guides <- function(
     plot,
     plot_build,
     col_legend_rev,
     col_legend_ncol,
     col_legend_nrow,
     geom_name = NULL,
-    is_bordered_geom = FALSE,
-    colour_bordered_transform = NULL,
-    fill_bordered_transform = NULL,
+    is_border_geom = FALSE,
+    colour_border_transform = NULL,
+    fill_border_transform = NULL,
     aes_list = NULL,
     data = NULL
 ) {
@@ -1017,22 +903,22 @@ add_matching_aesthetic_guides <- function(
           if (
             geom_name %in%
             c("point", "jitter", "count", "qq", "pointrange") &&
-            is_bordered_geom
+            is_border_geom
           ) {
             list(
               colour = if (
-                !rlang::is_null(colour_bordered_transform) &&
-                is.function(colour_bordered_transform)
+                !rlang::is_null(colour_border_transform) &&
+                is.function(colour_border_transform)
               ) {
-                colour_bordered_transform(grey_col)
+                colour_border_transform(grey_col)
               } else {
                 grey_col
               },
               fill = if (
-                !rlang::is_null(fill_bordered_transform) &&
-                is.function(fill_bordered_transform)
+                !rlang::is_null(fill_border_transform) &&
+                is.function(fill_border_transform)
               ) {
-                fill_bordered_transform(grey_col)
+                fill_border_transform(grey_col)
               } else {
                 grey_col
               }
@@ -1046,22 +932,22 @@ add_matching_aesthetic_guides <- function(
           if (
             geom_name %in%
             c("point", "jitter", "count", "qq", "pointrange") &&
-            is_bordered_geom
+            is_border_geom
           ) {
             list(
               colour = if (
-                !rlang::is_null(colour_bordered_transform) &&
-                is.function(colour_bordered_transform)
+                !rlang::is_null(colour_border_transform) &&
+                is.function(colour_border_transform)
               ) {
-                colour_bordered_transform(grey_col)
+                colour_border_transform(grey_col)
               } else {
                 grey_col
               },
               fill = if (
-                !rlang::is_null(fill_bordered_transform) &&
-                is.function(fill_bordered_transform)
+                !rlang::is_null(fill_border_transform) &&
+                is.function(fill_border_transform)
               ) {
-                fill_bordered_transform(grey_col)
+                fill_border_transform(grey_col)
               } else {
                 grey_col
               }
@@ -1072,11 +958,11 @@ add_matching_aesthetic_guides <- function(
         },
         "linewidth" = {
           if (
-            is_bordered_geom &&
-            !rlang::is_null(colour_bordered_transform) &&
-            is.function(colour_bordered_transform)
+            is_border_geom &&
+            !rlang::is_null(colour_border_transform) &&
+            is.function(colour_border_transform)
           ) {
-            list(colour = colour_bordered_transform(grey_col), fill = grey_col)
+            list(colour = colour_border_transform(grey_col), fill = grey_col)
           } else {
             list(colour = grey_col, fill = grey_col)
           }
@@ -1102,7 +988,7 @@ add_matching_aesthetic_guides <- function(
 
 #' Create symmetric x scale
 #' @noRd
-scale_x_limits_to_breaks <- function(
+.scale_x_limits_to_breaks <- function(
     data = NULL,
     x = NULL,
     symmetric = TRUE,
@@ -1116,7 +1002,7 @@ scale_x_limits_to_breaks <- function(
     transform = "identity"
 ) {
   # Get transform
-  transform <- get_transform(transform = transform)
+  transform <- .get_transform(transform = transform)
 
   # Check if symmetric is supported for this transform
   if (symmetric) {
@@ -1258,7 +1144,7 @@ scale_x_limits_to_breaks <- function(
 
 #' Create symmetric y scale
 #' @noRd
-scale_y_limits_to_breaks <- function(
+.scale_y_limits_to_breaks <- function(
     data = NULL,
     y = NULL,
     symmetric = TRUE,
@@ -1272,7 +1158,7 @@ scale_y_limits_to_breaks <- function(
     transform = "identity"
 ) {
   # Get transform
-  transform <- get_transform(transform = transform)
+  transform <- .get_transform(transform = transform)
 
   # Check if symmetric is supported for this transform
   if (symmetric) {
@@ -1416,7 +1302,7 @@ scale_y_limits_to_breaks <- function(
 
 #' Get transparency defaults
 #' @noRd
-get_aspect_behaviour <- function(
+.get_aspect_behaviour <- function(
     axis_line_aspect,
     axis_ticks_aspect,
     panel_grid_aspect
@@ -1433,7 +1319,7 @@ get_aspect_behaviour <- function(
 
 #' Add transparency based on aspect
 #' @noRd
-add_aspect <- function(
+.add_aspect <- function(
     plot,
     aspect,
     axis_line_aspect,
@@ -1529,7 +1415,7 @@ add_aspect <- function(
 
 #' Detect if a value is an aesthetic mapping or a fixed value
 #' @noRd
-is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
+.is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
   if (rlang::quo_is_null(quo_input)) {
     return(list(is_aesthetic = FALSE, value = NULL))
   }
@@ -1760,7 +1646,7 @@ is_aes_map_or_set <- function(quo_input, arg_name = "col", data = NULL) {
 
 #' Check if an aesthetic is in mapping
 #' @noRd
-is_in_mapping <- function(mapping, aesthetic) {
+.is_in_mapping <- function(mapping, aesthetic) {
   if (rlang::is_null(mapping)) {
     return(FALSE)
   }
@@ -1769,9 +1655,9 @@ is_in_mapping <- function(mapping, aesthetic) {
 
 #' Determine if geom_name should be treated as having borders
 #' @noRd
-is_bordered <- function(geom_name, theme_defaults) {
+.is_border <- function(geom_name, theme_defaults) {
   # Define which geom_names are treated as border polygons
-  bordered_polygons <- c(
+  border_polygons <- c(
     "area",
     "blank",
     "bar",
@@ -1798,23 +1684,23 @@ is_bordered <- function(geom_name, theme_defaults) {
   )
 
   # Define point geom_names that can be border based on shape
-  bordered_points <- c("point", "jitter", "count", "qq", "pointrange")
+  border_points <- c("point", "jitter", "count", "qq", "pointrange")
 
-  is_bordered_polygon <- geom_name %in% bordered_polygons
+  is_border_polygon <- geom_name %in% border_polygons
 
-  is_bordered_point <- geom_name %in%
-    bordered_points &&
+  is_border_point <- geom_name %in%
+    border_points &&
     !rlang::is_null(theme_defaults$geom$pointshape) &&
     theme_defaults$geom$pointshape %in% 21:25
 
-  is_bordered <- is_bordered_polygon || is_bordered_point
+  is_border <- is_border_polygon || is_border_point
 
-  return(is_bordered)
+  return(is_border)
 }
 
 #' Create base ggplot from aesthetic list
 #' @noRd
-initialise_ggplot_from_list <- function(
+.initialise_ggplot_from_list <- function(
     data,
     aes_list,
     mapping = NULL
@@ -1977,7 +1863,7 @@ initialise_ggplot_from_list <- function(
 
 #' Check if colour and fill are mapped to same variable in plot
 #' @noRd
-check_same_colour_fill_mapping <- function(plot) {
+.check_same_colour_fill_mapping <- function(plot) {
   # Get the mapping from the plot object
   plot_mapping <- plot$mapping
 
@@ -1997,14 +1883,14 @@ check_same_colour_fill_mapping <- function(plot) {
 
 #' Apply grey styling to legend key override guides
 #' @noRd
-apply_secondary_grey_guides <- function(
+.apply_secondary_grey_guides <- function(
     plot,
     aes_list,
     data,
     geom_name,
-    is_bordered_geom,
-    colour_bordered_transform,
-    fill_bordered_transform,
+    is_border_geom,
+    colour_border_transform,
+    fill_border_transform,
     col_legend_ncol,
     col_legend_nrow,
     shape_legend_rev,
@@ -2040,22 +1926,22 @@ apply_secondary_grey_guides <- function(
       if (
         geom_name %in%
         c("point", "jitter", "count", "qq", "pointrange") &&
-        is_bordered_geom
+        is_border_geom
       ) {
         override_aes <- list(
           colour = if (
-            !rlang::is_null(colour_bordered_transform) &&
-            is.function(colour_bordered_transform)
+            !rlang::is_null(colour_border_transform) &&
+            is.function(colour_border_transform)
           ) {
-            colour_bordered_transform(grey_col)
+            colour_border_transform(grey_col)
           } else {
             grey_col
           },
           fill = if (
-            !rlang::is_null(fill_bordered_transform) &&
-            is.function(fill_bordered_transform)
+            !rlang::is_null(fill_border_transform) &&
+            is.function(fill_border_transform)
           ) {
-            fill_bordered_transform(grey_col)
+            fill_border_transform(grey_col)
           } else {
             grey_col
           }
@@ -2101,7 +1987,7 @@ apply_secondary_grey_guides <- function(
 }
 
 # Helper function to process titles using ggplot2's label system
-process_title <- function(
+.process_title <- function(
     title_param,
     aes_quo,
     mapping,
@@ -2189,54 +2075,13 @@ process_title <- function(
   }
 }
 
-# Complete Colour Scale Functions with Border Transformation Support
-
-#' Process palette to vector for border transformation
-#' @noRd
-process_palette_to_vector <- function(palette, n = NULL, scale_type = "continuous") {
-  if (is.function(palette)) {
-    if (scale_type == "discrete" || scale_type == "ordinal") {
-      # For discrete/ordinal, we need to know how many colours
-      if (is.null(n)) {
-        # Default to a reasonable number if not specified
-        n <- 10
-      }
-      # Try to call the palette function
-      tryCatch(
-        palette(n),
-        error = function(e) {
-          # If it fails, try as continuous with sequence
-          palette(seq(0, 1, length.out = n))
-        }
-      )
-    } else {
-      # For continuous/binned scales, generate a gradient
-      # Get a representative set of colours
-      tryCatch(
-        {
-          # Try calling with values from 0 to 1
-          palette(seq(0, 1, length.out = 256))
-        },
-        error = function(e) {
-          # If that fails, try calling with n
-          palette(256)
-        }
-      )
-    }
-  } else if (is.character(palette) || is.numeric(palette)) {
-    # Already a vector
-    palette
-  } else {
-    # Unknown type, return as-is
-    palette
-  }
-}
+# Complete Colour Scale Functions with border Transformation Support
 
 # Complete Colour Scale Functions - Final Version
 
 #' Reverse discrete palette for horizontal plots
 #' @noRd
-reverse_discrete_palette <- function(palette, n = NULL, aspect = "x") {
+.reverse_discrete_palette <- function(palette, n = NULL, aspect = "x") {
   # Only reverse if aspect is "y"
   if (aspect != "y") {
     return(palette)
@@ -2277,7 +2122,7 @@ reverse_discrete_palette <- function(palette, n = NULL, aspect = "x") {
 
 #' Check if colour and fill are mapped to same variable in plot
 #' @noRd
-check_same_colour_fill_mapping <- function(plot) {
+.check_same_colour_fill_mapping <- function(plot) {
   # Get the mapping from the plot object
   plot_mapping <- plot$mapping
 
@@ -2297,7 +2142,7 @@ check_same_colour_fill_mapping <- function(plot) {
 
 #' Add colour scales wrapper
 #' @noRd
-add_col_scale <- function(
+.add_col_scale <- function(
     plot,
     geom_name,
     stat_name = NULL,
@@ -2307,7 +2152,7 @@ add_col_scale <- function(
     plot_data,
     plot_build,
     x_limits_to_breaks,
-    is_bordered_geom,
+    is_border_geom,
     col_breaks,
     col_breaks_n,
     col_drop,
@@ -2327,7 +2172,7 @@ add_col_scale <- function(
     fill_palette_c,
     fill_palette_o,
     fill_na,
-    aspect = "x"  # ADD THIS PARAMETER
+    aspect = "x"
 ) {
   # Get NA colours with defaults
   na_colour <- colour_na %||% "#CDC5BFFF"
@@ -2341,17 +2186,17 @@ add_col_scale <- function(
       if (inherits(col_data, "hms")) {
         col_transform <- "hms"
       } else {
-        col_transform <- get_transform(NULL, col_scale_subclass)
+        col_transform <- .get_transform(NULL, col_scale_subclass)
       }
     } else {
-      col_transform <- get_transform(NULL, col_scale_subclass)
+      col_transform <- .get_transform(NULL, col_scale_subclass)
     }
   }
-  col_labels <- get_col_label(col_labels, col_scale_subclass, col_transform)
+  col_labels <- .get_col_label(col_labels, col_scale_subclass, col_transform)
 
   # Apply scales based on type
   if (col_scale_subclass== "discrete") {
-    plot <- add_col_scale_discrete(
+    plot <- .add_col_scale_discrete(
       plot,
       aes_list,
       data,
@@ -2369,17 +2214,17 @@ add_col_scale <- function(
       x_limits_to_breaks,
       plot_build,
       stat_name = stat_name,
-      is_bordered_geom = is_bordered_geom,
+      is_border_geom = is_border_geom,
       aspect = aspect  # PASS ASPECT
     )
   } else if (col_scale_subclass%in% c("continuous", "date", "datetime", "time")) {
-    plot <- add_col_scale_continuous(
+    plot <- .add_col_scale_continuous(
       plot,
       colour_palette_c,
       fill_palette_c,
       na_colour,
       na_fill,
-      is_bordered_geom,
+      is_border_geom,
       col_breaks,
       col_breaks_n,
       col_labels,
@@ -2392,7 +2237,7 @@ add_col_scale <- function(
       aspect = aspect  # PASS ASPECT (though not used)
     )
   } else if (col_scale_subclass== "ordinal") {
-    plot <- add_col_scale_ordinal(
+    plot <- .add_col_scale_ordinal(
       plot,
       aes_list,
       data,
@@ -2409,20 +2254,20 @@ add_col_scale <- function(
       col_legend_rev,
       plot_build,
       stat_name = stat_name,
-      is_bordered_geom = is_bordered_geom,
+      is_border_geom = is_border_geom,
       aspect = aspect  # PASS ASPECT (though not used)
     )
   }
 
   # Handle guides for other aesthetics - pass aes_list directly
-  plot <- add_matching_aesthetic_guides(
+  plot <- .add_matching_aesthetic_guides(
     plot,
     plot_build,
     col_legend_rev,
     col_legend_ncol,
     col_legend_nrow,
     geom_name = geom_name,
-    is_bordered_geom = is_bordered_geom,
+    is_border_geom = is_border_geom,
     aes_list = aes_list,
     data = data
   )
@@ -2441,7 +2286,7 @@ add_col_scale <- function(
 
 #' Add discrete colour scale
 #' @noRd
-add_col_scale_discrete <- function(
+.add_col_scale_discrete <- function(
     plot,
     aes_list,
     data,
@@ -2459,7 +2304,7 @@ add_col_scale_discrete <- function(
     x_limits_to_breaks,
     plot_build,
     stat_name = NULL,
-    is_bordered_geom = FALSE,
+    is_border_geom = FALSE,
     aspect = "x"
 ) {
   # Determine legend reversal based on aspect if not explicitly set
@@ -2472,11 +2317,11 @@ add_col_scale_discrete <- function(
   }
 
   # Calculate number of colours needed
-  col_n <- get_col_n(aes_list, data, plot_data, stat_name)
+  col_n <- .get_col_n(aes_list, data, plot_data, stat_name)
 
   # Reverse palettes if aspect is "y"
-  colour_palette <- reverse_discrete_palette(colour_palette, n = col_n, aspect = aspect)
-  fill_palette <- reverse_discrete_palette(fill_palette, n = col_n, aspect = aspect)
+  colour_palette <- .reverse_discrete_palette(colour_palette, n = col_n, aspect = aspect)
+  fill_palette <- .reverse_discrete_palette(fill_palette, n = col_n, aspect = aspect)
 
   # Apply scales with the appropriate palette
   if (!rlang::is_null(colour_palette)) {
@@ -2502,7 +2347,7 @@ add_col_scale_discrete <- function(
   }
 
   # Check if colour and fill map to the same variable using plot object
-  same_mapping <- check_same_colour_fill_mapping(plot)
+  same_mapping <- .check_same_colour_fill_mapping(plot)
 
   if (same_mapping) {
     # Same variable mapped to both - typically show both for discrete
@@ -2553,13 +2398,13 @@ add_col_scale_discrete <- function(
 
 #' Add continuous colour scale
 #' @noRd
-add_col_scale_continuous <- function(
+.add_col_scale_continuous <- function(
     plot,
     colour_palette,
     fill_palette,
     na_colour,
     na_fill,
-    is_bordered_geom,
+    is_border_geom,
     col_breaks,
     col_breaks_n,
     col_labels,
@@ -2600,11 +2445,11 @@ add_col_scale_continuous <- function(
       )
 
     # Check if colour and fill map to the same variable
-    same_mapping <- check_same_colour_fill_mapping(plot)
+    same_mapping <- .check_same_colour_fill_mapping(plot)
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (is_bordered_geom) {
+      if (is_border_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),
@@ -2672,11 +2517,11 @@ add_col_scale_continuous <- function(
       )
 
     # Check if colour and fill map to the same variable
-    same_mapping <- check_same_colour_fill_mapping(plot)
+    same_mapping <- .check_same_colour_fill_mapping(plot)
 
     if (same_mapping) {
       # Same variable mapped to both - hide one guide
-      if (is_bordered_geom) {
+      if (is_border_geom) {
         plot <- plot +
           ggplot2::guides(
             colour = ggplot2::guide_none(),
@@ -2716,7 +2561,7 @@ add_col_scale_continuous <- function(
 
 #' Add ordinal colour scale
 #' @noRd
-add_col_scale_ordinal <- function(
+.add_col_scale_ordinal <- function(
     plot,
     aes_list,
     data,
@@ -2733,13 +2578,13 @@ add_col_scale_ordinal <- function(
     col_legend_rev,
     plot_build,
     stat_name = NULL,
-    # colour_bordered_transform = NULL,
-    # fill_bordered_transform = NULL,
-    is_bordered_geom = FALSE,
+    # colour_border_transform = NULL,
+    # fill_border_transform = NULL,
+    is_border_geom = FALSE,
     aspect = "x"  # Add aspect parameter (but not used for ordinal)
 ) {
   # Calculate number of colours needed
-  col_n <- get_col_n(aes_list, data, plot_data, stat_name)
+  col_n <- .get_col_n(aes_list, data, plot_data, stat_name)
 
   # For ordinal scales, aspect doesn't affect legend reversal
   # Just handle the default and always invert
@@ -2799,7 +2644,7 @@ add_col_scale_ordinal <- function(
   }
 
   # Check if colour and fill map to the same variable using plot object
-  same_mapping <- check_same_colour_fill_mapping(plot)
+  same_mapping <- .check_same_colour_fill_mapping(plot)
 
   if (same_mapping) {
     # Same variable mapped to both - show both guides for ordinal

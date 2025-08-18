@@ -13,7 +13,7 @@ set_blanket(
     end = 0.9)),
   col_palette_ordinal = NULL,
   col_na = "#A6A6A6FF",
-  colour_bordered_transform = function(x) {
+  colour_border_transform = function(x) {
      if (is_panel_light()) {
         
     blend_multiply(x)
@@ -22,14 +22,14 @@ set_blanket(
          blend_screen(x)
      }
  },
-  fill_bordered_transform = NULL,
+  fill_border_transform = NULL,
   shape = 21,
   shape_palette_d = c(21, 24, 22, 23, 25),
   shape_na = 4,
   linetype = 1,
   linetype_palette_d = 1:6,
   linewidth = 0.66,
-  linewidth_bordered = 0.25,
+  linewidth_border = 0.25,
   size = 1.5,
   stroke = 0.5,
   axis_line_aspect = "transparent",
@@ -52,9 +52,9 @@ set_blanket(
 
 \item{col_na}{A NA colour/fill value.}
 
-\item{colour_bordered_transform}{A function with input of the \code{col} or \code{col_palette}.}
+\item{colour_border_transform}{A function with input of the \code{col} or \code{col_palette}.}
 
-\item{fill_bordered_transform}{A function with input of the \code{col} or \code{col_palette}.}
+\item{fill_border_transform}{A function with input of the \code{col} or \code{col_palette}.}
 
 \item{shape}{A default shape for point geoms. Must be an integer between 0 and 25.}
 
@@ -68,7 +68,7 @@ set_blanket(
 
 \item{linewidth}{A default linewidth for geoms. A number.}
 
-\item{linewidth_bordered}{A default linewidth for geoms that have a border. A number.}
+\item{linewidth_border}{A default linewidth for geoms that have a border. A number.}
 
 \item{size}{A default size for point geoms.}
 

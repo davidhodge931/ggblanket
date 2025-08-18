@@ -40,9 +40,9 @@ gg_crossbar(
   text = NULL,
   sample = NULL,
   mapping = NULL,
-  bordered = NULL,
-  colour_bordered_transform = NULL,
-  fill_bordered_transform = NULL,
+  border = NULL,
+  colour_border_transform = NULL,
+  fill_border_transform = NULL,
   x_breaks = NULL,
   x_breaks_n = NULL,
   x_expand = NULL,
@@ -64,7 +64,7 @@ gg_crossbar(
   y_limits_to_breaks = NULL,
   y_transform = NULL,
   col_breaks = ggplot2::waiver(),
-  col_breaks_n = NULL,
+  col_breaks_n = 6,
   col_drop = FALSE,
   col_limits_include = NULL,
   col_title = snakecase::to_sentence_case,
@@ -128,11 +128,11 @@ gg_crossbar(
 
 \item{mapping}{A set of additional aesthetic mappings in \code{\link[ggplot2:aes]{ggplot2::aes()}} for advanced edge-case situations (e.g.delayed evaluation etc).}
 
-\item{bordered}{\code{TRUE} or \code{FALSE} of whether the \code{colour_bordered_transform} and \code{fill_bordered_transform} should be applied.}
+\item{border}{\code{TRUE} or \code{FALSE} of whether the \code{colour_border_transform} and \code{fill_border_transform} should be applied.}
 
-\item{colour_bordered_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
+\item{colour_border_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to screen/multiply based on theme.}
 
-\item{fill_bordered_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
+\item{fill_border_transform}{A function with input of \code{col} or \code{col_palette}. Defaults to NULL.}
 
 \item{x_breaks, y_breaks, col_breaks}{A \verb{scales::breaks_*} function (e.g. \verb{scales::breaks_*()}), or a vector of breaks.}
 

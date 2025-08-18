@@ -11,15 +11,15 @@
 #' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
 #' @param col_na A NA colour/fill value.
-#' @param colour_bordered_transform A function with input of the `col` or `col_palette`.
-#' @param fill_bordered_transform A function with input of the `col` or `col_palette`.
+#' @param colour_border_transform A function with input of the `col` or `col_palette`.
+#' @param fill_border_transform A function with input of the `col` or `col_palette`.
 #' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
 #' @param shape_palette_d For shape scales, a numeric vector of shape codes.
 #' @param shape_na A NA shape value.
 #' @param linetype A default linetype for most geoms.
 #' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function.
 #' @param linewidth A default linewidth for geoms. A number.
-#' @param linewidth_bordered A default linewidth for geoms that have a border. A number.
+#' @param linewidth_border A default linewidth for geoms that have a border. A number.
 #' @param size A default size for point geoms.
 #' @param stroke A default stroke for point geoms.
 #' @param axis_line_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
@@ -50,21 +50,21 @@ set_blanket <- function(
     col_palette_continuous = direction(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
     col_palette_ordinal = NULL,
     col_na = "#A6A6A6FF",
-    colour_bordered_transform = \(x) {
+    colour_border_transform = \(x) {
       if (is_panel_light()) {
         blend_multiply(x)
       } else {
         blend_screen(x)
       }
     },
-    fill_bordered_transform = NULL,
+    fill_border_transform = NULL,
     shape = 21,
     shape_palette_d = c(21, 24, 22, 23, 25),
     shape_na = 4,
     linetype = 1,
     linetype_palette_d = 1:6,
     linewidth = 0.66,
-    linewidth_bordered = 0.25,
+    linewidth_border = 0.25,
     size = 1.5,
     stroke = 0.5,
     axis_line_aspect = "transparent",
@@ -94,10 +94,10 @@ set_blanket <- function(
     linetype_palette_d = linetype_palette_d
   )
 
-  update_geom_bordered(
-    colour_bordered_transform = colour_bordered_transform,
-    fill_bordered_transform = fill_bordered_transform,
-    linewidth_bordered = linewidth_bordered
+  update_geom_border(
+    colour_border_transform = colour_border_transform,
+    fill_border_transform = fill_border_transform,
+    linewidth_border = linewidth_border
   )
 
   update_geom_font()

@@ -1,6 +1,7 @@
 Coord
 Errorbar
 Freqpoly
+Inf
 Linerange
 Nik
 ORCID
@@ -13,7 +14,6 @@ beeswarm
 coord
 dplyr
 errorbar
-errorbars
 etc
 farver
 freqpoly
@@ -32,12 +32,12 @@ ggplot
 ggproto
 ggrepel
 ggridges
+ggstar
 gridline
 gridlines
 hline
 linerange
 linetype
-linetypes
 linewidth
 linewidths
 nd
@@ -45,6 +45,7 @@ paletteer
 pointrange
 qq
 rect
+rel
 ridgeline
 showtext
 snakecase

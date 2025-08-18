@@ -10,9 +10,9 @@ guides_grey(
   col = "#8991A1",
   colour = NULL,
   fill = NULL,
-  bordered = NULL,
-  colour_bordered_transform = NULL,
-  fill_bordered_transform = NULL
+  border = NULL,
+  colour_border_transform = NULL,
+  fill_border_transform = NULL
 )
 }
 \arguments{
@@ -24,16 +24,16 @@ guides_grey(
 \item{col}{Base hex for the legend colour/fill. Defaults to "#8991A1".}
 
 \item{colour}{Direct override for the colour aesthetic in the legend. If NULL,
-determined by \code{col} and \code{colour_bordered_transform}.}
+determined by \code{col} and \code{colour_border_transform}.}
 
 \item{fill}{Direct override for the fill aesthetic in the legend. If NULL,
-determined by \code{fill} and \code{fill_bordered_transform}.}
+determined by \code{fill} and \code{fill_border_transform}.}
 
-\item{bordered}{TRUE or FALSE of whether to treat as a border geom.}
+\item{border}{TRUE or FALSE of whether to treat as a border geom.}
 
-\item{colour_bordered_transform}{Function to transform the colour and colour_palette for border geoms.}
+\item{colour_border_transform}{Function to transform the colour and colour_palette for border geoms.}
 
-\item{fill_bordered_transform}{Function to transform the fill and fill_palette for border geoms.}
+\item{fill_border_transform}{Function to transform the fill and fill_palette for border geoms.}
 }
 \value{
 A ggplot guides specification.
