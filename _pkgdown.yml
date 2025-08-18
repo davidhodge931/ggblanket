@@ -26,6 +26,7 @@ reference:
   - update_width_reference
 
   - label_every_nth
+
   - guides_grey
 
   - blend_multiply
@@ -33,9 +34,7 @@ reference:
   - blend
 
   - is_col_dark
-  - is_col_light
   - is_panel_dark
-  - is_panel_light
   - direction_contrast
 
   - jumble
