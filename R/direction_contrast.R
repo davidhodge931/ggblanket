@@ -182,7 +182,7 @@ is_panel_light <- function(..., theme = NULL) {
 #'
 #' @return The palette in the same format as input, oriented for optimal contrast
 #' @export
-direction <- function(palette, ..., reverse = FALSE) {
+direction_contrast <- function(palette, ..., reverse = FALSE) {
   # Force evaluation
   force(palette)
   force(reverse)

@@ -51,18 +51,18 @@ annotate_axis_text <- function(
   # Validate x/y based on position
   if (position %in% c("top", "bottom")) {
     # For top/bottom positions, only x should be provided
-    if (!is.null(y)) {
+    if (!rlang::is_null(y)) {
       rlang::abort("For top or bottom positions, only x can be specified, not y")
     }
-    if (is.null(x)) {
+    if (rlang::is_null(x)) {
       rlang::abort("For top or bottom positions, x must be specified")
     }
   } else {  # left or right
     # For left/right positions, only y should be provided
-    if (!is.null(x)) {
+    if (!rlang::is_null(x)) {
       rlang::abort("For left or right positions, only y can be specified, not x")
     }
-    if (is.null(y)) {
+    if (rlang::is_null(y)) {
       rlang::abort("For left or right positions, y must be specified")
     }
   }
@@ -117,7 +117,7 @@ annotate_axis_text <- function(
   }
 
   # Get breaks
-  breaks <- if (!is.null(x)) x else y
+  breaks <- if (!rlang::is_null(x)) x else y
 
   # Check for empty breaks
   if (length(breaks) == 0) {
@@ -125,7 +125,7 @@ annotate_axis_text <- function(
   }
 
   # Process label
-  if (is.null(label)) {
+  if (rlang::is_null(label)) {
     labels <- scales::comma(breaks)
   } else if (is.function(label)) {
     labels <- label(breaks)
@@ -147,14 +147,14 @@ annotate_axis_text <- function(
   resolved_text_element <- NULL
   for (element_name in c(text_specific, text_axis, text_general)) {
     element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
-    if (!is.null(element) && !inherits(element, "element_blank")) {
+    if (!rlang::is_null(element) && !inherits(element, "element_blank")) {
       resolved_text_element <- element
       break
     }
   }
 
   # If still no element found, create a minimal fallback
-  if (is.null(resolved_text_element)) {
+  if (rlang::is_null(resolved_text_element)) {
     resolved_text_element <- ggplot2::element_text(
       colour = "black",
       size = 11,
@@ -168,7 +168,7 @@ annotate_axis_text <- function(
   text_family <- family %||% resolved_text_element$family %||% ""
 
   # Calculate total length if not provided
-  if (is.null(length)) {
+  if (rlang::is_null(length)) {
     # First, get tick length from theme
     length_specific <- paste0("axis.ticks.length.", axis, ".", position)
     length_axis <- paste0("axis.ticks.length.", axis)
@@ -177,7 +177,7 @@ annotate_axis_text <- function(
     tick_length <- NULL
     for (element_name in c(length_specific, length_axis, length_general)) {
       element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
-      if (!is.null(element)) {
+      if (!rlang::is_null(element)) {
         if (inherits(element, "rel")) {
           base_size <- current_theme$text$size %||% 11
           tick_length <- grid::unit(as.numeric(element) * base_size, "pt")
@@ -186,12 +186,12 @@ annotate_axis_text <- function(
         } else if (is.numeric(element)) {
           tick_length <- grid::unit(element, "pt")
         }
-        if (!is.null(tick_length)) break
+        if (!rlang::is_null(tick_length)) break
       }
     }
 
     # Fallback tick length
-    if (is.null(tick_length)) {
+    if (rlang::is_null(tick_length)) {
       base_size <- current_theme$text$size %||% 11
       tick_length <- grid::unit(0.66 * base_size, "pt")
     }
@@ -202,7 +202,7 @@ annotate_axis_text <- function(
     # Extract the appropriate margin component
     margin_unit <- grid::unit(0, "pt")  # default
 
-    if (!is.null(text_margin)) {
+    if (!rlang::is_null(text_margin)) {
       # The margin is a unit vector with 4 components: [1]=top, [2]=right, [3]=bottom, [4]=left
       # Based on the correct specification:
       # axis.text.x.bottom uses margin[1] (top)
@@ -242,7 +242,7 @@ annotate_axis_text <- function(
   }
 
   # Process margin for background rectangle
-  if (!is.null(margin)) {
+  if (!rlang::is_null(margin)) {
     if (inherits(margin, "margin") || (inherits(margin, "unit") && length(margin) == 4)) {
       # Already a proper margin object or unit vector of length 4
       rect_margin <- margin
@@ -265,7 +265,7 @@ annotate_axis_text <- function(
   # Set hjust and vjust based on position
   # We assume good themes use standard justification values
   # Users can override with explicit hjust/vjust arguments if needed
-  if (is.null(hjust)) {
+  if (rlang::is_null(hjust)) {
     hjust <- if (position %in% c("top", "bottom")) {
       0.5  # Centered for top/bottom
     } else if (position == "left") {
@@ -275,7 +275,7 @@ annotate_axis_text <- function(
     }
   }
 
-  if (is.null(vjust)) {
+  if (rlang::is_null(vjust)) {
     vjust <- if (position == "bottom") {
       1    # Top-aligned for bottom axis
     } else if (position == "top") {

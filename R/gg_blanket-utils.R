@@ -1332,19 +1332,19 @@ add_initial_layer <- function(
 
   if (aspect == "x") {
     if (axis_line_aspect == "transparent") {
-      theme_updates$axis.line.y.left <- element_line_transparent()
-      theme_updates$axis.line.y.right <- element_line_transparent()
+      theme_updates$axis.line.y.left <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.line.y.right <- ggplot2::element_line(colour = "transparent")
     }
     if (axis_ticks_aspect == "transparent") {
-      theme_updates$axis.ticks.y.left <- element_line_transparent()
-      theme_updates$axis.ticks.y.right <- element_line_transparent()
+      theme_updates$axis.ticks.y.left <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.ticks.y.right <- ggplot2::element_line(colour = "transparent")
 
-      theme_updates$axis.minor.ticks.y.left <- element_line_transparent()
-      theme_updates$axis.minor.ticks.y.right <- element_line_transparent()
+      theme_updates$axis.minor.ticks.y.left <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.minor.ticks.y.right <- ggplot2::element_line(colour = "transparent")
     }
     if (panel_grid_aspect == "transparent") {
-      theme_updates$panel.grid.major.x <- element_line_transparent()
-      theme_updates$panel.grid.minor.x <- element_line_transparent()
+      theme_updates$panel.grid.major.x <- ggplot2::element_line(colour = "transparent")
+      theme_updates$panel.grid.minor.x <- ggplot2::element_line(colour = "transparent")
     }
 
     if (axis_line_aspect == "blank") {
@@ -1361,27 +1361,27 @@ add_initial_layer <- function(
     }
 
     if (x_scale_subclass== "discrete") {
-      theme_updates$axis.ticks.x.bottom <- element_line_transparent()
-      theme_updates$axis.ticks.x.top <- element_line_transparent()
+      theme_updates$axis.ticks.x.bottom <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.ticks.x.top <- ggplot2::element_line(colour = "transparent")
 
-      theme_updates$axis.ticks.x.bottom <- element_line_transparent()
-      theme_updates$axis.minor.ticks.x.top <- element_line_transparent()
+      theme_updates$axis.ticks.x.bottom <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.minor.ticks.x.top <- ggplot2::element_line(colour = "transparent")
     }
   } else if (aspect == "y") {
     if (axis_line_aspect == "transparent") {
-      theme_updates$axis.line.x.bottom <- element_line_transparent()
-      theme_updates$axis.line.x.top <- element_line_transparent()
+      theme_updates$axis.line.x.bottom <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.line.x.top <- ggplot2::element_line(colour = "transparent")
     }
     if (axis_ticks_aspect == "transparent") {
-      theme_updates$axis.ticks.x.bottom <- element_line_transparent()
-      theme_updates$axis.ticks.x.top <- element_line_transparent()
+      theme_updates$axis.ticks.x.bottom <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.ticks.x.top <- ggplot2::element_line(colour = "transparent")
 
-      theme_updates$axis.ticks.x.bottom <- element_line_transparent()
-      theme_updates$axis.minor.ticks.x.top <- element_line_transparent()
+      theme_updates$axis.ticks.x.bottom <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.minor.ticks.x.top <- ggplot2::element_line(colour = "transparent")
     }
     if (panel_grid_aspect == "transparent") {
-      theme_updates$panel.grid.major.y <- element_line_transparent()
-      theme_updates$panel.grid.minor.y <- element_line_transparent()
+      theme_updates$panel.grid.major.y <- ggplot2::element_line(colour = "transparent")
+      theme_updates$panel.grid.minor.y <- ggplot2::element_line(colour = "transparent")
     }
 
     if (axis_line_aspect == "blank") {
@@ -1398,11 +1398,11 @@ add_initial_layer <- function(
     }
 
     if (y_scale_subclass== "discrete") {
-      theme_updates$axis.ticks.y.left <- element_line_transparent()
-      theme_updates$axis.ticks.y.right <- element_line_transparent()
+      theme_updates$axis.ticks.y.left <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.ticks.y.right <- ggplot2::element_line(colour = "transparent")
 
-      theme_updates$axis.minor.ticks.y.left <- element_line_transparent()
-      theme_updates$axis.minor.ticks.y.right <- element_line_transparent()
+      theme_updates$axis.minor.ticks.y.left <- ggplot2::element_line(colour = "transparent")
+      theme_updates$axis.minor.ticks.y.right <- ggplot2::element_line(colour = "transparent")
     }
   }
 

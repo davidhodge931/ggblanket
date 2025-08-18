@@ -56,9 +56,9 @@ annotate_panel_background <- function(
   current_theme <- ggplot2::theme_get()
 
   # Try to inherit from panel.background if fill not specified
-  if (is.null(fill)) {
+  if (rlang::is_null(fill)) {
     panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
-    if (!is.null(panel_bg) && !inherits(panel_bg, "element_blank")) {
+    if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
       # Use a contrasting colour if panel background exists
       # If panel is light, use darker shade; if dark, use lighter shade
       bg_fill <- panel_bg$fill %||% "white"

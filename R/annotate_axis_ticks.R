@@ -39,18 +39,18 @@ annotate_axis_ticks <- function(
   # Validate x/y based on position
   if (position %in% c("top", "bottom")) {
     # For top/bottom positions, only x should be provided
-    if (!is.null(y)) {
+    if (!rlang::is_null(y)) {
       rlang::abort("For top or bottom positions, only x can be specified, not y")
     }
-    if (is.null(x)) {
+    if (rlang::is_null(x)) {
       rlang::abort("For top or bottom positions, x must be specified")
     }
   } else {  # left or right
     # For left/right positions, only y should be provided
-    if (!is.null(x)) {
+    if (!rlang::is_null(x)) {
       rlang::abort("For left or right positions, only y can be specified, not x")
     }
-    if (is.null(y)) {
+    if (rlang::is_null(y)) {
       rlang::abort("For left or right positions, y must be specified")
     }
   }
@@ -65,7 +65,7 @@ annotate_axis_ticks <- function(
   axis <- if (position %in% c("top", "bottom")) "x" else "y"
 
   # Get breaks - keep original for positioning
-  breaks <- if (!is.null(x)) x else y
+  breaks <- if (!rlang::is_null(x)) x else y
 
   # Check for empty breaks
   if (length(breaks) == 0) {
@@ -121,14 +121,14 @@ annotate_axis_ticks <- function(
   resolved_tick_element <- NULL
   for (element_name in c(tick_specific, tick_axis, tick_general)) {
     element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
-    if (!is.null(element) && !inherits(element, "element_blank")) {
+    if (!rlang::is_null(element) && !inherits(element, "element_blank")) {
       resolved_tick_element <- element
       break
     }
   }
 
   # If still no element found, create a minimal fallback
-  if (is.null(resolved_tick_element)) {
+  if (rlang::is_null(resolved_tick_element)) {
     resolved_tick_element <- list(colour = "black", linewidth = 0.5)
   }
 
@@ -141,7 +141,7 @@ annotate_axis_ticks <- function(
   resolved_length_element <- NULL
   for (element_name in c(length_specific, length_axis, length_general)) {
     element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
-    if (!is.null(element) && !inherits(element, "element_blank")) {
+    if (!rlang::is_null(element) && !inherits(element, "element_blank")) {
       resolved_length_element <- element
       break
     }
@@ -172,7 +172,7 @@ annotate_axis_ticks <- function(
     # Use the resolved length element from calc_element
     tick_length <- resolved_length_element
 
-    if (is.null(tick_length)) {
+    if (rlang::is_null(tick_length)) {
       # Fallback: manually calculate default rel(0.66)
       base_size <- current_theme$text$size %||% 11
       tick_length <- grid::unit(0.66 * base_size, "pt")
@@ -200,13 +200,13 @@ annotate_axis_ticks <- function(
       # First try to get the raw theme element (before calc_element processing)
       for (element_name in c(length_specific, length_axis, length_general)) {
         raw_element <- current_theme[[element_name]]
-        if (!is.null(raw_element) && !inherits(raw_element, "element_blank")) {
+        if (!rlang::is_null(raw_element) && !inherits(raw_element, "element_blank")) {
           base_length_for_rel <- raw_element
           break
         }
       }
 
-      if (!is.null(base_length_for_rel)) {
+      if (!rlang::is_null(base_length_for_rel)) {
         if (inherits(base_length_for_rel, "rel")) {
           # Theme is also rel() - apply user's rel to the theme's rel
           base_size <- current_theme$text$size %||% 11

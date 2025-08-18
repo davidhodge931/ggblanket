@@ -30,15 +30,7 @@ reference:
 
   - blend_multiply
   - blend_screen
-  - blend_darken
-  - blend_lighten
-  - blend_colour_burn
-  - blend_colour_dodge
-  - blend_overlay
-  - blend_hard_light
-  - blend_soft_light
-  - blend_difference
-  - blend_exclusion
+  - blend
 
   - is_col_dark
   - is_col_light

@@ -78,10 +78,10 @@ annotate_axis_line <- function(
   # Find the first non-blank resolved element
   resolved_element <- element_hierarchy |>
     purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
-    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+    purrr::detect(\(x) !rlang::is_null(x) && !inherits(x, "element_blank"))
 
   # If still no element found, create a minimal fallback
-  if (is.null(resolved_element)) {
+  if (rlang::is_null(resolved_element)) {
     resolved_element <- list(colour = "black", linewidth = 0.5)
   }
 

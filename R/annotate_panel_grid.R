@@ -25,11 +25,11 @@ annotate_panel_grid <- function(
     theme_element = "keep"
 ) {
   # Validate arguments
-  if (is.null(x) && is.null(y)) {
+  if (rlang::is_null(x) && rlang::is_null(y)) {
     rlang::abort("Either x or y must be specified")
   }
 
-  if (!is.null(x) && !is.null(y)) {
+  if (!rlang::is_null(x) && !rlang::is_null(y)) {
     rlang::abort("Only one of x or y can be specified")
   }
 
@@ -40,10 +40,10 @@ annotate_panel_grid <- function(
   }
 
   # Determine axis from x/y
-  axis <- if (!is.null(x)) "x" else "y"
+  axis <- if (!rlang::is_null(x)) "x" else "y"
 
   # Get breaks
-  breaks <- if (!is.null(x)) x else y
+  breaks <- if (!rlang::is_null(x)) x else y
 
   # Check for empty breaks
   if (length(breaks) == 0) {
@@ -69,10 +69,10 @@ annotate_panel_grid <- function(
   # Find the first non-blank resolved grid element
   resolved_grid_element <- grid_hierarchy |>
     purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
-    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+    purrr::detect(\(x) !rlang::is_null(x) && !inherits(x, "element_blank"))
 
   # If still no element found, create a minimal fallback
-  if (is.null(resolved_grid_element)) {
+  if (rlang::is_null(resolved_grid_element)) {
     resolved_grid_element <- list(
       colour = "grey90",
       linewidth = 0.5,
