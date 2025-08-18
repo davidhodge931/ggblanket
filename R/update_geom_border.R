@@ -6,16 +6,13 @@
 #' @param ... Require named arguments (and support trailing commas).
 #' @param colour_border_transform A function with input of the set `col`. Defaults to `blend_screen`/`blend_multiply` based on the panel.
 #' @param fill_border_transform A function with input of the set `col`. Defaults to NULL.
-#' @param linewidth_border A number, or a function with input of the set linewidth. Defaults to 0.25.
+#' @param linewidth_border A number, or a function with input of the set linewidth.
 #'
 #' @return Global options for border geom styling.
 #'
 #' @export
 update_geom_border <- function(
   ...,
-  # colour_border_transform = \(x) {
-  #   ifelse(is_panel_light(), blend_multiply(x), blend_screen(x))
-  # },
   colour_border_transform = \(x) {
     if (is_panel_light()) {
       blend_multiply(x)
@@ -25,7 +22,7 @@ update_geom_border <- function(
   },
 
   fill_border_transform = NULL,
-  linewidth_border = 0.25
+  linewidth_border = \(x) x * 0.3787879
 ) {
   options(
     ggblanket.colour_border_transform = colour_border_transform,

@@ -74,9 +74,7 @@ set_blanket <- function(
   # Set the theme first
   ggplot2::set_theme(theme)
 
-  current_theme <- ggplot2::get_theme()
-
-  # Handle colour/fill defaults
+  #then everything else
   update_geom_col(col = col)
   update_geom_shape(shape = shape)
   update_geom_linetype(linetype = linetype)

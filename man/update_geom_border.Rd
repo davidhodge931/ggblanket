@@ -16,7 +16,7 @@ update_geom_border(
      }
  },
   fill_border_transform = NULL,
-  linewidth_border = 0.25
+  linewidth_border = function(x) x * 0.3787879
 )
 }
 \arguments{
@@ -26,7 +26,7 @@ update_geom_border(
 
 \item{fill_border_transform}{A function with input of the set \code{col}. Defaults to NULL.}
 
-\item{linewidth_border}{A number, or a function with input of the set linewidth. Defaults to 0.25.}
+\item{linewidth_border}{A number, or a function with input of the set linewidth.}
 }
 \value{
 Global options for border geom styling.
