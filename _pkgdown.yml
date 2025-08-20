@@ -19,11 +19,10 @@ reference:
   - aes_contrast
 
   - annotate_axis_line
-  - annotate_axis_text
   - annotate_axis_ticks
-  - annotate_axis_minor_ticks
-  - annotate_panel_grid_major
-  - annotate_panel_grid_minor
+  - annotate_axis_text
+  - annotate_panel_grid
+  - annotate_panel_background
 
   - bind_each_all
 
