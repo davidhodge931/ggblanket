@@ -23,8 +23,8 @@
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
-#' @param panel_grid_linetype The linetype of the panel.grid theme element.
-#' @param panel_grid_linewidth The linewidth of the panel.grid theme element.
+#' @param panel_grid_major_linetype The linetype of the panel.grid.major theme element.
+#' @param panel_grid_major_linewidth The linewidth of the panel.grid.major theme element.
 #' @param panel_grid_minor_linetype The linetype of the panel.grid.minor theme element. Defaults to 0.
 #' @param panel_grid_minor_linewidth The linewidth of the panel.grid.minor theme element.
 #' @param panel_heights The height of the panels.
@@ -80,8 +80,8 @@ theme_lighter <- function(
     panel_background_fill = "#FFFFFFFF",
     plot_background_fill = "#FFFFFFFF",
     panel_grid_colour = "#F6F8FAFF",
-    panel_grid_linetype = 1,
-    panel_grid_linewidth = 1.33,
+    panel_grid_major_linetype = 1,
+    panel_grid_major_linewidth = 1.33,
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
     panel_heights = NULL,
@@ -206,10 +206,11 @@ theme_lighter <- function(
     panel.border = ggplot2::element_blank(),
     panel.grid = ggplot2::element_line(
       colour = panel_grid_colour,
-      linewidth = panel_grid_linewidth,
-      linetype = panel_grid_linetype
     ),
-    panel.grid.major = NULL,
+    panel.grid.major = ggplot2::element_line(
+      linewidth = panel_grid_major_linewidth,
+      linetype = panel_grid_major_linetype
+    ),
     panel.grid.major.x = NULL,
     panel.grid.major.y = NULL,
     panel.grid.minor = ggplot2::element_line(
