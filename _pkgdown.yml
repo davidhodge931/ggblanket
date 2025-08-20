@@ -17,11 +17,16 @@ reference:
 - title: Extras
 - contents:
   - aes_contrast
+
   - annotate_axis_line
   - annotate_axis_text
   - annotate_axis_ticks
-  - annotate_panel_grid
+  - annotate_axis_minor_ticks
+  - annotate_panel_grid_major
+  - annotate_panel_grid_minor
+
   - bind_each_all
+
   - standardise_width
   - update_width_reference
 
@@ -33,7 +38,9 @@ reference:
   - blend_screen
   - blend
 
+  - is_col_light
   - is_col_dark
+  - is_panel_light
   - is_panel_dark
   - direction_contrast
 

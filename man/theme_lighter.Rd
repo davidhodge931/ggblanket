@@ -26,6 +26,7 @@ theme_lighter(
   panel_background_fill = "#FFFFFFFF",
   plot_background_fill = "#FFFFFFFF",
   panel_grid_colour = "#F6F8FAFF",
+  panel_grid_linetype = 1,
   panel_grid_linewidth = 1.33,
   panel_grid_minor_linetype = 0,
   panel_grid_minor_linewidth = ggplot2::rel(0.5),
@@ -89,6 +90,8 @@ theme_lighter(
 \item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
 
 \item{panel_grid_colour}{The colour of the panel.grid theme element.}
+
+\item{panel_grid_linetype}{The linetype of the panel.grid theme element.}
 
 \item{panel_grid_linewidth}{The linewidth of the panel.grid theme element.}
 
