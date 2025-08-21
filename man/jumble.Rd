@@ -13,7 +13,7 @@ A character vector.
 \description{
 A jumble of useful colours.
 The first 7 are relatively colour-blind safe on a light background.
-The 8th and 9th are the default base_colour used in \code{theme_lighter} and \code{theme_darker}.
+The 8th and 9th are the default text_colour used in \code{theme_lighter} and \code{theme_darker}.
 The 10th is the default NA grey used, and the 11th the default blue used for set aesthetics.
 }
 \examples{

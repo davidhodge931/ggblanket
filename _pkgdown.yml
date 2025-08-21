@@ -14,33 +14,35 @@ reference:
 - contents:
   - theme_lighter
   - theme_darker
-- title: Extras
+  - theme_greyer
+  - legend_place
+- title: Annotate
 - contents:
-  - aes_contrast
-
   - annotate_axis_line
   - annotate_axis_ticks
   - annotate_axis_text
   - annotate_panel_grid
   - annotate_panel_background
-
-  - bind_each_all
-
-  - standardise_width
-  - update_width_reference
-
-  - label_every_nth
-
-  - guides_grey
-
+- title: Blend
+- contents:
+  - blend
   - blend_multiply
   - blend_screen
-  - blend
-
+- title: Contrast
+- contents:
+  - aes_contrast
+  - direction_contrast
   - is_col_light
   - is_col_dark
   - is_panel_light
   - is_panel_dark
-  - direction_contrast
-
+- title: Width
+- contents:
+  - standardise_width
+  - update_width_reference
+- title: Other
+- contents:
+  - bind_each_all
+  - label_every_nth
+  - guides_grey
   - jumble

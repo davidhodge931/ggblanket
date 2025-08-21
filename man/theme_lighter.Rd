@@ -6,10 +6,10 @@
 \usage{
 theme_lighter(
   ...,
-  base_size = 10,
-  base_family = "",
-  base_colour = "#121B24FF",
-  base_face = "plain",
+  text_size = 10,
+  text_family = "",
+  text_colour = "#121B24FF",
+  text_face = "plain",
   legend_position = "right",
   legend_axis_line_colour = plot_background_fill,
   legend_axis_line_linewidth = axis_line_linewidth,
@@ -33,17 +33,17 @@ theme_lighter(
   panel_heights = NULL,
   panel_widths = NULL,
   title_size = ggplot2::rel(1.1),
-  title_family = base_family,
-  title_colour = base_colour,
+  title_family = text_family,
+  title_colour = text_colour,
   title_face = "bold",
   subtitle_size = ggplot2::rel(1),
-  subtitle_family = base_family,
-  subtitle_colour = base_colour,
+  subtitle_family = text_family,
+  subtitle_colour = text_colour,
   subtitle_face = "plain",
   caption_size = ggplot2::rel(0.85),
-  caption_family = base_family,
-  caption_colour = ifelse(is_panel_light(), blend_screen(base_colour),
-    blend_multiply(base_colour)),
+  caption_family = text_family,
+  caption_colour = ifelse(is_panel_light(), blend_screen(text_colour),
+    blend_multiply(text_colour)),
   caption_face = "plain",
   caption_hjust = 0
 )
@@ -51,13 +51,13 @@ theme_lighter(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{base_size}{The base size of the text theme element. Defaults to 10.}
+\item{text_size}{The base size of the text theme element. Defaults to 10.}
 
-\item{base_family}{The base family of the text theme element. Defaults to "".}
+\item{text_family}{The base family of the text theme element. Defaults to "".}
 
-\item{base_colour}{The base colour of the text theme element.}
+\item{text_colour}{The base colour of the text theme element.}
 
-\item{base_face}{The base face of the text theme element. Defaults to "plain".}
+\item{text_face}{The base face of the text theme element. Defaults to "plain".}
 
 \item{legend_position}{The position of the legend. Either "right", "top" or "bottom".}
 

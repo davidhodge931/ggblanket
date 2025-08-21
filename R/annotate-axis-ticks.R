@@ -268,14 +268,14 @@ annotate_axis_ticks <- function(
 
         if (rlang::is_null(tick_length)) {
           # Fallback for minor
-          base_size <- current_theme$text$size %||% 11
-          tick_length <- grid::unit(0.375 * base_size, "pt")
+          text_size <- current_theme$text$size %||% 11
+          tick_length <- grid::unit(0.375 * text_size, "pt")
         } else if (!inherits(tick_length, "unit")) {
           if (is.numeric(tick_length)) {
             tick_length <- grid::unit(tick_length, "pt")
           } else {
-            base_size <- current_theme$text$size %||% 11
-            tick_length <- grid::unit(0.375 * base_size, "pt")
+            text_size <- current_theme$text$size %||% 11
+            tick_length <- grid::unit(0.375 * text_size, "pt")
           }
         }
       }
@@ -285,8 +285,8 @@ annotate_axis_ticks <- function(
 
       if (rlang::is_null(tick_length)) {
         # Fallback for major
-        base_size <- current_theme$text$size %||% 11
-        tick_length <- grid::unit(0.5 * base_size, "pt")
+        text_size <- current_theme$text$size %||% 11
+        tick_length <- grid::unit(0.5 * text_size, "pt")
       } else if (inherits(tick_length, "rel")) {
         # Major tick rel() is relative to spacing
         spacing <- current_theme$spacing %||% grid::unit(5.5, "pt")
@@ -300,8 +300,8 @@ annotate_axis_ticks <- function(
         if (is.numeric(tick_length)) {
           tick_length <- grid::unit(tick_length, "pt")
         } else {
-          base_size <- current_theme$text$size %||% 11
-          tick_length <- grid::unit(0.5 * base_size, "pt")
+          text_size <- current_theme$text$size %||% 11
+          tick_length <- grid::unit(0.5 * text_size, "pt")
         }
       }
     }
@@ -313,11 +313,11 @@ annotate_axis_ticks <- function(
       tick_length <- grid::unit(length, "pt")
     } else {
       # Fallback
-      base_size <- current_theme$text$size %||% 11
+      text_size <- current_theme$text$size %||% 11
       if (minor) {
-        tick_length <- grid::unit(0.375 * base_size, "pt")
+        tick_length <- grid::unit(0.375 * text_size, "pt")
       } else {
-        tick_length <- grid::unit(0.5 * base_size, "pt")
+        tick_length <- grid::unit(0.5 * text_size, "pt")
       }
     }
   }
