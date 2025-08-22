@@ -1,13 +1,13 @@
 #' Lighter theme
 #'
-#' @description A lighter complete theme. Legend place includes many legend elements including position.
+#' @description A lighter complete theme.
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param text_size The base size of the text theme element. Defaults to 10.
 #' @param text_family The base family of the text theme element. Defaults to "".
 #' @param text_colour The base colour of the text theme element.
 #' @param text_face The base face of the text theme element. Defaults to "plain".
-#' @param legend_place The position of the legend. Either "right", "top" or "bottom".
+#' @param legend_place The place of the legend. Either "right", "top" or "bottom".
 #' @param legend_axis_line_colour The colour of the legend.axis.line theme element.
 #' @param legend_axis_line_linewidth The linewidth of the legend.axis.line theme element.
 #' @param legend_background_fill The fill (and colour) of the legend.background theme element.
@@ -276,7 +276,7 @@ theme_lighter <- function(
         face = caption_face,
         colour = caption_colour,
         hjust = caption_hjust,
-        margin = ggplot2::margin(t = 5.50, r = 0, b = 5.50, l = 0)
+        margin = ggplot2::margin(t = 5.50, r = 0, b = 0, l = 0)
       ),
       plot.caption.position = "plot",
       plot.tag = ggplot2::element_text(
@@ -285,7 +285,7 @@ theme_lighter <- function(
         vjust = 0.5
       ),
       plot.tag.position = "topleft",
-      plot.margin = ggplot2::margin(7.5, 7.5, 7.5, 7.5),
+      plot.margin = ggplot2::margin(7.5, 10, 7.5, 7.5),
       complete = TRUE
     )
 
@@ -403,8 +403,9 @@ legend_place <- function(legend_place = "right",
         colour = legend_key_fill,
         fill = legend_key_fill
       ),
-      legend.key.height = ggplot2::rel(1),
-      legend.key.width = ggplot2::rel(0.6),
+      legend.key.height = ggplot2::rel(0.6),
+      legend.key.width = ggplot2::rel(1),
+
       legend.key.spacing = NULL,
       legend.key.spacing.x = grid::unit(11, "pt"),
       legend.key.spacing.y = grid::unit(3.63, "pt"),
@@ -445,7 +446,8 @@ legend_place <- function(legend_place = "right",
       legend.justification = c(0, 0.5),
       legend.location = "plot",
       legend.title.position = "top",
-      legend.margin = ggplot2::margin(t = 0, r = 22, b = 8.25, l = 0),
+      legend.margin = ggplot2::margin(t = 0, r = 22, b = 0, l = 0),
+      # legend.margin = ggplot2::margin(t = 0, r = 22, b = 8.25, l = 0),
       legend.box = "vertical",
       legend.box.just = "left",
       legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
@@ -459,8 +461,9 @@ legend_place <- function(legend_place = "right",
         colour = legend_key_fill,
         fill = legend_key_fill
       ),
-      legend.key.height = ggplot2::rel(1),
-      legend.key.width = ggplot2::rel(0.6),
+      legend.key.height = ggplot2::rel(0.6),
+      legend.key.width = ggplot2::rel(1),
+
       legend.key.spacing = NULL,
       legend.key.spacing.x = grid::unit(11, "pt"),
       legend.key.spacing.y = grid::unit(3.63, "pt"),
