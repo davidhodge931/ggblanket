@@ -1361,7 +1361,6 @@ gg_blanket <- function(
         # Only title provided - add newline to title
         title <- paste0(title, "\n")
       }
-      # If both are NULL, do nothing
 
       # Apply labels
       plot <- plot +

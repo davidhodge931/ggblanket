@@ -12,9 +12,9 @@ reference:
   - starts_with("gg_")
 - title: Theme
 - contents:
+  - theme_greyer
   - theme_lighter
   - theme_darker
-  - theme_greyer
   - legend_place
 - title: Annotate
 - contents:

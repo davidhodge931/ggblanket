@@ -100,7 +100,7 @@ set_blanket <- function(
 
   update_geom_font()
 
-  update_geom_hvline()
+  update_geom_reference_line()
 
   update_aspect(
     axis_line_aspect = axis_line_aspect,

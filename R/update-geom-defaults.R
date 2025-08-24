@@ -358,7 +358,7 @@ update_geom_font <- function(
 #' @return Updated geom defaults
 #'
 #' @noRd
-update_geom_hvline <- function(
+update_geom_reference_line <- function(
   ...,
   colour = NULL,
   linewidth = NULL
