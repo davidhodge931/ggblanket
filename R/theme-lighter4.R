@@ -168,37 +168,6 @@ theme_lighter <- function(
         margin = ggplot2::margin(l = 2.75),
         hjust = 0
       ),
-      legend.spacing = grid::unit(11, "pt"),
-      legend.spacing.y = grid::unit(16.50, "pt"),
-      legend.spacing.x = NULL,
-      legend.key = ggplot2::element_rect(
-        colour = legend_key_fill,
-        fill = legend_key_fill
-      ),
-      legend.key.height = ggplot2::rel(1),
-      legend.key.width = ggplot2::rel(0.6),
-      legend.key.spacing = NULL,
-      legend.key.spacing.x = grid::unit(11, "pt"),
-      legend.key.spacing.y = grid::unit(3.63, "pt"),
-      legend.frame = NULL,
-      legend.text = ggplot2::element_text(
-        margin = ggplot2::margin(5.5, 5.5, 5.5, 5.5)
-      ),
-      legend.axis.line = ggplot2::element_line(
-        colour = legend_axis_line_colour,
-        linewidth = legend_axis_line_linewidth
-      ),
-      legend.ticks = ggplot2::element_line(
-        colour = legend_ticks_colour,
-        linewidth = legend_ticks_linewidth
-      ),
-      legend.ticks.length = legend_ticks_length,
-      legend.box.background = NULL,
-      legend.box.spacing = NULL,
-      legend.background = ggplot2::element_rect(
-        colour = legend_background_fill,
-        fill = legend_background_fill
-      ),
       panel.background = ggplot2::element_rect(
         colour = panel_background_fill,
         fill = panel_background_fill
@@ -354,7 +323,7 @@ legend_place <- function(legend_place = "right",
       legend.key.spacing.y = grid::unit(3.63, "pt"),
       legend.frame = NULL,
       legend.text = ggplot2::element_text(
-        margin = ggplot2::margin(5.5, 5.5, 5.5, 5.5)
+        margin = ggplot2::margin(5.5, 0, 5.5, 5.5)
       ),
       legend.axis.line = ggplot2::element_line(
         colour = legend_axis_line_colour,

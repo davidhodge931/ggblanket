@@ -75,7 +75,7 @@ gg_density(
   col_palette = NULL,
   col_na = NULL,
   col_rescaler = scales::rescale,
-  col_scale_class = "continuous",
+  col_scale_type = "continuous",
   col_transform = NULL,
   colour_palette = NULL,
   colour_na = NULL,
@@ -166,7 +166,7 @@ gg_density(
 
 \item{col_rescaler}{For a continuous variable, a \code{scales::rescale} function. E.g. \verb{(x, ...) scales::rescale_mid(x, mid = 100)}.}
 
-\item{col_scale_class}{Either \code{"continuous"} or \code{"binned"}. Defaults to \code{"continuous"}.}
+\item{col_scale_type}{Either \code{"continuous"} or \code{"binned"}. Defaults to \code{"continuous"}.}
 
 \item{shape_palette}{A numeric vector of shape codes or a \verb{scales::pal_*()} function. If NULL, uses the value from \code{getOption("ggblanket.shape_palette")}.}
 
