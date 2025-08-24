@@ -18,7 +18,7 @@ theme_greyer(
   legend_ticks_colour = legend_axis_line_colour,
   legend_ticks_linewidth = legend_axis_line_linewidth,
   legend_ticks_length = ggplot2::rel(c(0.175, 0)),
-  axis_line_colour = "#646464",
+  axis_line_colour = "#121B24FF",
   axis_line_linewidth = 0.25,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,

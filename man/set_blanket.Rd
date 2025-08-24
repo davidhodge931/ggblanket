@@ -6,7 +6,7 @@
 \usage{
 set_blanket(
   ...,
-  theme = theme_lighter(),
+  theme = theme_greyer(),
   col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
   col_palette_discrete = scales::pal_hue(),
   col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako")),

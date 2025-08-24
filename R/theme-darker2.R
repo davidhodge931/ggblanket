@@ -1,6 +1,6 @@
 #' Darker theme
 #'
-#' @description A darker complete theme.
+#' @description A darker complete theme. Legend place includes many legend elements including position.
 #'
 #' @inheritParams theme_lighter
 #'
@@ -39,10 +39,11 @@ theme_darker <- function(
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = ggplot2::rel(0.66),
     plot_background_fill = "#00040AFF",
-    panel_background_fill = "#050D1BFF",
+    # panel_background_fill = "#050D1BFF",
+    panel_background_fill = "#0E131EFF",
     panel_grid_colour = "#00040AFF",
     panel_grid_major_linetype = 1,
-    panel_grid_major_linewidth = 1.33,
+    panel_grid_major_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
     panel_heights = NULL,
