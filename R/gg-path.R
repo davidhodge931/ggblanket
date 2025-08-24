@@ -99,7 +99,7 @@ gg_path <- function(
   col_na = NULL,
 
   col_rescaler = scales::rescale,
-  col_scale_class = "continuous",
+  col_scale_type = "continuous",
   col_transform = NULL,
   colour_palette = NULL,
   colour_na = NULL,
@@ -200,7 +200,7 @@ gg_path <- function(
     col_na = col_na,
 
     col_rescaler = col_rescaler,
-    col_scale_class = col_scale_class,
+    col_scale_type = col_scale_type,
     col_title = col_title,
     col_transform = col_transform,
     colour_palette = colour_palette,

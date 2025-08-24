@@ -34,7 +34,7 @@
 #' @param col_na,colour_na,fill_na A hex code (or name) for the `NA` value.
 #' @param colour_border_transform A function with input of `col` or `col_palette`. Defaults to screen/multiply based on theme.
 #' @param fill_border_transform A function with input of `col` or `col_palette`. Defaults to NULL.
-#' @param col_scale_class Either `"continuous"` or `"binned"`. Defaults to `"continuous"`.
+#' @param col_scale_type Either `"continuous"` or `"binned"`. Defaults to `"continuous"`.
 #' @param facet_axes Whether to add interior axes and ticks with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`. Sometimes `+ *_*()` may be needed.
 #' @param facet_axis_labels Whether to add interior axis labels with `"margins"`, `"all"`, `"all_x"`, or `"all_y"`.
 #' @param facet_layout Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a single `facet` (or `facet2`) argument is provided, then defaults to `"wrap"`. If `NULL` and both facet and facet2 arguments are provided, defaults to `"grid"`.
@@ -141,7 +141,7 @@ gg_blanket <- function(
     col_na = NULL,
     col_legend_rev = NULL,
     col_rescaler = scales::rescale,
-    col_scale_class = "continuous",
+    col_scale_type = "continuous",
     col_transform = NULL,
     colour_border_transform = NULL,
     colour_palette = NULL,
@@ -1053,7 +1053,7 @@ gg_blanket <- function(
           col_legend_nrow = col_legend_nrow,
           col_legend_rev = col_legend_rev,
           col_rescaler = col_rescaler,
-          col_scale_class = col_scale_class,
+          col_scale_type = col_scale_type,
           col_transform = col_transform,
           colour_palette_d = colour_palette_d,
           colour_palette_c = colour_palette_c,

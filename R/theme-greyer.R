@@ -39,6 +39,7 @@ theme_greyer <- function(
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = ggplot2::rel(0.66),
     panel_background_fill = "#f2f2f2",
+    # panel_background_fill = "#EBEBEBFF",
     plot_background_fill = "#FFFFFFFF",
     panel_grid_colour = "#d1d1d1",
     panel_grid_major_linetype = 1,

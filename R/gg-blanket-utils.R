@@ -2162,7 +2162,7 @@ add_initial_layer <- function(
     col_legend_nrow,
     col_legend_rev,
     col_rescaler,
-    col_scale_class,
+    col_scale_type,
     col_transform,
     colour_palette_d,
     colour_palette_c,
@@ -2230,7 +2230,7 @@ add_initial_layer <- function(
       col_labels,
       col_legend_rev,
       col_rescaler,
-      col_scale_class,
+      col_scale_type,
       col_transform,
       aes_list,
       plot_build,
@@ -2410,7 +2410,7 @@ add_initial_layer <- function(
     col_labels,
     col_legend_rev,
     col_rescaler,
-    col_scale_class,
+    col_scale_type,
     col_transform,
     aes_list,
     plot_build,
@@ -2422,7 +2422,7 @@ add_initial_layer <- function(
   }
 
   # Choose scale type
-  if (col_scale_class == "binned") {
+  if (col_scale_type == "binned") {
     # Use binned scales
     plot <- plot +
       ggplot2::scale_colour_binned(
