@@ -24,7 +24,6 @@ theme_greyer <- function(
     text_size = 10,
     text_family = "",
     text_colour = "#121B24FF",
-    text_face = "plain",
     legend_place = "right",
     legend_axis_line_colour = plot_background_fill,
     legend_axis_line_linewidth = axis_line_linewidth,
@@ -50,11 +49,9 @@ theme_greyer <- function(
     title_size = text_size,
     title_family = text_family,
     title_colour = text_colour,
-    title_face = text_face,
     subtitle_size = text_size,
     subtitle_family = text_family,
     subtitle_colour = text_colour,
-    subtitle_face = text_face,
     caption_size = ggplot2::rel(0.9),
     caption_family = text_family,
     caption_colour = ifelse(
@@ -62,7 +59,6 @@ theme_greyer <- function(
       blend_screen(text_colour),
       blend_multiply(text_colour)
     ),
-    caption_face = text_face,
     caption_hjust = 0
 ) {
   theme_lighter(
@@ -70,7 +66,6 @@ theme_greyer <- function(
     text_size = text_size,
     text_family = text_family,
     text_colour = text_colour,
-    text_face = text_face,
     legend_place = legend_place,
     legend_axis_line_colour = legend_axis_line_colour,
     legend_axis_line_linewidth = legend_axis_line_linewidth,
@@ -96,15 +91,12 @@ theme_greyer <- function(
     title_size = title_size,
     title_family = title_family,
     title_colour = title_colour,
-    title_face = title_face,
     subtitle_size = subtitle_size,
     subtitle_family = subtitle_family,
     subtitle_colour = subtitle_colour,
-    subtitle_face = subtitle_face,
     caption_size = caption_size,
     caption_family = caption_family,
     caption_colour = caption_colour,
-    caption_face = caption_face,
     caption_hjust = caption_hjust
   )
 }

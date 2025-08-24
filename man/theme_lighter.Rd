@@ -9,7 +9,6 @@ theme_lighter(
   text_size = 10,
   text_family = "",
   text_colour = "#121B24FF",
-  text_face = "plain",
   legend_place = "right",
   legend_axis_line_colour = plot_background_fill,
   legend_axis_line_linewidth = axis_line_linewidth,
@@ -35,16 +34,13 @@ theme_lighter(
   title_size = text_size,
   title_family = text_family,
   title_colour = text_colour,
-  title_face = text_face,
   subtitle_size = text_size,
   subtitle_family = text_family,
   subtitle_colour = text_colour,
-  subtitle_face = text_face,
   caption_size = ggplot2::rel(0.9),
   caption_family = text_family,
   caption_colour = ifelse(is_panel_light(), blend_screen(text_colour),
     blend_multiply(text_colour)),
-  caption_face = text_face,
   caption_hjust = 0
 )
 }
@@ -56,8 +52,6 @@ theme_lighter(
 \item{text_family}{The base family of the text theme element. Defaults to "".}
 
 \item{text_colour}{The base colour of the text theme element.}
-
-\item{text_face}{The base face of the text theme element. Defaults to "plain".}
 
 \item{legend_place}{The place of the legend. Either "right", "top" or "bottom".}
 
@@ -109,23 +103,17 @@ theme_lighter(
 
 \item{title_colour}{The colour of the plot.title theme element.}
 
-\item{title_face}{The face of the plot.title theme element.}
-
 \item{subtitle_size}{The size of the plot.subtitle theme element.}
 
 \item{subtitle_family}{The family of the plot.subtitle theme element.}
 
 \item{subtitle_colour}{The colour of the plot.subtitle theme element.}
 
-\item{subtitle_face}{The face of the plot.subtitle theme element.}
-
 \item{caption_size}{The size of the plot.caption theme element.}
 
 \item{caption_family}{The family of the plot.caption theme element.}
 
 \item{caption_colour}{The colour of the plot.caption theme element.}
-
-\item{caption_face}{The face of the plot.caption theme element.}
 
 \item{caption_hjust}{The horizontal adjustment of the plot.caption theme element.}
 }

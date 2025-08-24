@@ -6,7 +6,6 @@
 #' @param text_size The base size of the text theme element. Defaults to 10.
 #' @param text_family The base family of the text theme element. Defaults to "".
 #' @param text_colour The base colour of the text theme element.
-#' @param text_face The base face of the text theme element. Defaults to "plain".
 #' @param legend_place The place of the legend. Either "right", "top" or "bottom".
 #' @param legend_axis_line_colour The colour of the legend.axis.line theme element.
 #' @param legend_axis_line_linewidth The linewidth of the legend.axis.line theme element.
@@ -32,15 +31,12 @@
 #' @param title_size The size of the plot.title theme element.
 #' @param title_family The family of the plot.title theme element.
 #' @param title_colour The colour of the plot.title theme element.
-#' @param title_face The face of the plot.title theme element.
 #' @param subtitle_size The size of the plot.subtitle theme element.
 #' @param subtitle_family The family of the plot.subtitle theme element.
 #' @param subtitle_colour The colour of the plot.subtitle theme element.
-#' @param subtitle_face The face of the plot.subtitle theme element.
 #' @param caption_size The size of the plot.caption theme element.
 #' @param caption_family The family of the plot.caption theme element.
 #' @param caption_colour The colour of the plot.caption theme element.
-#' @param caption_face The face of the plot.caption theme element.
 #' @param caption_hjust The horizontal adjustment of the plot.caption theme element.
 #'
 #' @return A ggplot theme.
@@ -63,7 +59,6 @@ theme_lighter <- function(
     text_size = 10,
     text_family = "",
     text_colour = "#121B24FF",
-    text_face = "plain",
     legend_place = "right",
     legend_axis_line_colour = plot_background_fill,
     legend_axis_line_linewidth = axis_line_linewidth,
@@ -89,11 +84,9 @@ theme_lighter <- function(
     title_size = text_size,
     title_family = text_family,
     title_colour = text_colour,
-    title_face = text_face,
     subtitle_size = text_size,
     subtitle_family = text_family,
     subtitle_colour = text_colour,
-    subtitle_face = text_face,
     caption_size = ggplot2::rel(0.9),
     caption_family = text_family,
     caption_colour = ifelse(
@@ -101,7 +94,6 @@ theme_lighter <- function(
       blend_screen(text_colour),
       blend_multiply(text_colour)
     ),
-    caption_face = text_face,
     caption_hjust = 0
 ) {
   # Base theme (same for all legend positions)
@@ -111,14 +103,13 @@ theme_lighter <- function(
       text = ggplot2::element_text(
         size = text_size,
         family = text_family,
-        face = "plain",
         colour = text_colour,
         lineheight = 0.9,
         hjust = 0.5,
         vjust = 0.5,
         angle = 0,
         margin = ggplot2::margin(),
-        debug = FALSE
+        # debug = FALSE
       ),
       axis.line = ggplot2::element_line(
         colour = axis_line_colour,
@@ -225,7 +216,6 @@ theme_lighter <- function(
       plot.title = ggplot2::element_text(
         size = title_size,
         family = title_family,
-        face = title_face,
         colour = title_colour,
         hjust = 0,
         margin = ggplot2::margin(b = 27.50)
@@ -234,7 +224,6 @@ theme_lighter <- function(
       plot.subtitle = ggplot2::element_text(
         size = subtitle_size,
         family = subtitle_family,
-        face = subtitle_face,
         colour = subtitle_colour,
         hjust = 0,
         margin = ggplot2::margin(b = 22)
@@ -242,7 +231,6 @@ theme_lighter <- function(
       plot.caption = ggplot2::element_text(
         size = caption_size,
         family = caption_family,
-        face = caption_face,
         colour = caption_colour,
         hjust = caption_hjust,
         margin = ggplot2::margin(t = 12.5, r = 0, b = 0, l = 0)

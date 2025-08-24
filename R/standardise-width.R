@@ -24,13 +24,13 @@ width_reference <- list(
 #'
 #' @export
 update_width_reference <- function(
-  ...,
-  width = NULL,
-  n = NULL,
-  dodge_n = NULL,
-  aspect = NULL,
-  panel_heights = NULL,
-  panel_widths = NULL
+    ...,
+    width = NULL,
+    n = NULL,
+    dodge_n = NULL,
+    aspect = NULL,
+    panel_heights = NULL,
+    panel_widths = NULL
 ) {
   width_reference <- getOption("ggblanket.width_reference", width_reference)
 
@@ -154,12 +154,12 @@ update_width_reference <- function(
 #'   coord_cartesian(reverse = "y", clip = "off")
 #'
 standardise_width <- function(
-  ...,
-  n = NULL,
-  dodge_n = 1,
-  aspect = "x",
-  panel_widths = ggplot2::theme_get()$panel.widths,
-  panel_heights = ggplot2::theme_get()$panel.heights
+    ...,
+    n = NULL,
+    dodge_n = 1,
+    aspect = "x",
+    panel_widths = ggplot2::theme_get()$panel.widths,
+    panel_heights = ggplot2::theme_get()$panel.heights
 ) {
   if (missing(n)) {
     rlang::abort("n must be specified")
@@ -182,9 +182,9 @@ standardise_width <- function(
   # Validation
   if (
     rlang::is_null(panel_widths) |
-      rlang::is_null(panel_heights) |
-      rlang::is_null(ws$panel_widths) |
-      rlang::is_null(ws$panel_heights)
+    rlang::is_null(panel_heights) |
+    rlang::is_null(ws$panel_widths) |
+    rlang::is_null(ws$panel_heights)
   ) {
     rlang::abort("panel widths and heights must be set or specified")
   }
@@ -202,19 +202,20 @@ standardise_width <- function(
   # Panel dimension adjustment
   if (
     !rlang::is_null(ws$panel_widths) |
-      !rlang::is_null(ws$panel_heights) |
-      !rlang::is_null(panel_widths) |
-      !rlang::is_null(panel_heights)
+    !rlang::is_null(ws$panel_heights) |
+    !rlang::is_null(panel_widths) |
+    !rlang::is_null(panel_heights)
   ) {
+    # Convert all units to mm for consistent comparison
     from_dim <- if (aspect == "x") {
-      as.numeric(panel_widths)[1]
+      grid::convertUnit(panel_widths[1], "mm", valueOnly = TRUE)
     } else {
-      as.numeric(panel_heights)[1]
+      grid::convertUnit(panel_heights[1], "mm", valueOnly = TRUE)
     }
     to_dim <- if (ws$aspect == "x") {
-      as.numeric(ws$panel_widths)[1]
+      grid::convertUnit(ws$panel_widths[1], "mm", valueOnly = TRUE)
     } else {
-      as.numeric(ws$panel_heights)[1]
+      grid::convertUnit(ws$panel_heights[1], "mm", valueOnly = TRUE)
     }
     scaling_factor <- to_dim / from_dim
     width <- width * scaling_factor
