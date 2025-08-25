@@ -273,7 +273,7 @@ theme_lighter <- function(
 #' @param legend_ticks_length The legend.ticks.length theme element.
 #'
 #' @return A ggplot theme object with legend position settings.
-#' @export
+#' @noRd
 #'
 legend_place <- function(legend_place = "right",
                          legend_key_fill = "#FFFFFFFF",

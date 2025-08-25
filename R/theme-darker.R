@@ -91,15 +91,12 @@ theme_darker <- function(
     title_size = title_size,
     title_family = title_family,
     title_colour = title_colour,
-    title_face = title_face,
     subtitle_size = subtitle_size,
     subtitle_family = subtitle_family,
     subtitle_colour = subtitle_colour,
-    subtitle_face = subtitle_face,
     caption_size = caption_size,
     caption_family = caption_family,
     caption_colour = caption_colour,
-    caption_face = caption_face,
     caption_hjust = caption_hjust
   )
 }
