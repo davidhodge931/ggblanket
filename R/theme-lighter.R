@@ -66,7 +66,7 @@ theme_lighter <- function(
     legend_key_fill = plot_background_fill,
     legend_ticks_colour = legend_axis_line_colour,
     legend_ticks_linewidth = legend_axis_line_linewidth,
-    legend_ticks_length = ggplot2::rel(c(0.175, 0)),
+    legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
     axis_line_colour = "#121B24FF",
     axis_line_linewidth = 0.25,
     axis_ticks_colour = axis_line_colour,
@@ -247,7 +247,7 @@ theme_lighter <- function(
     )
 
   # Apply legend position specific settings
-  theme + legend_place(
+  theme + move_legend_place(
     legend_place = legend_place,
     legend_key_fill = legend_key_fill,
     legend_background_fill = legend_background_fill,
@@ -259,7 +259,7 @@ theme_lighter <- function(
   )
 }
 
-#' Legend place
+#' Move the legend place
 #'
 #' @description Set legend position with optimized spacing for each placement.
 #'
@@ -273,16 +273,27 @@ theme_lighter <- function(
 #' @param legend_ticks_length The legend.ticks.length theme element.
 #'
 #' @return A ggplot theme object with legend position settings.
-#' @noRd
+#' @export
 #'
-legend_place <- function(legend_place = "right",
-                         legend_key_fill = "#FFFFFFFF",
-                         legend_background_fill = "#FFFFFFFF",
-                         legend_axis_line_colour = "#FFFFFFFF",
-                         legend_axis_line_linewidth = 0.25,
-                         legend_ticks_colour = "#FFFFFFFF",
-                         legend_ticks_linewidth = 0.25,
-                         legend_ticks_length = ggplot2::rel(c(0.175, 0))) {
+move_legend_place <- function(legend_place = "right",
+                              legend_key_fill = NULL,
+                              legend_background_fill = NULL,
+                              legend_axis_line_colour = NULL,
+                              legend_axis_line_linewidth = NULL,
+                              legend_ticks_colour = NULL,
+                              legend_ticks_linewidth = NULL,
+                              legend_ticks_length = NULL) {
+
+  current_theme <- ggplot2::get_theme()
+
+  if (rlang::is_null(legend_key_fill)) legend_key_fill <- ggplot2::calc_element("legend.key", current_theme)@fill
+  if (rlang::is_null(legend_background_fill)) legend_background_fill <- ggplot2::calc_element("legend.background", current_theme)@fill
+  if (rlang::is_null(legend_axis_line_colour)) legend_axis_line_colour <- ggplot2::calc_element("legend.axis.line", current_theme)@colour
+  if (rlang::is_null(legend_axis_line_linewidth)) legend_axis_line_linewidth <- ggplot2::calc_element("legend.axis.line", current_theme)@linewidth
+  if (rlang::is_null(legend_ticks_colour)) legend_ticks_colour <- ggplot2::calc_element("legend.ticks", current_theme)@colour
+  if (rlang::is_null(legend_ticks_linewidth)) legend_ticks_linewidth <- ggplot2::calc_element("legend.ticks", current_theme)@linewidth
+  if (rlang::is_null(legend_ticks_length)) legend_ticks_length <- ggplot2::calc_element("legend.ticks.length", current_theme)
+
   if (legend_place == "right") {
     ggplot2::theme(
       # All legend elements for right position
