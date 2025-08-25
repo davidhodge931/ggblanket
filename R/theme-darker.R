@@ -45,21 +45,7 @@ theme_darker <- function(
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
     panel_heights = NULL,
-    panel_widths = NULL,
-    title_size = text_size,
-    title_family = text_family,
-    title_colour = text_colour,
-    subtitle_size = text_size,
-    subtitle_family = text_family,
-    subtitle_colour = text_colour,
-    caption_size = ggplot2::rel(0.9),
-    caption_family = text_family,
-    caption_colour = ifelse(
-      is_panel_light(),
-      blend_screen(text_colour),
-      blend_multiply(text_colour)
-    ),
-    caption_hjust = 0
+    panel_widths = NULL
 ) {
   theme_lighter(
     ...,
@@ -87,16 +73,6 @@ theme_darker <- function(
     panel_grid_minor_linetype = panel_grid_minor_linetype,
     panel_grid_minor_linewidth = panel_grid_minor_linewidth,
     panel_heights = panel_heights,
-    panel_widths = panel_widths,
-    title_size = title_size,
-    title_family = title_family,
-    title_colour = title_colour,
-    subtitle_size = subtitle_size,
-    subtitle_family = subtitle_family,
-    subtitle_colour = subtitle_colour,
-    caption_size = caption_size,
-    caption_family = caption_family,
-    caption_colour = caption_colour,
-    caption_hjust = caption_hjust
+    panel_widths = panel_widths
   )
 }

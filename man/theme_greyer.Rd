@@ -30,18 +30,7 @@ theme_greyer(
   panel_grid_minor_linetype = 0,
   panel_grid_minor_linewidth = ggplot2::rel(0.5),
   panel_heights = NULL,
-  panel_widths = NULL,
-  title_size = text_size,
-  title_family = text_family,
-  title_colour = text_colour,
-  subtitle_size = text_size,
-  subtitle_family = text_family,
-  subtitle_colour = text_colour,
-  caption_size = ggplot2::rel(0.9),
-  caption_family = text_family,
-  caption_colour = ifelse(is_panel_light(), blend_screen(text_colour),
-    blend_multiply(text_colour)),
-  caption_hjust = 0
+  panel_widths = NULL
 )
 }
 \arguments{
@@ -96,26 +85,6 @@ theme_greyer(
 \item{panel_heights}{The height of the panels.}
 
 \item{panel_widths}{The width of the panels.}
-
-\item{title_size}{The size of the plot.title theme element.}
-
-\item{title_family}{The family of the plot.title theme element.}
-
-\item{title_colour}{The colour of the plot.title theme element.}
-
-\item{subtitle_size}{The size of the plot.subtitle theme element.}
-
-\item{subtitle_family}{The family of the plot.subtitle theme element.}
-
-\item{subtitle_colour}{The colour of the plot.subtitle theme element.}
-
-\item{caption_size}{The size of the plot.caption theme element.}
-
-\item{caption_family}{The family of the plot.caption theme element.}
-
-\item{caption_colour}{The colour of the plot.caption theme element.}
-
-\item{caption_hjust}{The horizontal adjustment of the plot.caption theme element.}
 }
 \value{
 A ggplot theme.

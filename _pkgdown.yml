@@ -15,7 +15,6 @@ reference:
   - theme_greyer
   - theme_lighter
   - theme_darker
-  - legend_place
 - title: Annotate
 - contents:
   - annotate_axis_line
@@ -46,3 +45,4 @@ reference:
   - label_every_nth
   - guides_grey
   - jumble
+  - move_legend_place

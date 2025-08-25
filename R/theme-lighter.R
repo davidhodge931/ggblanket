@@ -28,16 +28,6 @@
 #' @param panel_grid_minor_linewidth The linewidth of the panel.grid.minor theme element.
 #' @param panel_heights The height of the panels.
 #' @param panel_widths The width of the panels.
-#' @param title_size The size of the plot.title theme element.
-#' @param title_family The family of the plot.title theme element.
-#' @param title_colour The colour of the plot.title theme element.
-#' @param subtitle_size The size of the plot.subtitle theme element.
-#' @param subtitle_family The family of the plot.subtitle theme element.
-#' @param subtitle_colour The colour of the plot.subtitle theme element.
-#' @param caption_size The size of the plot.caption theme element.
-#' @param caption_family The family of the plot.caption theme element.
-#' @param caption_colour The colour of the plot.caption theme element.
-#' @param caption_hjust The horizontal adjustment of the plot.caption theme element.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -80,22 +70,23 @@ theme_lighter <- function(
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
     panel_heights = NULL,
-    panel_widths = NULL,
-    title_size = text_size,
-    title_family = text_family,
-    title_colour = text_colour,
-    subtitle_size = text_size,
-    subtitle_family = text_family,
-    subtitle_colour = text_colour,
-    caption_size = ggplot2::rel(0.9),
-    caption_family = text_family,
-    caption_colour = ifelse(
-      is_panel_light(),
-      blend_screen(text_colour),
-      blend_multiply(text_colour)
-    ),
-    caption_hjust = 0
-) {
+    panel_widths = NULL
+    ) {
+  title_size <- text_size
+  title_family <- text_family
+  title_colour <- text_colour
+  subtitle_size <- text_size
+  subtitle_family <- text_family
+  subtitle_colour <- text_colour
+  caption_size <- ggplot2::rel(0.9)
+  caption_family <- text_family
+  caption_colour <- ifelse(
+    is_panel_light(),
+    blend_screen(text_colour),
+    blend_multiply(text_colour)
+  )
+  caption_hjust <- 0
+
   # Base theme (same for all legend positions)
   theme <-
     # ggplot2::theme_grey(text_size = text_size, text_family = text_family) %+replace%
