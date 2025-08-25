@@ -14,10 +14,10 @@
 update_geom_border <- function(
   ...,
   colour_border_transform = \(x) {
-    if (is_panel_light()) {
-      blend_multiply(x)
-    } else {
+    if (is_panel_dark()) {
       blend_screen(x)
+    } else {
+      blend_multiply(x)
     }
   },
 

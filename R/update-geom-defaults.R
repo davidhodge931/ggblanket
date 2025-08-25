@@ -11,7 +11,7 @@
 #' @export
 update_geom_col <- function(
   ...,
-  col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF")
+  col = ifelse(is_panel_dark(), "#357BA2FF", "#4797C3FF")
 ) {
   ggplot2::update_theme(geom = ggplot2::element_geom(colour = col, fill = col))
 

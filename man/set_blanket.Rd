@@ -7,18 +7,18 @@
 set_blanket(
   ...,
   theme = theme_greyer(),
-  col = ifelse(is_panel_light(), "#4797C3FF", "#357BA2FF"),
+  col = ifelse(is_panel_dark(), "#357BA2FF", "#4797C3FF"),
   col_palette_discrete = scales::pal_hue(),
   col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako")),
   col_palette_ordinal = NULL,
   col_na = "#A6A6A6FF",
   colour_border_transform = function(x) {
-     if (is_panel_light()) {
+     if (is_panel_dark()) {
         
-    blend_multiply(x)
+    blend_screen(x)
      }
      else {
-         blend_screen(x)
+         blend_multiply(x)
      }
  },
   fill_border_transform = NULL,

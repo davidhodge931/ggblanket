@@ -7,12 +7,12 @@
 update_geom_border(
   ...,
   colour_border_transform = function(x) {
-     if (is_panel_light()) {
+     if (is_panel_dark()) {
         
-    blend_multiply(x)
+    blend_screen(x)
      }
      else {
-         blend_screen(x)
+         blend_multiply(x)
      }
  },
   fill_border_transform = NULL,

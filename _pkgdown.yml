@@ -31,9 +31,7 @@ reference:
 - contents:
   - aes_contrast
   - direction_contrast
-  - is_col_light
   - is_col_dark
-  - is_panel_light
   - is_panel_dark
 - title: Width
 - contents:
