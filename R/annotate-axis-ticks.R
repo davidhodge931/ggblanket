@@ -1,42 +1,30 @@
-#' Annotate axis tick segments
-#'
-#' @description Create annotated segments of the axis ticks.
-#'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
-#'
-#' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
-#'
-#' It only works when panel dimensions are set are set in the theme.
-#'
-#' @param position The position of the axis ticks. One of "top", "bottom", "left", or "right".
-#' @param ... Require named arguments (and support trailing commas).
-#' @param x A vector of x-axis breaks for axis ticks. Cannot be used together with y. Use I() to specify normalized coordinates (0-1).
-#' @param y A vector of y-axis breaks for axis ticks. Cannot be used together with x. Use I() to specify normalized coordinates (0-1).
-#' @param minor Logical. If FALSE (default), creates major ticks. If TRUE, creates minor ticks.
-#' @param colour The colour of the annotated segment. Inherits from the current theme axis.ticks or axis.minor.ticks etc.
-#' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.ticks or axis.minor.ticks etc.
-#' @param length The absolute length of the annotated segment as a grid unit. Defaults to theme's axis.ticks.length or axis.minor.ticks.length.
-#' @param theme_element What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
-#'
-#' @return A list of a annotate layer and theme elements.
-#'
-#' @export
-#'
 annotate_axis_ticks <- function(
-    position,
     ...,
+    position = NULL,
     x = NULL,
     y = NULL,
     minor = FALSE,
     colour = NULL,
     linewidth = NULL,
     length = NULL,
-    theme_element = "keep"
+    theme = "keep"
 ) {
-  # Validate arguments
-  if (!position %in% c("top", "bottom", "left", "right")) {
-    rlang::abort("position must be one of 'top', 'bottom', 'left', or 'right'")
+  # Determine position from x/y if not specified
+  if (rlang::is_null(position)) {
+    if (!rlang::is_null(x) && !rlang::is_null(y)) {
+      rlang::abort("Cannot specify both x and y. Use either x for top/bottom positions or y for left/right positions.")
+    }
+    if (!rlang::is_null(x)) {
+      position <- "bottom"
+    } else if (!rlang::is_null(y)) {
+      position <- "left"
+    } else {
+      rlang::abort("Must specify either position, x, or y")
+    }
   }
+
+  # Validate position
+  position <- rlang::arg_match(position, c("top", "bottom", "left", "right"))
 
   # Check if values are wrapped in I() to determine coordinate type
   x_is_normalized <- !rlang::is_null(x) && inherits(x, "AsIs")
@@ -79,11 +67,7 @@ annotate_axis_ticks <- function(
     use_normalized <- y_is_normalized
   }
 
-  if (!theme_element %in% c("transparent", "keep", "blank")) {
-    rlang::abort(
-      "theme_element must be one of 'transparent', 'keep', or 'blank'"
-    )
-  }
+  theme <- rlang::arg_match(theme, c("keep", "transparent", "blank"))
 
   # Determine axis from position
   axis <- if (position %in% c("top", "bottom")) "x" else "y"
@@ -325,19 +309,19 @@ annotate_axis_ticks <- function(
   stamp <- list()
 
   # Add theme modification if requested
-  if (theme_element != "keep") {
+  if (theme != "keep") {
     # Determine which theme element to modify based on minor flag
     if (minor) {
-      theme_element_name <- paste0("axis.minor.ticks.", axis, ".", position)
+      theme_name <- paste0("axis.minor.ticks.", axis, ".", position)
     } else {
-      theme_element_name <- paste0("axis.ticks.", axis, ".", position)
+      theme_name <- paste0("axis.ticks.", axis, ".", position)
     }
 
     theme_mod <- list()
-    if (theme_element == "transparent") {
-      theme_mod[[theme_element_name]] <- ggplot2::element_line(colour = "transparent")
-    } else if (theme_element == "blank") {
-      theme_mod[[theme_element_name]] <- ggplot2::element_blank()
+    if (theme == "transparent") {
+      theme_mod[[theme_name]] <- ggplot2::element_line(colour = "transparent")
+    } else if (theme == "blank") {
+      theme_mod[[theme_name]] <- ggplot2::element_blank()
     }
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }

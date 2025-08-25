@@ -5,8 +5,8 @@
 \title{Annotate axis text segments}
 \usage{
 annotate_axis_text(
-  position,
   ...,
+  position = NULL,
   x = NULL,
   y = NULL,
   label = NULL,
@@ -19,13 +19,13 @@ annotate_axis_text(
   hjust = NULL,
   vjust = NULL,
   angle = 0,
-  theme_element = "keep"
+  theme = "keep"
 )
 }
 \arguments{
-\item{position}{The position of the axis text. One of "top", "bottom", "left", or "right".}
-
 \item{...}{Require named arguments (and support trailing commas).}
+
+\item{position}{The position of the axis text. One of "top", "bottom", "left", or "right".}
 
 \item{x}{A vector of x-axis breaks for text positioning. Use I() to specify normalized coordinates (0-1).}
 
@@ -49,7 +49,7 @@ annotate_axis_text(
 
 \item{angle}{Text rotation angle. Defaults to 0.}
 
-\item{theme_element}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
+\item{theme}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
 }
 \value{
 A list of annotation layers and theme elements.

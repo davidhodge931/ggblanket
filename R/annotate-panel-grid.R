@@ -11,7 +11,7 @@
 #' @param colour The colour of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.
 #' @param linewidth The linewidth of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.
 #' @param linetype The linetype of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.
-#' @param theme_element What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
+#' @param theme What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
 #'
 #' @return A list of annotate layers and theme elements.
 #' @export
@@ -24,7 +24,7 @@ annotate_panel_grid <- function(
     colour = NULL,
     linewidth = NULL,
     linetype = NULL,
-    theme_element = "keep"
+    theme = "keep"
 ) {
   # Validate arguments
   if (rlang::is_null(x) && rlang::is_null(y)) {
@@ -35,9 +35,9 @@ annotate_panel_grid <- function(
     rlang::abort("Only one of x or y can be specified")
   }
 
-  if (!theme_element %in% c("transparent", "keep", "blank")) {
+  if (!theme %in% c("transparent", "keep", "blank")) {
     rlang::abort(
-      "theme_element must be one of 'transparent', 'keep', or 'blank'"
+      "theme must be one of 'transparent', 'keep', or 'blank'"
     )
   }
 
@@ -149,7 +149,7 @@ annotate_panel_grid <- function(
   stamp <- list()
 
   # Add theme modification if requested
-  if (theme_element != "keep") {
+  if (theme != "keep") {
     # Determine which theme element to modify based on minor flag
     if (minor) {
       element_name <- paste0("panel.grid.minor.", axis)
@@ -157,7 +157,7 @@ annotate_panel_grid <- function(
       element_name <- paste0("panel.grid.major.", axis)
     }
 
-    if (theme_element == "transparent") {
+    if (theme == "transparent") {
       stamp <- c(
         stamp,
         list(
@@ -166,7 +166,7 @@ annotate_panel_grid <- function(
           )
         )
       )
-    } else if (theme_element == "blank") {
+    } else if (theme == "blank") {
       stamp <- c(
         stamp,
         list(

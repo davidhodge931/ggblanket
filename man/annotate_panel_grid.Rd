@@ -12,7 +12,7 @@ annotate_panel_grid(
   colour = NULL,
   linewidth = NULL,
   linetype = NULL,
-  theme_element = "keep"
+  theme = "keep"
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ annotate_panel_grid(
 
 \item{linetype}{The linetype of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.}
 
-\item{theme_element}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
+\item{theme}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
 }
 \value{
 A list of annotate layers and theme elements.

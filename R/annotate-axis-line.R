@@ -12,7 +12,7 @@
 #' @param y A single y-axis value for a horizontal line. Cannot be used together with x or position. Use I() for normalized coordinates (0-1).
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
-#' @param theme_element What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "transparent" if position specified. Otherwise defaults "keep".
+#' @param theme What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "transparent" if position specified. Otherwise defaults "keep".
 #'
 #' @return A list of a annotate layer and theme elements.
 #' @export
@@ -53,15 +53,15 @@ annotate_axis_line <- function(
     y = NULL,
     colour = NULL,
     linewidth = NULL,
-    theme_element = NULL
+    theme = NULL
 ) {
   # Validate arguments - can't have both x and y
   if (!rlang::is_null(x) && !rlang::is_null(y)) {
     rlang::abort("Cannot specify both x and y. Use either x for a vertical line or y for a horizontal line.")
   }
 
-  if (rlang::is_null(theme_element)) {
-    theme_element <- if (!rlang::is_null(position)) "transparent" else "keep"
+  if (rlang::is_null(theme)) {
+    theme <- if (!rlang::is_null(position)) "transparent" else "keep"
   }
 
   # If x or y is provided, it overrides position
@@ -109,9 +109,9 @@ annotate_axis_line <- function(
     use_normalized <- FALSE
   }
 
-  if (!theme_element %in% c("transparent", "keep", "blank")) {
+  if (!theme %in% c("transparent", "keep", "blank")) {
     rlang::abort(
-      "theme_element must be one of 'transparent', 'keep', or 'blank'"
+      "theme must be one of 'transparent', 'keep', or 'blank'"
     )
   }
 
@@ -314,16 +314,16 @@ annotate_axis_line <- function(
   }
 
   # Add theme modification if requested (only for position-based, not x/y)
-  if (!use_xy_positioning && theme_element != "keep") {
-    if (theme_element == "transparent") {
-      theme_element_name <- paste0("axis.line.", axis, ".", position)
+  if (!use_xy_positioning && theme != "keep") {
+    if (theme == "transparent") {
+      theme_name <- paste0("axis.line.", axis, ".", position)
       theme_mod <- list()
-      theme_mod[[theme_element_name]] <- ggplot2::element_line(colour = "transparent")
+      theme_mod[[theme_name]] <- ggplot2::element_line(colour = "transparent")
       stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
-    } else if (theme_element == "blank") {
-      theme_element_name <- paste0("axis.line.", axis, ".", position)
+    } else if (theme == "blank") {
+      theme_name <- paste0("axis.line.", axis, ".", position)
       theme_mod <- list()
-      theme_mod[[theme_element_name]] <- ggplot2::element_blank()
+      theme_mod[[theme_name]] <- ggplot2::element_blank()
       stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
     }
   }

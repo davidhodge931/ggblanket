@@ -8,8 +8,8 @@
 #'
 #' It only works when panel dimensions are set are set in the theme.
 #'
-#' @param position The position of the axis text. One of "top", "bottom", "left", or "right".
 #' @param ... Require named arguments (and support trailing commas).
+#' @param position The position of the axis text. One of "top", "bottom", "left", or "right".
 #' @param x A vector of x-axis breaks for text positioning. Use I() to specify normalized coordinates (0-1).
 #' @param y A vector of y-axis breaks for text positioning. Use I() to specify normalized coordinates (0-1).
 #' @param label A vector of text label or a function that takes breaks and returns label. If NULL, uses the `scales::comma` on the breaks as label.
@@ -21,14 +21,14 @@
 #' @param fill The fill colour of the background rectangle. If NULL, defaults to "transparent".
 #' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
 #' @param angle Text rotation angle. Defaults to 0.
-#' @param theme_element What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
+#' @param theme What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
 #'
 #' @return A list of annotation layers and theme elements.
 #' @export
 #'
 annotate_axis_text <- function(
-    position,
     ...,
+    position = NULL,
     x = NULL,
     y = NULL,
     label = NULL,
@@ -41,12 +41,24 @@ annotate_axis_text <- function(
     hjust = NULL,
     vjust = NULL,
     angle = 0,
-    theme_element = "keep"
+    theme = "keep"
 ) {
-  # Validate arguments
-  if (!position %in% c("top", "bottom", "left", "right")) {
-    rlang::abort("position must be one of 'top', 'bottom', 'left', or 'right'")
+  # Determine position from x/y if not specified
+  if (rlang::is_null(position)) {
+    if (!rlang::is_null(x) && !rlang::is_null(y)) {
+      rlang::abort("Cannot specify both x and y. Use either x for top/bottom positions or y for left/right positions.")
+    }
+    if (!rlang::is_null(x)) {
+      position <- "bottom"
+    } else if (!rlang::is_null(y)) {
+      position <- "left"
+    } else {
+      rlang::abort("Must specify either position, x, or y")
+    }
   }
+
+  # Validate position
+  position <- rlang::arg_match(position, c("top", "bottom", "left", "right"))
 
   # Check if values are wrapped in I() to determine coordinate type
   x_is_normalized <- !rlang::is_null(x) && inherits(x, "AsIs")
@@ -89,12 +101,9 @@ annotate_axis_text <- function(
     use_normalized <- y_is_normalized
   }
 
-  if (!theme_element %in% c("transparent", "keep", "blank")) {
-    rlang::abort(
-      "theme_element must be one of 'transparent', 'keep', or 'blank'"
-    )
-  }
+  theme <- rlang::arg_match(theme, c("keep", "transparent", "blank"))
 
+  # Rest of the function remains the same from line 88 onwards...
   # Determine axis from position
   axis <- if (position %in% c("top", "bottom")) "x" else "y"
 
@@ -152,7 +161,19 @@ annotate_axis_text <- function(
       # For normalized coordinates, don't try to format them as data values
       labels <- as.character(breaks)
     } else {
-      labels <- scales::comma(breaks)
+      # Check data type and format appropriately
+      if (inherits(breaks, "Date")) {
+        labels <- format(breaks, "%d-%m-%Y")
+      } else if (inherits(breaks, "POSIXct") || inherits(breaks, "POSIXlt")) {
+        labels <- format(breaks, "%d-%m-%Y %H:%M:%S")
+      } else if (inherits(breaks, "hms") || inherits(breaks, "difftime")) {
+        labels <- as.character(breaks)  # hms has good default formatting
+      } else if (is.numeric(breaks)) {
+        labels <- scales::comma(breaks)
+      } else {
+        # Fallback for any other type (factors, characters, etc.)
+        labels <- as.character(breaks)
+      }
     }
   } else if (is.function(label)) {
     labels <- label(breaks)
@@ -330,18 +351,19 @@ annotate_axis_text <- function(
   stamp <- list()
 
   # Add theme modification if requested
-  if (theme_element == "transparent") {
-    theme_element_name <- paste0("axis.text.", axis, ".", position)
+  if (theme == "transparent") {
+    theme_name <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element_name]] <- ggplot2::element_text(colour = "transparent")
+    theme_mod[[theme_name]] <- ggplot2::element_text(colour = "transparent")
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
-  } else if (theme_element == "blank") {
-    theme_element_name <- paste0("axis.text.", axis, ".", position)
+  } else if (theme == "blank") {
+    theme_name <- paste0("axis.text.", axis, ".", position)
     theme_mod <- list()
-    theme_mod[[theme_element_name]] <- ggplot2::element_blank()
+    theme_mod[[theme_name]] <- ggplot2::element_blank()
     stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
   }
 
+  # [Rest of the function continues unchanged from the original...]
   # Create text annotations
   text_annotations <- breaks |>
     purrr::imap(\(break_val, i) {
