@@ -27,7 +27,9 @@ library(ggplot2)
 library(scales)
 library(palmerpenguins)
 
-set_blanket()
+set_blanket(
+  theme = theme_lighter(),
+)
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(
@@ -266,12 +268,11 @@ penguins2 |>
 ### gg_line
 
 ```{r}
-economics |>
+economics_long |> 
   gg_line(
-    x = date,
-    y = unemploy,
-    y_limits_include = 0, 
-    y_title = "Unemployment",
+    x = date, 
+    y = value01,
+    col = variable,
   )
 ```
 

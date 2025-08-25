@@ -13,13 +13,12 @@
 #'
 #' set_blanket()
 #'
-#' economics |>
-#'   gg_line(
-#'     x = date,
-#'     y = unemploy,
-#'     y_limits_include = 0,
-#'     y_title = "Unemployment",
-#'   )
+#' economics_long |>
+#'  gg_line(
+#'   x = date,
+#'   y = value01,
+#'   col = variable,
+#'  )
 #'
 gg_line <- function(
   data = NULL,
