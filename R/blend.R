@@ -33,7 +33,7 @@
 #' pal2 <- scales::pal_brewer(palette = "Set2")
 #' blended_pal <- blend(pal1, pal2, blend = "overlay")
 #'
-#' @export
+#' @noRd
 blend <- function(..., blend) {
 
   # Check that blend was provided

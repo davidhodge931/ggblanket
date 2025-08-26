@@ -21,10 +21,9 @@ reference:
   - annotate_axis_ticks
   - annotate_axis_text
   - annotate_panel_grid
-  - annotate_panel_background
+  - annotate_uncertainty
 - title: Blend
 - contents:
-  - blend
   - blend_multiply
   - blend_screen
 - title: Contrast

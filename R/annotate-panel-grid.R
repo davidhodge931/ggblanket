@@ -4,7 +4,7 @@
 #'
 #' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
 #'
-#' @param ... Require named arguments (and support trailing commas).
+#' @param ... Arguments passed to `ggplot2::annotate("segment", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
 #' @param x A vector of x-axis breaks for vertical grid lines. Cannot be used together with y. Use I() to specify normalized coordinates (0-1).
 #' @param y A vector of y-axis breaks for horizontal grid lines. Cannot be used together with x. Use I() to specify normalized coordinates (0-1).
 #' @param minor Logical. If FALSE (default), creates major grid lines. If TRUE, creates minor grid lines.
@@ -231,7 +231,8 @@ annotate_panel_grid <- function(
             yend = Inf,
             colour = grid_colour,
             linewidth = grid_linewidth,
-            linetype = grid_linetype
+            linetype = grid_linetype,
+            ...
           )
         )
       )
@@ -248,7 +249,8 @@ annotate_panel_grid <- function(
             yend = breaks,
             colour = grid_colour,
             linewidth = grid_linewidth,
-            linetype = grid_linetype
+            linetype = grid_linetype,
+            ...
           )
         )
       )

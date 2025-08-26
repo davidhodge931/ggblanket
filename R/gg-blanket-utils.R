@@ -1659,7 +1659,7 @@ add_initial_layer <- function(
   # Define which geom_names are treated as border polygons
   border_polygons <- c(
     "area",
-    "blank",
+    # "blank",
     "bar",
     "boxplot",
     "col",

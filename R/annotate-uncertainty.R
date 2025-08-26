@@ -4,13 +4,13 @@
 #'
 #' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
 #'
-#' @param ... Require named arguments (and support trailing commas).
+#' @param ... Arguments passed to `ggplot2::annotate("rect", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
 #' @param xmin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
 #' @param xmax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
 #' @param ymin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
 #' @param ymax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
 #' @param fill The fill colour of the rectangle. Inherits from current theme panel.background if NULL.
-#' @param alpha The transparency of the rectangle. Defaults to 0.2.
+#' @param alpha The transparency of the rectangle. Defaults to NA.
 #' @param colour The border colour of the rectangle. Defaults to "transparent".
 #' @param linewidth The border linewidth of the rectangle. Defaults to 0.
 #' @param linetype The border linetype of the rectangle. Defaults to 1.
@@ -32,27 +32,27 @@
 #'
 #' # Using data coordinates
 #' p +
-#'   annotate_panel_background(
+#'   annotate_uncertainty(
 #'     xmin = 225,
 #'   ) +
 #'   geom_point()
 #'
 #' # Using normalized coordinates
 #' p +
-#'   annotate_panel_background(
+#'   annotate_uncertainty(
 #'     xmin = I(0.9),
 #'     xmax = I(1),
 #'   ) +
 #'   geom_point()
 #'
-annotate_panel_background <- function(
+annotate_uncertainty <- function(
     ...,
     xmin = -Inf,
     xmax = Inf,
     ymin = -Inf,
     ymax = Inf,
     fill = NULL,
-    alpha = 0.2,
+    alpha = 0.3,
     colour = NULL,
     linewidth = NULL,
     linetype = NULL
@@ -204,7 +204,8 @@ annotate_panel_background <- function(
         colour = colour,
         linewidth = linewidth,
         linetype = linetype,
-        alpha = alpha
+        alpha = alpha,
+        ...
       )
     )
   }

@@ -45,5 +45,5 @@ This function is designed to work with a theme that is globally set with \link{s
 
 It should be used with a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 
-It only works when panel dimensions are set are set in the theme.
+It only works when panel dimensions are set in the theme.
 }

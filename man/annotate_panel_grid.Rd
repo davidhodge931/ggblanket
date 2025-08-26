@@ -16,7 +16,7 @@ annotate_panel_grid(
 )
 }
 \arguments{
-\item{...}{Require named arguments (and support trailing commas).}
+\item{...}{Arguments passed to \code{ggplot2::annotate("segment", ....)} (if normalised coordinates not used). Require named arguments (and support trailing commas).}
 
 \item{x}{A vector of x-axis breaks for vertical grid lines. Cannot be used together with y. Use I() to specify normalized coordinates (0-1).}
 

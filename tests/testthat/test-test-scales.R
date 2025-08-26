@@ -522,9 +522,10 @@ test_that("annotate_axis", {
         x = bill_depth_mm,
         y = bill_length_mm,
         col = bill_length_mm,
-        y_breaks = scales::breaks_pretty(10)
+        y_breaks = scales::breaks_pretty(10),
+        border = TRUE,
       ) +
-      annotate_axis_line(axis = "x", position = "bottom") +
+      annotate_axis_line(position = "bottom") +
       geom_point()
   )
 })

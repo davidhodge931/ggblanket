@@ -83,10 +83,6 @@ update_geom_linewidth <- function(
         linewidth = linewidth,
         borderwidth = linewidth
       ),
-      geom.blank = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
       geom.contour = ggplot2::element_geom(
         linewidth = linewidth,
         borderwidth = linewidth

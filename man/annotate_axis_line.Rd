@@ -9,28 +9,41 @@ annotate_axis_line(
   position = NULL,
   x = NULL,
   y = NULL,
+  xmin = NULL,
+  xmax = NULL,
+  ymin = NULL,
+  ymax = NULL,
   colour = NULL,
   linewidth = NULL,
   theme = NULL
 )
 }
 \arguments{
-\item{...}{Arguments passed to \code{ggplot2::annotate("segment", ....)}. Require named arguments (and support trailing commas).}
+\item{...}{Arguments passed to \code{ggplot2::annotate("segment", ....)} (if normalised coordinates not used). Require named arguments (and support trailing commas).}
 
 \item{position}{The position of the axis line. One of "top", "bottom", "left", or "right". Ignored if x or y is provided.}
 
-\item{x}{A single x-axis value for a vertical line. Cannot be used together with y or position. Use I() for normalized coordinates (0-1).}
+\item{x}{A single x-axis value for a vertical line. Cannot be used together with y or xmin/xmax. Use I() for normalized coordinates (0-1).}
 
-\item{y}{A single y-axis value for a horizontal line. Cannot be used together with x or position. Use I() for normalized coordinates (0-1).}
+\item{y}{A single y-axis value for a horizontal line. Cannot be used together with x or ymin/ymax. Use I() for normalized coordinates (0-1).}
+
+\item{xmin}{The starting x position for a horizontal line segment. Use I() for normalized coordinates (0-1).}
+
+\item{xmax}{The ending x position for a horizontal line segment. Use I() for normalized coordinates (0-1).}
+
+\item{ymin}{The starting y position for a vertical line segment. Use I() for normalized coordinates (0-1).}
+
+\item{ymax}{The ending y position for a vertical line segment. Use I() for normalized coordinates (0-1).}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 
 \item{linewidth}{The linewidth of the annotated segment. Inherits from the current theme axis.line etc.}
 
-\item{theme}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "transparent" if position specified. Otherwise defaults "keep".}
+\item{theme}{How to modify the corresponding theme element. One of "keep", "transparent", or "blank".
+Defaults to "transparent" if position specified, otherwise "keep".}
 }
 \value{
-A list of a annotate layer and theme elements.
+A list of annotation layers and theme elements.
 }
 \description{
 Create an annotated segment of the axis line.
@@ -42,25 +55,26 @@ It should be used with a \code{coord} of \code{ggplot2::coord_cartesian(clip = "
 \examples{
 library(ggplot2)
 
-set_blanket()
+set_blanket(
+  theme = theme_lighter(
+    panel_heights = rep(unit(50, "mm"), 100),
+    panel_widths = rep(unit(75, "mm"), 100),
+  ),
+)
 
-palmerpenguins::penguins |>
-  tibble::add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |>
+p <- palmerpenguins::penguins |>
   gg_blanket(
     x = flipper_length_mm,
     y = body_mass_g,
-  ) +
-  annotate_axis_line(
-    position = "bottom",
-    arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
-  ) +
-  annotate_axis_line(
-    position = "left",
-    arrow = arrow(angle = 15, length = unit(5, "pt"), type = "closed"),
-  ) +
-  geom_point(
-    colour = blend_multiply(get_geom_defaults("point")$colour),
-    size = 3,
   )
+
+# Full axis line at bottom
+p + annotate_axis_line(position = "bottom")
+
+# Vertical line at x=200, partial height
+p + annotate_axis_line(x = 200, ymin = I(0.25), ymax = I(0.75))
+
+# Horizontal line at y=4000, partial width
+p + annotate_axis_line(y = 4000, xmin = 180, xmax = 220)
 
 }
