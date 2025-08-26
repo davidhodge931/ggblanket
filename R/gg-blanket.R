@@ -930,7 +930,7 @@ gg_blanket <- function(
       )
 
       if (rlang::is_null(x_limits_to_breaks)) {
-        if (geom_name == "sf") {
+        if (stat_name == "sf") {
           x_limits_to_breaks <- FALSE
         } else if (aspect == "x") {
           x_limits_to_breaks <- FALSE
@@ -944,7 +944,7 @@ gg_blanket <- function(
       }
 
       if (rlang::is_null(y_limits_to_breaks)) {
-        if (geom_name == "sf") {
+        if (stat_name == "sf") {
           y_limits_to_breaks <- FALSE
         } else if (aspect == "x") {
           if (!facet_scales %in% c("free_y", "free")) {
