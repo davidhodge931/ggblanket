@@ -20,12 +20,7 @@
 #' @examples
 #' library(ggplot2)
 #'
-#' set_blanket(
-#'   theme = theme_lighter(
-#'     panel_heights = rep(unit(50, "mm"), 100),
-#'     panel_widths = rep(unit(75, "mm"), 100),
-#'   ),
-#' )
+#' set_blanket()
 #'
 #' palmerpenguins::penguins |>
 #'   tibble::add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |>

@@ -1,3 +1,25 @@
+#' Annotate axis ticks segments
+#'
+#' @description Create annotated segments of the axis ticks.
+#'
+#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#'
+#' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
+#'
+#' It only works when panel dimensions are set are set in the theme.
+#'
+#' @param ... Require named arguments (and support trailing commas).
+#' @param position The position of the axis ticks. One of "top", "bottom", "left", or "right".
+#' @param x A vector of x-axis breaks for ticks positioning. Use I() to specify normalized coordinates (0-1).
+#' @param y A vector of y-axis breaks for ticks positioning. Use I() to specify normalized coordinates (0-1).
+#' @param minor TRUE or FALSE whether to relate to minor ticks. Defaults FALSE.
+#' @param linewidth The colour of the ticks. Inherits from the current theme axis.ticks etc.
+#' @param colour The colour of the ticks. Inherits from the current theme axis.ticks etc.
+#' @param length The total distance from the axis line to the ticks as a grid unit. Defaults to the sum of set theme tick length and relevant margin part.
+#' @param theme What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
+#'
+#' @return A list of annotation layers and theme elements.
+#' @export
 annotate_axis_ticks <- function(
     ...,
     position = NULL,

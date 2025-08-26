@@ -21,6 +21,8 @@
 #' @examples
 #' library(ggplot2)
 #'
+#' set_blanket()
+#'
 #' p <- palmerpenguins::penguins |>
 #'   gg_blanket(
 #'     x = flipper_length_mm,

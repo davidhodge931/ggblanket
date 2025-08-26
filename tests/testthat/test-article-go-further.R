@@ -254,10 +254,8 @@ test_that("panel sizes work", {
 
 test_that("standardise_width works", {
   set_blanket(
-    theme = theme_lighter(
-      panel_heights = rep(unit(50, "mm"), times = 100),
-      panel_widths = rep(unit(75, "mm"), times = 100),
-    ),
+    panel_heights = rep(unit(50, "mm"), times = 100),
+    panel_widths = rep(unit(75, "mm"), times = 100),
   )
 
   palmerpenguins::penguins |>

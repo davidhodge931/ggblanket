@@ -33,7 +33,9 @@ set_blanket(
   stroke = 0.5,
   axis_line_aspect = "transparent",
   axis_ticks_aspect = "transparent",
-  panel_grid_aspect = "transparent"
+  panel_grid_aspect = "transparent",
+  panel_heights = NULL,
+  panel_widths = NULL
 )
 }
 \arguments{
@@ -78,6 +80,10 @@ set_blanket(
 \item{axis_ticks_aspect}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis ticks for an \code{"x"} \code{aspect}, and vice versa.}
 
 \item{panel_grid_aspect}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
+
+\item{panel_heights}{The height of the panels. E.g. \code{grid::unit(5, "cm")}.}
+
+\item{panel_widths}{The width of the panels. E.g. \code{grid::unit(7.5, "cm")}.}
 }
 \value{
 Invisibly returns NULL. Sets global styling options as a side effect.

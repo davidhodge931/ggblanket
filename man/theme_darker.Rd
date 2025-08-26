@@ -28,9 +28,7 @@ theme_darker(
   panel_grid_linetype = 1,
   panel_grid_linewidth = 0.5,
   panel_grid_minor_linetype = 0,
-  panel_grid_minor_linewidth = ggplot2::rel(0.5),
-  panel_heights = NULL,
-  panel_widths = NULL
+  panel_grid_minor_linewidth = ggplot2::rel(0.5)
 )
 }
 \arguments{
@@ -81,10 +79,6 @@ theme_darker(
 \item{panel_grid_minor_linetype}{The linetype of the panel.grid.minor theme element. Defaults to 0.}
 
 \item{panel_grid_minor_linewidth}{The linewidth of the panel.grid.minor theme element.}
-
-\item{panel_heights}{The height of the panels.}
-
-\item{panel_widths}{The width of the panels.}
 }
 \value{
 A ggplot theme.

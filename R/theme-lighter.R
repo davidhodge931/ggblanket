@@ -26,8 +26,6 @@
 #' @param panel_grid_linewidth The linewidth of the panel.grid.major theme element.
 #' @param panel_grid_minor_linetype The linetype of the panel.grid.minor theme element. Defaults to 0.
 #' @param panel_grid_minor_linewidth The linewidth of the panel.grid.minor theme element.
-#' @param panel_heights The height of the panels.
-#' @param panel_widths The width of the panels.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -68,10 +66,8 @@ theme_lighter <- function(
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
-    panel_grid_minor_linewidth = ggplot2::rel(0.5),
-    panel_heights = NULL,
-    panel_widths = NULL
-    ) {
+    panel_grid_minor_linewidth = ggplot2::rel(0.5)
+) {
   title_size <- text_size
   title_family <- text_family
   title_colour <- text_colour
@@ -174,8 +170,6 @@ theme_lighter <- function(
       panel.spacing.x = NULL,
       panel.spacing.y = NULL,
       panel.ontop = FALSE,
-      panel.heights = panel_heights,
-      panel.widths = panel_widths,
       spacing = grid::unit(5.5, "pt"),
 
       strip.background = ggplot2::element_rect(fill = NA, colour = NA),

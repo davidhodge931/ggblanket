@@ -25,13 +25,13 @@ annotate_axis_text(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{position}{The position of the axis text. One of "top", "bottom", "left", or "right".}
+\item{position}{The position of the axis text. One of "top", "bottom", "left", or "right". Ignored if both x and y are provided.}
 
 \item{x}{A vector of x-axis breaks for text positioning. Use I() to specify normalized coordinates (0-1).}
 
 \item{y}{A vector of y-axis breaks for text positioning. Use I() to specify normalized coordinates (0-1).}
 
-\item{label}{A vector of text label or a function that takes breaks and returns label. If NULL, uses the \code{scales::comma} on the breaks as label.}
+\item{label}{A vector of text labels or a function that takes breaks and returns labels. If NULL, uses appropriate formatting.}
 
 \item{colour}{The colour of the text. Inherits from the current theme axis.text etc.}
 
@@ -49,7 +49,7 @@ annotate_axis_text(
 
 \item{angle}{Text rotation angle. Defaults to 0.}
 
-\item{theme}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
+\item{theme}{What to do with the equivalent theme elements. Either "keep", "transparent", or "blank". Defaults to "keep".}
 }
 \value{
 A list of annotation layers and theme elements.
@@ -61,5 +61,5 @@ This function is designed to work with a theme that is globally set with \link{s
 
 It should be used with a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
 
-It only works when panel dimensions are set are set in the theme.
+It only works when panel dimensions are set in the theme when using axis positioning.
 }

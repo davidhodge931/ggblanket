@@ -25,6 +25,8 @@
 #' @param axis_line_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
 #' @param axis_ticks_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
 #' @param panel_grid_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
+#' @param panel_heights The height of the panels. E.g. `grid::unit(5, "cm")`.
+#' @param panel_widths The width of the panels. E.g. `grid::unit(7.5, "cm")`.
 #'
 #' @return Invisibly returns NULL. Sets global styling options as a side effect.
 #'
@@ -69,12 +71,14 @@ set_blanket <- function(
     stroke = 0.5,
     axis_line_aspect = "transparent",
     axis_ticks_aspect = "transparent",
-    panel_grid_aspect = "transparent"
+    panel_grid_aspect = "transparent",
+    panel_heights = NULL,
+    panel_widths = NULL
 ) {
   # Set the theme first
   ggplot2::set_theme(theme)
 
-  #then everything else
+  # Then everything else
   update_geom_col(col = col)
   update_geom_shape(shape = shape)
   update_geom_linetype(linetype = linetype)
@@ -106,5 +110,10 @@ set_blanket <- function(
     axis_line_aspect = axis_line_aspect,
     axis_ticks_aspect = axis_ticks_aspect,
     panel_grid_aspect = panel_grid_aspect
+  )
+
+  update_panel_dimensions(
+    panel_heights = panel_heights,
+    panel_widths = panel_widths
   )
 }

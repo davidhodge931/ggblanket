@@ -43,10 +43,8 @@ theme_greyer <- function(
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
-    panel_grid_minor_linewidth = ggplot2::rel(0.5),
-    panel_heights = NULL,
-    panel_widths = NULL
-    ) {
+    panel_grid_minor_linewidth = ggplot2::rel(0.5)
+) {
   theme_lighter(
     ...,
     text_size = text_size,
@@ -71,8 +69,6 @@ theme_greyer <- function(
     panel_grid_linetype = panel_grid_linetype,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_grid_minor_linetype = panel_grid_minor_linetype,
-    panel_grid_minor_linewidth = panel_grid_minor_linewidth,
-    panel_heights = panel_heights,
-    panel_widths = panel_widths
+    panel_grid_minor_linewidth = panel_grid_minor_linewidth
   )
 }

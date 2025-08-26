@@ -49,6 +49,8 @@ This function is designed to work with a theme that is globally set with \link{s
 \examples{
 library(ggplot2)
 
+set_blanket()
+
 p <- palmerpenguins::penguins |>
   gg_blanket(
     x = flipper_length_mm,
