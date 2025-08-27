@@ -12,9 +12,10 @@ A character vector.
 }
 \description{
 A jumble of useful colours.
-The first 7 are relatively colour-blind safe on a light background.
-The 8th and 9th are the default text_colour used in \code{theme_lighter} and \code{theme_darker}.
-The 10th is the default NA grey used, and the 11th the default blue used for set aesthetics.
+The first 6 are relatively colour-blind safe on a light background.
+The 7th is a grey that can be used for NA.
+The 8th is a silver that can be used in guide keys etc.
+The 9th and 10th can be used as a default colour/fill set aesthetic.
 }
 \examples{
 scales::show_col(jumble)

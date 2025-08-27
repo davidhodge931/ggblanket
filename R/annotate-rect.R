@@ -1,58 +1,11 @@
-#' Annotate panel background rectangle
-#'
-#' @description Create an annotated rectangle in the panel background.
-#'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
-#'
-#' @param ... Arguments passed to `ggplot2::annotate("rect", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
-#' @param xmin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
-#' @param xmax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
-#' @param ymin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
-#' @param ymax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
-#' @param fill The fill colour of the rectangle. Inherits from current theme panel.background if NULL.
-#' @param alpha The transparency of the rectangle. Defaults to NA.
-#' @param colour The border colour of the rectangle. Defaults to "transparent".
-#' @param linewidth The border linewidth of the rectangle. Defaults to 0.
-#' @param linetype The border linetype of the rectangle. Defaults to 1.
-#'
-#' @return A list containing an annotation layer.
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' p <- palmerpenguins::penguins |>
-#'   gg_blanket(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'   )
-#'
-#' # Using data coordinates
-#' p +
-#'   annotate_uncertainty(
-#'     xmin = 225,
-#'   ) +
-#'   geom_point()
-#'
-#' # Using normalized coordinates
-#' p +
-#'   annotate_uncertainty(
-#'     xmin = I(0.9),
-#'     xmax = I(1),
-#'   ) +
-#'   geom_point()
-#'
-annotate_uncertainty <- function(
+annotate_rect <- function(
     ...,
     xmin = -Inf,
     xmax = Inf,
     ymin = -Inf,
     ymax = Inf,
     fill = NULL,
-    alpha = 0.3,
+    alpha = NULL,
     colour = NULL,
     linewidth = NULL,
     linetype = NULL
@@ -113,33 +66,37 @@ annotate_uncertainty <- function(
   # Determine if we need to use grob approach (if any coordinate is normalized)
   use_grob <- x_uses_normalized || y_uses_normalized
 
-  # Get current theme
+  # Get current theme and extract panel background
   current_theme <- ggplot2::theme_get()
+  panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
 
-  # Try to inherit from panel.background if fill not specified
-  if (rlang::is_null(fill)) {
-    panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
-    if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
-      # Use a contrasting colour if panel background exists
-      bg_fill <- panel_bg$fill %||% "white"
-      # Simple approach: use a grey that contrasts
-      if (bg_fill == "white" || bg_fill == "#FFFFFF") {
-        fill <- "grey80"
-      } else if (bg_fill == "black" || bg_fill == "#000000") {
-        fill <- "grey20"
-      } else {
-        # For other colours, just use a neutral grey
-        fill <- "grey70"
-      }
-    } else {
-      # Default if no panel background
-      fill <- "grey80"
-    }
+  # Extract panel background fill with fallback to theme_grey default
+  panel_bg_fill <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
+    panel_bg$fill %||% "white"  # theme_grey default
+  } else {
+    "white"  # theme_grey default
   }
 
-  # Set defaults for other properties
-  colour <- colour %||% "transparent"
-  linewidth <- linewidth %||% 0
+  # Extract panel border properties for linewidth default
+  panel_border <- ggplot2::calc_element("panel.border", current_theme, skip_blank = TRUE)
+  panel_border_linewidth <- if (!rlang::is_null(panel_border) && !inherits(panel_border, "element_blank")) {
+    panel_border$linewidth %||% 0.5
+  } else {
+    0.5  # fallback
+  }
+
+  # Set defaults based on theme
+  fill <- fill %||% panel_bg_fill
+  colour <- colour %||% panel_bg_fill
+  alpha <- alpha %||% 1
+
+  # Handle linewidth with proper rel() support
+  if (rlang::is_null(linewidth)) {
+    linewidth <- panel_border_linewidth
+  } else if (inherits(linewidth, "rel")) {
+    linewidth <- as.numeric(linewidth) * panel_border_linewidth
+  }
+
   linetype <- linetype %||% 1
 
   # Create rectangle based on coordinate type

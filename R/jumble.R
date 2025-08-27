@@ -2,9 +2,10 @@
 #'
 #' @description
 #' A jumble of useful colours.
-#' The first 7 are relatively colour-blind safe on a light background.
-#' The 8th and 9th are the default text_colour used in `theme_lighter` and `theme_darker`.
-#' The 10th is the default NA grey used, and the 11th the default blue used for set aesthetics.
+#' The first 6 are relatively colour-blind safe on a light background.
+#' The 7th is a grey that can be used for NA.
+#' The 8th is a silver that can be used in guide keys etc.
+#' The 9th and 10th can be used as a default colour/fill set aesthetic.
 #'
 #' @format NULL
 #' @return A character vector.
@@ -20,8 +21,6 @@ jumble <- c(
   "#EC9ECBFF",
   "#67609CFF",
   "#CDC5BFFF",
-  "#121B24FF",
-  "#C8D7DFFF",
   "#8991A1FF",
   "#4797C3FF",
   "#357BA2FF"
