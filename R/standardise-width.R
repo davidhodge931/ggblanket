@@ -1,61 +1,3 @@
-#' Default width reference
-#' @noRd
-width_reference <- list(
-  width = 0.2,
-  n = 3,
-  dodge_n = 1,
-  aspect = "x",
-  panel_heights = rep(grid::unit(50, "mm"), 100),
-  panel_widths = rep(grid::unit(75, "mm"), 100)
-)
-
-#' Update width reference
-#'
-#' @description
-#' Update the width reference used by `standardise_width`.
-#'
-#' @param ... Require named arguments (and support trailing commas).
-#' @param width Width value for the reference standard.
-#' @param n Number of categories (excluding dodge groups) in the reference standard.
-#' @param dodge_n Number of dodge groups in reference standard.
-#' @param aspect Aspect of reference standard ("x" or "y").
-#' @param panel_heights Panel heights for reference standard.
-#' @param panel_widths Panel widths for reference standard.
-#'
-#' @export
-update_width_reference <- function(
-    ...,
-    width = NULL,
-    n = NULL,
-    dodge_n = NULL,
-    aspect = NULL,
-    panel_heights = NULL,
-    panel_widths = NULL
-) {
-  width_reference <- getOption("ggblanket.width_reference", width_reference)
-
-  if (!rlang::is_null(width)) {
-    width_reference$width <- width
-  }
-  if (!rlang::is_null(n)) {
-    width_reference$n <- n
-  }
-  if (!rlang::is_null(dodge_n)) {
-    width_reference$dodge_n <- dodge_n
-  }
-  if (!rlang::is_null(aspect)) {
-    width_reference$aspect <- aspect
-  }
-  if (!rlang::is_null(panel_heights)) {
-    width_reference$panel_heights <- panel_heights
-  }
-  if (!rlang::is_null(panel_widths)) {
-    width_reference$panel_widths <- panel_widths
-  }
-
-  options(ggblanket.width_reference = width_reference)
-}
-
 #' Standardise width to the reference
 #'
 #' @description
@@ -225,3 +167,62 @@ standardise_width <- function(
 
   return(width)
 }
+
+#' Default width reference
+#' @noRd
+width_reference <- list(
+  width = 0.2,
+  n = 3,
+  dodge_n = 1,
+  aspect = "x",
+  panel_heights = rep(grid::unit(50, "mm"), 100),
+  panel_widths = rep(grid::unit(75, "mm"), 100)
+)
+
+#' Update width reference
+#'
+#' @description
+#' Update the width reference used by `standardise_width`.
+#'
+#' @param ... Require named arguments (and support trailing commas).
+#' @param width Width value for the reference standard.
+#' @param n Number of categories (excluding dodge groups) in the reference standard.
+#' @param dodge_n Number of dodge groups in reference standard.
+#' @param aspect Aspect of reference standard ("x" or "y").
+#' @param panel_heights Panel heights for reference standard.
+#' @param panel_widths Panel widths for reference standard.
+#'
+#' @export
+update_width_reference <- function(
+    ...,
+    width = NULL,
+    n = NULL,
+    dodge_n = NULL,
+    aspect = NULL,
+    panel_heights = NULL,
+    panel_widths = NULL
+) {
+  width_reference <- getOption("ggblanket.width_reference", width_reference)
+
+  if (!rlang::is_null(width)) {
+    width_reference$width <- width
+  }
+  if (!rlang::is_null(n)) {
+    width_reference$n <- n
+  }
+  if (!rlang::is_null(dodge_n)) {
+    width_reference$dodge_n <- dodge_n
+  }
+  if (!rlang::is_null(aspect)) {
+    width_reference$aspect <- aspect
+  }
+  if (!rlang::is_null(panel_heights)) {
+    width_reference$panel_heights <- panel_heights
+  }
+  if (!rlang::is_null(panel_widths)) {
+    width_reference$panel_widths <- panel_widths
+  }
+
+  options(ggblanket.width_reference = width_reference)
+}
+

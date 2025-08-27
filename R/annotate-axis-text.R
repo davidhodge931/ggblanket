@@ -455,7 +455,7 @@ annotate_axis_text <- function(
             y = breaks$y[i],
             label = label_val,
             colour = text_colour,
-            size = text_size / .pt,
+            size = text_size / 2.845276,
             family = text_family,
             hjust = hjust,
             vjust = vjust,

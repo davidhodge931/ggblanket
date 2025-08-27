@@ -1,17 +1,19 @@
-#' Annotate panel rectangle
+#' Annotate panel shade
 #'
-#' @description Create an annotated rectangle in the panel background.
+#' @description Create a subtle shaded rectangle to visually differentiate regions.
 #'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#' This function creates semi-transparent rectangular overlays useful for indicating
+#' uncertainty, different data quality, background context, or other visual distinctions.
+#' It is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("rect", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
 #' @param xmin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
 #' @param xmax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
 #' @param ymin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
 #' @param ymax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
-#' @param fill The fill colour of the rectangle. Inherits from the current theme panel.background fill.
-#' @param alpha The transparency of the rectangle. Defaults to 1 (fully opaque).
-#' @param colour The border colour of the rectangle. Inherits from the current theme panel.background fill.
+#' @param fill The fill colour of the rectangle. Defaults to "#8991A1FF" (neutral grey).
+#' @param alpha The transparency of the rectangle. Defaults to 0.2 (subtle overlay).
+#' @param colour The border colour of the rectangle. Inherits from the current theme panel.background fill if not specified.
 #' @param linewidth The border linewidth of the rectangle. Inherits from the current theme panel.border linewidth. Supports rel() for relative sizing.
 #' @param linetype The border linetype of the rectangle. Defaults to 1.
 #'
@@ -32,30 +34,26 @@
 #'
 #' # Using data coordinates with theme defaults
 #' p +
-#'   annotate_rect(
+#'   annotate_shade(
 #'     xmin = 225,
-#'     fill = "#8991A1FF",
-#'     alpha = 0.2,
 #'   ) +
 #'   geom_point()
 #'
 #' # Using normalized coordinates
 #' p +
-#'   annotate_rect(
+#'   annotate_shade(
 #'     xmin = I(0.9),
-#'     fill = "#8991A1FF",
-#'     alpha = 0.2,
 #'   ) +
 #'   geom_point()
 #'
-annotate_rect <- function(
+annotate_shade <- function(
     ...,
     xmin = -Inf,
     xmax = Inf,
     ymin = -Inf,
     ymax = Inf,
-    fill = NULL,
-    alpha = NULL,
+    fill = "#8991A1FF",
+    alpha = 0.2,
     colour = NULL,
     linewidth = NULL,
     linetype = NULL
@@ -122,9 +120,15 @@ annotate_rect <- function(
 
   # Extract panel background fill with fallback to theme_grey default
   panel_bg_fill <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
-    panel_bg$fill %||% "white"  # theme_grey default
+    panel_bg$fill %||% "#EBEBEBFF"  # theme_grey default
   } else {
-    "white"  # theme_grey default
+    "#EBEBEBFF"  # theme_grey default
+  }
+
+  panel_bg_colour <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
+    panel_bg$colour %||% NA  # theme_grey default
+  } else {
+    NA  # theme_grey default
   }
 
   # Extract panel border properties for linewidth default
