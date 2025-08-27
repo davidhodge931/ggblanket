@@ -30,7 +30,7 @@ Imports:
     tidyr (>= 1.0.0),
     tidyselect (>= 1.2.0)
 Suggests:
-    spelling,
+    flexoki,
     hexbin,
     isoband,
     knitr,
@@ -39,6 +39,7 @@ Suggests:
     quantreg,
     rmarkdown,
     sf,
+    spelling,
     testthat (>= 3.0.0),
     tibble,
     vdiffr,

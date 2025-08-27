@@ -24,7 +24,7 @@ theme_lighter(
   axis_ticks_length = ggplot2::rel(0.66),
   panel_background_fill = "#FFFFFFFF",
   plot_background_fill = "#FFFFFFFF",
-  panel_grid_colour = "#EFF1F3FF",
+  panel_grid_colour = NULL,
   panel_grid_linetype = 1,
   panel_grid_linewidth = 0.5,
   panel_grid_minor_linetype = 0,
@@ -70,7 +70,7 @@ theme_lighter(
 
 \item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
 
-\item{panel_grid_colour}{The colour of the panel.grid theme element.}
+\item{panel_grid_colour}{The colour of the panel.grid theme element. Defaults to a multiply blended colour with "#EFF1F3FF" if the panel background fill is light (or "#00040AFF" if dark).}
 
 \item{panel_grid_linetype}{The linetype of the panel.grid.major theme element.}
 
@@ -84,7 +84,7 @@ theme_lighter(
 A ggplot theme.
 }
 \description{
-A lighter complete theme.
+A lighter complete theme with adaptive panel grid colour.
 }
 \examples{
 library(ggplot2)
@@ -97,5 +97,20 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     col = species,
   )
+
+if (requireNamespace("flexoki", quietly = TRUE)) {
+  set_blanket(
+    theme = theme_lighter(
+      panel_background_fill = flexoki::flexoki$blue[1],
+    )
+  )
+
+  palmerpenguins::penguins |>
+    gg_point(
+      x = flipper_length_mm,
+      y = body_mass_g,
+      col = species,
+    )
+}
 
 }

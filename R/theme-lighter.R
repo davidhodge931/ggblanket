@@ -1,6 +1,6 @@
 #' Lighter theme
 #'
-#' @description A lighter complete theme.
+#' @description A lighter complete theme with adaptive panel grid colour.
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param text_size The base size of the text theme element. Defaults to 10.
@@ -21,7 +21,7 @@
 #' @param axis_ticks_length The length of the axis.ticks.length theme element.
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element.
-#' @param panel_grid_colour The colour of the panel.grid theme element.
+#' @param panel_grid_colour The colour of the panel.grid theme element. Defaults to a multiply blended colour with "#EFF1F3FF" if the panel background fill is light (or "#00040AFF" if dark).
 #' @param panel_grid_linetype The linetype of the panel.grid.major theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid.major theme element.
 #' @param panel_grid_minor_linetype The linetype of the panel.grid.minor theme element. Defaults to 0.
@@ -41,6 +41,21 @@
 #'     y = body_mass_g,
 #'     col = species,
 #'   )
+#'
+#' if (requireNamespace("flexoki", quietly = TRUE)) {
+#'   set_blanket(
+#'     theme = theme_lighter(
+#'       panel_background_fill = flexoki::flexoki$blue[1],
+#'     )
+#'   )
+#'
+#'   palmerpenguins::penguins |>
+#'     gg_point(
+#'       x = flipper_length_mm,
+#'       y = body_mass_g,
+#'       col = species,
+#'     )
+#' }
 #'
 theme_lighter <- function(
     ...,
@@ -62,12 +77,22 @@ theme_lighter <- function(
     axis_ticks_length = ggplot2::rel(0.66),
     panel_background_fill = "#FFFFFFFF",
     plot_background_fill = "#FFFFFFFF",
-    panel_grid_colour = "#EFF1F3FF",
+    panel_grid_colour = NULL,
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5)
 ) {
+
+  # Calculate adaptive panel grid colour if not specified
+  if (rlang::is_null(panel_grid_colour)) {
+    panel_grid_colour <- if (is_col_dark(panel_background_fill)) {
+      blend_multiply( "#00040AFF", panel_background_fill)
+    } else {
+      blend_multiply("#EFF1F3FF", panel_background_fill)
+    }
+  }
+
   title_size <- text_size
   title_family <- text_family
   title_colour <- text_colour

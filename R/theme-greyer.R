@@ -1,6 +1,6 @@
 #' Greyer theme
 #'
-#' @description A greyer complete theme.
+#' @description A greyer complete theme with white grid colour.
 #'
 #' @inheritParams theme_lighter
 #'
@@ -18,6 +18,21 @@
 #'     y = body_mass_g,
 #'     col = species,
 #'   )
+#'
+#' if (requireNamespace("flexoki", quietly = TRUE)) {
+#'   set_blanket(
+#'     theme = theme_greyer(
+#'       panel_background_fill = flexoki::flexoki$blue[1],
+#'     )
+#'   )
+#'
+#'   palmerpenguins::penguins |>
+#'     gg_point(
+#'       x = flipper_length_mm,
+#'       y = body_mass_g,
+#'       col = species,
+#'     )
+#' }
 #'
 theme_greyer <- function(
     ...,

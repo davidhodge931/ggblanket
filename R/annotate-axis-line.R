@@ -36,10 +36,13 @@
 #'   gg_blanket(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
+#'     border = TRUE,
 #'   )
 #'
 #' # Full axis line at bottom
-#' p + annotate_axis_line(position = "bottom")
+#' p +
+#' annotate_axis_line(position = "bottom") +
+#' geom_point()
 #'
 #' # Vertical line at x=200, partial height
 #' p + annotate_axis_line(x = 200, ymin = I(0.25), ymax = I(0.75))

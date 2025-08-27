@@ -11,7 +11,7 @@
 #' @param xmax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
 #' @param ymin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
 #' @param ymax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
-#' @param fill The fill colour of the rectangle. Defaults to "#8991A1FF" (neutral grey).
+#' @param fill The fill colour of the rectangle. Defaults to a multiply/screen blended colour with "#8991A1FF" and the panel background fill.
 #' @param alpha The transparency of the rectangle. Defaults to 0.2 (subtle overlay).
 #' @param colour The border colour of the rectangle. Inherits from the current theme panel.background fill if not specified.
 #' @param linewidth The border linewidth of the rectangle. Inherits from the current theme panel.border linewidth. Supports rel() for relative sizing.
@@ -30,6 +30,7 @@
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
+#'     border = TRUE,
 #'   )
 #'
 #' # Using data coordinates with theme defaults
@@ -52,12 +53,20 @@ annotate_shade <- function(
     xmax = Inf,
     ymin = -Inf,
     ymax = Inf,
-    fill = "#8991A1FF",
+    fill = NULL,
     alpha = 0.2,
     colour = NULL,
     linewidth = NULL,
     linetype = NULL
 ) {
+
+  if (rlang::is_null(fill)) {
+    fill <- ifelse(is_panel_dark(),
+                   blend_screen("#8991A1FF", get_theme()$panel.background@fill),
+                   blend_multiply("#8991A1FF", get_theme()$panel.background@fill)
+    )
+  }
+
   # Check if coordinates are wrapped in I() for normalized positioning
   xmin_is_normalized <- inherits(xmin, "AsIs")
   xmax_is_normalized <- inherits(xmax, "AsIs")

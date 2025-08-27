@@ -1,6 +1,6 @@
 #' Darker theme
 #'
-#' @description A darker complete theme. Legend place includes many legend elements including position.
+#' @description A darker complete theme with adaptive panel grid colour.
 #'
 #' @inheritParams theme_lighter
 #'
@@ -18,6 +18,21 @@
 #'     y = body_mass_g,
 #'     col = species,
 #'   )
+#'
+#' if (requireNamespace("flexoki", quietly = TRUE)) {
+#'   set_blanket(
+#'     theme = theme_darker(
+#'       panel_background_fill = flexoki::flexoki$blue[length(flexoki::flexoki$blue)],
+#'     )
+#'   )
+#'
+#'   palmerpenguins::penguins |>
+#'     gg_point(
+#'       x = flipper_length_mm,
+#'       y = body_mass_g,
+#'       col = species,
+#'     )
+#' }
 #'
 theme_darker <- function(
     ...,
@@ -39,7 +54,7 @@ theme_darker <- function(
     axis_ticks_length = ggplot2::rel(0.66),
     plot_background_fill = "#00040AFF",
     panel_background_fill = "#0E131EFF",
-    panel_grid_colour = "#00040AFF",
+    panel_grid_colour = NULL,
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,

@@ -10,7 +10,7 @@ annotate_shade(
   xmax = Inf,
   ymin = -Inf,
   ymax = Inf,
-  fill = "#8991A1FF",
+  fill = NULL,
   alpha = 0.2,
   colour = NULL,
   linewidth = NULL,
@@ -28,7 +28,7 @@ annotate_shade(
 
 \item{ymax}{A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).}
 
-\item{fill}{The fill colour of the rectangle. Defaults to "#8991A1FF" (neutral grey).}
+\item{fill}{The fill colour of the rectangle. Defaults to a multiply/screen blended colour with "#8991A1FF" and the panel background fill.}
 
 \item{alpha}{The transparency of the rectangle. Defaults to 0.2 (subtle overlay).}
 
@@ -58,6 +58,7 @@ p <- palmerpenguins::penguins |>
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
+    border = TRUE,
   )
 
 # Using data coordinates with theme defaults

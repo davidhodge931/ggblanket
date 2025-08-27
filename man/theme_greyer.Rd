@@ -70,7 +70,7 @@ theme_greyer(
 
 \item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
 
-\item{panel_grid_colour}{The colour of the panel.grid theme element.}
+\item{panel_grid_colour}{The colour of the panel.grid theme element. Defaults to a multiply blended colour with "#EFF1F3FF" if the panel background fill is light (or "#00040AFF" if dark).}
 
 \item{panel_grid_linetype}{The linetype of the panel.grid.major theme element.}
 
@@ -84,7 +84,7 @@ theme_greyer(
 A ggplot theme.
 }
 \description{
-A greyer complete theme.
+A greyer complete theme with white grid colour.
 }
 \examples{
 library(ggplot2)
@@ -97,5 +97,20 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     col = species,
   )
+
+if (requireNamespace("flexoki", quietly = TRUE)) {
+  set_blanket(
+    theme = theme_greyer(
+      panel_background_fill = flexoki::flexoki$blue[1],
+    )
+  )
+
+  palmerpenguins::penguins |>
+    gg_point(
+      x = flipper_length_mm,
+      y = body_mass_g,
+      col = species,
+    )
+}
 
 }
