@@ -1,3 +1,53 @@
+#' Annotate panel rectangle
+#'
+#' @description Create an annotated rectangle in the panel background.
+#'
+#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#'
+#' @param ... Arguments passed to `ggplot2::annotate("rect", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
+#' @param xmin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
+#' @param xmax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
+#' @param ymin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
+#' @param ymax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
+#' @param fill The fill colour of the rectangle. Inherits from the current theme panel.background fill.
+#' @param alpha The transparency of the rectangle. Defaults to 1 (fully opaque).
+#' @param colour The border colour of the rectangle. Inherits from the current theme panel.background fill.
+#' @param linewidth The border linewidth of the rectangle. Inherits from the current theme panel.border linewidth. Supports rel() for relative sizing.
+#' @param linetype The border linetype of the rectangle. Defaults to 1.
+#'
+#' @return A list containing an annotation layer.
+#' @export
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' set_blanket()
+#'
+#' p <- palmerpenguins::penguins |>
+#'   gg_blanket(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'   )
+#'
+#' # Using data coordinates with theme defaults
+#' p +
+#'   annotate_rect(
+#'     xmin = 225,
+#'     fill = "#8991A1FF",
+#'     alpha = 0.2,
+#'   ) +
+#'   geom_point()
+#'
+#' # Using normalized coordinates
+#' p +
+#'   annotate_rect(
+#'     xmin = I(0.9),
+#'     fill = "#8991A1FF",
+#'     alpha = 0.2,
+#'   ) +
+#'   geom_point()
+#'
 annotate_rect <- function(
     ...,
     xmin = -Inf,
