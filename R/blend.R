@@ -169,14 +169,48 @@ blend <- function(..., blend) {
   }
 }
 
-#' @rdname blend
+#' Blend colours using multiply mode
+#'
+#' @description
+#' Darkens colours by multiplying them together. Creates darker, more saturated results.
+#' Useful for creating shadows, darkening backgrounds, or adding depth.
+#'
+#' @param ... Either one or two colour arguments:
+#'   - If one argument: the colour is blended with itself
+#'   - If two arguments: the first is blended with the second
+#'   Each argument can be a character vector of colours or a `scales::pal_*()` function
+#' @return Character vector of blended colours or a blending function.
 #' @export
+#'
+#' @examples
+#' # Darken a light background
+#' blend_multiply("#F0F0F0", "#808080")
+#'
+#' # Self-blend to darken
+#' blend_multiply("#FF6B6B")
 blend_multiply <- function(...) {
   blend(..., blend = "multiply")
 }
 
-#' @rdname blend
+#' Blend colours using screen mode
+#'
+#' @description
+#' Lightens colours by inverting, multiplying, then inverting again. Creates brighter results.
+#' Useful for creating highlights, lightening backgrounds, or adding luminosity.
+#'
+#' @param ... Either one or two colour arguments:
+#'   - If one argument: the colour is blended with itself
+#'   - If two arguments: the first is blended with the second
+#'   Each argument can be a character vector of colours or a `scales::pal_*()` function
+#' @return Character vector of blended colours or a blending function.
 #' @export
+#'
+#' @examples
+#' # Lighten a dark background
+#' blend_screen("#2C2C2C", "#808080")
+#'
+#' # Self-blend to lighten
+#' blend_screen("#4A4A4A")
 blend_screen <- function(...) {
   blend(..., blend = "screen")
 }
