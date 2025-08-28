@@ -12,7 +12,7 @@ annotate_shade(
   ymax = Inf,
   fill = NULL,
   alpha = 0.2,
-  colour = NULL,
+  colour = "transparent",
   linewidth = NULL,
   linetype = NULL
 )
@@ -32,7 +32,7 @@ annotate_shade(
 
 \item{alpha}{The transparency of the rectangle. Defaults to 0.2 (subtle overlay).}
 
-\item{colour}{The border colour of the rectangle. Inherits from the current theme panel.background fill if not specified.}
+\item{colour}{The border colour of the rectangle. Defaults to "transparent".}
 
 \item{linewidth}{The border linewidth of the rectangle. Inherits from the current theme panel.border linewidth. Supports rel() for relative sizing.}
 

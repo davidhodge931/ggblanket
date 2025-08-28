@@ -12,16 +12,16 @@ reference:
   - starts_with("gg_")
 - title: Theme
 - contents:
-  - theme_greyer
   - theme_lighter
   - theme_darker
+  - theme_whiter
 - title: Annotate
 - contents:
   - annotate_axis_line
   - annotate_axis_ticks
   - annotate_axis_text
   - annotate_panel_grid
-  - annotate_uncertainty
+  - annotate_shade
 - title: Blend
 - contents:
   - blend_multiply

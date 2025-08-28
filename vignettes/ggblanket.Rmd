@@ -46,7 +46,7 @@ Computational speed has been traded-off.
 7.  Prefixed arguments to customise
 8.  `*_title` defaults to `snakecase::to_sentence_case`
 9.  Other `ggplot2::geom_*` arguments via `...`
-10. `theme_lighter` and `theme_darker` themes 
+10. `theme_lighter`, `theme_darker` and `theme_whiter` themes 
 11. Set and forget with `set_blanket()`
 12. An `aspect` for vertical/horizontal ease 
 13. A `*_limits_to_breaks` continuous scale
@@ -206,11 +206,11 @@ palmerpenguins::penguins |>
   ) 
 ```
 
-### 10.  `theme_lighter` and `theme_darker` themes 
+### 10.  `theme_lighter`, `theme_darker` and `theme_whiter` themes 
 
-`theme_lighter` and `theme_darker`. 
+ggblanket provides `theme_lighter`, `theme_darker` and `theme_whiter` theme functions. 
 
-These functions were built for use within `set_blanket`, as then `colour_bordered_transform` and `fill_bordered_transform` adjustments can apply based on these (e.g. if the panel is dark). 
+The {flexoki} package can be used to create nice coloured themes. See the help for `theme_lighter` and `theme_darker`.
 
 ```{r, fig.asp=0.65}
 set_blanket(theme = theme_darker())

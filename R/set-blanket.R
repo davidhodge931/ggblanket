@@ -5,7 +5,7 @@
 #' `theme`, `col`, `col_palette_discrete`, `col_palette_continuous` and `aspect_*` arguments.
 #'
 #' @param ... Require named arguments (and support trailing commas).
-#' @param theme A ggplot2 theme (e.g. [theme_lighter()] or [theme_darker()]).
+#' @param theme A ggplot2 theme (e.g. [theme_lighter()], [theme_darker()] or [theme_whiter()]).
 #' @param col A default hex code for the colour and fill of most geoms.
 #' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
@@ -46,7 +46,7 @@
 #'
 set_blanket <- function(
     ...,
-    theme = theme_greyer(),
+    theme = theme_lighter(),
     col = ifelse(is_panel_dark(), "#357BA2FF", "#4797C3FF"),
     col_palette_discrete = scales::pal_hue(),
     col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako")),

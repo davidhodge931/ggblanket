@@ -1,5 +1,5 @@
 ---
-title: "Demo: greyer"
+title: "Demo: whiter"
 author: "David Hodge"
 ---
 
@@ -27,7 +27,9 @@ library(ggplot2)
 library(scales)
 library(palmerpenguins)
 
-set_blanket()
+set_blanket(
+  theme = theme_whiter(),
+)
 
 penguins2 <- penguins |> 
   labelled::set_variable_labels(

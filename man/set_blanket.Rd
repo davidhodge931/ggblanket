@@ -6,7 +6,7 @@
 \usage{
 set_blanket(
   ...,
-  theme = theme_greyer(),
+  theme = theme_lighter(),
   col = ifelse(is_panel_dark(), "#357BA2FF", "#4797C3FF"),
   col_palette_discrete = scales::pal_hue(),
   col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako")),
@@ -41,7 +41,7 @@ set_blanket(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lighter]{theme_lighter()}} or \code{\link[=theme_darker]{theme_darker()}}).}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_lighter]{theme_lighter()}}, \code{\link[=theme_darker]{theme_darker()}} or \code{\link[=theme_whiter]{theme_whiter()}}).}
 
 \item{col}{A default hex code for the colour and fill of most geoms.}
 

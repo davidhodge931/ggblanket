@@ -8,7 +8,7 @@ theme_darker(
   ...,
   text_size = 10,
   text_family = "",
-  text_colour = "#C8D7DFFF",
+  text_colour = "#F2F0E5",
   legend_place = "right",
   legend_axis_line_colour = plot_background_fill,
   legend_axis_line_linewidth = axis_line_linewidth,
@@ -17,18 +17,18 @@ theme_darker(
   legend_ticks_colour = legend_axis_line_colour,
   legend_ticks_linewidth = legend_axis_line_linewidth,
   legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
-  axis_line_colour = "#C8D7DFFF",
+  axis_line_colour = text_colour,
   axis_line_linewidth = 0.25,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
   axis_ticks_length = ggplot2::rel(0.66),
-  plot_background_fill = "#00040AFF",
-  panel_background_fill = "#0E131EFF",
-  panel_grid_colour = NULL,
+  panel_background_fill = "#1C1B1A",
+  panel_grid_colour = blend_multiply(panel_background_fill),
   panel_grid_linetype = 1,
   panel_grid_linewidth = 0.5,
   panel_grid_minor_linetype = 0,
-  panel_grid_minor_linewidth = ggplot2::rel(0.5)
+  panel_grid_minor_linewidth = ggplot2::rel(0.5),
+  plot_background_fill = panel_grid_colour
 )
 }
 \arguments{
@@ -66,8 +66,6 @@ theme_darker(
 
 \item{axis_ticks_length}{The length of the axis.ticks.length theme element.}
 
-\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
-
 \item{panel_background_fill}{The fill (and colour) of the panel.background theme element.}
 
 \item{panel_grid_colour}{The colour of the panel.grid theme element. Defaults to a multiply blended colour with "#EFF1F3FF" if the panel background fill is light (or "#00040AFF" if dark).}
@@ -79,12 +77,14 @@ theme_darker(
 \item{panel_grid_minor_linetype}{The linetype of the panel.grid.minor theme element. Defaults to 0.}
 
 \item{panel_grid_minor_linewidth}{The linewidth of the panel.grid.minor theme element.}
+
+\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
 }
 \value{
 A ggplot theme.
 }
 \description{
-A darker complete theme with adaptive panel grid colour.
+A complete theme for a dark panel background.
 }
 \examples{
 library(ggplot2)
@@ -101,7 +101,8 @@ palmerpenguins::penguins |>
 if (requireNamespace("flexoki", quietly = TRUE)) {
   set_blanket(
     theme = theme_darker(
-      panel_background_fill = flexoki::flexoki$blue[length(flexoki::flexoki$blue)],
+      text_colour = flexoki::flexoki$red[1],
+      panel_background_fill = flexoki::flexoki$red[13],
     )
   )
 

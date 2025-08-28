@@ -13,7 +13,7 @@
 #' @param ymax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
 #' @param fill The fill colour of the rectangle. Defaults to a multiply/screen blended colour with "#8991A1FF" and the panel background fill.
 #' @param alpha The transparency of the rectangle. Defaults to 0.2 (subtle overlay).
-#' @param colour The border colour of the rectangle. Inherits from the current theme panel.background fill if not specified.
+#' @param colour The border colour of the rectangle. Defaults to "transparent".
 #' @param linewidth The border linewidth of the rectangle. Inherits from the current theme panel.border linewidth. Supports rel() for relative sizing.
 #' @param linetype The border linetype of the rectangle. Defaults to 1.
 #'
@@ -55,16 +55,24 @@ annotate_shade <- function(
     ymax = Inf,
     fill = NULL,
     alpha = 0.2,
-    colour = NULL,
+    colour = "transparent",
     linewidth = NULL,
     linetype = NULL
 ) {
-
+  # Calculate adaptive fill if not specified
   if (rlang::is_null(fill)) {
-    fill <- ifelse(is_panel_dark(),
-                   blend_screen("#8991A1FF", get_theme()$panel.background@fill),
-                   blend_multiply("#8991A1FF", get_theme()$panel.background@fill)
-    )
+    current_theme <- ggplot2::theme_get()
+    panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
+
+    panel_bg_fill <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
+      panel_bg$fill %||% "#FFFFFFFF"
+    } else {
+      "#FFFFFFFF"
+    }
+
+    fill <- ifelse(is_col_dark(panel_bg_fill),
+                   blend_screen("#8991A1FF", panel_bg_fill),
+                   blend_multiply("#8991A1FF", panel_bg_fill))
   }
 
   # Check if coordinates are wrapped in I() for normalized positioning
@@ -123,24 +131,8 @@ annotate_shade <- function(
   # Determine if we need to use grob approach (if any coordinate is normalized)
   use_grob <- x_uses_normalized || y_uses_normalized
 
-  # Get current theme and extract panel background
+  # Get theme for linewidth default
   current_theme <- ggplot2::theme_get()
-  panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
-
-  # Extract panel background fill with fallback to theme_grey default
-  panel_bg_fill <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
-    panel_bg$fill %||% "#EBEBEBFF"  # theme_grey default
-  } else {
-    "#EBEBEBFF"  # theme_grey default
-  }
-
-  panel_bg_colour <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
-    panel_bg$colour %||% NA  # theme_grey default
-  } else {
-    NA  # theme_grey default
-  }
-
-  # Extract panel border properties for linewidth default
   panel_border <- ggplot2::calc_element("panel.border", current_theme, skip_blank = TRUE)
   panel_border_linewidth <- if (!rlang::is_null(panel_border) && !inherits(panel_border, "element_blank")) {
     panel_border$linewidth %||% 0.5
@@ -148,9 +140,7 @@ annotate_shade <- function(
     0.5  # fallback
   }
 
-  # Set defaults based on theme
-  fill <- fill %||% panel_bg_fill
-  colour <- colour %||% panel_bg_fill
+  # Set remaining defaults
   alpha <- alpha %||% 1
 
   # Handle linewidth with proper rel() support
