@@ -227,18 +227,18 @@ theme_lighter <- function(
       strip.background = ggplot2::element_rect(fill = NA, colour = NA),
       strip.clip = "off",
       strip.text = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 0, b = 8, l = 0)
+        margin = ggplot2::margin(t = 0, r = 0, b = 6, l = 0)
       ),
       strip.text.x = NULL,
       strip.text.x.bottom = ggplot2::element_text(
-        margin = ggplot2::margin(t = 2.75, r = 0, b = 8, l = 0)
+        margin = ggplot2::margin(t = 6, r = 0, b = 0, l = 0)
       ),
       strip.text.y = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 8),
+        margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 6),
         angle = -90
       ),
       strip.text.y.left = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 8, b = 0, l = 0),
+        margin = ggplot2::margin(t = 0, r = 6, b = 0, l = 0),
         angle = 90
       ),
       strip.placement = "outside",
