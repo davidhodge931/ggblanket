@@ -10,20 +10,20 @@ theme_lighter(
   text_family = "",
   text_colour = "#1C1B1A",
   legend_place = "right",
-  legend_axis_line_colour = plot_background_fill,
-  legend_axis_line_linewidth = axis_line_linewidth,
-  legend_background_fill = plot_background_fill,
-  legend_key_fill = plot_background_fill,
-  legend_ticks_colour = legend_axis_line_colour,
-  legend_ticks_linewidth = legend_axis_line_linewidth,
+  legend_axis_line_colour = NULL,
+  legend_axis_line_linewidth = NULL,
+  legend_background_fill = NULL,
+  legend_key_fill = NULL,
+  legend_ticks_colour = NULL,
+  legend_ticks_linewidth = NULL,
   legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
-  axis_line_colour = text_colour,
+  axis_line_colour = NULL,
   axis_line_linewidth = 0.25,
-  axis_ticks_colour = axis_line_colour,
-  axis_ticks_linewidth = axis_line_linewidth,
+  axis_ticks_colour = NULL,
+  axis_ticks_linewidth = NULL,
   axis_ticks_length = ggplot2::rel(0.66),
   panel_background_fill = "#F2F0E5",
-  panel_grid_colour = blend_multiply(panel_background_fill),
+  panel_grid_colour = NULL,
   panel_grid_linetype = 1,
   panel_grid_linewidth = 0.5,
   panel_grid_minor_linetype = 0,
@@ -38,7 +38,7 @@ theme_lighter(
 
 \item{text_family}{The base family of the text theme element. Defaults to "".}
 
-\item{text_colour}{The base colour of the text theme element.}
+\item{text_colour}{The base colour of the text theme element. Accepts standard color values or flexoki palette colors.}
 
 \item{legend_place}{The place of the legend. Either "right", "top" or "bottom".}
 
@@ -66,7 +66,7 @@ theme_lighter(
 
 \item{axis_ticks_length}{The length of the axis.ticks.length theme element.}
 
-\item{panel_background_fill}{The fill (and colour) of the panel.background theme element.}
+\item{panel_background_fill}{The fill (and colour) of the panel.background theme element. Accepts standard color values or flexoki palette colors.}
 
 \item{panel_grid_colour}{The colour of the panel.grid theme element. Defaults to a multiply blended colour with "#EFF1F3FF" if the panel background fill is light (or "#00040AFF" if dark).}
 
@@ -78,7 +78,7 @@ theme_lighter(
 
 \item{panel_grid_minor_linewidth}{The linewidth of the panel.grid.minor theme element.}
 
-\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
+\item{plot_background_fill}{The fill (and colour) of the plot.background theme element. Accepts standard color values or flexoki palette colors.}
 }
 \value{
 A ggplot theme.

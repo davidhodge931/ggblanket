@@ -336,7 +336,7 @@ theme_whiter <- function(
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = ggplot2::rel(0.66),
     panel_background_fill = "#FFFFFFFF",
-    panel_grid_colour = blend_multiply(panel_background_fill),
+    panel_grid_colour = "#F2F0E5",
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
@@ -427,12 +427,12 @@ theme_darker <- function(
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = ggplot2::rel(0.66),
     panel_background_fill = "#1C1B1A",
-    panel_grid_colour = blend_multiply(panel_background_fill),
+    panel_grid_colour = plot_background_fill,
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
-    plot_background_fill = panel_grid_colour
+    plot_background_fill = blend_multiply(panel_background_fill)
 ) {
   theme_lighter(
     ...,
@@ -462,218 +462,9 @@ theme_darker <- function(
   )
 }
 
-#' Move the legend place
+#' Greyer theme
 #'
-#' @description Set legend position with optimized spacing for each placement.
-#'
-#' @param legend_place The position of the legend. Either "right", "top" or "bottom".
-#' @param legend_key_fill The fill (and colour) of the legend.key theme element.
-#' @param legend_background_fill The fill (and colour) of the legend.background theme element.
-#' @param legend_axis_line_colour The colour of the legend.axis.line theme element.
-#' @param legend_axis_line_linewidth The linewidth of the legend.axis.line theme element.
-#' @param legend_ticks_colour The colour of the legend.ticks theme element.
-#' @param legend_ticks_linewidth The linewidth of the legend.ticks theme element.
-#' @param legend_ticks_length The legend.ticks.length theme element.
-#'
-#' @return A ggplot theme object with legend position settings.
-#' @export
-#'
-move_legend_place <- function(legend_place = "right",
-                              legend_key_fill = NULL,
-                              legend_background_fill = NULL,
-                              legend_axis_line_colour = NULL,
-                              legend_axis_line_linewidth = NULL,
-                              legend_ticks_colour = NULL,
-                              legend_ticks_linewidth = NULL,
-                              legend_ticks_length = NULL) {
-
-  current_theme <- ggplot2::get_theme()
-
-  if (rlang::is_null(legend_key_fill)) legend_key_fill <- ggplot2::calc_element("legend.key", current_theme)@fill
-  if (rlang::is_null(legend_background_fill)) legend_background_fill <- ggplot2::calc_element("legend.background", current_theme)@fill
-  if (rlang::is_null(legend_axis_line_colour)) legend_axis_line_colour <- ggplot2::calc_element("legend.axis.line", current_theme)@colour
-  if (rlang::is_null(legend_axis_line_linewidth)) legend_axis_line_linewidth <- ggplot2::calc_element("legend.axis.line", current_theme)@linewidth
-  if (rlang::is_null(legend_ticks_colour)) legend_ticks_colour <- ggplot2::calc_element("legend.ticks", current_theme)@colour
-  if (rlang::is_null(legend_ticks_linewidth)) legend_ticks_linewidth <- ggplot2::calc_element("legend.ticks", current_theme)@linewidth
-  if (rlang::is_null(legend_ticks_length)) legend_ticks_length <- ggplot2::calc_element("legend.ticks.length", current_theme)
-
-  if (legend_place == "right") {
-    ggplot2::theme(
-      # All legend elements for right position
-      legend.position = "right",
-      legend.justification = c(0, 1),
-      legend.location = "panel",
-      legend.title.position = "top",
-      legend.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 2.75),
-      legend.box = "horizontal",
-      legend.box.just = "top",
-      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 5),
-      legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 5.5, l = 0)),
-      legend.byrow = FALSE,
-      legend.direction = "vertical",
-      legend.spacing = grid::unit(11, "pt"),
-      legend.spacing.y = grid::unit(16.50, "pt"),
-      legend.spacing.x = NULL,
-      legend.key = ggplot2::element_rect(
-        colour = legend_key_fill,
-        fill = legend_key_fill
-      ),
-      legend.key.height = ggplot2::rel(1),
-      legend.key.width = ggplot2::rel(0.6),
-      legend.key.spacing = NULL,
-      legend.key.spacing.x = grid::unit(11, "pt"),
-      legend.key.spacing.y = grid::unit(3.63, "pt"),
-      legend.frame = NULL,
-      legend.text = ggplot2::element_text(
-        margin = ggplot2::margin(5.5, 0, 5.5, 5.5)
-      ),
-      legend.axis.line = ggplot2::element_line(
-        colour = legend_axis_line_colour,
-        linewidth = legend_axis_line_linewidth
-      ),
-      legend.ticks = ggplot2::element_line(
-        colour = legend_ticks_colour,
-        linewidth = legend_ticks_linewidth
-      ),
-      legend.ticks.length = legend_ticks_length,
-      legend.box.background = NULL,
-      legend.box.spacing = NULL,
-      legend.background = ggplot2::element_rect(
-        colour = legend_background_fill,
-        fill = legend_background_fill
-      ),
-
-      plot.title = ggplot2::element_text(margin = ggplot2::margin(b = 5.50)),
-      plot.subtitle = ggplot2::element_text(margin = ggplot2::margin(b = 16.50)),
-
-      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 1.87, l = 0)),
-      axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 8.25, l = 0)),
-      axis.title.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 11, b = 0, l = 0), angle = 90),
-      axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 5.50), angle = -90),
-      axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = 5.50, r = 0, b = 8.25, l = 0)), ###
-      axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = 0, r = 0, b = 5.50, l = 0))
-    )
-  } else if (legend_place == "top") {
-    ggplot2::theme(
-      # All legend elements for top position
-      legend.position = "top",
-      legend.justification = c(0, 0.5),
-      legend.location = "plot",
-      legend.title.position = "top",
-      legend.margin = ggplot2::margin(t = 0, r = 22, b = 2.75, l = 0),
-      legend.box = "vertical",
-      legend.box.just = "left",
-      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 8.25, l = 0),
-      legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 5.5, l = 0)),
-      legend.byrow = TRUE,
-      legend.direction = "horizontal",
-      legend.spacing = grid::unit(11, "pt"),
-      legend.spacing.y = grid::unit(16.50, "pt"),
-      legend.spacing.x = NULL,
-      legend.key = ggplot2::element_rect(
-        colour = legend_key_fill,
-        fill = legend_key_fill
-      ),
-      legend.key.height = ggplot2::rel(1),
-      legend.key.width = ggplot2::rel(0.6),
-
-      legend.key.spacing = NULL,
-      legend.key.spacing.x = grid::unit(11, "pt"),
-      legend.key.spacing.y = grid::unit(3.63, "pt"),
-      legend.frame = NULL,
-      legend.text = ggplot2::element_text(
-        margin = ggplot2::margin(5.5, 5.5, 5.5, 5.5)
-      ),
-      legend.axis.line = ggplot2::element_line(
-        colour = legend_axis_line_colour,
-        linewidth = legend_axis_line_linewidth
-      ),
-      legend.ticks = ggplot2::element_line(
-        colour = legend_ticks_colour,
-        linewidth = legend_ticks_linewidth
-      ),
-      legend.ticks.length = legend_ticks_length,
-      legend.box.background = NULL,
-      legend.box.spacing = NULL,
-      legend.background = ggplot2::element_rect(
-        colour = legend_background_fill,
-        fill = legend_background_fill
-      ),
-
-      plot.title = ggplot2::element_text(margin = ggplot2::margin(b = 5.50)),
-      plot.subtitle = ggplot2::element_text(margin = ggplot2::margin(b = 5.50)),
-
-      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 4.62, l = 0)),
-      axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 5.50, l = 0)),
-      axis.title.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 11, b = 0, l = 0), angle = 90),
-      axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 5.50), angle = -90),
-      axis.text.x = ggplot2::element_text(vjust = 0.5, margin = ggplot2::margin(t = 3.30, r = 0, b = 8.25, l = 0)),
-      axis.text.x.top = ggplot2::element_text(vjust = 0.5, margin = ggplot2::margin(t = 0, r = 0, b = 3.30, l = 0))
-    )
-  } else if (legend_place == "bottom") {
-    ggplot2::theme(
-      # All legend elements for bottom position
-      legend.position = "bottom",
-      legend.justification = c(0, 0.5),
-      legend.location = "plot",
-      legend.title.position = "top",
-      legend.margin = ggplot2::margin(t = 0, r = 22, b = 0, l = 0),
-      # legend.margin = ggplot2::margin(t = 0, r = 22, b = 8.25, l = 0),
-      legend.box = "vertical",
-      legend.box.just = "left",
-      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
-      legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 2.75, r = 0, b = 5.50, l = 0)),
-      legend.byrow = TRUE,
-      legend.direction = "horizontal",
-      legend.spacing = grid::unit(11, "pt"),
-      legend.spacing.y = grid::unit(16.50, "pt"),
-      legend.spacing.x = NULL,
-      legend.key = ggplot2::element_rect(
-        colour = legend_key_fill,
-        fill = legend_key_fill
-      ),
-      legend.key.height = ggplot2::rel(1),
-      legend.key.width = ggplot2::rel(0.6),
-
-      legend.key.spacing = NULL,
-      legend.key.spacing.x = grid::unit(11, "pt"),
-      legend.key.spacing.y = grid::unit(3.63, "pt"),
-      legend.frame = NULL,
-      legend.text = ggplot2::element_text(
-        margin = ggplot2::margin(5.5, 5.5, 5.5, 5.5)
-      ),
-      legend.axis.line = ggplot2::element_line(
-        colour = legend_axis_line_colour,
-        linewidth = legend_axis_line_linewidth
-      ),
-      legend.ticks = ggplot2::element_line(
-        colour = legend_ticks_colour,
-        linewidth = legend_ticks_linewidth
-      ),
-      legend.ticks.length = legend_ticks_length,
-      legend.box.background = NULL,
-      legend.box.spacing = NULL,
-      legend.background = ggplot2::element_rect(
-        colour = legend_background_fill,
-        fill = legend_background_fill
-      ),
-
-      plot.title = ggplot2::element_text(margin = ggplot2::margin(b = 5.50)),
-      plot.subtitle = ggplot2::element_text(margin = ggplot2::margin(b = 16.50)),
-
-      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 4.62, l = 0)),
-      axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 5.50, l = 0)),
-      axis.title.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 11, b = 0, l = 0), angle = 90),
-      axis.title.y.right = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 5.50), angle = -90),
-      axis.text.x = ggplot2::element_text(vjust = 1, margin = ggplot2::margin(t = 3.30, r = 0, b = 8.25, l = 0)),
-      axis.text.x.top = ggplot2::element_text(vjust = 0, margin = ggplot2::margin(t = 0, r = 0, b = 3.30, l = 0))
-    )
-  }
-}
-
-#' Whiter theme
-#'
-#' @description A complete theme with a white panel background.
+#' @description A complete theme with a grey panel background and white gridlines.
 #'
 #' @inheritParams theme_lighter
 #'
@@ -683,7 +474,7 @@ move_legend_place <- function(legend_place = "right",
 #' @examples
 #' library(ggplot2)
 #'
-#' set_blanket(theme = theme_whiter(legend_position = "top"))
+#' set_blanket(theme = theme_greyer(legend_place = "top"))
 #'
 #' palmerpenguins::penguins |>
 #'   gg_point(
@@ -692,26 +483,26 @@ move_legend_place <- function(legend_place = "right",
 #'     col = species,
 #'   )
 #'
-theme_whiter <- function(
+theme_greyer <- function(
     ...,
     text_size = 10,
     text_family = "",
     text_colour = "#1C1B1A",
     legend_place = "right",
-    legend_axis_line_colour = plot_background_fill,
-    legend_axis_line_linewidth = axis_line_linewidth,
-    legend_background_fill = plot_background_fill,
-    legend_key_fill = plot_background_fill,
-    legend_ticks_colour = legend_axis_line_colour,
-    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_axis_line_colour = NULL,
+    legend_axis_line_linewidth = NULL,
+    legend_background_fill = NULL,
+    legend_key_fill = NULL,
+    legend_ticks_colour = NULL,
+    legend_ticks_linewidth = NULL,
     legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
-    axis_line_colour = text_colour,
+    axis_line_colour = NULL,
     axis_line_linewidth = 0.25,
-    axis_ticks_colour = axis_line_colour,
-    axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_colour = NULL,
+    axis_ticks_linewidth = NULL,
     axis_ticks_length = ggplot2::rel(0.66),
-    panel_background_fill = "#FFFFFFFF",
-    panel_grid_colour = blend_multiply(panel_background_fill),
+    panel_background_fill = "#F2F0E5",
+    panel_grid_colour = "#FFFFFFFF",  # White gridlines
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
@@ -736,104 +527,13 @@ theme_whiter <- function(
     axis_ticks_colour = axis_ticks_colour,
     axis_ticks_linewidth = axis_ticks_linewidth,
     axis_ticks_length = axis_ticks_length,
-    plot_background_fill = plot_background_fill,
     panel_background_fill = panel_background_fill,
     panel_grid_colour = panel_grid_colour,
     panel_grid_linetype = panel_grid_linetype,
     panel_grid_linewidth = panel_grid_linewidth,
     panel_grid_minor_linetype = panel_grid_minor_linetype,
-    panel_grid_minor_linewidth = panel_grid_minor_linewidth
-  )
-}
-
-#' Darker theme
-#'
-#' @description A complete theme for a dark panel background.
-#'
-#' @inheritParams theme_lighter
-#'
-#' @return A ggplot theme.
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#'
-#' set_blanket(theme = theme_darker(legend_place = "top"))
-#'
-#' palmerpenguins::penguins |>
-#'   gg_point(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'   )
-#'
-#' if (requireNamespace("flexoki", quietly = TRUE)) {
-#'   set_blanket(
-#'     theme = theme_darker(
-#'       text_colour = flexoki::flexoki$red[1],
-#'       panel_background_fill = flexoki::flexoki$red[13],
-#'     )
-#'   )
-#'
-#'   palmerpenguins::penguins |>
-#'     gg_point(
-#'       x = flipper_length_mm,
-#'       y = body_mass_g,
-#'       col = species,
-#'     )
-#' }
-#'
-theme_darker <- function(
-    ...,
-    text_size = 10,
-    text_family = "",
-    text_colour = "#F2F0E5",
-    legend_place = "right",
-    legend_axis_line_colour = plot_background_fill,
-    legend_axis_line_linewidth = axis_line_linewidth,
-    legend_background_fill = plot_background_fill,
-    legend_key_fill = plot_background_fill,
-    legend_ticks_colour = legend_axis_line_colour,
-    legend_ticks_linewidth = legend_axis_line_linewidth,
-    legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
-    axis_line_colour = text_colour,
-    axis_line_linewidth = 0.25,
-    axis_ticks_colour = axis_line_colour,
-    axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length = ggplot2::rel(0.66),
-    panel_background_fill = "#1C1B1A",
-    panel_grid_colour = blend_multiply(panel_background_fill),
-    panel_grid_linetype = 1,
-    panel_grid_linewidth = 0.5,
-    panel_grid_minor_linetype = 0,
-    panel_grid_minor_linewidth = ggplot2::rel(0.5),
-    plot_background_fill = panel_grid_colour
-) {
-  theme_lighter(
-    ...,
-    text_size = text_size,
-    text_family = text_family,
-    text_colour = text_colour,
-    legend_place = legend_place,
-    legend_axis_line_colour = legend_axis_line_colour,
-    legend_axis_line_linewidth = legend_axis_line_linewidth,
-    legend_background_fill = legend_background_fill,
-    legend_key_fill = legend_key_fill,
-    legend_ticks_colour = legend_ticks_colour,
-    legend_ticks_linewidth = legend_ticks_linewidth,
-    legend_ticks_length = legend_ticks_length,
-    axis_line_colour = axis_line_colour,
-    axis_line_linewidth = axis_line_linewidth,
-    axis_ticks_colour = axis_ticks_colour,
-    axis_ticks_linewidth = axis_ticks_linewidth,
-    axis_ticks_length = axis_ticks_length,
-    plot_background_fill = plot_background_fill,
-    panel_background_fill = panel_background_fill,
-    panel_grid_colour = panel_grid_colour,
-    panel_grid_linetype = panel_grid_linetype,
-    panel_grid_linewidth = panel_grid_linewidth,
-    panel_grid_minor_linetype = panel_grid_minor_linetype,
-    panel_grid_minor_linewidth = panel_grid_minor_linewidth
+    panel_grid_minor_linewidth = panel_grid_minor_linewidth,
+    plot_background_fill = plot_background_fill
   )
 }
 
@@ -935,10 +635,10 @@ move_legend_place <- function(legend_place = "right",
       legend.justification = c(0, 0.5),
       legend.location = "plot",
       legend.title.position = "top",
-      legend.margin = ggplot2::margin(t = 0, r = 22, b = 2.75, l = 0),
+      legend.margin = ggplot2::margin(t = 0, r = 22, b = 0, l = 0),
       legend.box = "vertical",
       legend.box.just = "left",
-      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 8.25, l = 0),
+      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 5, l = 0),
       legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 5.5, l = 0)),
       legend.byrow = TRUE,
       legend.direction = "horizontal",
@@ -993,7 +693,6 @@ move_legend_place <- function(legend_place = "right",
       legend.location = "plot",
       legend.title.position = "top",
       legend.margin = ggplot2::margin(t = 0, r = 22, b = 0, l = 0),
-      # legend.margin = ggplot2::margin(t = 0, r = 22, b = 8.25, l = 0),
       legend.box = "vertical",
       legend.box.just = "left",
       legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0),
@@ -1045,3 +744,4 @@ move_legend_place <- function(legend_place = "right",
     )
   }
 }
+

@@ -14,6 +14,17 @@ move_legend_place(
   legend_ticks_linewidth = NULL,
   legend_ticks_length = NULL
 )
+
+move_legend_place(
+  legend_place = "right",
+  legend_key_fill = NULL,
+  legend_background_fill = NULL,
+  legend_axis_line_colour = NULL,
+  legend_axis_line_linewidth = NULL,
+  legend_ticks_colour = NULL,
+  legend_ticks_linewidth = NULL,
+  legend_ticks_length = NULL
+)
 }
 \arguments{
 \item{legend_place}{The position of the legend. Either "right", "top" or "bottom".}
@@ -34,7 +45,11 @@ move_legend_place(
 }
 \value{
 A ggplot theme object with legend position settings.
+
+A ggplot theme object with legend position settings.
 }
 \description{
+Set legend position with optimized spacing for each placement.
+
 Set legend position with optimized spacing for each placement.
 }
