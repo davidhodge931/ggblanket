@@ -21,7 +21,7 @@ theme_darker(
   axis_line_linewidth = 0.25,
   axis_ticks_colour = axis_line_colour,
   axis_ticks_linewidth = axis_line_linewidth,
-  axis_ticks_length = ggplot2::rel(0.66),
+  axis_ticks_length = grid::unit(3.66, "pt"),
   panel_background_fill = "#1C1B1A",
   panel_grid_colour = plot_background_fill,
   panel_grid_linetype = 1,

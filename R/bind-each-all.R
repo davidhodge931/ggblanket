@@ -5,10 +5,10 @@
 #'
 #' @param data A data frame or tibble.
 #' @param ... Require named arguments (and support trailing commas).
-#' @param name A variable name. Defaults to `each_all`.
+#' @param name A variable name. Defaults to `"each_all"`.
 #' @param each A string for the each value. Defaults to `"Each"`.
 #' @param all A string for the all value. Defaults to `"All"`.
-#' @param all_after A number for where the all value should be placed after. Use `0` for first or `Inf` for last. Defaults to `Inf`.
+#' @param after A number for where the all value should be placed after. Defaults to `Inf`, which puts `"All"` last. Use `0` to put `"All"` first.
 #'
 #' @return A data frame or tibble
 #' @export
@@ -78,7 +78,7 @@ bind_each_all <- function(
     name = "each_all",
     each = "Each",
     all = "All",
-    all_after = Inf
+    after = Inf
 ) {
   if (...length() != 1) {
     stop("Please provide one variable")
@@ -96,10 +96,10 @@ bind_each_all <- function(
             forcats::fct_relevel(
               forcats::fct_na_value_to_level(col_values),
               all,
-              after = all_after
+              after = after
             )
           } else {
-            forcats::fct_relevel(col_values, all, after = all_after)
+            forcats::fct_relevel(col_values, all, after = after)
           }
         }
       )
@@ -114,10 +114,10 @@ bind_each_all <- function(
             forcats::fct_relevel(
               forcats::fct_na_value_to_level(col_values),
               all,
-              after = all_after
+              after = after
             )
           } else {
-            forcats::fct_relevel(as.factor(col_values), all, after = all_after)
+            forcats::fct_relevel(as.factor(col_values), all, after = after)
           }
         }
       )
@@ -127,7 +127,7 @@ bind_each_all <- function(
       !!name := dplyr::if_else(!!by == all, all, each, missing = each)
     ) |>
     dplyr::mutate(dplyr::across(!!name, forcats::fct_inorder))
-  if (all_after == 0) {
+  if (after == 0) {
     data <- data |>
       dplyr::mutate(dplyr::across(!!name, forcats::fct_rev))
   }

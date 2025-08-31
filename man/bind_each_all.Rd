@@ -10,7 +10,7 @@ bind_each_all(
   name = "each_all",
   each = "Each",
   all = "All",
-  all_after = Inf
+  after = Inf
 )
 }
 \arguments{
@@ -18,13 +18,13 @@ bind_each_all(
 
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{name}{A variable name. Defaults to \code{each_all}.}
+\item{name}{A variable name. Defaults to \code{"each_all"}.}
 
 \item{each}{A string for the each value. Defaults to \code{"Each"}.}
 
 \item{all}{A string for the all value. Defaults to \code{"All"}.}
 
-\item{all_after}{A number for where the all value should be placed after. Use \code{0} for first or \code{Inf} for last. Defaults to \code{Inf}.}
+\item{after}{A number for where the all value should be placed after. Defaults to \code{Inf}, which puts \code{"All"} last. Use \code{0} to put \code{"All"} first.}
 }
 \value{
 A data frame or tibble

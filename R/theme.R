@@ -75,7 +75,7 @@ theme_lighter <- function(
     axis_line_linewidth = 0.25,
     axis_ticks_colour = NULL,
     axis_ticks_linewidth = NULL,
-    axis_ticks_length = ggplot2::rel(0.66),
+    axis_ticks_length = grid::unit(3.66, "pt"),
     panel_background_fill = "#F2F0E5",
     panel_grid_colour = NULL,
     panel_grid_linetype = 1,
@@ -218,27 +218,27 @@ theme_lighter <- function(
       ),
       panel.grid.minor.x = NULL,
       panel.grid.minor.y = NULL,
-      panel.spacing = grid::unit(22, "pt"),
-      panel.spacing.x = NULL,
-      panel.spacing.y = NULL,
+      panel.spacing = NULL,
+      panel.spacing.x = grid::unit(20, "pt"),,
+      panel.spacing.y = grid::unit(10, "pt"),,
       panel.ontop = FALSE,
       spacing = grid::unit(5.5, "pt"),
 
       strip.background = ggplot2::element_rect(fill = NA, colour = NA),
       strip.clip = "off",
       strip.text = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 0, b = 6, l = 0)
+        margin = ggplot2::margin(t = 0, r = 0, b = 8, l = 0)
       ),
       strip.text.x = NULL,
       strip.text.x.bottom = ggplot2::element_text(
-        margin = ggplot2::margin(t = 6, r = 0, b = 0, l = 0)
+        margin = ggplot2::margin(t = 8, r = 0, b = 0, l = 0)
       ),
       strip.text.y = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 6),
+        margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 8),
         angle = -90
       ),
       strip.text.y.left = ggplot2::element_text(
-        margin = ggplot2::margin(t = 0, r = 6, b = 0, l = 0),
+        margin = ggplot2::margin(t = 0, r = 8, b = 0, l = 0),
         angle = 90
       ),
       strip.placement = "outside",
@@ -334,7 +334,7 @@ theme_whiter <- function(
     axis_line_linewidth = 0.25,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length = ggplot2::rel(0.66),
+    axis_ticks_length = grid::unit(3.66, "pt"),
     panel_background_fill = "#FFFFFFFF",
     panel_grid_colour = "#F2F0E5",
     panel_grid_linetype = 1,
@@ -425,7 +425,7 @@ theme_darker <- function(
     axis_line_linewidth = 0.25,
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
-    axis_ticks_length = ggplot2::rel(0.66),
+    axis_ticks_length = grid::unit(3.66, "pt"),
     panel_background_fill = "#1C1B1A",
     panel_grid_colour = plot_background_fill,
     panel_grid_linetype = 1,

@@ -21,7 +21,7 @@ theme_lighter(
   axis_line_linewidth = 0.25,
   axis_ticks_colour = NULL,
   axis_ticks_linewidth = NULL,
-  axis_ticks_length = ggplot2::rel(0.66),
+  axis_ticks_length = grid::unit(3.66, "pt"),
   panel_background_fill = "#F2F0E5",
   panel_grid_colour = NULL,
   panel_grid_linetype = 1,
