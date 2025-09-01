@@ -309,7 +309,7 @@ theme_lighter <- function(
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
     panel_background_fill = "#FFFFFFFF",
-    panel_grid_colour = "#f2f2f2",
+    panel_grid_colour = "#F2F0E5",
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
