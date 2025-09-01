@@ -10,8 +10,8 @@
 #'
 #' @export
 update_geom_col <- function(
-  ...,
-  col = ifelse(is_panel_dark(), "#357BA2FF", "#4797C3FF")
+    ...,
+    col = ifelse(is_panel_dark(), "#357BA2FF", "#4797C3FF")
 ) {
 
   if (!rlang::is_null(col)) {
