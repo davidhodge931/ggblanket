@@ -6,11 +6,11 @@
   }
 
   # Get panel background colour
-  panel_col <- ggplot2::calc_element(theme = theme, element = "panel.background")$fill
+  panel_col <- ggplot2::calc_element(theme = theme, element = "panel.background")@fill
 
   # If panel is transparent/NA, check plot background
   if (.is_transparent_or_na(panel_col)) {
-    plot_col <- ggplot2::calc_element(theme = theme, element = "plot.background")$fill
+    plot_col <- ggplot2::calc_element(theme = theme, element = "plot.background")@fill
 
     if (.is_transparent_or_na(plot_col)) {
       return(100)  # Default to light

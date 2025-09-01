@@ -65,7 +65,7 @@ annotate_shade <- function(
     panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
 
     panel_bg_fill <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
-      panel_bg$fill %||% "#FFFFFFFF"
+      panel_bg@fill %||% "#FFFFFFFF"
     } else {
       "#FFFFFFFF"
     }

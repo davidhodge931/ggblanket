@@ -30,7 +30,7 @@
       "black"
 
     # Get panel background from theme
-    theme_panel <- current_theme$panel.background$fill %||%
+    theme_panel <- current_theme$panel.background@fill %||%
       "white"
 
     # Determine which is dark and which is light using is_col_dark
@@ -110,7 +110,7 @@ aes_contrast <- function(..., dark = NULL, light = NULL, aesthetic = "colour") {
       "black"
 
     # Get panel background from theme
-    theme_panel <- current_theme$panel.background$fill %||%
+    theme_panel <- current_theme$panel.background@fill %||%
       "white"
 
     # Determine which is dark and which is light using is_col_dark

@@ -50,7 +50,7 @@ is_panel_dark <- function(..., theme = NULL) {
   }
 
   # Get panel background colour from theme
-  col <- ggplot2::calc_element(theme = theme, element = "panel.background")$fill
+  col <- ggplot2::calc_element(theme = theme, element = "panel.background")@fill
 
   # Use .is_col_dark to check if the panel colour is dark
   is_col_dark(col)

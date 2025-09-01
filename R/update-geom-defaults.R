@@ -268,16 +268,13 @@ update_geom_font <- function(
   }
 
   # Handle colour
-  colour <- colour %||%  resolved_element@colour %||% "black"
+  colour <- colour %||% resolved_element@colour %||% "black"
 
   # Handle fill - use panel.background for fill default
-  if (rlang::is_null(fill)) {
-    resolved_panel <- ggplot2::calc_element("panel.background", current_theme)
-    fill <- resolved_panel$fill %||% "white"
-  }
+  fill <- fill %||% "white"
 
   # Handle family
-  family <- family %||%  resolved_element@family %||% ""
+  family <- family %||% resolved_element@family %||% ""
 
   ggplot2::update_theme(
     geom.text = ggplot2::element_geom(
@@ -316,23 +313,11 @@ update_geom_reference_line <- function(
 
   # Handle reference line linewidth defaults
   linewidth <- linewidth %||%
-    current_theme$axis.line.x.bottom$linewidth %||%
-    current_theme$axis.line.x.top$linewidth %||%
-    current_theme$axis.line.y.left$linewidth %||%
-    current_theme$axis.line.y.right$linewidth %||%
-    current_theme$axis.line.x$linewidth %||%
-    current_theme$axis.line.y$linewidth %||%
-    current_theme$axis.line$linewidth %||%
+    ggplot2::calc_element("axis.line.x.bottom", current_theme)@linewidth %||%
     0.25
 
   colour <- colour %||%
-    current_theme$axis.line.x.bottom$colour %||%
-    current_theme$axis.line.x.top$colour %||%
-    current_theme$axis.line.y.left$colour %||%
-    current_theme$axis.line.y.right$colour %||%
-    current_theme$axis.line.x$colour %||%
-    current_theme$axis.line.y$colour %||%
-    current_theme$axis.line$colour %||%
+    ggplot2::calc_element("axis.line.x.bottom", current_theme)@colour %||%
     "black"
 
   ggplot2::update_theme(
