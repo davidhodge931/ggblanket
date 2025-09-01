@@ -38,7 +38,7 @@ theme_darker(
 
 \item{text_family}{The base family of the text theme element. Defaults to "".}
 
-\item{text_colour}{The base colour of the text theme element. Accepts standard color values or flexoki palette colors.}
+\item{text_colour}{The base colour of the text theme element.}
 
 \item{legend_place}{The place of the legend. Either "right", "top" or "bottom".}
 
@@ -66,7 +66,7 @@ theme_darker(
 
 \item{axis_ticks_length}{The length of the axis.ticks.length theme element.}
 
-\item{panel_background_fill}{The fill (and colour) of the panel.background theme element. Accepts standard color values or flexoki palette colors.}
+\item{panel_background_fill}{The fill (and colour) of the panel.background theme element.}
 
 \item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
@@ -78,7 +78,7 @@ theme_darker(
 
 \item{panel_grid_minor_linewidth}{The linewidth of the panel.grid.minor theme element.}
 
-\item{plot_background_fill}{The fill (and colour) of the plot.background theme element. Accepts standard color values or flexoki palette colors.}
+\item{plot_background_fill}{The fill (and colour) of the plot.background theme element.}
 }
 \value{
 A ggplot theme.
@@ -97,21 +97,5 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     col = species,
   )
-
-if (requireNamespace("flexoki", quietly = TRUE)) {
-  set_blanket(
-    theme = theme_darker(
-      text_colour = flexoki::flexoki$red[1],
-      panel_background_fill = flexoki::flexoki$red[13],
-    )
-  )
-
-  palmerpenguins::penguins |>
-    gg_point(
-      x = flipper_length_mm,
-      y = body_mass_g,
-      col = species,
-    )
-}
 
 }

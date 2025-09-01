@@ -42,7 +42,7 @@ set_blanket(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_greyer]{theme_greyer()}}, \code{\link[=theme_lighter]{theme_lighter()}}, \code{\link[=theme_darker]{theme_darker()}} or \code{\link[=theme_whiter]{theme_whiter()}}).}
+\item{theme}{A ggplot2 theme (e.g. \code{\link[=theme_greyer]{theme_greyer()}}, \code{\link[=theme_greyer]{theme_greyer()}}, \code{\link[=theme_darker]{theme_darker()}} or \code{\link[=theme_lighter]{theme_lighter()}}).}
 
 \item{col}{A default hex code for the colour and fill of most geoms.}
 
@@ -104,5 +104,5 @@ set_blanket(
 
 }
 \seealso{
-\code{\link[=theme_lighter]{theme_lighter()}}, \code{\link[=theme_darker]{theme_darker()}} for theme options
+\code{\link[=theme_greyer]{theme_greyer()}}, \code{\link[=theme_darker]{theme_darker()}} for theme options
 }
