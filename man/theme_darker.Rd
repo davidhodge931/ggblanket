@@ -23,12 +23,12 @@ theme_darker(
   axis_ticks_linewidth = axis_line_linewidth,
   axis_ticks_length = grid::unit(3.66, "pt"),
   panel_background_fill = "#1C1B1A",
-  panel_grid_colour = plot_background_fill,
+  panel_grid_colour = blend_multiply(panel_background_fill),
   panel_grid_linetype = 1,
   panel_grid_linewidth = 0.5,
   panel_grid_minor_linetype = 0,
   panel_grid_minor_linewidth = ggplot2::rel(0.5),
-  plot_background_fill = blend_multiply(panel_background_fill)
+  plot_background_fill = panel_grid_colour
 )
 }
 \arguments{
@@ -68,7 +68,7 @@ theme_darker(
 
 \item{panel_background_fill}{The fill (and colour) of the panel.background theme element. Accepts standard color values or flexoki palette colors.}
 
-\item{panel_grid_colour}{The colour of the panel.grid theme element. Defaults to a multiply blended colour with "#EFF1F3FF" if the panel background fill is light (or "#00040AFF" if dark).}
+\item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
 \item{panel_grid_linetype}{The linetype of the panel.grid.major theme element.}
 

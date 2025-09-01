@@ -22,8 +22,8 @@ theme_lighter(
   axis_ticks_colour = NULL,
   axis_ticks_linewidth = NULL,
   axis_ticks_length = grid::unit(3.66, "pt"),
-  panel_background_fill = "#F2F0E5",
-  panel_grid_colour = plot_background_fill,
+  panel_background_fill = "#f2f2f2",
+  panel_grid_colour = blend_multiply(panel_background_fill),
   panel_grid_linetype = 1,
   panel_grid_linewidth = 0.5,
   panel_grid_minor_linetype = 0,
@@ -68,7 +68,7 @@ theme_lighter(
 
 \item{panel_background_fill}{The fill (and colour) of the panel.background theme element. Accepts standard color values or flexoki palette colors.}
 
-\item{panel_grid_colour}{The colour of the panel.grid theme element. Defaults to a multiply blended colour with "#EFF1F3FF" if the panel background fill is light (or "#00040AFF" if dark).}
+\item{panel_grid_colour}{The colour of the panel.grid theme element.}
 
 \item{panel_grid_linetype}{The linetype of the panel.grid.major theme element.}
 

@@ -20,7 +20,7 @@
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
 #' @param axis_ticks_length The length of the axis.ticks.length theme element.
 #' @param panel_background_fill The fill (and colour) of the panel.background theme element. Accepts standard color values or flexoki palette colors.
-#' @param panel_grid_colour The colour of the panel.grid theme element. Defaults to a multiply blended colour with "#EFF1F3FF" if the panel background fill is light (or "#00040AFF" if dark).
+#' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linetype The linetype of the panel.grid.major theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid.major theme element.
 #' @param panel_grid_minor_linetype The linetype of the panel.grid.minor theme element. Defaults to 0.
@@ -76,8 +76,8 @@ theme_lighter <- function(
     axis_ticks_colour = NULL,
     axis_ticks_linewidth = NULL,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = "#F2F0E5",
-    panel_grid_colour = plot_background_fill,
+    panel_background_fill = "#f2f2f2",
+    panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
@@ -108,17 +108,6 @@ theme_lighter <- function(
   legend_background_fill <- as.character(legend_background_fill)
   legend_key_fill <- as.character(legend_key_fill)
   legend_ticks_colour <- as.character(legend_ticks_colour)
-#
-#   # Calculate adaptive panel grid colour if not specified
-#   if (is.null(panel_grid_colour)) {
-#     panel_grid_colour <- if (is_col_dark(panel_background_fill)) {
-#       blend_multiply("#00040AFF", panel_background_fill)
-#     } else {
-#       blend_multiply("#EFF1F3FF", panel_background_fill)
-#     }
-#   } else {
-#     panel_grid_colour <- as.character(panel_grid_colour)
-#   }
 
   title_size <- text_size
   title_family <- text_family
@@ -336,7 +325,7 @@ theme_whiter <- function(
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
     panel_background_fill = "#FFFFFFFF",
-    panel_grid_colour = "#F2F0E5",
+    panel_grid_colour = "#f2f2f2",
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
@@ -427,12 +416,87 @@ theme_darker <- function(
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
     panel_background_fill = "#1C1B1A",
-    panel_grid_colour = plot_background_fill,
+    panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
-    plot_background_fill = blend_multiply(panel_background_fill)
+    plot_background_fill = panel_grid_colour
+) {
+  theme_lighter(
+    ...,
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
+    legend_place = legend_place,
+    legend_axis_line_colour = legend_axis_line_colour,
+    legend_axis_line_linewidth = legend_axis_line_linewidth,
+    legend_background_fill = legend_background_fill,
+    legend_key_fill = legend_key_fill,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
+    legend_ticks_length = legend_ticks_length,
+    axis_line_colour = axis_line_colour,
+    axis_line_linewidth = axis_line_linewidth,
+    axis_ticks_colour = axis_ticks_colour,
+    axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length = axis_ticks_length,
+    plot_background_fill = plot_background_fill,
+    panel_background_fill = panel_background_fill,
+    panel_grid_colour = panel_grid_colour,
+    panel_grid_linetype = panel_grid_linetype,
+    panel_grid_linewidth = panel_grid_linewidth,
+    panel_grid_minor_linetype = panel_grid_minor_linetype,
+    panel_grid_minor_linewidth = panel_grid_minor_linewidth
+  )
+}
+
+#' Greyer theme
+#'
+#' @description A complete theme for a light panel background with white gridlines.
+#'
+#' @inheritParams theme_lighter
+#'
+#' @return A ggplot theme.
+#' @export
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' set_blanket(theme = theme_greyer(legend_place = "top"))
+#'
+#' palmerpenguins::penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'   )
+#'
+theme_greyer <- function(
+    ...,
+    text_size = 10,
+    text_family = "",
+    text_colour = "#1C1B1A",
+    legend_place = "right",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = axis_line_linewidth,
+    legend_background_fill = plot_background_fill,
+    legend_key_fill = plot_background_fill,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
+    axis_line_colour = text_colour,
+    axis_line_linewidth = 0.25,
+    axis_ticks_colour = axis_line_colour,
+    axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length = grid::unit(3.66, "pt"),
+    panel_background_fill = "#f2f2f2",
+    panel_grid_colour = "#FFFFFFFF",
+    panel_grid_linetype = 1,
+    panel_grid_linewidth = 0.5,
+    panel_grid_minor_linetype = 0,
+    panel_grid_minor_linewidth = ggplot2::rel(0.5),
+    plot_background_fill = "#FFFFFFFF"
 ) {
   theme_lighter(
     ...,
