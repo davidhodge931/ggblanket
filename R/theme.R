@@ -45,8 +45,8 @@
 #' if (requireNamespace("flexoki", quietly = TRUE)) {
 #'   set_blanket(
 #'     theme = theme_lighter(
-#'       text_colour = flexoki::flexoki$red[13],
-#'       panel_background_fill = flexoki::flexoki$red[1],
+#'       text_colour = flexoki::flexoki$blue[13],
+#'       panel_background_fill = flexoki::flexoki$blue[1],
 #'     )
 #'   )
 #'
@@ -77,7 +77,7 @@ theme_lighter <- function(
     axis_ticks_linewidth = NULL,
     axis_ticks_length = grid::unit(3.66, "pt"),
     panel_background_fill = "#F2F0E5",
-    panel_grid_colour = NULL,
+    panel_grid_colour = plot_background_fill,
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
@@ -108,17 +108,17 @@ theme_lighter <- function(
   legend_background_fill <- as.character(legend_background_fill)
   legend_key_fill <- as.character(legend_key_fill)
   legend_ticks_colour <- as.character(legend_ticks_colour)
-
-  # Calculate adaptive panel grid colour if not specified
-  if (is.null(panel_grid_colour)) {
-    panel_grid_colour <- if (is_col_dark(panel_background_fill)) {
-      blend_multiply("#00040AFF", panel_background_fill)
-    } else {
-      blend_multiply("#EFF1F3FF", panel_background_fill)
-    }
-  } else {
-    panel_grid_colour <- as.character(panel_grid_colour)
-  }
+#
+#   # Calculate adaptive panel grid colour if not specified
+#   if (is.null(panel_grid_colour)) {
+#     panel_grid_colour <- if (is_col_dark(panel_background_fill)) {
+#       blend_multiply("#00040AFF", panel_background_fill)
+#     } else {
+#       blend_multiply("#EFF1F3FF", panel_background_fill)
+#     }
+#   } else {
+#     panel_grid_colour <- as.character(panel_grid_colour)
+#   }
 
   title_size <- text_size
   title_family <- text_family

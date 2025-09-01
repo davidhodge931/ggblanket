@@ -213,4 +213,12 @@ palmerpenguins::penguins |>
     col = sex,
   )
 
+palmerpenguins::penguins |>
+  gg_boxplot(
+    x = flipper_length_mm,
+    y = species,
+    col = species,
+  ) +
+  theme(legend.key.width = rel(1))
+
 }

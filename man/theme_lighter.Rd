@@ -23,7 +23,7 @@ theme_lighter(
   axis_ticks_linewidth = NULL,
   axis_ticks_length = grid::unit(3.66, "pt"),
   panel_background_fill = "#F2F0E5",
-  panel_grid_colour = NULL,
+  panel_grid_colour = plot_background_fill,
   panel_grid_linetype = 1,
   panel_grid_linewidth = 0.5,
   panel_grid_minor_linetype = 0,
@@ -101,8 +101,8 @@ palmerpenguins::penguins |>
 if (requireNamespace("flexoki", quietly = TRUE)) {
   set_blanket(
     theme = theme_lighter(
-      text_colour = flexoki::flexoki$red[13],
-      panel_background_fill = flexoki::flexoki$red[1],
+      text_colour = flexoki::flexoki$blue[13],
+      panel_background_fill = flexoki::flexoki$blue[1],
     )
   )
 
