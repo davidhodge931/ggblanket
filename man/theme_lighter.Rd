@@ -98,13 +98,10 @@ palmerpenguins::penguins |>
     col = species,
   )
 
-if (requireNamespace("flexoki", quietly = TRUE)) {
   set_blanket(
     theme = theme_lighter(
-      text_colour = flexoki::flexoki$blue[13],
-      panel_background_fill = flexoki::flexoki$blue[1],
+      panel_background_fill = "#F2F0E5", #from flexoki
     )
-  )
 
   palmerpenguins::penguins |>
     gg_point(
@@ -112,6 +109,5 @@ if (requireNamespace("flexoki", quietly = TRUE)) {
       y = body_mass_g,
       col = species,
     )
-}
 
 }
