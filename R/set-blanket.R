@@ -49,7 +49,7 @@ set_blanket <- function(
     theme = theme_greyer(),
     col = ifelse(is_panel_dark(), "#357BA2FF", "#4797C3FF"),
     col_palette_discrete = scales::pal_hue(),
-    col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako")),
+    col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
     col_palette_ordinal = NULL,
     col_na = "#A6A6A6FF",
     colour_border_transform = \(x) {

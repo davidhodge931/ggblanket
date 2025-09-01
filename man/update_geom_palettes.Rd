@@ -7,7 +7,8 @@
 update_geom_palettes(
   ...,
   col_palette_discrete = scales::pal_hue(),
-  col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako")),
+  col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako", begin
+    = 0.1, end = 0.9)),
   col_palette_ordinal = NULL,
   col_na = "#A6A6A6FF",
   shape_palette_d = c(21, 24, 22, 23, 25),
