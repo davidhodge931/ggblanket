@@ -26,7 +26,7 @@
 #' library(ggplot2)
 #'
 #' set_blanket(
-#'   theme = theme_lighter(
+#'   theme = theme_greyer(
 #'     panel_heights = rep(unit(50, "mm"), 100),
 #'     panel_widths = rep(unit(75, "mm"), 100),
 #'   ),

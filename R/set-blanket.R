@@ -5,7 +5,7 @@
 #' `theme`, `col`, `col_palette_discrete`, `col_palette_continuous` and `aspect_*` arguments.
 #'
 #' @param ... Require named arguments (and support trailing commas).
-#' @param theme A ggplot2 theme (e.g. [theme_greyer()], [theme_lighter()], [theme_darker()] or [theme_whiter()]).
+#' @param theme A ggplot2 theme (e.g. [theme_greyer()], [theme_greyer()], [theme_darker()] or [theme_lighter()]).
 #' @param col A default hex code for the colour and fill of most geoms.
 #' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
@@ -31,7 +31,7 @@
 #' @return Invisibly returns NULL. Sets global styling options as a side effect.
 #'
 #' @seealso
-#' [theme_lighter()], [theme_darker()] for theme options
+#' [theme_greyer()], [theme_darker()] for theme options
 #'
 #' @export
 #'

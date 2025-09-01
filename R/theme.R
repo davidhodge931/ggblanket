@@ -1,11 +1,11 @@
-#' Lighter theme
+#' Greyer theme
 #'
-#' @description A complete theme for a light panel background.
+#' @description A complete theme for a grey panel background.
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param text_size The base size of the text theme element. Defaults to 10.
 #' @param text_family The base family of the text theme element. Defaults to "".
-#' @param text_colour The base colour of the text theme element. Accepts standard color values or flexoki palette colors.
+#' @param text_colour The base colour of the text theme element.
 #' @param legend_place The place of the legend. Either "right", "top" or "bottom".
 #' @param legend_axis_line_colour The colour of the legend.axis.line theme element.
 #' @param legend_axis_line_linewidth The linewidth of the legend.axis.line theme element.
@@ -19,13 +19,13 @@
 #' @param axis_ticks_colour The colour of the axis.ticks theme element.
 #' @param axis_ticks_linewidth The linewidth of the axis.ticks theme element.
 #' @param axis_ticks_length The length of the axis.ticks.length theme element.
-#' @param panel_background_fill The fill (and colour) of the panel.background theme element. Accepts standard color values or flexoki palette colors.
+#' @param panel_background_fill The fill (and colour) of the panel.background theme element.
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linetype The linetype of the panel.grid.major theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid.major theme element.
 #' @param panel_grid_minor_linetype The linetype of the panel.grid.minor theme element. Defaults to 0.
 #' @param panel_grid_minor_linewidth The linewidth of the panel.grid.minor theme element.
-#' @param plot_background_fill The fill (and colour) of the plot.background theme element. Accepts standard color values or flexoki palette colors.
+#' @param plot_background_fill The fill (and colour) of the plot.background theme element.
 #'
 #' @return A ggplot theme.
 #' @export
@@ -33,7 +33,7 @@
 #' @examples
 #' library(ggplot2)
 #'
-#' set_blanket(theme = theme_lighter(legend_place = "top"))
+#' set_blanket(theme = theme_greyer(legend_place = "top"))
 #'
 #' palmerpenguins::penguins |>
 #'   gg_point(
@@ -42,19 +42,7 @@
 #'     col = species,
 #'   )
 #'
-#'   set_blanket(
-#'     theme = theme_lighter(
-#'       panel_background_fill = "#F2F0E5", #from flexoki
-#'     )
-#'
-#'   palmerpenguins::penguins |>
-#'     gg_point(
-#'       x = flipper_length_mm,
-#'       y = body_mass_g,
-#'       col = species,
-#'     )
-#'
-theme_lighter <- function(
+theme_greyer <- function(
     ...,
     text_size = 10,
     text_family = "",
@@ -281,11 +269,11 @@ theme_lighter <- function(
   )
 }
 
-#' Whiter theme
+#' Lighter theme
 #'
-#' @description A complete theme with a white panel background.
+#' @description A complete theme with a lighter panel background.
 #'
-#' @inheritParams theme_lighter
+#' @inheritParams theme_greyer
 #'
 #' @return A ggplot theme.
 #' @export
@@ -293,7 +281,7 @@ theme_lighter <- function(
 #' @examples
 #' library(ggplot2)
 #'
-#' set_blanket(theme = theme_whiter(legend_position = "top"))
+#' set_blanket(theme = theme_lighter(legend_position = "top"))
 #'
 #' palmerpenguins::penguins |>
 #'   gg_point(
@@ -302,7 +290,7 @@ theme_lighter <- function(
 #'     col = species,
 #'   )
 #'
-theme_whiter <- function(
+theme_lighter <- function(
     ...,
     text_size = 10,
     text_family = "",
@@ -328,7 +316,7 @@ theme_whiter <- function(
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
     plot_background_fill = "#FFFFFFFF"
 ) {
-  theme_lighter(
+  theme_greyer(
     ...,
     text_size = text_size,
     text_family = text_family,
@@ -360,7 +348,7 @@ theme_whiter <- function(
 #'
 #' @description A complete theme for a dark panel background.
 #'
-#' @inheritParams theme_lighter
+#' @inheritParams theme_greyer
 #'
 #' @return A ggplot theme.
 #' @export
@@ -376,22 +364,6 @@ theme_whiter <- function(
 #'     y = body_mass_g,
 #'     col = species,
 #'   )
-#'
-#' if (requireNamespace("flexoki", quietly = TRUE)) {
-#'   set_blanket(
-#'     theme = theme_darker(
-#'       text_colour = flexoki::flexoki$red[1],
-#'       panel_background_fill = flexoki::flexoki$red[13],
-#'     )
-#'   )
-#'
-#'   palmerpenguins::penguins |>
-#'     gg_point(
-#'       x = flipper_length_mm,
-#'       y = body_mass_g,
-#'       col = species,
-#'     )
-#' }
 #'
 theme_darker <- function(
     ...,
@@ -419,7 +391,7 @@ theme_darker <- function(
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
     plot_background_fill = panel_grid_colour
 ) {
-  theme_lighter(
+  theme_greyer(
     ...,
     text_size = text_size,
     text_family = text_family,
@@ -447,11 +419,11 @@ theme_darker <- function(
   )
 }
 
-#' Greyer theme
+#' Beiger theme
 #'
-#' @description A complete theme for a light panel background with white gridlines.
+#' @description A complete theme for a beiger panel background.
 #'
-#' @inheritParams theme_lighter
+#' @inheritParams theme_greyer
 #'
 #' @return A ggplot theme.
 #' @export
@@ -459,7 +431,7 @@ theme_darker <- function(
 #' @examples
 #' library(ggplot2)
 #'
-#' set_blanket(theme = theme_greyer(legend_place = "top"))
+#' set_blanket(theme = theme_beiger(legend_place = "top"))
 #'
 #' palmerpenguins::penguins |>
 #'   gg_point(
@@ -468,7 +440,7 @@ theme_darker <- function(
 #'     col = species,
 #'   )
 #'
-theme_greyer <- function(
+theme_beiger <- function(
     ...,
     text_size = 10,
     text_family = "",
@@ -486,15 +458,15 @@ theme_greyer <- function(
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = "#f2f2f2",
-    panel_grid_colour = "#FFFFFFFF",
+    panel_background_fill = "#F2F0E5",
+    panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
     plot_background_fill = "#FFFFFFFF"
 ) {
-  theme_lighter(
+  theme_greyer(
     ...,
     text_size = text_size,
     text_family = text_family,

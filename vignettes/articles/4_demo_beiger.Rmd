@@ -28,7 +28,7 @@ library(scales)
 library(palmerpenguins)
 
 set_blanket(
-  theme = theme_whiter(),
+  theme = theme_beiger(),
 )
 
 penguins2 <- penguins |> 
