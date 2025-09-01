@@ -183,17 +183,17 @@ annotate_axis_line <- function(
 
   # Extract theme properties with proper resolution
   line_colour <- if (rlang::is_null(colour)) {
-    resolved_element$colour %||% "black"
+     resolved_element@colour %||% "black"
   } else {
     colour
   }
 
   # Handle linewidth with proper rel() support
   if (rlang::is_null(linewidth)) {
-    line_linewidth <- resolved_element$linewidth %||% 0.5
+    line_linewidth <-  resolved_element@linewidth %||% 0.5
   } else {
     if (inherits(linewidth, "rel")) {
-      base_linewidth <- resolved_element$linewidth %||% 0.5
+      base_linewidth <-  resolved_element@linewidth %||% 0.5
       line_linewidth <- as.numeric(linewidth) * base_linewidth
     } else {
       line_linewidth <- linewidth

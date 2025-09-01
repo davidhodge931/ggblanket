@@ -23,10 +23,10 @@
     current_theme <- ggplot2::get_theme()
 
     # Get text colour from theme
-    theme_text <- current_theme$axis.text.x$colour %||%
-      current_theme$axis.text.y$colour %||%
-      current_theme$axis.text$colour %||%
-      current_theme$text$colour %||%
+    theme_text <- current_theme$axis.text.x@colour %||%
+      current_theme$axis.text.y@colour %||%
+      current_theme$axis.text@colour %||%
+      current_theme$text@colour %||%
       "black"
 
     # Get panel background from theme
@@ -103,10 +103,10 @@ aes_contrast <- function(..., dark = NULL, light = NULL, aesthetic = "colour") {
     current_theme <- ggplot2::get_theme()
 
     # Get text colour from theme
-    theme_text <- current_theme$axis.text.x$colour %||%
-      current_theme$axis.text.y$colour %||%
-      current_theme$axis.text$colour %||%
-      current_theme$text$colour %||%
+    theme_text <- current_theme$axis.text.x@colour %||%
+      current_theme$axis.text.y@colour %||%
+      current_theme$axis.text@colour %||%
+      current_theme$text@colour %||%
       "black"
 
     # Get panel background from theme
@@ -128,13 +128,13 @@ aes_contrast <- function(..., dark = NULL, light = NULL, aesthetic = "colour") {
   if (aesthetic == "colour") {
     ggplot2::aes(
       colour = ggplot2::after_scale(
-        .get_contrast(.data$fill, dark = dark, light = light)
+        .get_contrast(col = .data$fill, dark = dark, light = light)
       )
     )
   } else if (aesthetic == "fill") {
     ggplot2::aes(
       fill = ggplot2::after_scale(
-        .get_contrast(.data$colour, dark = dark, light = light)
+        .get_contrast(col = .data$colour, dark = dark, light = light)
       )
     )
   } else {
