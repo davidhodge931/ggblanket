@@ -7,14 +7,14 @@
 #' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param ... Require named arguments (and support trailing commas).
-#' @param position The position of the axis ticks. One of "top", "bottom", "left", or "right".
-#' @param x A vector of x-axis breaks for ticks positioning. Use I() to specify normalized coordinates (0-1).
-#' @param y A vector of y-axis breaks for ticks positioning. Use I() to specify normalized coordinates (0-1).
-#' @param minor TRUE or FALSE whether to relate to minor ticks. Defaults FALSE.
-#' @param colour The colour of the ticks. Inherits from the current theme axis.ticks etc.
-#' @param linewidth The colour of the ticks. Inherits from the current theme axis.ticks etc.
+#' @param position The position of the axis ticks. One of `"top"`, `"bottom"`, `"left"`, or `"right"`.
+#' @param x A vector of x-axis breaks for ticks positioning. Use `I()` to specify normalized coordinates (0-1).
+#' @param y A vector of y-axis breaks for ticks positioning. Use `I()` to specify normalized coordinates (0-1).
+#' @param minor `TRUE` or `FALSE` whether to relate to minor ticks. Defaults `FALSE`.
+#' @param colour The colour of the ticks. Inherits from the current theme `axis.ticks` etc.
+#' @param linewidth The linewidth of the ticks. Inherits from the current theme `axis.ticks` etc.
 #' @param length The total distance from the axis line to the ticks as a grid unit. Defaults to the sum of set theme tick length and relevant margin part.
-#' @param theme What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
+#' @param theme What to do with the equivalent theme elements. Either `"keep"`, `"transparent"`, or `"blank"`. Defaults `"keep"`.
 #'
 #' @return A list of annotation annotates and theme elements.
 #' @export

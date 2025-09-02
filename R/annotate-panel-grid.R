@@ -5,13 +5,13 @@
 #' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("segment", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
-#' @param x A vector of x-axis breaks for vertical grid lines. Cannot be used together with y. Use I() to specify normalized coordinates (0-1).
-#' @param y A vector of y-axis breaks for horizontal grid lines. Cannot be used together with x. Use I() to specify normalized coordinates (0-1).
-#' @param minor Logical. If FALSE (default), creates major grid lines. If TRUE, creates minor grid lines.
-#' @param colour The colour of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.
-#' @param linewidth The linewidth of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.
-#' @param linetype The linetype of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.
-#' @param theme What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
+#' @param x A vector of x-axis breaks for vertical grid lines. Cannot be used together with `y`. Use `I()` to specify normalized coordinates (0-1).
+#' @param y A vector of y-axis breaks for horizontal grid lines. Cannot be used together with `x`. Use `I()` to specify normalized coordinates (0-1).
+#' @param minor Logical. If `FALSE` (default), creates major grid lines. If `TRUE`, creates minor grid lines.
+#' @param colour The colour of grid lines. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
+#' @param linewidth The linewidth of grid lines. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
+#' @param linetype The linetype of grid lines. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
+#' @param theme What to do with the equivalent theme elements. Either `"keep"`, `"transparent"`, or `"blank"`. Defaults `"keep"`.
 #'
 #' @return A list of annotate annotates and theme elements.
 #' @export

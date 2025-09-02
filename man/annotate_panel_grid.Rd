@@ -18,19 +18,19 @@ annotate_panel_grid(
 \arguments{
 \item{...}{Arguments passed to \code{ggplot2::annotate("segment", ....)} (if normalised coordinates not used). Require named arguments (and support trailing commas).}
 
-\item{x}{A vector of x-axis breaks for vertical grid lines. Cannot be used together with y. Use I() to specify normalized coordinates (0-1).}
+\item{x}{A vector of x-axis breaks for vertical grid lines. Cannot be used together with \code{y}. Use \code{I()} to specify normalized coordinates (0-1).}
 
-\item{y}{A vector of y-axis breaks for horizontal grid lines. Cannot be used together with x. Use I() to specify normalized coordinates (0-1).}
+\item{y}{A vector of y-axis breaks for horizontal grid lines. Cannot be used together with \code{x}. Use \code{I()} to specify normalized coordinates (0-1).}
 
-\item{minor}{Logical. If FALSE (default), creates major grid lines. If TRUE, creates minor grid lines.}
+\item{minor}{Logical. If \code{FALSE} (default), creates major grid lines. If \code{TRUE}, creates minor grid lines.}
 
-\item{colour}{The colour of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.}
+\item{colour}{The colour of grid lines. Inherits from current theme \code{panel.grid.major} or \code{panel.grid.minor} etc.}
 
-\item{linewidth}{The linewidth of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.}
+\item{linewidth}{The linewidth of grid lines. Inherits from current theme \code{panel.grid.major} or \code{panel.grid.minor} etc.}
 
-\item{linetype}{The linetype of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.}
+\item{linetype}{The linetype of grid lines. Inherits from current theme \code{panel.grid.major} or \code{panel.grid.minor} etc.}
 
-\item{theme}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
+\item{theme}{What to do with the equivalent theme elements. Either \code{"keep"}, \code{"transparent"}, or \code{"blank"}. Defaults \code{"keep"}.}
 }
 \value{
 A list of annotate annotates and theme elements.

@@ -25,31 +25,31 @@ annotate_axis_text(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{position}{The position of the axis text. One of "top", "bottom", "left", or "right". Ignored if both x and y are provided.}
+\item{position}{The position of the axis text. One of \code{"top"}, \code{"bottom"}, \code{"left"}, or \code{"right"}. Ignored if both \code{x} and \code{y} are provided.}
 
-\item{x}{A vector of x-axis breaks for text positioning. Use I() to specify normalized coordinates (0-1).}
+\item{x}{A vector of x-axis breaks for text positioning. Use \code{I()} to specify normalized coordinates (0-1).}
 
-\item{y}{A vector of y-axis breaks for text positioning. Use I() to specify normalized coordinates (0-1).}
+\item{y}{A vector of y-axis breaks for text positioning. Use \code{I()} to specify normalized coordinates (0-1).}
 
-\item{label}{A vector of text labels or a function that takes breaks and returns labels. If NULL, uses appropriate formatting.}
+\item{label}{A vector of text labels or a function that takes breaks and returns labels. If \code{NULL}, uses appropriate formatting.}
 
-\item{colour}{The colour of the text. Inherits from the current theme axis.text etc.}
+\item{colour}{The colour of the text. Inherits from the current theme \code{axis.text} etc.}
 
-\item{size}{The size of the text. Inherits from the current theme axis.text etc.}
+\item{size}{The size of the text. Inherits from the current theme \code{axis.text} etc.}
 
-\item{family}{The font family of the text. Inherits from the current theme axis.text etc.}
+\item{family}{The font family of the text. Inherits from the current theme \code{axis.text} etc.}
 
 \item{length}{The total distance from the axis line to the text as a grid unit. Defaults to the sum of set theme tick length and relevant margin part.}
 
 \item{margin}{The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components.}
 
-\item{fill}{The fill colour of the background rectangle. If NULL, defaults to "transparent".}
+\item{fill}{The fill colour of the background rectangle. If \code{NULL}, defaults to \code{"transparent"}.}
 
-\item{hjust, vjust}{Horizontal and vertical justification. Auto-calculated based on position if NULL.}
+\item{hjust, vjust}{Horizontal and vertical justification. Auto-calculated based on position if \code{NULL}.}
 
-\item{angle}{Text rotation angle. Defaults to 0.}
+\item{angle}{Text rotation angle. Defaults to \code{0}.}
 
-\item{theme}{What to do with the equivalent theme elements. Either "keep", "transparent", or "blank". Defaults to "keep".}
+\item{theme}{What to do with the equivalent theme elements. Either \code{"keep"}, \code{"transparent"}, or \code{"blank"}. Defaults to \code{"keep"}.}
 }
 \value{
 A list of annotation annotates and theme elements.

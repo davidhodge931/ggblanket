@@ -21,26 +21,26 @@ annotate_axis_line(
 \arguments{
 \item{...}{Arguments passed to \code{ggplot2::annotate("segment", ....)} (if normalised coordinates not used). Require named arguments (and support trailing commas).}
 
-\item{position}{The position of the axis line. One of "top", "bottom", "left", or "right". Ignored if x or y is provided.}
+\item{position}{The position of the axis line. One of \code{"top"}, \code{"bottom"}, \code{"left"}, or \code{"right"}. Ignored if \code{x} or \code{y} is provided.}
 
-\item{x}{A single x-axis value for a vertical line. Cannot be used together with y or xmin/xmax. Use I() for normalized coordinates (0-1).}
+\item{x}{A single x-axis value for a vertical line. Cannot be used together with \code{y} or \code{xmin}/\code{xmax}. Use \code{I()} for normalized coordinates (0-1).}
 
-\item{y}{A single y-axis value for a horizontal line. Cannot be used together with x or ymin/ymax. Use I() for normalized coordinates (0-1).}
+\item{y}{A single y-axis value for a horizontal line. Cannot be used together with \code{x} or \code{ymin}/\code{ymax}. Use \code{I()} for normalized coordinates (0-1).}
 
-\item{xmin}{The starting x position for a horizontal line segment. Use I() for normalized coordinates (0-1).}
+\item{xmin}{The starting x position for a horizontal line segment. Use \code{I()} for normalized coordinates (0-1).}
 
-\item{xmax}{The ending x position for a horizontal line segment. Use I() for normalized coordinates (0-1).}
+\item{xmax}{The ending x position for a horizontal line segment. Use \code{I()} for normalized coordinates (0-1).}
 
-\item{ymin}{The starting y position for a vertical line segment. Use I() for normalized coordinates (0-1).}
+\item{ymin}{The starting y position for a vertical line segment. Use \code{I()} for normalized coordinates (0-1).}
 
-\item{ymax}{The ending y position for a vertical line segment. Use I() for normalized coordinates (0-1).}
+\item{ymax}{The ending y position for a vertical line segment. Use \code{I()} for normalized coordinates (0-1).}
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 
 \item{linewidth}{The linewidth of the annotated segment. Inherits from the current theme axis.line etc.}
 
-\item{theme}{How to modify the corresponding theme element. One of "keep", "transparent", or "blank".
-Defaults to "keep".}
+\item{theme}{How to modify the corresponding theme element. One of \code{"keep"}, \code{"transparent"}, or \code{"blank"}.
+Defaults to \code{"keep"}.}
 }
 \value{
 A list of annotation annotates and theme elements.

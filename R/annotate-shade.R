@@ -2,20 +2,18 @@
 #'
 #' @description Create a subtle shaded rectangle to visually differentiate regions.
 #'
-#' This function creates semi-transparent rectangular overlays useful for indicating
-#' uncertainty, different data quality, background context, or other visual distinctions.
 #' It is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("rect", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
-#' @param xmin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
-#' @param xmax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
-#' @param ymin A value of length 1. Defaults to -Inf. Use I() to specify normalized coordinates (0-1).
-#' @param ymax A value of length 1. Defaults to Inf. Use I() to specify normalized coordinates (0-1).
-#' @param fill The fill colour of the rectangle. Defaults to a multiply/screen blended colour with "#8991A1FF" and the panel background fill.
-#' @param alpha The transparency of the rectangle. Defaults to 0.2 (subtle overlay).
-#' @param colour The border colour of the rectangle. Defaults to "transparent".
-#' @param linewidth The border linewidth of the rectangle. Inherits from the current theme panel.border linewidth. Supports rel() for relative sizing.
-#' @param linetype The border linetype of the rectangle. Defaults to 1.
+#' @param xmin A value of length 1. Defaults to `-Inf`. Use `I()` to specify normalized coordinates (0-1).
+#' @param xmax A value of length 1. Defaults to `Inf`. Use `I()` to specify normalized coordinates (0-1).
+#' @param ymin A value of length 1. Defaults to `-Inf`. Use `I()` to specify normalized coordinates (0-1).
+#' @param ymax A value of length 1. Defaults to `Inf`. Use `I()` to specify normalized coordinates (0-1).
+#' @param fill The fill colour of the rectangle. Defaults to a multiply/screen blended colour with `"#8991A1FF"` and the panel background fill.
+#' @param alpha The transparency of the rectangle. Defaults to `0.2` (subtle overlay).
+#' @param colour The border colour of the rectangle. Defaults to `"transparent"`.
+#' @param linewidth The border linewidth of the rectangle. Inherits from the current theme `panel.border` linewidth. Supports `rel()` for relative sizing.
+#' @param linetype The border linetype of the rectangle. Defaults to `1`.
 #'
 #' @return A list containing an annotation annotate.
 #' @export

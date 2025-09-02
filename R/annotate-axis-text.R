@@ -7,19 +7,19 @@
 #' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
 #' @param ... Require named arguments (and support trailing commas).
-#' @param position The position of the axis text. One of "top", "bottom", "left", or "right". Ignored if both x and y are provided.
-#' @param x A vector of x-axis breaks for text positioning. Use I() to specify normalized coordinates (0-1).
-#' @param y A vector of y-axis breaks for text positioning. Use I() to specify normalized coordinates (0-1).
-#' @param label A vector of text labels or a function that takes breaks and returns labels. If NULL, uses appropriate formatting.
-#' @param colour The colour of the text. Inherits from the current theme axis.text etc.
-#' @param size The size of the text. Inherits from the current theme axis.text etc.
-#' @param family The font family of the text. Inherits from the current theme axis.text etc.
+#' @param position The position of the axis text. One of `"top"`, `"bottom"`, `"left"`, or `"right"`. Ignored if both `x` and `y` are provided.
+#' @param x A vector of x-axis breaks for text positioning. Use `I()` to specify normalized coordinates (0-1).
+#' @param y A vector of y-axis breaks for text positioning. Use `I()` to specify normalized coordinates (0-1).
+#' @param label A vector of text labels or a function that takes breaks and returns labels. If `NULL`, uses appropriate formatting.
+#' @param colour The colour of the text. Inherits from the current theme `axis.text` etc.
+#' @param size The size of the text. Inherits from the current theme `axis.text` etc.
+#' @param family The font family of the text. Inherits from the current theme `axis.text` etc.
 #' @param length The total distance from the axis line to the text as a grid unit. Defaults to the sum of set theme tick length and relevant margin part.
 #' @param margin The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components.
-#' @param fill The fill colour of the background rectangle. If NULL, defaults to "transparent".
-#' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if NULL.
-#' @param angle Text rotation angle. Defaults to 0.
-#' @param theme What to do with the equivalent theme elements. Either "keep", "transparent", or "blank". Defaults to "keep".
+#' @param fill The fill colour of the background rectangle. If `NULL`, defaults to `"transparent"`.
+#' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if `NULL`.
+#' @param angle Text rotation angle. Defaults to `0`.
+#' @param theme What to do with the equivalent theme elements. Either `"keep"`, `"transparent"`, or `"blank"`. Defaults to `"keep"`.
 #'
 #' @return A list of annotation annotates and theme elements.
 #' @export

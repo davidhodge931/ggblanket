@@ -19,21 +19,21 @@ annotate_axis_ticks(
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
 
-\item{position}{The position of the axis ticks. One of "top", "bottom", "left", or "right".}
+\item{position}{The position of the axis ticks. One of \code{"top"}, \code{"bottom"}, \code{"left"}, or \code{"right"}.}
 
-\item{x}{A vector of x-axis breaks for ticks positioning. Use I() to specify normalized coordinates (0-1).}
+\item{x}{A vector of x-axis breaks for ticks positioning. Use \code{I()} to specify normalized coordinates (0-1).}
 
-\item{y}{A vector of y-axis breaks for ticks positioning. Use I() to specify normalized coordinates (0-1).}
+\item{y}{A vector of y-axis breaks for ticks positioning. Use \code{I()} to specify normalized coordinates (0-1).}
 
-\item{minor}{TRUE or FALSE whether to relate to minor ticks. Defaults FALSE.}
+\item{minor}{\code{TRUE} or \code{FALSE} whether to relate to minor ticks. Defaults \code{FALSE}.}
 
-\item{colour}{The colour of the ticks. Inherits from the current theme axis.ticks etc.}
+\item{colour}{The colour of the ticks. Inherits from the current theme \code{axis.ticks} etc.}
 
-\item{linewidth}{The colour of the ticks. Inherits from the current theme axis.ticks etc.}
+\item{linewidth}{The linewidth of the ticks. Inherits from the current theme \code{axis.ticks} etc.}
 
 \item{length}{The total distance from the axis line to the ticks as a grid unit. Defaults to the sum of set theme tick length and relevant margin part.}
 
-\item{theme}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
+\item{theme}{What to do with the equivalent theme elements. Either \code{"keep"}, \code{"transparent"}, or \code{"blank"}. Defaults \code{"keep"}.}
 }
 \value{
 A list of annotation annotates and theme elements.
