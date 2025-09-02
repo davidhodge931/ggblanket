@@ -138,6 +138,8 @@ annotate_axis_line <- function(
 
     # Determine axis from x/y
     axis <- if (!rlang::is_null(x)) "y" else "x"  # Note: vertical line is on y axis, horizontal on x axis
+
+    # Determine if we're using normalized coordinates based on ANY normalized input
     use_normalized <- x_is_normalized || y_is_normalized || xmin_is_normalized || xmax_is_normalized ||
       ymin_is_normalized || ymax_is_normalized
   } else {
@@ -183,7 +185,7 @@ annotate_axis_line <- function(
 
   # Extract theme properties with proper resolution
   line_colour <- if (rlang::is_null(colour)) {
-     resolved_element@colour %||% "black"
+    resolved_element@colour %||% "black"
   } else {
     colour
   }
@@ -206,9 +208,13 @@ annotate_axis_line <- function(
   if (use_xy_positioning) {
     if (!rlang::is_null(x)) {
       # Vertical line
-      # Set defaults for endpoints
-      if (rlang::is_null(ymin)) ymin <- if (ymin_is_normalized) 0 else -Inf
-      if (rlang::is_null(ymax)) ymax <- if (ymax_is_normalized) 1 else Inf
+      # Set defaults for endpoints based on whether we're using normalized coordinates
+      if (rlang::is_null(ymin)) {
+        ymin <- if (use_normalized) 0 else -Inf
+      }
+      if (rlang::is_null(ymax)) {
+        ymax <- if (use_normalized) 1 else Inf
+      }
 
       if (use_normalized) {
         # Create normalized grob
@@ -250,9 +256,13 @@ annotate_axis_line <- function(
       }
     } else {
       # Horizontal line
-      # Set defaults for endpoints
-      if (rlang::is_null(xmin)) xmin <- if (xmin_is_normalized) 0 else -Inf
-      if (rlang::is_null(xmax)) xmax <- if (xmax_is_normalized) 1 else Inf
+      # Set defaults for endpoints based on whether we're using normalized coordinates
+      if (rlang::is_null(xmin)) {
+        xmin <- if (use_normalized) 0 else -Inf
+      }
+      if (rlang::is_null(xmax)) {
+        xmax <- if (use_normalized) 1 else Inf
+      }
 
       if (use_normalized) {
         # Create normalized grob
