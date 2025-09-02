@@ -15,7 +15,7 @@ annotate_axis_line(
   ymax = NULL,
   colour = NULL,
   linewidth = NULL,
-  theme = NULL
+  theme = "keep"
 )
 }
 \arguments{
@@ -40,7 +40,7 @@ annotate_axis_line(
 \item{linewidth}{The linewidth of the annotated segment. Inherits from the current theme axis.line etc.}
 
 \item{theme}{How to modify the corresponding theme element. One of "keep", "transparent", or "blank".
-Defaults to "transparent" if position specified, otherwise "keep".}
+Defaults to "keep".}
 }
 \value{
 A list of annotation annotates and theme elements.

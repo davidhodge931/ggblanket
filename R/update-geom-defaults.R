@@ -291,50 +291,6 @@ update_geom_font <- function(
   )
 }
 
-#' Update the geom hline/vline
-#'
-#' @description
-#' Updates the active theme to apply consistent reference line styling.
-#'
-#' @param ... Require named arguments (and support trailing commas).
-#' @param colour A colour.
-#' @param linewidth A linewidth.
-#'
-#' @return Updated geom defaults
-#'
-#' @noRd
-update_geom_reference_line <- function(
-    ...,
-    colour = NULL,
-    linewidth = NULL
-) {
-  # Get current theme for font defaults
-  current_theme <- ggplot2::get_theme()
-
-  # Handle reference line linewidth defaults
-  linewidth <- linewidth %||%
-    ggplot2::calc_element("axis.line.x.bottom", current_theme)@linewidth %||%
-    0.25
-
-  colour <- colour %||%
-    ggplot2::calc_element("axis.line.x.bottom", current_theme)@colour %||%
-    "black"
-
-  ggplot2::update_theme(
-    geom.abline = ggplot2::element_geom(
-      linewidth = linewidth
-    ),
-    geom.vline = ggplot2::element_geom(
-      colour = colour,
-      linewidth = linewidth
-    ),
-    geom.hline = ggplot2::element_geom(
-      colour = colour,
-      linewidth = linewidth
-    )
-  )
-}
-
 #' Update panel dimensions
 #'
 #' @description

@@ -17,7 +17,7 @@
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param theme How to modify the corresponding theme element. One of "keep", "transparent", or "blank".
-#'   Defaults to "transparent" if position specified, otherwise "keep".
+#'   Defaults to "keep".
 #'
 #' @return A list of annotation annotates and theme elements.
 #' @export
@@ -61,7 +61,7 @@ annotate_axis_line <- function(
     ymax = NULL,
     colour = NULL,
     linewidth = NULL,
-    theme = NULL
+    theme = "keep"
 ) {
   # Validate arguments - can't have both x and y
   if (!rlang::is_null(x) && !rlang::is_null(y)) {
@@ -74,10 +74,6 @@ annotate_axis_line <- function(
   }
   if (!rlang::is_null(y) && (!rlang::is_null(ymin) || !rlang::is_null(ymax))) {
     rlang::abort("Cannot specify both y and ymin/ymax. Use either y for a single position or ymin/ymax for endpoints.")
-  }
-
-  if (rlang::is_null(theme)) {
-    theme <- if (!rlang::is_null(position)) "transparent" else "keep"
   }
 
   # If x or y is provided, it overrides position
