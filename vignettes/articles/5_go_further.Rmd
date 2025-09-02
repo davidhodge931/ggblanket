@@ -510,15 +510,12 @@ penguins |>
   tidyr::drop_na(sex) |>
   mutate(across(sex, \(x) str_to_sentence(x))) |>
   add_row(flipper_length_mm = 195, body_mass_g = 2500, sex = "Female") |> 
-  gg_blanket(
+  gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = sex,
-  ) +
-  annotate_axis_line(
-    axis = "x",
-  ) +
-  geom_point()
+    annotate = annotate_axis_line(position = "bottom", theme = "transparent"),
+  ) 
 ```
 
 ### Annotate axis ticks

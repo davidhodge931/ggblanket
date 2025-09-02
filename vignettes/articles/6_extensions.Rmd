@@ -440,16 +440,6 @@ p1 + p2
 The ggblend package provides blending of colours. You must use a graphics device that supports blending.
 
 ```{r}
-penguins2 |>
-  gg_blanket(
-    stat = "density",
-    x = flipper_length_mm,
-    col = species,
-  ) +
-  ggblend::blend(geom_density(), blend = "multiply") 
-```
-
-```{r}
 data.frame(year = 1875:1972, level = as.vector(LakeHuron)) |>
   mutate(level_min = level - 1, level_max = level + 1) |>
   gg_blanket(
