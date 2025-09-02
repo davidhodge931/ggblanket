@@ -51,7 +51,8 @@ Computational speed has been traded-off.
 12. An `aspect` for vertical/horizontal ease 
 13. A `*_limits_to_breaks` continuous scale
 14. `bordered` style ease
-15. A `gg_blanket()` function with `geom` flexibility
+15. An `annotate` argument to plot annotations underneath
+16. A `gg_blanket()` function with `geom` flexibility
 
 ```{r setup}
 library(dplyr)
@@ -333,29 +334,32 @@ palmerpenguins::penguins |>
   )
 ```
 
-### 15. A `gg_blanket()` function with `geom` flexibility
+### 15. An `annotate` argument to plot annotations underneath
+
+An annotate argument is provided to enable annotations under the
+ `gg_*` geom.
+
+```{r}
+palmerpenguins::penguins |>
+  drop_na() |> 
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    size = bill_length_mm,
+    shape = sex,
+    annotate = annotate_shade(xmin = I(0.9)),
+  ) 
+```
+
+### 16. A `gg_blanket()` function with `geom` flexibility
 
 The package is driven by the `gg_blanket` function, which has a `geom` argument with `ggplot2::geom_blank` defaults for `geom`, `stat` and `position`.
 
 All other functions wrap this function with a fixed `geom`, and their own default `stat` and `position` arguments as per the applicable `geom_*` function.
 
-This function can often be used (1) where a annotation is needed to be plotted first, or (2) where a geom is needed to be plotted that is not provided as a `gg_*` function.
+This function can often be used where a geom is needed to be plotted that is not provided as a `gg_*` function.
 
-The `blank` geom gets `bordered = TRUE` unless otherwise specified. As such, bordered colouring/filling only passes through to `+ geom_` layers for mapped `col` aesthetics. Where `col` is not mapped, use `blend_multiply` and `blend_screen` in subsequent layers to replicate the default ggblanket look.
-
-```{r}
-palmerpenguins::penguins |>
-  drop_na() |> 
-  gg_blanket(
-    x = flipper_length_mm,
-    y = body_mass_g,
-    size = bill_length_mm,
-    shape = sex,
-    bordered = TRUE,
-  ) +
-  annotate_shade(xmin = I(0.9)) +
-  geom_point(colour = blend_multiply(get_geom_defaults("point")$colour))
-```
+The `blank` geom gets `bordered = FALSE` unless otherwise specified. Use `bordered = TRUE` where there is polygons in later layers. Where `col` is not mapped, use `blend_multiply` and `blend_screen` as needed in subsequent layers.
 
 ```{r}
 set_blanket()
