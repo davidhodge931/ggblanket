@@ -114,7 +114,7 @@ p1 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
-    subtitle = "\nDefault order"
+    title = "Default order \n"
   )
 
 p2 <- diamonds |>
@@ -126,7 +126,7 @@ p2 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
-    subtitle = "\nRe-orderered"
+    title = "Re-orderered \n"
   ) 
 
 p1 + p2
@@ -146,7 +146,7 @@ p1 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
-    subtitle = "\nUnused levels kept",
+    title = "Unused levels kept \n",
   )
 
 p2 <- diamonds |> 
@@ -159,7 +159,7 @@ p2 <- diamonds |>
     width = 0.75,
     x_labels = \(x) x / 1000,
     x_title = "Count (thousands)", 
-    subtitle = "\nUnused levels dropped",
+    title = "Unused levels dropped \n",
   )
 
 p1 + p2
@@ -176,7 +176,7 @@ p1 <- pressure |>
     y = pressure, 
     x_breaks_n = 4,
     y_breaks_n = 4,
-    subtitle = "\nDefault",
+    title = "Default \n",
   )
 
 p2 <- pressure |>
@@ -186,7 +186,7 @@ p2 <- pressure |>
     x_breaks_n = 4,
     y_breaks_n = 4,
     y_transform = "reverse", 
-    subtitle = "\nReverse",
+    title = "Reverse \n",
   )
 
 p3 <- pressure |>
@@ -196,7 +196,7 @@ p3 <- pressure |>
     x_breaks_n = 4,
     y_breaks_n = 4,
     y_transform = "sqrt",
-    subtitle = "\nSqrt", 
+    title = "Sqrt \n", 
   )
 
 p4 <- pressure |>
@@ -206,7 +206,7 @@ p4 <- pressure |>
     x_breaks_n = 4,
     y_breaks_n = 4,
     y_transform = c("sqrt", "reverse"),
-    subtitle = "\nSqrt & Reverse",
+    subtitle = "Sqrt & Reverse \n",
   )
 
 (p1 + p2) / (p3 + p4)
@@ -222,7 +222,7 @@ p1 <- palmerpenguins::penguins |>
     y = flipper_length_mm,
     col = sex,
     bins = 50,
-    subtitle = "\nDefault aspect  (and symmetric scales)",
+    title = "\nDefault aspect  (and symmetric scales) \n",
   )
 
 p2 <- palmerpenguins::penguins |>
@@ -231,7 +231,7 @@ p2 <- palmerpenguins::penguins |>
     col = sex,
     bins = 50,
     aspect = "y",
-    subtitle = "\nDefault aspect (and symmetric scales)",
+    title = "\nDefault aspect (and symmetric scales) \n",
   )
 
 p1 + p2
@@ -249,7 +249,7 @@ p1 <- penguins2 |>
     stat = "summary",
     position = position_dodge(),
     x_labels = \(x) str_sub(x, 1, 1),
-    subtitle = "\nsymmetric = 'y'",
+    title = "symmetric = 'y' \n",
     y_title = NULL,
   ) 
 
@@ -261,7 +261,7 @@ p2 <- penguins2 |>
     position = position_dodge(),
     symmetric = "none",
     x_labels = \(x) str_sub(x, 1, 1),
-    subtitle = "\nsymmetric = 'none'",
+    title = "\nsymmetric = 'none' \n",
     y_title = NULL,
   ) 
 
@@ -284,7 +284,7 @@ economics |>
     x_position = "top",
     caption = "", 
     title = "Unemployment",
-    subtitle = "1967\u20132015",
+    subtitle = "1967\u20132015 \n",
   ) 
 ```
 

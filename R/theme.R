@@ -511,13 +511,13 @@ theme_beiger <- function(
 #' @export
 #'
 legend_place <- function(legend_place = "right",
-                              legend_key_fill = NULL,
-                              legend_background_fill = NULL,
-                              legend_axis_line_colour = NULL,
-                              legend_axis_line_linewidth = NULL,
-                              legend_ticks_colour = NULL,
-                              legend_ticks_linewidth = NULL,
-                              legend_ticks_length = NULL) {
+                         legend_key_fill = NULL,
+                         legend_background_fill = NULL,
+                         legend_axis_line_colour = NULL,
+                         legend_axis_line_linewidth = NULL,
+                         legend_ticks_colour = NULL,
+                         legend_ticks_linewidth = NULL,
+                         legend_ticks_length = NULL) {
 
   current_theme <- ggplot2::get_theme()
 

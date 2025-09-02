@@ -58,6 +58,7 @@ p1 <- mtcars |>
   gg_point(
     x = mpg, 
     y = disp,
+    y_limits_include = 0,
   ) +
   facet_wrap(~"Plot 1")
 
@@ -67,6 +68,7 @@ p2 <- mtcars |>
     y = disp, 
     group = gear, 
     width = 0.5,
+    y_limits_include = 0,
   ) +
   facet_wrap(~"Plot 2")
 
@@ -81,11 +83,6 @@ p3 <- mtcars |>
   plot_annotation(
     title = "A collection of plots patched together",
     subtitle = "Works so nice!",
-    theme = theme_lighter() +
-      theme(
-        plot.title = element_text(margin = margin(t = -11)),
-        plot.subtitle = element_text(margin = margin(t = 5.5)),
-      )
   )
 ```
 
@@ -93,17 +90,26 @@ p3 <- mtcars |>
 
 The marquee package supports using markdown in text. 
 
+Use `" <br>"` instead of `" \n"` for line breaks after `title` or `subtitle`.
+
 ```{r}
-penguins2 |>
+set_blanket(
+  theme = marquee::marquefy_theme(theme_greyer()),
+)
+
+penguins |>
+  mutate(flipper_length_m2 = flipper_length_mm / 1000) |> 
   gg_point(
     x = bill_depth_mm,
     y = bill_length_mm,
     col = species,
     title = "**{.#0095a8ff Adelie}**, **{.#ffa600ff Chinstrap}**, *and* 
-    **{.#003f5cff Gentoo}** penguin species",
+    **{.#003f5cff Gentoo}** penguin species <br>",
+    x_title = "Flipper length (m{.sup 2})",
   ) +
-  theme(legend.position = "none") +
-  theme(plot.title = marquee::element_marquee()) 
+  theme(legend.position = "none") 
+
+set_blanket()
 ```
 
 ### showtext
@@ -150,13 +156,30 @@ showtext::showtext_auto(enable = FALSE)
 The gghighlight package enables geoms or parts thereof to be highlighted. 
 
 ```{r}
-penguins2 |>
+unhighlighted_border <- list(colour = blend_multiply(jumble[7]), fill = jumble[7])
+unhighlighted_nonborder <- list(colour = blend_multiply(jumble[7]), fill = jumble[7])
+
+penguins |>
   gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
   ) +
-  gghighlight::gghighlight(body_mass_g >= 5000)
+  gghighlight::gghighlight(body_mass_g >= 5000, 
+                           unhighlighted_params = unhighlighted_border)
 ```
+
+
+```{r}
+economics_long |>
+  gg_line(
+    x = date,
+    y = value01,
+    col = variable,
+  ) +
+  gghighlight::gghighlight(variable == "unemploy", 
+                           unhighlighted_params = unhighlighted_nonborder)
+```
+
 
 The `gg_*` function builds the scale for the data that it thinks will be within the panel. Therefore in some situations, this must be taken into account to ensure the scale builds correctly. 
 
@@ -165,10 +188,12 @@ penguins2 |>
   gg_histogram(
     x = flipper_length_mm,
     col = species,
-    x_breaks_n = 4,
-  ) + #build the scale for all data
+    x_breaks_n = 3,
+  ) + #build the scales for all data
   facet_wrap(~species) + #then add facet layer
-  gghighlight::gghighlight() 
+  gghighlight::gghighlight(
+    unhighlighted_params = unhighlighted_border,
+  ) 
 ```
 
 ### ggforce
@@ -199,7 +224,7 @@ penguins2 |>
     y = body_mass_g,
     col = species,
     coord = coord_cartesian(),
-    bordered = TRUE,
+    border = TRUE,
   ) +
   geom_point()
 ```
@@ -239,7 +264,7 @@ p1 <- penguins2 |>
     y = flipper_length_mm,
     col = sex,
     x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
-    subtitle = "\nBeeswarm",
+    title = "Beeswarm \n",
   ) +
   theme(legend.position = "none")
 
@@ -250,7 +275,7 @@ p2 <- penguins2 |>
     y = flipper_length_mm,
     col = sex,
     x_labels = \(x) str_to_upper(str_sub(x, 1, 1)),
-    subtitle = "\nQuasirandom",
+    title = "Quasirandom \n",
   ) +
   theme(legend.position = "none")
 
@@ -273,7 +298,7 @@ ggridges::Catalan_elections |>
     stat = "density_ridges",
     position = "points_sina",
     coord = coord_cartesian(xlim = c(0, 100)),
-    bordered = TRUE,
+    border = TRUE,
     x = percent,
     y = year,
     col = option,
@@ -310,9 +335,9 @@ d |>
     stat = "slabinterval",
     y = distribution,
     mapping = aes(dist = values),
-    fill = jumble[11], 
-    colour = col_multiply(jumble[11]),
-    y_expand = expansion(c(0.05, 0)),
+    col = jumble[9],
+    border = TRUE,
+    y_expand = c(0, 0),
     aspect = "x",
   ) 
 ```
@@ -320,6 +345,12 @@ d |>
 ### ggdensity
 
 The ggdensity package provides visualizations of density estimates.  
+
+To map to a fill aesthetic, use the following arguments:
+
+* `mapping = aes(fill = after_stat(probs), colour = after_stat(probs)),`
+* `alpha = NA,`
+* `guides(alpha = guide_none())`
 
 ```{r}
 library(ggdensity)
@@ -331,17 +362,14 @@ data.frame(
   x = rnorm(1000),
   y = rnorm(1000),
   z = c(rep("A", times = 500), rep("B", times = 500))
-  ) |>
+) |>
   gg_blanket(
     geom = "hdr",
     stat = "hdr",
     x = x, 
     y = y,
-    mapping = aes(fill = after_stat(probs), colour = after_stat(probs)),
-    alpha = NA,
-    col_legend_rev = TRUE,
-  ) +
-  guides(alpha = guide_none())
+    colour = NA,
+  ) 
 ```
 
 ```{r}
@@ -368,14 +396,20 @@ data.frame(
 ```{r}
 library(ggstar)
 
-palmerpenguins::penguins |>
+penguins2 |>
+  group_by(species, sex) |>
+  summarise(across(body_mass_g, \(x) mean(x))) |>
+  tidyr::drop_na() |> 
+  labelled::copy_labels_from(penguins2) |> 
   gg_blanket(
     geom = "star",
-    x = flipper_length_mm,
+    position = "dodge",
+    x = species,
     y = body_mass_g,
-    col = species,
-    mapping = aes(starshape = species),
-  )
+    col = sex,
+    mapping = aes(starshape = sex),
+    width = 0.75,
+  ) 
 ```
 
 ### ggpattern
@@ -391,8 +425,8 @@ penguins2 |>
   gg_blanket(
     geom = "col_pattern",
     position = "dodge",
-    y = species,
-    x = body_mass_g,
+    x = species,
+    y = body_mass_g,
     col = sex,
     mapping = aes(pattern = sex),
     width = 0.75,
@@ -467,14 +501,14 @@ iris |>
   gg_point(
     x = sepal_width, 
     y = sepal_length, 
-    x_breaks_n = 4,
+    x_breaks_n = 3,
   ) +
   ggh4x::facet_nested(
     cols = vars(size, species), 
     nest_line = TRUE, 
     solo_line = TRUE,
   ) +
-  theme(strip.text.x = element_text(margin = margin(t = 2.5, b = 5)))
+  theme(strip.text.x = element_text(margin = margin_part(b = 4, t = 4)))
 ```
 
 ### ggeasy
@@ -490,7 +524,6 @@ penguins2 |>
     y = body_mass_g, 
     col = sex, 
   ) +
-  theme_lighter(legend_position = "top") +
   easy_remove_y_gridlines() +
   easy_remove_x_axis(what = c("line", "ticks")) +
   easy_remove_legend_title()

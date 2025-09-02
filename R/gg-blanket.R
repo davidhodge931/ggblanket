@@ -1363,14 +1363,14 @@ gg_blanket <- function(
         plot
       )
 
-      # Add newline based on what's provided
-      if (!rlang::is_null(title) && !rlang::is_null(subtitle)) {
-        # Both title and subtitle provided - add newline to subtitle only
-        subtitle <- paste0(subtitle, "\n")
-      } else if (!rlang::is_null(title) && rlang::is_null(subtitle)) {
-        # Only title provided - add newline to title
-        title <- paste0(title, "\n")
-      }
+      # # Add newline based on what's provided
+      # if (!rlang::is_null(title) && !rlang::is_null(subtitle)) {
+      #   # Both title and subtitle provided - add newline to subtitle only
+      #   subtitle <- paste0(subtitle, "\n")
+      # } else if (!rlang::is_null(title) && rlang::is_null(subtitle)) {
+      #   # Only title provided - add newline to title
+      #   title <- paste0(title, "\n")
+      # }
 
       # Apply labels
       plot <- plot +

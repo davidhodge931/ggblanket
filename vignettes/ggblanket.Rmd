@@ -46,7 +46,7 @@ Computational speed has been traded-off.
 7.  Prefixed arguments to customise
 8.  `*_title` defaults to `snakecase::to_sentence_case`
 9.  Other `ggplot2::geom_*` arguments via `...`
-10. `theme_lighter`, `theme_darker` and `theme_whiter` themes 
+10. `theme_greyer`, `theme_lighter`, `theme_darker` and `theme_beiger` themes 
 11. Set and forget with `set_blanket()`
 12. An `aspect` for vertical/horizontal ease 
 13. A `*_limits_to_breaks` continuous scale
@@ -207,11 +207,18 @@ palmerpenguins::penguins |>
   ) 
 ```
 
-### 10.  `theme_lighter`, `theme_darker` and `theme_whiter` themes 
+### 10.  `theme_greyer`, `theme_lighter`, `theme_darker` and `theme_beiger` themes 
 
-ggblanket provides `theme_lighter`, `theme_darker` and `theme_whiter` theme functions. 
+ggblanket provides `theme_greyer`, `theme_lighter`, `theme_darker` and `theme_beiger` theme functions. 
 
-The {flexoki} package can be used to create nice coloured themes. See the help for `theme_lighter` and `theme_darker`.
+Key arguments to customise these are `text_size`, `text_colour`, `panel_background_fill`, `plot_background_fill` and `panel_grid_colour`.
+
+Note when using these themes: 
+
+* When both `title` and `subtitle` are added to the `gg_*` function, add `" \n"` to `subtitle`
+* When only `title`  is added, add `" \n"` to `title`. 
+
+If the theme has been converted to marquee richtext, then use `" <br>"` instead of `" \n"`.
 
 ```{r, fig.asp=0.65}
 set_blanket(theme = theme_darker())
@@ -221,11 +228,9 @@ palmerpenguins::penguins |>
     x = flipper_length_mm,
     col = species,
     title = "Penguin flipper length by species",
-    subtitle = "Palmer Archipelago, Antarctica",
+    subtitle = "Palmer Archipelago, Antarctica \n",
     caption = "Source: Gorman, 2020", 
   ) 
-
-set_blanket()
 ```
 
 ### 11. Set and forget with `set_blanket()`

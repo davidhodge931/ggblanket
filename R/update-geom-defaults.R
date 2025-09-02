@@ -259,7 +259,7 @@ update_geom_font <- function(
   # Handle size
   if (rlang::is_null(size)) {
     # Get resolved size from theme
-    size <-  resolved_element@size %||% 11
+    size <-  resolved_element$size %||% 11
     # Size from theme is already in correct units for fontsize
   } else {
     # If size is provided by user in mm, convert to fontsize scale
@@ -268,13 +268,13 @@ update_geom_font <- function(
   }
 
   # Handle colour
-  colour <- colour %||% resolved_element@colour %||% "black"
+  colour <- colour %||% resolved_element$colour %||% "black"
 
   # Handle fill - use panel.background for fill default
   fill <- fill %||% "white"
 
   # Handle family
-  family <- family %||% resolved_element@family %||% ""
+  family <- family %||% resolved_element$family %||% ""
 
   ggplot2::update_theme(
     geom.text = ggplot2::element_geom(
