@@ -555,25 +555,23 @@ palmerpenguins::penguins |>
 The scales are built within the `gg_*()` function _without_ knowledge of later layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. 
 
 ```{r}
-palmerpenguins::penguins |>
+d <- palmerpenguins::penguins |>
   drop_na(sex) |> 
   group_by(species, sex) |>
   summarise(
     lower = quantile(bill_depth_mm, probs = 0.05),
     upper = quantile(bill_depth_mm, probs = 0.95),
     bill_depth_mm = mean(bill_depth_mm, na.rm = TRUE),
-  ) |>
-  labelled::copy_labels_from(palmerpenguins::penguins) |>
-  gg_blanket(
-    y = species,
+  ) 
+
+d |>
+  gg_col(
     x = bill_depth_mm,
+    y = species,
     xmin = lower, 
     xmax = upper,
     col = sex,
-    bordered = TRUE,
-    x_limits_include = 0,
-  ) +
-  geom_col(
+    x_limits_include = max(d$upper, na.rm = TRUE), 
     width = 0.75,
     position = position_dodge(),
   ) +

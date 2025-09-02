@@ -16,15 +16,15 @@
 #' palmerpenguins::penguins |>
 #'   gg_qq(
 #'     sample = body_mass_g,
-#'   ) +
-#'   geom_qq_line()
+#'     annotate = geom_qq_line(),
+#'   )
 #'
 #' palmerpenguins::penguins |>
 #'   gg_qq(
 #'     sample = body_mass_g,
 #'     col = species,
-#'   ) +
-#'   geom_qq_line()
+#'     annotate = geom_qq_line(),
+#'   )
 #'
 gg_qq <- function(
     data = NULL,
