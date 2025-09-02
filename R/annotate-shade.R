@@ -17,7 +17,7 @@
 #' @param linewidth The border linewidth of the rectangle. Inherits from the current theme panel.border linewidth. Supports rel() for relative sizing.
 #' @param linetype The border linetype of the rectangle. Defaults to 1.
 #'
-#' @return A list containing an annotation layer.
+#' @return A list containing an annotation annotate.
 #' @export
 #'
 #' @examples

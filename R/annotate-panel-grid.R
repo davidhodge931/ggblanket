@@ -13,7 +13,7 @@
 #' @param linetype The linetype of grid lines. Inherits from current theme panel.grid.major or panel.grid.minor etc.
 #' @param theme What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".
 #'
-#' @return A list of annotate layers and theme elements.
+#' @return A list of annotate annotates and theme elements.
 #' @export
 #'
 annotate_panel_grid <- function(

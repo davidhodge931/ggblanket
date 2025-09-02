@@ -12,9 +12,10 @@ reference:
   - starts_with("gg_")
 - title: Theme
 - contents:
+  - theme_greyer
   - theme_lighter
   - theme_darker
-  - theme_whiter
+  - theme_beiger
 - title: Annotate
 - contents:
   - annotate_axis_line
@@ -42,4 +43,4 @@ reference:
   - label_every_nth
   - guides_grey
   - jumble
-  - move_legend_place
+  - legend_place

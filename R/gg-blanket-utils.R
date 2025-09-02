@@ -67,7 +67,7 @@ get_geom_params <- function(geom_name, ...) {
   rlang::list2(!!!specific_params, ...)
 }
 
-#' Add initial layer to plot
+#' Add initial annotate to plot
 #' @noRd
 add_initial_layer <- function(
     plot,
@@ -93,11 +93,11 @@ add_initial_layer <- function(
     }
   }
 
-  # Create layer function
+  # Create annotate function
   layer_fn <- if (is_sf) ggplot2::layer_sf else ggplot2::layer
 
-  # Build layer
-  layer_call <- layer_fn(
+  # Build annotate
+  annotate_call <- layer_fn(
     geom = geom,
     stat = stat,
     position = position,
@@ -105,11 +105,11 @@ add_initial_layer <- function(
     show.legend = show_legend
   )
 
-  # Add layer with optional blending
+  # Add annotate with optional blending
   if (!rlang::is_null(blend)) {
-    plot + layer_call |> ggblend::blend(blend = blend) + coord
+    plot + annotate_call |> ggblend::blend(blend = blend) + coord
   } else {
-    plot + layer_call + coord
+    plot + annotate_call + coord
   }
 }
 
@@ -334,9 +334,9 @@ add_initial_layer <- function(
   facet_axes %||% if (x_limits_to_breaks) "all_y" else "all_x"
 }
 
-#' Add facet layer to plot
+#' Add facet annotate to plot
 #' @noRd
-.add_facet_layer <- function(
+.add_facet_annotate <- function(
     plot,
     aes_list,
     data,
@@ -360,9 +360,9 @@ add_initial_layer <- function(
 
   # Choose appropriate faceting function
   facet_fn <- if (reverse_facet) {
-    .add_facet_layer_rev
+    .add_facet_annotate_rev
   } else {
-    .add_facet_layer_std
+    .add_facet_annotate_std
   }
 
   facet_fn(
@@ -380,9 +380,9 @@ add_initial_layer <- function(
   )
 }
 
-#' Add facet layer with reversed facet
+#' Add facet annotate with reversed facet
 #' @noRd
-.add_facet_layer_rev <- function(
+.add_facet_annotate_rev <- function(
     plot,
     aes_list,
     facet_layout,
@@ -413,9 +413,9 @@ add_initial_layer <- function(
   )
 }
 
-#' Add facet layer normal (not reversed)
+#' Add facet annotate normal (not reversed)
 #' @noRd
-.add_facet_layer_std <- function(
+.add_facet_annotate_std <- function(
     plot,
     aes_list,
     facet_layout,
@@ -1024,6 +1024,8 @@ add_initial_layer <- function(
       vctr <- data$x
     }
 
+    vctr <- vctr[!is.infinite(vctr)]
+
     if (!rlang::is_null(expand_limits)) {
       vctr <- c(vctr, expand_limits)
     }
@@ -1179,6 +1181,8 @@ add_initial_layer <- function(
     } else {
       vctr <- data$y
     }
+
+    vctr <- vctr[!is.infinite(vctr)]
 
     if (!rlang::is_null(expand_limits)) {
       vctr <- c(vctr, expand_limits)

@@ -1,6 +1,6 @@
 #' Qq ggplot
 #'
-#' @description Create a qq ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_qq()][ggplot2::geom_qq()] defaults for the geom, stat and position.
+#' @description Create a qq ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [annotate()][ggplot2::annotate()] with [geom_qq()][ggplot2::geom_qq()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -127,7 +127,7 @@ gg_qq <- function(
     facet_space = "fixed",
     title = NULL,
     subtitle = NULL,
-    caption = NULL
+    caption = NULL, annotate = NULL
 ) {
   gg_blanket(
     data = data,
@@ -229,7 +229,7 @@ gg_qq <- function(
     facet_space = facet_space,
     title = title,
     subtitle = subtitle,
-    caption = caption,
+    caption = caption, annotate = annotate,
 
     ...
   )

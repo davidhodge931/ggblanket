@@ -101,13 +101,14 @@ gg_blanket(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL
+  caption = NULL,
+  annotate = NULL
 )
 }
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}}. Also, require named arguments (and support trailing commas).}
+\item{...}{Arguments passed to within a \code{params} list in \code{\link[ggplot2:annotate]{ggplot2::annotate()}}. Also, require named arguments (and support trailing commas).}
 
 \item{geom}{A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. \code{"point"}).}
 
@@ -194,12 +195,14 @@ gg_blanket(
 \item{subtitle}{Subtitle string.}
 
 \item{caption}{Caption title string.}
+
+\item{annotate}{A annotate or list of annotation layers to go underneath the \verb{gg_*} \code{geom}.}
 }
 \value{
 A ggplot object.
 }
 \description{
-Create a blanket ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \code{layer()}
+Create a blanket ggplot with a wrapper around \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} + \code{annotate()}
 with \link[ggplot2:geom_blank]{geom_blank()} defaults for the geom, stat and position.
 
 This function underlies all other \verb{gg_*} functions.

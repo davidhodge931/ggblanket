@@ -1,6 +1,6 @@
 #' Contour_filled ggplot
 #'
-#' @description Create a contour_filled ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_contour_filled()][ggplot2::geom_contour_filled()] defaults for the geom, stat and position.
+#' @description Create a contour_filled ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [annotate()][ggplot2::annotate()] with [geom_contour_filled()][ggplot2::geom_contour_filled()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -122,7 +122,7 @@ gg_contour_filled <- function(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL
+  caption = NULL, annotate = NULL
 ) {
   gg_blanket(
     data = data,
@@ -224,7 +224,7 @@ gg_contour_filled <- function(
     facet_space = facet_space,
     title = title,
     subtitle = subtitle,
-    caption = caption,
+    caption = caption, annotate = annotate,
 
     ...
   )

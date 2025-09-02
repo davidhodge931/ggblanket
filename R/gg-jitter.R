@@ -1,6 +1,6 @@
 #' Jitter ggplot
 #'
-#' @description Create a jitter ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_jitter()][ggplot2::geom_jitter()] defaults for the geom, stat and position.
+#' @description Create a jitter ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [annotate()][ggplot2::annotate()] with [geom_jitter()][ggplot2::geom_jitter()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -22,7 +22,6 @@
 #'     col = flipper_length_mm,
 #'     position = position_jitter(height = 0),
 #'     y_limits_include = 0,
-#'     col_scale_type = TRUE,
 #'   )
 #'
 gg_jitter <- function(
@@ -126,7 +125,7 @@ gg_jitter <- function(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL
+  caption = NULL, annotate = NULL
 ) {
   gg_blanket(
     data = data,
@@ -228,7 +227,7 @@ gg_jitter <- function(
     facet_space = facet_space,
     title = title,
     subtitle = subtitle,
-    caption = caption,
+    caption = caption, annotate = annotate,
 
     ...
   )

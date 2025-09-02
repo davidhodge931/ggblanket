@@ -60,11 +60,11 @@ blend <- function(..., blend) {
   # Get the input arguments
   dots <- list(...)
 
-  # Check if the first argument is a ggplot2 layer
+  # Check if the first argument is a ggplot2 annotate
   if (length(dots) > 0 && ggplot2::is_layer(dots[[1]])) {
     rlang::abort(c(
-      "Cannot blend ggplot2 layers with this function",
-      "i" = "This function blends colours, not graphical layers.",
+      "Cannot blend ggplot2 annotates with this function",
+      "i" = "This function blends colours, not graphical annotates.",
       "i" = "Did you mean to use `ggblend::blend()` instead?"
     ))
   }

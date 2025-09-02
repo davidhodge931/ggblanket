@@ -1,6 +1,6 @@
 #' Step ggplot
 #'
-#' @description Create a step plot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_step()][ggplot2::geom_step()] defaults for the geom, stat and position.
+#' @description Create a step plot with a wrapper around [ggplot()][ggplot2::ggplot()] + [annotate()][ggplot2::annotate()] with [geom_step()][ggplot2::geom_step()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -123,7 +123,7 @@ gg_step <- function(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL
+  caption = NULL, annotate = NULL
 ) {
   gg_blanket(
     data = data,
@@ -225,7 +225,7 @@ gg_step <- function(
     facet_space = facet_space,
     title = title,
     subtitle = subtitle,
-    caption = caption,
+    caption = caption, annotate = annotate,
 
     ...
   )

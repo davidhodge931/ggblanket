@@ -100,13 +100,14 @@ gg_crossbar(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL
+  caption = NULL,
+  annotate = NULL
 )
 }
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}}. Also, require named arguments (and support trailing commas).}
+\item{...}{Arguments passed to within a \code{params} list in \code{\link[ggplot2:annotate]{ggplot2::annotate()}}. Also, require named arguments (and support trailing commas).}
 
 \item{stat}{A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. \code{"identity"}).}
 
@@ -191,12 +192,14 @@ gg_crossbar(
 \item{subtitle}{Subtitle string.}
 
 \item{caption}{Caption title string.}
+
+\item{annotate}{A annotate or list of annotation layers to go underneath the \verb{gg_*} \code{geom}.}
 }
 \value{
 A ggplot object.
 }
 \description{
-Create a crossbar ggplot with a wrapper around \link[ggplot2:ggplot]{ggplot()} + \link[ggplot2:layer]{layer()} with \link[ggplot2:geom_linerange]{geom_crossbar()} defaults for the geom, stat and position.
+Create a crossbar ggplot with a wrapper around \link[ggplot2:ggplot]{ggplot()} + \link[ggplot2:annotate]{annotate()} with \link[ggplot2:geom_linerange]{geom_crossbar()} defaults for the geom, stat and position.
 
 Note \code{gg_crossbar} has more limited functionality to fine-tune the style. Use \code{gg_blanket(...) + ggplot2::geom_crossbar(...)} instead if needed.
 }

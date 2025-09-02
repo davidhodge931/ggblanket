@@ -257,7 +257,7 @@ theme_greyer <- function(
     )
 
   # Apply legend position specific settings
-  theme + move_legend_place(
+  theme + legend_place(
     legend_place = legend_place,
     legend_key_fill = legend_key_fill,
     legend_background_fill = legend_background_fill,
@@ -510,7 +510,7 @@ theme_beiger <- function(
 #' @return A ggplot theme object with legend position settings.
 #' @export
 #'
-move_legend_place <- function(legend_place = "right",
+legend_place <- function(legend_place = "right",
                               legend_key_fill = NULL,
                               legend_background_fill = NULL,
                               legend_axis_line_colour = NULL,

@@ -19,7 +19,7 @@
 #' @param theme How to modify the corresponding theme element. One of "keep", "transparent", or "blank".
 #'   Defaults to "transparent" if position specified, otherwise "keep".
 #'
-#' @return A list of annotation layers and theme elements.
+#' @return A list of annotation annotates and theme elements.
 #' @export
 #'
 #' @examples

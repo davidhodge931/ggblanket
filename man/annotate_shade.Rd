@@ -39,7 +39,7 @@ annotate_shade(
 \item{linetype}{The border linetype of the rectangle. Defaults to 1.}
 }
 \value{
-A list containing an annotation layer.
+A list containing an annotation annotate.
 }
 \description{
 Create a subtle shaded rectangle to visually differentiate regions.

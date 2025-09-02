@@ -1,6 +1,6 @@
 #' Boxplot ggplot
 #'
-#' @description Create a boxplot ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_boxplot()][ggplot2::geom_boxplot()] defaults for the geom, stat and position.
+#' @description Create a boxplot ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [annotate()][ggplot2::annotate()] with [geom_boxplot()][ggplot2::geom_boxplot()] defaults for the geom, stat and position.
 #'
 #' Note `gg_boxplot` has more limited functionality to fine-tune the style. Use `gg_blanket(...) + ggplot2::geom_boxplot(...)` instead if needed.
 #'
@@ -131,7 +131,7 @@ gg_boxplot <- function(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL
+  caption = NULL, annotate = NULL
 ) {
   gg_blanket(
     data = data,
@@ -233,7 +233,7 @@ gg_boxplot <- function(
     facet_space = facet_space,
     title = title,
     subtitle = subtitle,
-    caption = caption,
+    caption = caption, annotate = annotate,
 
     ...
   )

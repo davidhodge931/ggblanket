@@ -1,12 +1,12 @@
 #' Blanket ggplot
 #'
-#' @description Create a blanket ggplot with a wrapper around [ggplot2::ggplot()] + `layer()`
+#' @description Create a blanket ggplot with a wrapper around [ggplot2::ggplot()] + `annotate()`
 #' with [geom_blank()][ggplot2::geom_blank()] defaults for the geom, stat and position.
 #'
 #' This function underlies all other `gg_*` functions.
 #'
 #' @param data A data frame or tibble.
-#' @param ... Arguments passed to within a `params` list in [ggplot2::layer()]. Also, require named arguments (and support trailing commas).
+#' @param ... Arguments passed to within a `params` list in [ggplot2::annotate()]. Also, require named arguments (and support trailing commas).
 #' @param geom A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. `"point"`).
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
@@ -50,6 +50,7 @@
 #' @param axis_line_aspect Either `"transparent"`, `"keep"` , or `"blank"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
 #' @param axis_ticks_aspect Either `"transparent"`, `"keep"` , or `"blank"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
 #' @param panel_grid_aspect Either `"transparent"`, `"keep"` , or `"blank"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
+#' @param annotate A annotate or list of annotation layers to go underneath the `gg_*` `geom`.
 #'
 #' @return A ggplot object.
 #' @export
@@ -168,7 +169,7 @@ gg_blanket <- function(
     facet_space = "fixed",
     title = NULL,
     subtitle = NULL,
-    caption = NULL
+    caption = NULL, annotate = NULL
 ) {
   suppressMessages({
     suppressWarnings({
@@ -871,13 +872,17 @@ gg_blanket <- function(
         mapping = mapping
       )
 
+      if (!rlang::is_null(annotate)) {
+        plot <- plot +
+          annotate
+      }
+
       show_legend <- !(geom_name %in% c("blank"))
       params <- get_geom_params(geom_name, ...)
 
-      # Merge in the fixed params
       params <- utils::modifyList(params, fixed_params)
 
-      # Add initial layer
+      # Add initial annotate
       plot <- add_initial_layer(
         plot,
         geom,
@@ -895,7 +900,7 @@ gg_blanket <- function(
       suppressMessages({
         suppressWarnings({
           plot_build <- ggplot2::ggplot_build(plot)
-          plot_data <- plot_build$data[[1]]
+          plot_data <- plot_build$data |> purrr::list_rbind()
         })
       })
 
@@ -978,7 +983,12 @@ gg_blanket <- function(
         mapping = mapping
       )
 
-      # Step 15: Add geom_name layer
+      if (!rlang::is_null(annotate)) {
+        plot <- plot +
+          annotate
+      }
+
+      # Step 15: Add geom_name annotate
       plot <- add_initial_layer(
         plot,
         geom,
@@ -1000,11 +1010,11 @@ gg_blanket <- function(
         plot <- plot + ggplot2::expand_limits(y = y_limits_include)
       }
 
-      # Step 16: Add facet layer
+      # Step 16: Add facet annotate
       facet_layout <- .get_facet_layout(facet_layout, aes_list)
       facet_axes <- .get_facet_axes(facet_axes, x_limits_to_breaks)
 
-      plot <- .add_facet_layer(
+      plot <- .add_facet_annotate(
         plot,
         aes_list,
         data,
@@ -1024,7 +1034,7 @@ gg_blanket <- function(
       suppressMessages({
         suppressWarnings({
           plot_build <- ggplot2::ggplot_build(plot)
-          plot_data <- plot_build$data[[1]]
+          plot_data <- plot_build$data |> purrr::list_rbind()
 
           facet_nrows <- length(unique(plot_build$layout$layout$ROW))
           facet_ncols <- length(unique(plot_build$layout$layout$COL))

@@ -1,6 +1,6 @@
 #' Hex ggplot
 #'
-#' @description Create a hex ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_hex()][ggplot2::geom_hex()] defaults for the geom, stat and position.
+#' @description Create a hex ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [annotate()][ggplot2::annotate()] with [geom_hex()][ggplot2::geom_hex()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -121,7 +121,7 @@ gg_hex <- function(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL
+  caption = NULL, annotate = NULL
 ) {
   gg_blanket(
     data = data,
@@ -223,7 +223,7 @@ gg_hex <- function(
     facet_space = facet_space,
     title = title,
     subtitle = subtitle,
-    caption = caption,
+    caption = caption, annotate = annotate,
 
     ...
   )

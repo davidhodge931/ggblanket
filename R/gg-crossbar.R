@@ -1,6 +1,6 @@
 #' Crossbar ggplot
 #'
-#' @description Create a crossbar ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [layer()][ggplot2::layer()] with [geom_crossbar()][ggplot2::geom_crossbar()] defaults for the geom, stat and position.
+#' @description Create a crossbar ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [annotate()][ggplot2::annotate()] with [geom_crossbar()][ggplot2::geom_crossbar()] defaults for the geom, stat and position.
 #'
 #' Note `gg_crossbar` has more limited functionality to fine-tune the style. Use `gg_blanket(...) + ggplot2::geom_crossbar(...)` instead if needed.
 #'
@@ -134,7 +134,7 @@ gg_crossbar <- function(
   facet_space = "fixed",
   title = NULL,
   subtitle = NULL,
-  caption = NULL
+  caption = NULL, annotate = NULL
 ) {
   gg_blanket(
     data = data,
@@ -236,7 +236,7 @@ gg_crossbar <- function(
     facet_space = facet_space,
     title = title,
     subtitle = subtitle,
-    caption = caption,
+    caption = caption, annotate = annotate,
 
     ...
   )

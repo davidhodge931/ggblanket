@@ -33,7 +33,7 @@ annotate_panel_grid(
 \item{theme}{What to do with the equivalent theme elements. Either "keep" , "transparent", or "blank". Defaults "keep".}
 }
 \value{
-A list of annotate layers and theme elements.
+A list of annotate annotates and theme elements.
 }
 \description{
 Create annotated segments of the panel grid.

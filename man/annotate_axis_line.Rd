@@ -43,7 +43,7 @@ annotate_axis_line(
 Defaults to "transparent" if position specified, otherwise "keep".}
 }
 \value{
-A list of annotation layers and theme elements.
+A list of annotation annotates and theme elements.
 }
 \description{
 Create an annotated segment of the axis line.

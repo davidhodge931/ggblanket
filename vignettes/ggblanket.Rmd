@@ -353,11 +353,7 @@ palmerpenguins::penguins |>
     shape = sex,
     bordered = TRUE,
   ) +
-  annotate("rect", 
-           xmin = I(0.9), xmax = Inf,
-           ymin = -Inf, ymax = Inf,
-           colour = NA,
-           fill = jumble[9]) +
+  annotate_shade(xmin = I(0.9)) +
   geom_point(colour = blend_multiply(get_geom_defaults("point")$colour))
 ```
 
