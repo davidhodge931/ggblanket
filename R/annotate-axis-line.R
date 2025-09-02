@@ -6,6 +6,8 @@
 #'
 #' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
+#' Note that this function does not support plots where either positional scale is of date or datetime class. Use [ggplot2::geom_segment], [ggplot2::geom_hline] or [ggplot2::geom_vline] instead.
+#'
 #' @param ... Arguments passed to `ggplot2::annotate("segment", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
 #' @param position The position of the axis line. One of "top", "bottom", "left", or "right". Ignored if x or y is provided.
 #' @param x A single x-axis value for a vertical line. Cannot be used together with y or xmin/xmax. Use I() for normalized coordinates (0-1).

@@ -26,8 +26,8 @@ TO DO
 * Added `colour_palette` and `fill_palette` arguments to `gg_*` functions.
 * Added `blend_multiply`, `blend_screen` etc.
 * Added `bind_each_all` to assist with plotting groups alongside the total.
-* Added `standardise_width`.
-* Added `annotate_axis_ticks` and `annotate_panel_grid`.
+* Added `standardise_width` functions.
+* Added `annotate_*` functions.
 * Added `element_line_transparent`.
 * Supported `facet_space` argument with a discrete scale.
 

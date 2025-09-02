@@ -51,6 +51,8 @@ Create an annotated segment of the axis line.
 This function is designed to work with a theme that is globally set with \link{set_blanket} or \link[ggplot2:get_theme]{ggplot2::set_theme}.
 
 It should be used with a \code{coord} of \code{ggplot2::coord_cartesian(clip = "off")}.
+
+Note that this function does not support plots where either positional scale is of date or datetime class. Use \link[ggplot2:geom_segment]{ggplot2::geom_segment}, \link[ggplot2:geom_abline]{ggplot2::geom_hline} or \link[ggplot2:geom_abline]{ggplot2::geom_vline} instead.
 }
 \examples{
 library(ggplot2)
