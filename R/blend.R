@@ -215,6 +215,48 @@ blend_screen <- function(...) {
   blend(..., blend = "screen")
 }
 
+#' Blend colours using lighten mode
+#'
+#' @description
+#' Lightens colours by selecting the lighter of two colour values for each RGB channel.
+#' Creates brighter results by preserving the lightest areas from both colours.
+#' Useful for creating highlights, preventing over-darkening, or combining light elements.
+#'
+#' @param ... Either one or two colour arguments:
+#'   - If one argument: the colour is blended with itself
+#'   - If two arguments: the first is blended with the second
+#'   Each argument can be a character vector of colours or a `scales::pal_*()` function
+#' @return Character vector of blended colours or a blending function.
+#' @export
+#'
+#' @examples
+#' blend_lighten("#FFA600FF", "#8991A1FF")
+#'
+blend_lighten <- function(...) {
+  blend(..., blend = "lighten")
+}
+
+#' Blend colours using darken mode
+#'
+#' @description
+#' Darkens colours by selecting the darker of two colour values for each RGB channel.
+#' Creates darker results by preserving the darkest areas from both colours.
+#' Useful for creating shadows, preventing over-lightening, or combining dark elements.
+#'
+#' @param ... Either one or two colour arguments:
+#'   - If one argument: the colour is blended with itself
+#'   - If two arguments: the first is blended with the second
+#'   Each argument can be a character vector of colours or a `scales::pal_*()` function
+#' @return Character vector of blended colours or a blending function.
+#' @export
+#'
+#' @examples
+#' blend_lighten("#FFA600FF", "#8991A1FF")
+#'
+blend_darken <- function(...) {
+  blend(..., blend = "darken")
+}
+
 #' Internal multiply blend implementation
 #'
 #' @param col1 Character vector of colours

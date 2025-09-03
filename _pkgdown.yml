@@ -27,6 +27,8 @@ reference:
 - contents:
   - blend_multiply
   - blend_screen
+  - blend_darken
+  - blend_lighten
 - title: Contrast
 - contents:
   - aes_contrast
