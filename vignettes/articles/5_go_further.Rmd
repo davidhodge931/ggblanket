@@ -546,7 +546,7 @@ palmerpenguins::penguins |>
     y = bill_depth_mm,
     outliers = FALSE,
   ) +
-  geom_jitter(shape = 19, colour = col_multiply(jumble[9])) 
+  geom_jitter(shape = 19, colour = col_multiply(blue)) 
 ```
 
 The scales are built within the `gg_*()` function _without_ knowledge of later layers. The `gg_*()` function builds scales with regard to the `stat`, `position`, and aesthetics (that the geom understands) etc. So, in some situations, users will need to take care. 

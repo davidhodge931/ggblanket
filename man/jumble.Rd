@@ -14,8 +14,6 @@ A character vector.
 A jumble of useful colours.
 The first 6 are relatively colour-blind safe on a light background.
 The 7th is a oat colour that can be used for NA.
-The 8th is a slate colour that can be used in guide keys etc.
-The 9th and 10th are blue colours that be used as a default colour/fill set aesthetic.
 }
 \examples{
 scales::show_col(jumble)

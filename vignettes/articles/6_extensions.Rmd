@@ -156,8 +156,8 @@ showtext::showtext_auto(enable = FALSE)
 The gghighlight package enables geoms or parts thereof to be highlighted. 
 
 ```{r}
-unhighlighted_border <- list(colour = blend_multiply(jumble[7]), fill = jumble[7])
-unhighlighted_nonborder <- list(colour = blend_multiply(jumble[7]), fill = jumble[7])
+unhighlighted_border <- list(colour = blend_multiply(oat), fill = oat)
+unhighlighted_nonborder <- list(colour = blend_multiply(oat), fill = oat)
 
 penguins |>
   gg_point(
@@ -335,7 +335,7 @@ d |>
     stat = "slabinterval",
     y = distribution,
     mapping = aes(dist = values),
-    col = jumble[9],
+    col = blue,
     border = TRUE,
     y_expand = c(0, 0),
     aspect = "x",
