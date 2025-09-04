@@ -444,7 +444,33 @@ economics |>
     pattern_fill2 = blue,
     colour = blue,
     outline.type = "upper",
+    x_expand = c(0, 0),
   )    
+```
+
+```{r}
+economics_long |>
+  gg_blanket(
+    geom = "area_pattern",
+    position = "stack",
+    x = date,
+    y = value01,
+    col = variable,
+    pattern = "gradient",
+    mapping = aes(
+      pattern_fill = variable,
+      pattern_fill2 = variable
+    ),
+    outline.type = "upper",
+    x_expand = c(0, 0),
+  ) +
+  scale_pattern_fill_manual(
+    values = rep(grey, times = length(unique(economics_long$variable))),
+    guide = guide_none(),
+  ) +
+  scale_pattern_fill2_hue() +
+  labs(pattern_fill2 = "Variable") +
+  scale_colour_hue() 
 ```
 
 ### paletteer
