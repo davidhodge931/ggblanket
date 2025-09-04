@@ -57,6 +57,13 @@ get_geom_params <- function(geom_name, ...) {
     ),
     violin = list(
       quantile_gp = list(linetype = 1)
+    ),
+
+    area = list(
+      outline.type = "upper"
+    ),
+    density = list(
+      outline.type = "upper"
     )
   )
 
