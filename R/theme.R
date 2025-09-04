@@ -252,7 +252,7 @@ theme_greyer <- function(
         vjust = 0.5
       ),
       plot.tag.position = "topleft",
-      plot.margin = ggplot2::margin(7.5, 12.5, 7.5, 7.5),
+      plot.margin = ggplot2::margin(7.5, 17.5, 7.5, 7.5),
       complete = TRUE
     )
 
@@ -543,7 +543,7 @@ legend_place <- function(legend_place = "right",
       legend.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 2.75),
       legend.box = "horizontal",
       legend.box.just = "top",
-      legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 5),
+      legend.box.margin = ggplot2::margin(t = 0, r = -5, b = 0, l = 5),
       legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 5.5, l = 0)),
       legend.byrow = FALSE,
       legend.direction = "vertical",

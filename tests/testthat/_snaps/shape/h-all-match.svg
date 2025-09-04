@@ -18,7 +18,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='0.00000000000013' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <rect x='79.36' y='7.47' width='553.56' height='523.93' style='stroke-width: 1.07; stroke: #F2F2F2; fill: #F2F2F2;' />
 <polyline points='79.36,433.17 632.92,433.17 ' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
 <polyline points='79.36,269.44 632.92,269.44 ' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
@@ -399,16 +399,16 @@
 <text x='632.92' y='547.41' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>240</text>
 <text x='356.14' y='565.63' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='80.03px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
 <text transform='translate(15.39,269.44) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Island</text>
-<rect x='640.89' y='7.47' width='64.17' height='81.42' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='643.63' y='15.39' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Island</text>
-<rect x='643.63' y='21.91' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='648.81' cy='31.87' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
-<rect x='643.63' y='45.44' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<polygon points='648.81,52.36 651.44,56.92 646.18,56.92 ' style='stroke-width: 0.71; stroke: #00880C; fill: #00BA38;' />
-<rect x='643.63' y='68.98' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<rect x='647.08' y='77.20' width='3.46' height='3.46' style='stroke-width: 0.71; stroke: #255FFF; fill: #619CFF;' />
-<text x='659.47' y='35.31' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>Biscoe</text>
-<text x='659.47' y='58.84' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='30.01px' lengthAdjust='spacingAndGlyphs'>Dream</text>
-<text x='659.47' y='82.38' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='45.58px' lengthAdjust='spacingAndGlyphs'>Torgersen</text>
+<rect x='643.38' y='7.47' width='64.17' height='81.42' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<text x='646.12' y='15.39' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Island</text>
+<rect x='646.12' y='21.91' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<circle cx='651.30' cy='31.87' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
+<rect x='646.12' y='45.44' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<polygon points='651.30,52.36 653.93,56.92 648.67,56.92 ' style='stroke-width: 0.71; stroke: #00880C; fill: #00BA38;' />
+<rect x='646.12' y='68.98' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='649.57' y='77.20' width='3.46' height='3.46' style='stroke-width: 0.71; stroke: #255FFF; fill: #619CFF;' />
+<text x='661.96' y='35.31' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>Biscoe</text>
+<text x='661.96' y='58.84' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='30.01px' lengthAdjust='spacingAndGlyphs'>Dream</text>
+<text x='661.96' y='82.38' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='45.58px' lengthAdjust='spacingAndGlyphs'>Torgersen</text>
 </g>
 </svg>

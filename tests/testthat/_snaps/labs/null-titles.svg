@@ -403,15 +403,15 @@
 <text x='415.45' y='558.23' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>210</text>
 <text x='507.41' y='558.23' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>220</text>
 <text x='599.37' y='558.23' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>230</text>
-<rect x='643.66' y='7.47' width='61.39' height='66.98' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<rect x='646.40' y='7.47' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='651.59' cy='17.43' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
-<rect x='646.40' y='31.01' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='651.59' cy='40.96' r='1.95' style='stroke-width: 0.71; stroke: #00880C; fill: #00BA38;' />
-<rect x='646.40' y='54.54' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='651.59' cy='64.50' r='1.95' style='stroke-width: 0.71; stroke: #255FFF; fill: #619CFF;' />
-<text x='662.25' y='20.87' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='27.80px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
-<text x='662.25' y='44.40' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='42.80px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
-<text x='662.25' y='67.94' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='32.81px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
+<rect x='646.16' y='7.47' width='61.39' height='66.98' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='648.90' y='7.47' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<circle cx='654.08' cy='17.43' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
+<rect x='648.90' y='31.01' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<circle cx='654.08' cy='40.96' r='1.95' style='stroke-width: 0.71; stroke: #00880C; fill: #00BA38;' />
+<rect x='648.90' y='54.54' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<circle cx='654.08' cy='64.50' r='1.95' style='stroke-width: 0.71; stroke: #255FFF; fill: #619CFF;' />
+<text x='664.74' y='20.87' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='27.80px' lengthAdjust='spacingAndGlyphs'>Adelie</text>
+<text x='664.74' y='44.40' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='42.80px' lengthAdjust='spacingAndGlyphs'>Chinstrap</text>
+<text x='664.74' y='67.94' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='32.81px' lengthAdjust='spacingAndGlyphs'>Gentoo</text>
 </g>
 </svg>

@@ -369,10 +369,10 @@
 <text x='554.00' y='547.41' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='7.78px' lengthAdjust='spacingAndGlyphs'>G</text>
 <text x='356.69' y='565.63' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>Species</text>
 <text transform='translate(15.39,269.44) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Island</text>
-<rect x='680.36' y='7.47' width='24.70' height='34.35' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='683.10' y='15.39' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='17.24px' lengthAdjust='spacingAndGlyphs'>Sex</text>
-<rect x='683.10' y='21.91' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='688.28' cy='31.87' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
-<text x='698.95' y='35.31' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='6.11px' lengthAdjust='spacingAndGlyphs'>F</text>
+<rect x='682.85' y='7.47' width='24.70' height='34.35' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<text x='685.59' y='15.39' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='17.24px' lengthAdjust='spacingAndGlyphs'>Sex</text>
+<rect x='685.59' y='21.91' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<circle cx='690.78' cy='31.87' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
+<text x='701.44' y='35.31' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='6.11px' lengthAdjust='spacingAndGlyphs'>F</text>
 </g>
 </svg>

@@ -64,16 +64,16 @@
 <text x='632.92' y='547.41' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='16.69px' lengthAdjust='spacingAndGlyphs'>240</text>
 <text x='354.75' y='565.63' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='80.03px' lengthAdjust='spacingAndGlyphs'>Flipper length mm</text>
 <text transform='translate(15.39,269.44) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>Species</text>
-<rect x='640.89' y='7.47' width='64.17' height='81.42' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='643.63' y='15.39' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Island</text>
-<rect x='643.63' y='21.91' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<line x1='644.66' y1='31.87' x2='652.96' y2='31.87' style='stroke-width: 1.41; stroke: #4797C3; stroke-linecap: butt;' />
-<rect x='643.63' y='45.44' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<line x1='644.66' y1='55.40' x2='652.96' y2='55.40' style='stroke-width: 1.41; stroke: #4797C3; stroke-dasharray: 7.51,7.51; stroke-linecap: butt;' />
-<rect x='643.63' y='68.98' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<line x1='644.66' y1='78.93' x2='652.96' y2='78.93' style='stroke-width: 1.41; stroke: #4797C3; stroke-dasharray: 1.88,5.63; stroke-linecap: butt;' />
-<text x='659.47' y='35.31' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>Biscoe</text>
-<text x='659.47' y='58.84' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='30.01px' lengthAdjust='spacingAndGlyphs'>Dream</text>
-<text x='659.47' y='82.38' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='45.58px' lengthAdjust='spacingAndGlyphs'>Torgersen</text>
+<rect x='643.38' y='7.47' width='64.17' height='81.42' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<text x='646.12' y='15.39' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Island</text>
+<rect x='646.12' y='21.91' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<line x1='647.15' y1='31.87' x2='655.45' y2='31.87' style='stroke-width: 1.41; stroke: #4797C3; stroke-linecap: butt;' />
+<rect x='646.12' y='45.44' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<line x1='647.15' y1='55.40' x2='655.45' y2='55.40' style='stroke-width: 1.41; stroke: #4797C3; stroke-dasharray: 7.51,7.51; stroke-linecap: butt;' />
+<rect x='646.12' y='68.98' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<line x1='647.15' y1='78.93' x2='655.45' y2='78.93' style='stroke-width: 1.41; stroke: #4797C3; stroke-dasharray: 1.88,5.63; stroke-linecap: butt;' />
+<text x='661.96' y='35.31' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>Biscoe</text>
+<text x='661.96' y='58.84' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='30.01px' lengthAdjust='spacingAndGlyphs'>Dream</text>
+<text x='661.96' y='82.38' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='45.58px' lengthAdjust='spacingAndGlyphs'>Torgersen</text>
 </g>
 </svg>

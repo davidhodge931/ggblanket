@@ -18,7 +18,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='0.000000000000064' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <rect x='84.92' y='7.47' width='558.00' height='523.93' style='stroke-width: 1.07; stroke: #F2F2F2; fill: #F2F2F2;' />
 <polyline points='84.92,433.17 642.92,433.17 ' style='stroke-width: 1.07; stroke: #E6E6E6; stroke-linecap: butt;' />
 <polyline points='84.92,269.44 642.92,269.44 ' style='stroke-width: 1.07; stroke: #E6E6E6; stroke-linecap: butt;' />
@@ -375,13 +375,13 @@
 <text x='538.29' y='547.41' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='38.37px' lengthAdjust='spacingAndGlyphs'>$Gentoo</text>
 <text x='363.92' y='565.63' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>Species</text>
 <text transform='translate(15.39,269.44) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>Island</text>
-<rect x='650.89' y='7.47' width='54.17' height='57.89' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<text x='653.63' y='15.39' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='17.24px' lengthAdjust='spacingAndGlyphs'>Sex</text>
-<rect x='653.63' y='21.91' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='658.81' cy='31.87' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
-<rect x='653.63' y='45.44' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-<circle cx='658.81' cy='55.40' r='1.95' style='stroke-width: 0.71; stroke: #008F97; fill: #00BFC4;' />
-<text x='669.48' y='35.31' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='35.58px' lengthAdjust='spacingAndGlyphs'>$female</text>
-<text x='669.48' y='58.84' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='27.24px' lengthAdjust='spacingAndGlyphs'>$male</text>
+<rect x='653.38' y='7.47' width='54.17' height='57.89' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<text x='656.12' y='15.39' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='17.24px' lengthAdjust='spacingAndGlyphs'>Sex</text>
+<rect x='656.12' y='21.91' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<circle cx='661.30' cy='31.87' r='1.95' style='stroke-width: 0.71; stroke: #F1372F; fill: #F8766D;' />
+<rect x='656.12' y='45.44' width='10.37' height='19.92' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<circle cx='661.30' cy='55.40' r='1.95' style='stroke-width: 0.71; stroke: #008F97; fill: #00BFC4;' />
+<text x='671.97' y='35.31' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='35.58px' lengthAdjust='spacingAndGlyphs'>$female</text>
+<text x='671.97' y='58.84' style='font-size: 10.00px; fill: #1C1B1A; font-family: sans;' textLength='27.24px' lengthAdjust='spacingAndGlyphs'>$male</text>
 </g>
 </svg>
