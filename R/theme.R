@@ -46,7 +46,7 @@ theme_greyer <- function(
     ...,
     text_size = 10,
     text_family = "",
-    text_colour = "#1C1B1A",
+    text_colour = black,
     legend_place = "right",
     legend_axis_line_colour = NULL,
     legend_axis_line_linewidth = NULL,
@@ -60,13 +60,13 @@ theme_greyer <- function(
     axis_ticks_colour = NULL,
     axis_ticks_linewidth = NULL,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = "#f2f2f2",
+    panel_background_fill = grey,
     panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
-    plot_background_fill = "#FFFFFFFF"
+    plot_background_fill = "white"
 ) {
 
   # Process primary color parameters first
@@ -294,7 +294,7 @@ theme_lighter <- function(
     ...,
     text_size = 10,
     text_family = "",
-    text_colour = "#1C1B1A",
+    text_colour = black,
     legend_place = "right",
     legend_axis_line_colour = plot_background_fill,
     legend_axis_line_linewidth = axis_line_linewidth,
@@ -308,13 +308,13 @@ theme_lighter <- function(
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = "#FFFFFFFF",
-    panel_grid_colour = "#F2F0E5",
+    panel_background_fill = "white",
+    panel_grid_colour = beige,
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
-    plot_background_fill = "#FFFFFFFF"
+    plot_background_fill = "white"
 ) {
   theme_greyer(
     ...,
@@ -369,7 +369,7 @@ theme_darker <- function(
     ...,
     text_size = 10,
     text_family = "",
-    text_colour = "#F2F0E5",
+    text_colour = beige,
     legend_place = "right",
     legend_axis_line_colour = plot_background_fill,
     legend_axis_line_linewidth = axis_line_linewidth,
@@ -383,7 +383,7 @@ theme_darker <- function(
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = "#1C1B1A",
+    panel_background_fill = black,
     panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
@@ -444,7 +444,7 @@ theme_beiger <- function(
     ...,
     text_size = 10,
     text_family = "",
-    text_colour = "#1C1B1A",
+    text_colour = black,
     legend_place = "right",
     legend_axis_line_colour = plot_background_fill,
     legend_axis_line_linewidth = axis_line_linewidth,
@@ -458,13 +458,13 @@ theme_beiger <- function(
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = "#F2F0E5",
+    panel_background_fill = beige,
     panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
     panel_grid_minor_linetype = 0,
     panel_grid_minor_linewidth = ggplot2::rel(0.5),
-    plot_background_fill = "#FFFFFFFF"
+    plot_background_fill = "white"
 ) {
   theme_greyer(
     ...,
@@ -537,7 +537,7 @@ legend_place <- function(legend_place = "right",
       legend.location = "panel",
       legend.title.position = "top",
       legend.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 2.75),
-      legend.box = "horizontal",
+      legend.box = "vertical",
       legend.box.just = "top",
       legend.box.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 5),
       legend.title = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 0, b = 5.5, l = 0)),

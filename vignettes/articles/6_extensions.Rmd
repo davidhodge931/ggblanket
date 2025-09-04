@@ -433,6 +433,20 @@ penguins2 |>
   ) 
 ```
 
+```{r}
+economics |>
+  gg_blanket(
+    geom = "area_pattern",
+    x = date, 
+    y = unemploy,
+    pattern = "gradient",
+    pattern_fill = grey,
+    pattern_fill2 = blue,
+    colour = blue,
+    outline.type = "upper",
+  )    
+```
+
 ### paletteer
 
 The paletteer package provides access to most of the palettes within R. 

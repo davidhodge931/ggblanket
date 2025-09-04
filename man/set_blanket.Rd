@@ -7,7 +7,7 @@
 set_blanket(
   ...,
   theme = theme_greyer(),
-  col = ifelse(is_panel_dark(), "#357BA2FF", "#4797C3FF"),
+  col = ifelse(is_panel_dark(), ocean, blue),
   col_palette_discrete = scales::pal_hue(),
   col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako", begin
     = 0.1, end = 0.9)),

@@ -8,7 +8,7 @@ theme_greyer(
   ...,
   text_size = 10,
   text_family = "",
-  text_colour = "#1C1B1A",
+  text_colour = black,
   legend_place = "right",
   legend_axis_line_colour = NULL,
   legend_axis_line_linewidth = NULL,
@@ -22,13 +22,13 @@ theme_greyer(
   axis_ticks_colour = NULL,
   axis_ticks_linewidth = NULL,
   axis_ticks_length = grid::unit(3.66, "pt"),
-  panel_background_fill = "#f2f2f2",
+  panel_background_fill = grey,
   panel_grid_colour = blend_multiply(panel_background_fill),
   panel_grid_linetype = 1,
   panel_grid_linewidth = 0.5,
   panel_grid_minor_linetype = 0,
   panel_grid_minor_linewidth = ggplot2::rel(0.5),
-  plot_background_fill = "#FFFFFFFF"
+  plot_background_fill = "white"
 )
 }
 \arguments{

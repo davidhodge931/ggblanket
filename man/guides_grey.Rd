@@ -7,7 +7,7 @@
 guides_grey(
   aesthetic,
   ...,
-  col = "#8991A1",
+  col = slate,
   colour = NULL,
   fill = NULL,
   border = NULL,
@@ -21,7 +21,7 @@ guides_grey(
 
 \item{...}{Arguments passed to \code{\link[ggplot2:guide_legend]{ggplot2::guide_legend()}}. Require named arguments (and support trailing commas).}
 
-\item{col}{Base hex for the legend colour/fill. Defaults to "#8991A1".}
+\item{col}{Base hex for the legend colour/fill. Defaults to \code{slate} (i.e. \code{"#8991A1"}).}
 
 \item{colour}{Direct override for the colour aesthetic in the legend. If NULL,
 determined by \code{col} and \code{colour_border_transform}.}
