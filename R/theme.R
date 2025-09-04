@@ -75,15 +75,15 @@ theme_greyer <- function(
   plot_background_fill <- as.character(plot_background_fill)
 
   # Set defaults for dependent parameters after processing primary colors
-  if (is.null(axis_line_colour)) axis_line_colour <- text_colour
-  if (is.null(axis_ticks_colour)) axis_ticks_colour <- axis_line_colour
-  if (is.null(axis_ticks_linewidth)) axis_ticks_linewidth <- axis_line_linewidth
-  if (is.null(legend_axis_line_colour)) legend_axis_line_colour <- plot_background_fill
-  if (is.null(legend_axis_line_linewidth)) legend_axis_line_linewidth <- axis_line_linewidth
-  if (is.null(legend_background_fill)) legend_background_fill <- plot_background_fill
-  if (is.null(legend_key_fill)) legend_key_fill <- plot_background_fill
-  if (is.null(legend_ticks_colour)) legend_ticks_colour <- legend_axis_line_colour
-  if (is.null(legend_ticks_linewidth)) legend_ticks_linewidth <- legend_axis_line_linewidth
+  if (rlang::is_null(axis_line_colour)) axis_line_colour <- text_colour
+  if (rlang::is_null(axis_ticks_colour)) axis_ticks_colour <- axis_line_colour
+  if (rlang::is_null(axis_ticks_linewidth)) axis_ticks_linewidth <- axis_line_linewidth
+  if (rlang::is_null(legend_axis_line_colour)) legend_axis_line_colour <- plot_background_fill
+  if (rlang::is_null(legend_axis_line_linewidth)) legend_axis_line_linewidth <- axis_line_linewidth
+  if (rlang::is_null(legend_background_fill)) legend_background_fill <- plot_background_fill
+  if (rlang::is_null(legend_key_fill)) legend_key_fill <- plot_background_fill
+  if (rlang::is_null(legend_ticks_colour)) legend_ticks_colour <- legend_axis_line_colour
+  if (rlang::is_null(legend_ticks_linewidth)) legend_ticks_linewidth <- legend_axis_line_linewidth
 
   # Process dependent color parameters
   axis_line_colour <- as.character(axis_line_colour)
@@ -192,8 +192,8 @@ theme_greyer <- function(
       panel.grid.minor.x = NULL,
       panel.grid.minor.y = NULL,
       panel.spacing = NULL,
-      panel.spacing.x = grid::unit(20, "pt"),,
-      panel.spacing.y = grid::unit(10, "pt"),,
+      panel.spacing.x = grid::unit(20, "pt"),
+      panel.spacing.y = grid::unit(10, "pt"),
       panel.ontop = FALSE,
       spacing = grid::unit(5.5, "pt"),
 
@@ -528,6 +528,10 @@ legend_place <- function(legend_place = "right",
   if (rlang::is_null(legend_ticks_colour)) legend_ticks_colour <- ggplot2::calc_element("legend.ticks", current_theme)@colour
   if (rlang::is_null(legend_ticks_linewidth)) legend_ticks_linewidth <- ggplot2::calc_element("legend.ticks", current_theme)@linewidth
   if (rlang::is_null(legend_ticks_length)) legend_ticks_length <- ggplot2::calc_element("legend.ticks.length", current_theme)
+
+  if (!legend_place %in% c("right", "top", "bottom")) {
+    rlang::abort("legend_place must be 'right', 'top', or 'bottom'")
+  }
 
   if (legend_place == "right") {
     ggplot2::theme(

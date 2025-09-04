@@ -367,10 +367,10 @@ update_geom_font <- function(
   # Find the first non-blank resolved element
   resolved_element <- axis_text_elements |>
     purrr::map(\(x) ggplot2::calc_element(x, current_theme, skip_blank = TRUE)) |>
-    purrr::detect(\(x) !is.null(x) && !inherits(x, "element_blank"))
+    purrr::detect(\(x) !rlang::is_null(x) && !inherits(x, "element_blank"))
 
   # If no specific axis text element found, fall back to general text
-  if (is.null(resolved_element)) {
+  if (rlang::is_null(resolved_element)) {
     resolved_element <- ggplot2::calc_element("text", current_theme)
   }
 

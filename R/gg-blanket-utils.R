@@ -2120,7 +2120,7 @@ add_initial_layer <- function(
       rev(palette)
     } else {
       # Unnamed vector - subset first if n is provided, then reverse
-      if (!is.null(n)) {
+      if (!rlang::is_null(n)) {
         palette <- palette[1:min(n, length(palette))]
       }
       rev(palette)
