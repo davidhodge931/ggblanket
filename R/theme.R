@@ -243,7 +243,7 @@ theme_greyer <- function(
         family = caption_family,
         colour = caption_colour,
         hjust = caption_hjust,
-        margin = ggplot2::margin(t = 12.5, r = 0, b = 0, l = 0)
+        margin = ggplot2::margin(t = 7.5, r = 0, b = 0, l = 0)
       ),
       plot.caption.position = "plot",
       plot.tag = ggplot2::element_text(
