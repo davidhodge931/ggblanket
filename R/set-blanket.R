@@ -50,8 +50,20 @@ set_blanket <- function(
     col = ifelse(is_panel_dark(), ocean, blue),
     col_palette_discrete = scales::pal_hue(),
     col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
+    shape = 21,
+    linetype = 1,
+    linewidth = 0.66,
+    linewidth_border = 0.25,
+    size = 1.5,
+    stroke = 0.5,
+    panel_heights = NULL,
+    panel_widths = NULL,
+    # options
     col_palette_ordinal = NULL,
     col_na = "#A6A6A6FF",
+    shape_palette_d = c(21, 24, 22, 23, 25),
+    shape_na = 4,
+    linetype_palette_d = 1:6,
     colour_border_transform = \(x) {
       if (is_panel_dark()) {
         blend_screen(x)
@@ -60,60 +72,172 @@ set_blanket <- function(
       }
     },
     fill_border_transform = NULL,
-    shape = 21,
-    shape_palette_d = c(21, 24, 22, 23, 25),
-    shape_na = 4,
-    linetype = 1,
-    linetype_palette_d = 1:6,
-    linewidth = 0.66,
-    linewidth_border = 0.25,
-    size = 1.5,
-    stroke = 0.5,
     axis_line_aspect = "transparent",
     axis_ticks_aspect = "transparent",
-    panel_grid_aspect = "transparent",
-    panel_heights = NULL,
-    panel_widths = NULL
+    panel_grid_aspect = "transparent"
 ) {
-  # Set the theme first
-  ggplot2::set_theme(theme)
 
-  # Then everything else
-  update_geom_col(col = col)
-  update_geom_shape(shape = shape)
-  update_geom_linetype(linetype = linetype)
-  update_geom_linewidth(linewidth = linewidth)
-  update_geom_size(size = size)
-  update_geom_stroke(stroke = stroke)
-
-  update_geom_palettes(
+  # Weave theme and adjustments
+  weave_theme(
+    theme = theme,
+    col = col,
+    shape = shape,
+    linetype = linetype,
+    linewidth = linewidth,
+    linewidth_border = linewidth_border,
+    size = size,
+    stroke = stroke,
     col_palette_discrete = col_palette_discrete,
     col_palette_continuous = col_palette_continuous,
+    panel_heights = panel_heights,
+    panel_widths = panel_widths
+  )
+
+  # Weave options
+  weave_options(
     col_palette_ordinal = col_palette_ordinal,
     col_na = col_na,
     shape_palette_d = shape_palette_d,
     shape_na = shape_na,
-    linetype_palette_d = linetype_palette_d
-  )
-
-  update_geom_border(
+    linetype_palette_d = linetype_palette_d,
     colour_border_transform = colour_border_transform,
     fill_border_transform = fill_border_transform,
-    linewidth_border = linewidth_border
-  )
-
-  update_geom_font()
-
-  update_aspect(
     axis_line_aspect = axis_line_aspect,
     axis_ticks_aspect = axis_ticks_aspect,
     panel_grid_aspect = panel_grid_aspect
   )
 
-  update_panel_dimensions(
-    panel_heights = panel_heights,
-    panel_widths = panel_widths
-  )
+  invisible(NULL)
+}
+
+#' Weave theme settings
+#'
+#' @description
+#' Weaves together the base theme and context-dependent theme adjustments.
+#' This function sets the ggplot2 theme and updates various geom defaults.
+#'
+#' @param ... Require named arguments (and support trailing commas).
+#' @param theme A ggplot2 theme object to set as the base theme.
+#' @param col A default hex code for the colour and fill of most geoms.
+#' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
+#' @param linetype A default linetype for most geoms.
+#' @param linewidth A default linewidth for geoms.
+#' @param linewidth_border A default linewidth for geoms that have a border.
+#' @param size A default size for point geoms.
+#' @param stroke A default stroke for point geoms.
+#' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
+#' @param panel_heights The height of the panels. E.g. `grid::unit(5, "cm")`.
+#' @param panel_widths The width of the panels. E.g. `grid::unit(7.5, "cm")`.
+#'
+#' @return Invisibly returns NULL. Updates the active theme as a side effect.
+#'
+#' @export
+weave_theme <- function(
+    ...,
+    theme = NULL,
+    col = NULL,
+    shape = NULL,
+    linetype = NULL,
+    linewidth = NULL,
+    linewidth_border = NULL,
+    size = NULL,
+    stroke = NULL,
+    col_palette_discrete = NULL,
+    col_palette_continuous = NULL,
+    panel_heights = NULL,
+    panel_widths = NULL
+) {
+
+  # Set the base theme if provided
+  if (!rlang::is_null(theme)) {
+    ggplot2::set_theme(theme)
+  }
+
+  # Update geom col
+  if (!rlang::is_null(col)) {
+    update_geom_col(col = col)
+  }
+
+  # Update geom shape
+  if (!rlang::is_null(shape)) {
+    update_geom_shape(shape = shape)
+  }
+
+  # Update geom linetype
+  if (!rlang::is_null(linetype)) {
+    update_geom_linetype(linetype = linetype)
+  }
+
+  # Update geom linewidth (including border)
+  if (!rlang::is_null(linewidth) || !rlang::is_null(linewidth_border)) {
+    update_geom_linewidth(
+      linewidth = linewidth,
+      linewidth_border = linewidth_border
+    )
+  }
+
+  # Update geom size
+  if (!rlang::is_null(size)) {
+    update_geom_size(size = size)
+  }
+
+  # Update geom stroke
+  if (!rlang::is_null(stroke)) {
+    update_geom_stroke(stroke = stroke)
+  }
+
+  # Update geom palettes
+  if (!rlang::is_null(col_palette_discrete) || !rlang::is_null(col_palette_continuous)) {
+    update_geom_palettes(
+      col_palette_discrete = col_palette_discrete,
+      col_palette_continuous = col_palette_continuous
+    )
+  }
+
+  # Always update font to ensure consistency
+  update_geom_font()
+
+  # Update panel dimensions
+  if (!rlang::is_null(panel_heights) || !rlang::is_null(panel_widths)) {
+    update_panel_dimensions(
+      panel_heights = panel_heights,
+      panel_widths = panel_widths
+    )
+  }
+
+  invisible(NULL)
+}
+
+
+
+
+
+
+
+
+
+
+
+#' Update the colour/fill
+#'
+#' @description
+#' Updates the active theme for colour/fill styling for set aesthetics.
+#'
+#' @param ... Require named arguments (and support trailing commas).
+#' @param col colour/fill base for most geoms.
+#'
+#' @return An updated ggplot2 theme.
+#'
+#' @export
+update_geom_col <- function(
+    ...,
+    col = ifelse(is_panel_dark(), ocean, blue)
+) {
+
+  if (!rlang::is_null(col)) {
+    ggplot2::update_theme(geom = ggplot2::element_geom(colour = col, fill = col))
+  }
 }
 
 #' Update the colour/fill
@@ -186,103 +310,101 @@ update_geom_linetype <- function(
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param linewidth linewidth.
+#' @param linewidth_border A number, or a function with input of the set linewidth.
 #'
 #' @return An updated ggplot2 theme.
 #'
 #' @export
 update_geom_linewidth <- function(
     ...,
-    linewidth = 0.5
+    linewidth = 0.66,
+    linewidth_border = 0.25
 ) {
 
   if (!rlang::is_null(linewidth)) {
     ggplot2::update_theme(
-      geom.abline = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.contour = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.curve = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.density2d = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.dotplot = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.errorbar = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.errorbarh = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.function = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.hline = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.label = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.line = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.linerange = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.path = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.quantile = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.rug = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.segment = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.smooth = ggplot2::element_geom(
-        linewidth = linewidth / 2,
-        borderwidth = linewidth / 2
-      ),
-      geom.spoke = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.step = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.text = ggplot2::element_geom(
-        linewidth = linewidth,
-        borderwidth = linewidth
-      ),
-      geom.vline = ggplot2::element_geom(
+      geom = ggplot2::element_geom(
         linewidth = linewidth,
         borderwidth = linewidth
       )
     )
   }
+
+  #border
+  ggplot2::update_theme(
+    geom.area = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.bin2d = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.bar = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.boxplot = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.col = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.contour_filled = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.crossbar = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.density = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.density2d_filled = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.hex = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.map = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.polygon = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.raster = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.rect = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.ribbon = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.sf = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.tile = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    ),
+    geom.violin = ggplot2::element_geom(
+      linewidth = linewidth_border,
+      borderwidth = linewidth_border
+    )
+  )
 }
 
 #' Update the size
@@ -444,29 +566,18 @@ update_panel_dimensions <- function(
 #'
 #' @description
 #' Updates the active theme for consistent colour/fill palette styling.
-#' Sets global options for other palettes.
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param col_palette_discrete For a discrete colour/fill scale, a character vector or a `scales::pal_*` function.
 #' @param col_palette_continuous For a continuous colour/fill scale, a character vector or a `scales::pal_*` function.
-#' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
-#' @param col_na A hex code (or name) for the `NA` value.
-#' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
-#' @param shape_na A NA shape value.
-#' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
 #'
-#' @return An updated ggplot2 theme and global options.
+#' @return An updated ggplot2 theme.
 #'
 #' @export
 update_geom_palettes <- function(
     ...,
     col_palette_discrete = scales::pal_hue(),
-    col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9)),
-    col_palette_ordinal = NULL,
-    col_na = "#A6A6A6FF",
-    shape_palette_d = c(21, 24, 22, 23, 25),
-    shape_na = 4,
-    linetype_palette_d = 1:6
+    col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9))
 ) {
   # Update theme-level palettes
   ggplot2::update_theme(
@@ -475,9 +586,54 @@ update_geom_palettes <- function(
     palette.colour.continuous = col_palette_continuous,
     palette.fill.continuous = col_palette_continuous
   )
+}
 
+#' Update the global options
+#'
+#' @description
+#' Sets global options.
+#'
+#' @param ... Require named arguments (and support trailing commas).
+#' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
+#' @param col_na A hex code (or name) for the `NA` value.
+#' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
+#' @param shape_na A NA shape value.
+#' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
+#' @param colour_border_transform A function with input of the set `col`. Defaults to `blend_screen`/`blend_multiply` based on the panel.
+#' @param fill_border_transform A function with input of the set `col`. Defaults to NULL.
+#' @param axis_line_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
+#' @param axis_ticks_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
+#' @param panel_grid_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
+#'
+#' @return Global options.
+#'
+#' @export
+weave_options <- function(
+    ...,
+    col_palette_ordinal = NULL,
+    col_na = "#A6A6A6FF",
+    shape_palette_d = c(21, 24, 22, 23, 25),
+    shape_na = 4,
+    linetype_palette_d = 1:6,
+    colour_border_transform = \(x) {
+      if (is_panel_dark()) {
+        blend_screen(x)
+      } else {
+        blend_multiply(x)
+      }
+    },
+    fill_border_transform = NULL,
+    axis_line_aspect = "transparent",
+    axis_ticks_aspect = "transparent",
+    panel_grid_aspect = "transparent"
+) {
   # Handle ordinal palette default
   if (rlang::is_null(col_palette_ordinal)) {
+    col_palette_continuous <- ggplot2::calc_element("palette.colour.continuous", ggplot2::get_theme())
+    if (rlang::is_null(col_palette_continuous)) {
+      col_palette_continuous <- direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9))
+    }
+
     # If continuous palette is a vector, convert to gradient function
     if (is.character(col_palette_continuous) || is.numeric(col_palette_continuous)) {
       col_palette_ordinal <- scales::pal_gradient_n(colours = col_palette_continuous)
@@ -485,6 +641,17 @@ update_geom_palettes <- function(
       # If it's already a function, use it directly
       col_palette_ordinal <- col_palette_continuous
     }
+  }
+
+  # Validate aspect args
+  if (!axis_line_aspect %in% c("transparent", "blank", "keep")) {
+    rlang::abort("axis_line_aspect must be 'transparent', 'blank', or 'keep'")
+  }
+  if (!axis_ticks_aspect %in% c("transparent", "blank", "keep")) {
+    rlang::abort("axis_ticks_aspect must be 'transparent', 'blank', or 'keep'")
+  }
+  if (!panel_grid_aspect %in% c("transparent", "blank", "keep")) {
+    rlang::abort("panel_grid_aspect must be 'transparent', 'blank', or 'keep'")
   }
 
   # Set global ggblanket options for the rest
@@ -498,150 +665,13 @@ update_geom_palettes <- function(
 
     # Other palettes
     ggblanket.shape_palette_d = shape_palette_d,
-    ggblanket.linetype_palette_d = linetype_palette_d
-  )
-}
+    ggblanket.linetype_palette_d = linetype_palette_d,
 
-#' Update the border geom defaults
-#'
-#' @description
-#' Sets global options for border geom transformations.
-#'
-#' @param ... Require named arguments (and support trailing commas).
-#' @param colour_border_transform A function with input of the set `col`. Defaults to `blend_screen`/`blend_multiply` based on the panel.
-#' @param fill_border_transform A function with input of the set `col`. Defaults to NULL.
-#' @param linewidth_border A number, or a function with input of the set linewidth.
-#'
-#' @return Global options for border geom styling.
-#'
-#' @export
-update_geom_border <- function(
-    ...,
-    colour_border_transform = \(x) {
-      if (is_panel_dark()) {
-        blend_screen(x)
-      } else {
-        blend_multiply(x)
-      }
-    },
-
-    fill_border_transform = NULL,
-    linewidth_border = \(x) x * 0.3787879
-) {
-  options(
+    # Border transform
     ggblanket.colour_border_transform = colour_border_transform,
-    ggblanket.fill_border_transform = fill_border_transform
-  )
+    ggblanket.fill_border_transform = fill_border_transform,
 
-  if (is.function(linewidth_border)) {
-    linewidth_border <- linewidth_border(
-      ggplot2::get_geom_defaults("line")$linewidth
-    )
-  }
-
-  ggplot2::update_theme(
-    geom.area = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.bin2d = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.bar = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.boxplot = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.col = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.contour_filled = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.crossbar = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.density = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.density2d_filled = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.hex = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.map = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.polygon = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.raster = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.rect = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.ribbon = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.sf = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.tile = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    ),
-    geom.violin = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
-    )
-  )
-}
-
-#' Set the aspect behaviour
-#'
-#' @description Set the aspect behaviour in `gg_*` functions.
-#'
-#' @param ... Require named arguments (and support trailing commas).
-#' @param axis_line_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
-#' @param axis_ticks_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
-#' @param panel_grid_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
-#'
-#' @noRd
-update_aspect <- function(
-    ...,
-    axis_line_aspect = "transparent",
-    axis_ticks_aspect = "transparent",
-    panel_grid_aspect = "transparent"
-) {
-  if (!axis_line_aspect %in% c("transparent", "blank", "keep")) {
-    rlang::abort("axis_line_aspect must be 'transparent', 'blank', or 'keep'")
-  }
-  if (!axis_ticks_aspect %in% c("transparent", "blank", "keep")) {
-    rlang::abort("axis_ticks_aspect must be 'transparent', 'blank', or 'keep'")
-  }
-  if (!panel_grid_aspect %in% c("transparent", "blank", "keep")) {
-    rlang::abort("panel_grid_aspect must be 'transparent', 'blank', or 'keep'")
-  }
-
-  options(
+    # Aspect
     ggblanket.axis_line_aspect = axis_line_aspect,
     ggblanket.axis_ticks_aspect = axis_ticks_aspect,
     ggblanket.panel_grid_aspect = panel_grid_aspect

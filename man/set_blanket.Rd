@@ -11,8 +11,19 @@ set_blanket(
   col_palette_discrete = scales::pal_hue(),
   col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako", begin
     = 0.1, end = 0.9)),
+  shape = 21,
+  linetype = 1,
+  linewidth = 0.66,
+  linewidth_border = 0.25,
+  size = 1.5,
+  stroke = 0.5,
+  panel_heights = NULL,
+  panel_widths = NULL,
   col_palette_ordinal = NULL,
   col_na = "#A6A6A6FF",
+  shape_palette_d = c(21, 24, 22, 23, 25),
+  shape_na = 4,
+  linetype_palette_d = 1:6,
   colour_border_transform = function(x) {
      if (is_panel_dark()) {
         
@@ -23,20 +34,9 @@ set_blanket(
      }
  },
   fill_border_transform = NULL,
-  shape = 21,
-  shape_palette_d = c(21, 24, 22, 23, 25),
-  shape_na = 4,
-  linetype = 1,
-  linetype_palette_d = 1:6,
-  linewidth = 0.66,
-  linewidth_border = 0.25,
-  size = 1.5,
-  stroke = 0.5,
   axis_line_aspect = "transparent",
   axis_ticks_aspect = "transparent",
-  panel_grid_aspect = "transparent",
-  panel_heights = NULL,
-  panel_widths = NULL
+  panel_grid_aspect = "transparent"
 )
 }
 \arguments{
@@ -50,23 +50,9 @@ set_blanket(
 
 \item{col_palette_continuous}{For a continuous colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
-\item{col_palette_ordinal}{For a ordinal colour/fill scale, a \verb{scales::pal_*} function. If NULL, determined from \code{col_palette_continuous}.}
-
-\item{col_na}{A NA colour/fill value.}
-
-\item{colour_border_transform}{A function with input of the \code{col} or \code{col_palette}.}
-
-\item{fill_border_transform}{A function with input of the \code{col} or \code{col_palette}.}
-
 \item{shape}{A default shape for point geoms. Must be an integer between 0 and 25.}
 
-\item{shape_palette_d}{For shape scales, a numeric vector of shape codes.}
-
-\item{shape_na}{A NA shape value.}
-
 \item{linetype}{A default linetype for most geoms.}
-
-\item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function.}
 
 \item{linewidth}{A default linewidth for geoms. A number.}
 
@@ -76,15 +62,29 @@ set_blanket(
 
 \item{stroke}{A default stroke for point geoms.}
 
+\item{panel_heights}{The height of the panels. E.g. \code{grid::unit(5, "cm")}.}
+
+\item{panel_widths}{The width of the panels. E.g. \code{grid::unit(7.5, "cm")}.}
+
+\item{col_palette_ordinal}{For a ordinal colour/fill scale, a \verb{scales::pal_*} function. If NULL, determined from \code{col_palette_continuous}.}
+
+\item{col_na}{A NA colour/fill value.}
+
+\item{shape_palette_d}{For shape scales, a numeric vector of shape codes.}
+
+\item{shape_na}{A NA shape value.}
+
+\item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function.}
+
+\item{colour_border_transform}{A function with input of the \code{col} or \code{col_palette}.}
+
+\item{fill_border_transform}{A function with input of the \code{col} or \code{col_palette}.}
+
 \item{axis_line_aspect}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis line for an \code{"x"} \code{aspect}, and vice versa.}
 
 \item{axis_ticks_aspect}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the y axis ticks for an \code{"x"} \code{aspect}, and vice versa.}
 
 \item{panel_grid_aspect}{\code{"transparent"}, \code{"blank"} or \code{"keep"} of how to treat the x panel grid for an \code{"x"} \code{aspect}, and vice versa.}
-
-\item{panel_heights}{The height of the panels. E.g. \code{grid::unit(5, "cm")}.}
-
-\item{panel_widths}{The width of the panels. E.g. \code{grid::unit(7.5, "cm")}.}
 }
 \value{
 Invisibly returns NULL. Sets global styling options as a side effect.

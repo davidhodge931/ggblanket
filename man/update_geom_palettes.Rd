@@ -8,12 +8,7 @@ update_geom_palettes(
   ...,
   col_palette_discrete = scales::pal_hue(),
   col_palette_continuous = direction_contrast(scales::pal_viridis(option = "mako", begin
-    = 0.1, end = 0.9)),
-  col_palette_ordinal = NULL,
-  col_na = "#A6A6A6FF",
-  shape_palette_d = c(21, 24, 22, 23, 25),
-  shape_na = 4,
-  linetype_palette_d = 1:6
+    = 0.1, end = 0.9))
 )
 }
 \arguments{
@@ -22,21 +17,10 @@ update_geom_palettes(
 \item{col_palette_discrete}{For a discrete colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
 
 \item{col_palette_continuous}{For a continuous colour/fill scale, a character vector or a \verb{scales::pal_*} function.}
-
-\item{col_palette_ordinal}{For a ordinal colour/fill scale, a \verb{scales::pal_*} function. If NULL, determined from \code{col_palette_continuous}.}
-
-\item{col_na}{A hex code (or name) for the \code{NA} value.}
-
-\item{shape_palette_d}{For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).}
-
-\item{shape_na}{A NA shape value.}
-
-\item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function. Defaults to 1:6.}
 }
 \value{
-An updated ggplot2 theme and global options.
+An updated ggplot2 theme.
 }
 \description{
 Updates the active theme for consistent colour/fill palette styling.
-Sets global options for other palettes.
 }

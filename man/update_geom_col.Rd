@@ -5,6 +5,8 @@
 \title{Update the colour/fill}
 \usage{
 update_geom_col(..., col = ifelse(is_panel_dark(), ocean, blue))
+
+update_geom_col(..., col = ifelse(is_panel_dark(), ocean, blue))
 }
 \arguments{
 \item{...}{Require named arguments (and support trailing commas).}
@@ -13,7 +15,11 @@ update_geom_col(..., col = ifelse(is_panel_dark(), ocean, blue))
 }
 \value{
 An updated ggplot2 theme.
+
+An updated ggplot2 theme.
 }
 \description{
+Updates the active theme for colour/fill styling for set aesthetics.
+
 Updates the active theme for colour/fill styling for set aesthetics.
 }
