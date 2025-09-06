@@ -31,7 +31,7 @@ annotate_axis_ticks(
 
 \item{linewidth}{The linewidth of the ticks. Inherits from the current theme \code{axis.ticks} etc.}
 
-\item{length}{The total distance from the axis line to the ticks as a grid unit. Defaults to the sum of set theme tick length and relevant margin part.}
+\item{length}{The total distance from the axis line to the ticks as a grid unit. Use \code{rel()} to scale relative to default length. Negative values or \code{rel()} with negative multiplier flip direction.}
 
 \item{theme}{What to do with the equivalent theme elements. Either \code{"keep"}, \code{"transparent"}, or \code{"blank"}. Defaults \code{"keep"}.}
 }
