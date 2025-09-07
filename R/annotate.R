@@ -866,9 +866,9 @@ annotate_axis_ticks <- function(
   return(stamp)
 }
 
-#' Annotate axis text segments
+#' Annotate axis text
 #'
-#' @description Create annotated segments of the axis text.
+#' @description Create annotated text labels for axis breaks.
 #'
 #' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
 #'
@@ -878,14 +878,12 @@ annotate_axis_ticks <- function(
 #' @param position The position of the axis text. One of `"top"`, `"bottom"`, `"left"`, or `"right"`. Ignored if both `x` and `y` are provided.
 #' @param x A vector of x-axis breaks for text positioning. Use `I()` to specify normalized coordinates (0-1).
 #' @param y A vector of y-axis breaks for text positioning. Use `I()` to specify normalized coordinates (0-1).
-#' @param label A vector of text labels or a function that takes breaks and returns labels. If `NULL`, uses appropriate formatting.
+#' @param label A vector of text labels or a function that takes breaks and returns labels. If `NULL`, uses appropriate formatting based on data type.
 #' @param colour The colour of the text. Inherits from the current theme `axis.text` etc.
 #' @param size The size of the text. Inherits from the current theme `axis.text` etc.
 #' @param family The font family of the text. Inherits from the current theme `axis.text` etc.
-#' @param length The total distance from the axis line to the text as a grid unit. Defaults to the sum of set theme tick length and relevant margin part.
-#' @param margin The margin around the background rectangle. Can be a single unit value (applied to all sides) or a margin object with top, right, bottom, left components.
-#' @param fill The fill colour of the background rectangle. If `NULL`, defaults to `"transparent"`.
-#' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if `NULL`.
+#' @param length The tick length as a grid unit. Use `rel()` to scale relative to default length. Negative values or `rel()` with negative multiplier place text on the opposite side of the axis (inside the panel). Inherits from the current theme `axis.ticks.length` etc.
+#' @param hjust,vjust Horizontal and vertical justification. Auto-calculated based on position if `NULL`. When `length` is negative, justification automatically adjusts for the flipped position.
 #' @param angle Text rotation angle. Defaults to `0`.
 #' @param theme What to do with the equivalent theme elements. Either `"keep"`, `"transparent"`, or `"blank"`. Defaults to `"keep"`.
 #'
@@ -902,8 +900,6 @@ annotate_axis_text <- function(
     size = NULL,
     family = NULL,
     length = NULL,
-    margin = NULL,
-    fill = NULL,
     hjust = NULL,
     vjust = NULL,
     angle = 0,
@@ -1084,96 +1080,109 @@ annotate_axis_text <- function(
   text_size <- size %||% resolved_text_element$size %||% 11
   text_family <- family %||% resolved_text_element$family %||% ""
 
+  # Initialize flip_direction flag (needed for hjust/vjust calculation)
+  flip_direction <- FALSE
+
   # For arbitrary positioning, skip length calculation
   if (!arbitrary_position) {
-    # Calculate total length if not provided
-    if (rlang::is_null(length)) {
-      # First, get tick length from theme
+    # Function to calculate default tick length
+    calculate_default_tick_length <- function() {
+      # Build hierarchy for tick length
       length_specific <- paste0("axis.ticks.length.", axis, ".", position)
       length_axis <- paste0("axis.ticks.length.", axis)
       length_general <- "axis.ticks.length"
+      length_hierarchy <- c(length_specific, length_axis, length_general)
 
-      tick_length <- NULL
-      for (element_name in c(length_specific, length_axis, length_general)) {
+      # Resolve tick length
+      resolved_length_element <- NULL
+      for (element_name in length_hierarchy) {
         element <- ggplot2::calc_element(element_name, current_theme, skip_blank = TRUE)
-        if (!rlang::is_null(element)) {
-          if (inherits(element, "rel")) {
-            spacing <- current_theme$spacing %||% grid::unit(5.5, "pt")
-            if (inherits(spacing, "unit")) {
-              spacing_pts <- as.numeric(grid::convertUnit(spacing, "pt"))
-            } else {
-              spacing_pts <- 5.5
-            }
-            tick_length <- grid::unit(as.numeric(element) * spacing_pts, "pt")
-          } else if (inherits(element, "unit")) {
-            tick_length <- element
-          } else if (is.numeric(element)) {
-            tick_length <- grid::unit(element, "pt")
-          }
-          if (!rlang::is_null(tick_length)) break
+        if (!rlang::is_null(element) && !inherits(element, "element_blank")) {
+          resolved_length_element <- element
+          break
         }
       }
 
-      # Fallback tick length
+      tick_length <- resolved_length_element
+
       if (rlang::is_null(tick_length)) {
+        text_size <- current_theme$text$size %||% 11
+        return(grid::unit(0.5 * text_size, "pt"))
+      } else if (inherits(tick_length, "rel")) {
         spacing <- current_theme$spacing %||% grid::unit(5.5, "pt")
         if (inherits(spacing, "unit")) {
           spacing_pts <- as.numeric(grid::convertUnit(spacing, "pt"))
         } else {
           spacing_pts <- 5.5
         }
-        tick_length <- grid::unit(0.5 * spacing_pts, "pt")
-      }
-
-      # Now get the text margin from the resolved text element
-      text_margin <- resolved_text_element$margin
-      margin_unit <- grid::unit(0, "pt")
-
-      if (!rlang::is_null(text_margin)) {
-        margin_index <- if (position == "bottom") {
-          1
-        } else if (position == "top") {
-          3
-        } else if (position == "left") {
-          2
+        return(grid::unit(as.numeric(tick_length) * spacing_pts, "pt"))
+      } else if (!inherits(tick_length, "unit")) {
+        if (is.numeric(tick_length)) {
+          return(grid::unit(tick_length, "pt"))
         } else {
-          4
+          text_size <- current_theme$text$size %||% 11
+          return(grid::unit(0.5 * text_size, "pt"))
         }
-
-        if (inherits(text_margin, "unit") && length(text_margin) >= margin_index) {
-          margin_unit <- text_margin[margin_index]
-        } else if (inherits(text_margin, "margin")) {
-          margin_unit <- text_margin[margin_index]
-        }
-      }
-
-      total_length <- tick_length + margin_unit
-    } else {
-      if (inherits(length, "unit")) {
-        total_length <- length
-      } else if (is.numeric(length)) {
-        total_length <- grid::unit(length, "pt")
       } else {
-        rlang::abort("length must be a grid unit or numeric value")
+        return(tick_length)
       }
     }
-  }
 
-  # Process margin for background rectangle
-  if (!rlang::is_null(margin)) {
-    if (inherits(margin, "margin") || (inherits(margin, "unit") && length(margin) == 4)) {
-      rect_margin <- margin
-    } else if (inherits(margin, "unit") && length(margin) == 1) {
-      rect_margin <- rep(margin, 4)
-    } else if (is.numeric(margin) && length(margin) == 1) {
-      rect_margin <- rep(grid::unit(margin, "pt"), 4)
-    } else if (is.numeric(margin) && length(margin) == 4) {
-      rect_margin <- grid::unit(margin, "pt")
+    # Calculate tick length
+    if (rlang::is_null(length)) {
+      tick_length <- calculate_default_tick_length()
     } else {
-      rect_margin <- grid::unit(c(0, 0, 0, 0), "pt")
+      if (inherits(length, "rel")) {
+        # Handle rel() objects
+        default_tick_length <- calculate_default_tick_length()
+        rel_value <- as.numeric(length)
+        default_pts <- as.numeric(grid::convertUnit(default_tick_length, "pt"))
+        tick_length <- grid::unit(abs(rel_value) * default_pts, "pt")
+        flip_direction <- rel_value < 0
+      } else if (inherits(length, "unit")) {
+        tick_length <- length
+        # Check if it's negative
+        tick_pts <- as.numeric(grid::convertUnit(length, "pt"))
+        if (tick_pts < 0) {
+          tick_length <- grid::unit(abs(tick_pts), "pt")
+          flip_direction <- TRUE
+        }
+      } else if (is.numeric(length)) {
+        tick_length <- grid::unit(abs(length), "pt")
+        flip_direction <- length < 0
+      } else {
+        tick_length <- calculate_default_tick_length()
+      }
     }
-  } else {
-    rect_margin <- grid::unit(c(0, 0, 0, 0), "pt")
+
+    # Get the text margin from theme (gap between tick and text)
+    text_margin <- resolved_text_element$margin
+    margin_unit <- grid::unit(2, "pt")  # Default fallback
+
+    if (!rlang::is_null(text_margin)) {
+      margin_index <- if (position == "bottom") {
+        1  # top margin
+      } else if (position == "top") {
+        3  # bottom margin
+      } else if (position == "left") {
+        2  # right margin
+      } else {
+        4  # left margin
+      }
+
+      if (inherits(text_margin, "margin")) {
+        # margin objects are like units with 4 values
+        margin_unit <- text_margin[margin_index]
+      } else if (inherits(text_margin, "unit") && length(text_margin) >= margin_index) {
+        margin_unit <- text_margin[margin_index]
+      } else if (inherits(text_margin, "unit") && length(text_margin) == 1) {
+        # Single unit value applies to all sides
+        margin_unit <- text_margin
+      }
+    }
+
+    # Calculate total distance from axis line to text
+    total_length <- tick_length + margin_unit
   }
 
   # Set hjust and vjust based on position or use defaults for arbitrary
@@ -1185,25 +1194,22 @@ annotate_axis_text <- function(
       hjust <- if (position %in% c("top", "bottom")) {
         0.5
       } else if (position == "left") {
-        1
+        if (flip_direction) 0 else 1  # Flip hjust when flipping direction
       } else {
-        0
+        if (flip_direction) 1 else 0  # Flip hjust when flipping direction
       }
     }
 
     if (rlang::is_null(vjust)) {
       vjust <- if (position == "bottom") {
-        1
+        if (flip_direction) 0 else 1  # Flip vjust when flipping direction
       } else if (position == "top") {
-        0
+        if (flip_direction) 1 else 0  # Flip vjust when flipping direction
       } else {
         0.5
       }
     }
   }
-
-  # Set default fill
-  text_fill <- fill %||% "transparent"
 
   stamp <- list()
 
@@ -1227,46 +1233,19 @@ annotate_axis_text <- function(
         label_val <- labels[i]
 
         if (use_normalized) {
-          # Create normalized grob with optional background
-          if (text_fill != "transparent") {
-            text_grob <- grid::grobTree(
-              grid::rectGrob(
-                x = grid::unit(breaks$x[i], "npc"),
-                y = grid::unit(breaks$y[i], "npc"),
-                width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-                  rect_margin[2] + rect_margin[4],
-                height = grid::unit(text_size, "pt") +
-                  rect_margin[1] + rect_margin[3],
-                just = c(hjust, vjust),
-                gp = grid::gpar(fill = text_fill, col = NA)
-              ),
-              grid::textGrob(
-                label_val,
-                x = grid::unit(breaks$x[i], "npc"),
-                y = grid::unit(breaks$y[i], "npc"),
-                just = c(hjust, vjust),
-                rot = angle,
-                gp = grid::gpar(
-                  col = text_colour,
-                  fontsize = text_size,
-                  fontfamily = text_family
-                )
-              )
+          # Create normalized grob
+          text_grob <- grid::textGrob(
+            label_val,
+            x = grid::unit(breaks$x[i], "npc"),
+            y = grid::unit(breaks$y[i], "npc"),
+            just = c(hjust, vjust),
+            rot = angle,
+            gp = grid::gpar(
+              col = text_colour,
+              fontsize = text_size,
+              fontfamily = text_family
             )
-          } else {
-            text_grob <- grid::textGrob(
-              label_val,
-              x = grid::unit(breaks$x[i], "npc"),
-              y = grid::unit(breaks$y[i], "npc"),
-              just = c(hjust, vjust),
-              rot = angle,
-              gp = grid::gpar(
-                col = text_colour,
-                fontsize = text_size,
-                fontfamily = text_family
-              )
-            )
-          }
+          )
 
           ggplot2::annotation_custom(
             grob = text_grob,
@@ -1299,103 +1278,79 @@ annotate_axis_text <- function(
         # For normalized coordinates, use them directly as npc units
         if (use_normalized) {
           text_grob <- if (position == "bottom") {
-            grid::grobTree(
-              grid::rectGrob(
-                x = grid::unit(break_val, "npc"),
-                y = grid::unit(0, "npc") - total_length,
-                width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-                  rect_margin[2] + rect_margin[4],
-                height = grid::unit(text_size, "pt") +
-                  rect_margin[1] + rect_margin[3],
-                just = c(hjust, vjust),
-                gp = grid::gpar(fill = text_fill, col = NA)
-              ),
-              grid::textGrob(
-                label_val,
-                x = grid::unit(break_val, "npc"),
-                y = grid::unit(0, "npc") - total_length,
-                just = c(hjust, vjust),
-                rot = angle,
-                gp = grid::gpar(
-                  col = text_colour,
-                  fontsize = text_size,
-                  fontfamily = text_family
-                )
+            # Apply flip_direction to change which side of axis
+            y_pos <- if (flip_direction) {
+              grid::unit(0, "npc") + total_length
+            } else {
+              grid::unit(0, "npc") - total_length
+            }
+            grid::textGrob(
+              label_val,
+              x = grid::unit(break_val, "npc"),
+              y = y_pos,
+              just = c(hjust, vjust),
+              rot = angle,
+              gp = grid::gpar(
+                col = text_colour,
+                fontsize = text_size,
+                fontfamily = text_family
               )
             )
           } else if (position == "top") {
-            grid::grobTree(
-              grid::rectGrob(
-                x = grid::unit(break_val, "npc"),
-                y = grid::unit(1, "npc") + total_length,
-                width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-                  rect_margin[2] + rect_margin[4],
-                height = grid::unit(text_size, "pt") +
-                  rect_margin[1] + rect_margin[3],
-                just = c(hjust, vjust),
-                gp = grid::gpar(fill = text_fill, col = NA)
-              ),
-              grid::textGrob(
-                label_val,
-                x = grid::unit(break_val, "npc"),
-                y = grid::unit(1, "npc") + total_length,
-                just = c(hjust, vjust),
-                rot = angle,
-                gp = grid::gpar(
-                  col = text_colour,
-                  fontsize = text_size,
-                  fontfamily = text_family
-                )
+            # Apply flip_direction to change which side of axis
+            y_pos <- if (flip_direction) {
+              grid::unit(1, "npc") - total_length
+            } else {
+              grid::unit(1, "npc") + total_length
+            }
+            grid::textGrob(
+              label_val,
+              x = grid::unit(break_val, "npc"),
+              y = y_pos,
+              just = c(hjust, vjust),
+              rot = angle,
+              gp = grid::gpar(
+                col = text_colour,
+                fontsize = text_size,
+                fontfamily = text_family
               )
             )
           } else if (position == "left") {
-            grid::grobTree(
-              grid::rectGrob(
-                x = grid::unit(0, "npc") - total_length,
-                y = grid::unit(break_val, "npc"),
-                width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-                  rect_margin[2] + rect_margin[4],
-                height = grid::unit(text_size, "pt") +
-                  rect_margin[1] + rect_margin[3],
-                just = c(hjust, vjust),
-                gp = grid::gpar(fill = text_fill, col = NA)
-              ),
-              grid::textGrob(
-                label_val,
-                x = grid::unit(0, "npc") - total_length,
-                y = grid::unit(break_val, "npc"),
-                just = c(hjust, vjust),
-                rot = angle,
-                gp = grid::gpar(
-                  col = text_colour,
-                  fontsize = text_size,
-                  fontfamily = text_family
-                )
+            # Apply flip_direction to change which side of axis
+            x_pos <- if (flip_direction) {
+              grid::unit(0, "npc") + total_length
+            } else {
+              grid::unit(0, "npc") - total_length
+            }
+            grid::textGrob(
+              label_val,
+              x = x_pos,
+              y = grid::unit(break_val, "npc"),
+              just = c(hjust, vjust),
+              rot = angle,
+              gp = grid::gpar(
+                col = text_colour,
+                fontsize = text_size,
+                fontfamily = text_family
               )
             )
           } else {  # right
-            grid::grobTree(
-              grid::rectGrob(
-                x = grid::unit(1, "npc") + total_length,
-                y = grid::unit(break_val, "npc"),
-                width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-                  rect_margin[2] + rect_margin[4],
-                height = grid::unit(text_size, "pt") +
-                  rect_margin[1] + rect_margin[3],
-                just = c(hjust, vjust),
-                gp = grid::gpar(fill = text_fill, col = NA)
-              ),
-              grid::textGrob(
-                label_val,
-                x = grid::unit(1, "npc") + total_length,
-                y = grid::unit(break_val, "npc"),
-                just = c(hjust, vjust),
-                rot = angle,
-                gp = grid::gpar(
-                  col = text_colour,
-                  fontsize = text_size,
-                  fontfamily = text_family
-                )
+            # Apply flip_direction to change which side of axis
+            x_pos <- if (flip_direction) {
+              grid::unit(1, "npc") - total_length
+            } else {
+              grid::unit(1, "npc") + total_length
+            }
+            grid::textGrob(
+              label_val,
+              x = x_pos,
+              y = grid::unit(break_val, "npc"),
+              just = c(hjust, vjust),
+              rot = angle,
+              gp = grid::gpar(
+                col = text_colour,
+                fontsize = text_size,
+                fontfamily = text_family
               )
             )
           }
@@ -1408,103 +1363,79 @@ annotate_axis_text <- function(
         } else {
           # Original behavior for data coordinates
           text_grob <- if (position == "bottom") {
-            grid::grobTree(
-              grid::rectGrob(
-                x = grid::unit(0.5, "npc"),
-                y = grid::unit(0, "npc") - total_length,
-                width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-                  rect_margin[2] + rect_margin[4],
-                height = grid::unit(text_size, "pt") +
-                  rect_margin[1] + rect_margin[3],
-                just = c(hjust, vjust),
-                gp = grid::gpar(fill = text_fill, col = NA)
-              ),
-              grid::textGrob(
-                label_val,
-                x = grid::unit(0.5, "npc"),
-                y = grid::unit(0, "npc") - total_length,
-                just = c(hjust, vjust),
-                rot = angle,
-                gp = grid::gpar(
-                  col = text_colour,
-                  fontsize = text_size,
-                  fontfamily = text_family
-                )
+            # Apply flip_direction to change which side of axis
+            y_pos <- if (flip_direction) {
+              grid::unit(0, "npc") + total_length
+            } else {
+              grid::unit(0, "npc") - total_length
+            }
+            grid::textGrob(
+              label_val,
+              x = grid::unit(0.5, "npc"),
+              y = y_pos,
+              just = c(hjust, vjust),
+              rot = angle,
+              gp = grid::gpar(
+                col = text_colour,
+                fontsize = text_size,
+                fontfamily = text_family
               )
             )
           } else if (position == "top") {
-            grid::grobTree(
-              grid::rectGrob(
-                x = grid::unit(0.5, "npc"),
-                y = grid::unit(1, "npc") + total_length,
-                width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-                  rect_margin[2] + rect_margin[4],
-                height = grid::unit(text_size, "pt") +
-                  rect_margin[1] + rect_margin[3],
-                just = c(hjust, vjust),
-                gp = grid::gpar(fill = text_fill, col = NA)
-              ),
-              grid::textGrob(
-                label_val,
-                x = grid::unit(0.5, "npc"),
-                y = grid::unit(1, "npc") + total_length,
-                just = c(hjust, vjust),
-                rot = angle,
-                gp = grid::gpar(
-                  col = text_colour,
-                  fontsize = text_size,
-                  fontfamily = text_family
-                )
+            # Apply flip_direction to change which side of axis
+            y_pos <- if (flip_direction) {
+              grid::unit(1, "npc") - total_length
+            } else {
+              grid::unit(1, "npc") + total_length
+            }
+            grid::textGrob(
+              label_val,
+              x = grid::unit(0.5, "npc"),
+              y = y_pos,
+              just = c(hjust, vjust),
+              rot = angle,
+              gp = grid::gpar(
+                col = text_colour,
+                fontsize = text_size,
+                fontfamily = text_family
               )
             )
           } else if (position == "left") {
-            grid::grobTree(
-              grid::rectGrob(
-                x = grid::unit(0, "npc") - total_length,
-                y = grid::unit(0.5, "npc"),
-                width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-                  rect_margin[2] + rect_margin[4],
-                height = grid::unit(text_size, "pt") +
-                  rect_margin[1] + rect_margin[3],
-                just = c(hjust, vjust),
-                gp = grid::gpar(fill = text_fill, col = NA)
-              ),
-              grid::textGrob(
-                label_val,
-                x = grid::unit(0, "npc") - total_length,
-                y = grid::unit(0.5, "npc"),
-                just = c(hjust, vjust),
-                rot = angle,
-                gp = grid::gpar(
-                  col = text_colour,
-                  fontsize = text_size,
-                  fontfamily = text_family
-                )
+            # Apply flip_direction to change which side of axis
+            x_pos <- if (flip_direction) {
+              grid::unit(0, "npc") + total_length
+            } else {
+              grid::unit(0, "npc") - total_length
+            }
+            grid::textGrob(
+              label_val,
+              x = x_pos,
+              y = grid::unit(0.5, "npc"),
+              just = c(hjust, vjust),
+              rot = angle,
+              gp = grid::gpar(
+                col = text_colour,
+                fontsize = text_size,
+                fontfamily = text_family
               )
             )
           } else {  # right
-            grid::grobTree(
-              grid::rectGrob(
-                x = grid::unit(1, "npc") + total_length,
-                y = grid::unit(0.5, "npc"),
-                width = grid::grobWidth(grid::textGrob(label_val, gp = grid::gpar(fontsize = text_size, fontfamily = text_family))) +
-                  rect_margin[2] + rect_margin[4],
-                height = grid::unit(text_size, "pt") +
-                  rect_margin[1] + rect_margin[3],
-                just = c(hjust, vjust),
-                gp = grid::gpar(fill = text_fill, col = NA)
-              ),
-              grid::textGrob(
-                label_val,
-                x = grid::unit(1, "npc") + total_length,
-                y = grid::unit(0.5, "npc"),
-                just = c(hjust, vjust),
-                rot = angle,
-                gp = grid::gpar(
-                  col = text_colour,
-                  fontsize = text_size,
-                  fontfamily = text_family
-                )
+            # Apply flip_direction to change which side of axis
+            x_pos <- if (flip_direction) {
+              grid::unit(1, "npc") - total_length
+            } else {
+              grid::unit(1, "npc") + total_length
+            }
+            grid::textGrob(
+              label_val,
+              x = x_pos,
+              y = grid::unit(0.5, "npc"),
+              just = c(hjust, vjust),
+              rot = angle,
+              gp = grid::gpar(
+                col = text_colour,
+                fontsize = text_size,
+                fontfamily = text_family
               )
             )
           }
