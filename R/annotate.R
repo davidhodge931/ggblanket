@@ -183,17 +183,17 @@ annotate_axis_line <- function(
 
   # Extract theme properties with proper resolution
   line_colour <- if (rlang::is_null(colour)) {
-    resolved_element@colour %||% "black"
+    resolved_element$colour %||% "black"
   } else {
     colour
   }
 
   # Handle linewidth with proper rel() support
   if (rlang::is_null(linewidth)) {
-    line_linewidth <-  resolved_element@linewidth %||% 0.5
+    line_linewidth <- resolved_element$linewidth %||% 0.5
   } else {
     if (inherits(linewidth, "rel")) {
-      base_linewidth <-  resolved_element@linewidth %||% 0.5
+      base_linewidth <- resolved_element$linewidth %||% 0.5
       line_linewidth <- as.numeric(linewidth) * base_linewidth
     } else {
       line_linewidth <- linewidth
@@ -303,15 +303,18 @@ annotate_axis_line <- function(
     }
   } else {
     # Original position-based behavior
+    # Use provided min/max values or default to -Inf/Inf
     if (position == "bottom") {
+      x_start <- if (!rlang::is_null(xmin)) xmin else -Inf
+      x_end <- if (!rlang::is_null(xmax)) xmax else Inf
       stamp <- c(
         stamp,
         list(
           rlang::exec(
             ggplot2::annotate,
             "segment",
-            x = -Inf,
-            xend = Inf,
+            x = x_start,
+            xend = x_end,
             y = -Inf,
             yend = -Inf,
             colour = line_colour,
@@ -321,14 +324,16 @@ annotate_axis_line <- function(
         )
       )
     } else if (position == "top") {
+      x_start <- if (!rlang::is_null(xmin)) xmin else -Inf
+      x_end <- if (!rlang::is_null(xmax)) xmax else Inf
       stamp <- c(
         stamp,
         list(
           rlang::exec(
             ggplot2::annotate,
             "segment",
-            x = -Inf,
-            xend = Inf,
+            x = x_start,
+            xend = x_end,
             y = Inf,
             yend = Inf,
             colour = line_colour,
@@ -338,6 +343,8 @@ annotate_axis_line <- function(
         )
       )
     } else if (position == "left") {
+      y_start <- if (!rlang::is_null(ymin)) ymin else -Inf
+      y_end <- if (!rlang::is_null(ymax)) ymax else Inf
       stamp <- c(
         stamp,
         list(
@@ -346,8 +353,8 @@ annotate_axis_line <- function(
             "segment",
             x = -Inf,
             xend = -Inf,
-            y = -Inf,
-            yend = Inf,
+            y = y_start,
+            yend = y_end,
             colour = line_colour,
             linewidth = line_linewidth,
             ...
@@ -356,6 +363,8 @@ annotate_axis_line <- function(
       )
     } else {
       # right
+      y_start <- if (!rlang::is_null(ymin)) ymin else -Inf
+      y_end <- if (!rlang::is_null(ymax)) ymax else Inf
       stamp <- c(
         stamp,
         list(
@@ -364,8 +373,8 @@ annotate_axis_line <- function(
             "segment",
             x = Inf,
             xend = Inf,
-            y = -Inf,
-            yend = Inf,
+            y = y_start,
+            yend = y_end,
             colour = line_colour,
             linewidth = line_linewidth,
             ...
@@ -375,17 +384,56 @@ annotate_axis_line <- function(
     }
   }
 
-  # Add theme modification if requested (only for position-based, not x/y)
-  if (!use_xy_positioning && theme != "keep") {
-    if (theme == "transparent") {
+  # Add theme modification if requested
+  if (theme != "keep") {
+    theme_name <- NULL
+
+    if (use_xy_positioning) {
+      # For x/y positioning, determine which axis line element corresponds to the line
+      if (!rlang::is_null(x)) {
+        # Vertical line - check if it's at left or right edge
+        if (x_is_normalized) {
+          if (x == 0) {
+            theme_name <- "axis.line.y.left"
+          } else if (x == 1) {
+            theme_name <- "axis.line.y.right"
+          }
+        } else if (is.infinite(x)) {
+          if (x < 0) {
+            theme_name <- "axis.line.y.left"
+          } else {
+            theme_name <- "axis.line.y.right"
+          }
+        }
+      } else if (!rlang::is_null(y)) {
+        # Horizontal line - check if it's at top or bottom edge
+        if (y_is_normalized) {
+          if (y == 0) {
+            theme_name <- "axis.line.x.bottom"
+          } else if (y == 1) {
+            theme_name <- "axis.line.x.top"
+          }
+        } else if (is.infinite(y)) {
+          if (y < 0) {
+            theme_name <- "axis.line.x.bottom"
+          } else {
+            theme_name <- "axis.line.x.top"
+          }
+        }
+      }
+    } else {
+      # Position-based - construct theme name from position
       theme_name <- paste0("axis.line.", axis, ".", position)
+    }
+
+    # Apply theme modification if we have a theme element to modify
+    if (!rlang::is_null(theme_name)) {
       theme_mod <- list()
-      theme_mod[[theme_name]] <- ggplot2::element_line(colour = "transparent")
-      stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
-    } else if (theme == "blank") {
-      theme_name <- paste0("axis.line.", axis, ".", position)
-      theme_mod <- list()
-      theme_mod[[theme_name]] <- ggplot2::element_blank()
+      if (theme == "transparent") {
+        theme_mod[[theme_name]] <- ggplot2::element_line(colour = "transparent")
+      } else if (theme == "blank") {
+        theme_mod[[theme_name]] <- ggplot2::element_blank()
+      }
       stamp <- c(stamp, list(rlang::exec(ggplot2::theme, !!!theme_mod)))
     }
   }
@@ -1478,6 +1526,8 @@ annotate_axis_text <- function(
 #' @param ... Arguments passed to `ggplot2::annotate("segment", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
 #' @param x A vector of x-axis breaks for vertical grid lines. Cannot be used together with `y`. Use `I()` to specify normalized coordinates (0-1).
 #' @param y A vector of y-axis breaks for horizontal grid lines. Cannot be used together with `x`. Use `I()` to specify normalized coordinates (0-1).
+#' @param xmin,xmax The starting and ending x positions for horizontal grid lines. Use `I()` for normalized coordinates (0-1). Defaults to `-Inf` and `Inf`.
+#' @param ymin,ymax The starting and ending y positions for vertical grid lines. Use `I()` for normalized coordinates (0-1). Defaults to `-Inf` and `Inf`.
 #' @param minor Logical. If `FALSE` (default), creates major grid lines. If `TRUE`, creates minor grid lines.
 #' @param colour The colour of grid lines. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
 #' @param linewidth The linewidth of grid lines. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
@@ -1486,11 +1536,14 @@ annotate_axis_text <- function(
 #'
 #' @return A list of annotate annotates and theme elements.
 #' @export
-#'
 annotate_panel_grid <- function(
     ...,
     x = NULL,
     y = NULL,
+    xmin = NULL,
+    xmax = NULL,
+    ymin = NULL,
+    ymax = NULL,
     minor = FALSE,
     colour = NULL,
     linewidth = NULL,
@@ -1515,26 +1568,59 @@ annotate_panel_grid <- function(
   # Check if values are wrapped in I() to determine coordinate type
   x_is_normalized <- !rlang::is_null(x) && inherits(x, "AsIs")
   y_is_normalized <- !rlang::is_null(y) && inherits(y, "AsIs")
+  xmin_is_normalized <- !rlang::is_null(xmin) && inherits(xmin, "AsIs")
+  xmax_is_normalized <- !rlang::is_null(xmax) && inherits(xmax, "AsIs")
+  ymin_is_normalized <- !rlang::is_null(ymin) && inherits(ymin, "AsIs")
+  ymax_is_normalized <- !rlang::is_null(ymax) && inherits(ymax, "AsIs")
 
   # Unwrap I() values
   if (x_is_normalized) {
     x <- unclass(x)
-    # Validate normalized coordinates are between 0 and 1
     if (any(x < 0 | x > 1)) {
       rlang::abort("Normalized x coordinates (specified with I()) must be between 0 and 1")
     }
   }
   if (y_is_normalized) {
     y <- unclass(y)
-    # Validate normalized coordinates are between 0 and 1
     if (any(y < 0 | y > 1)) {
       rlang::abort("Normalized y coordinates (specified with I()) must be between 0 and 1")
     }
   }
+  if (xmin_is_normalized) {
+    xmin <- unclass(xmin)
+    if (xmin < 0 || xmin > 1) {
+      rlang::abort("Normalized xmin (specified with I()) must be between 0 and 1")
+    }
+  }
+  if (xmax_is_normalized) {
+    xmax <- unclass(xmax)
+    if (xmax < 0 || xmax > 1) {
+      rlang::abort("Normalized xmax (specified with I()) must be between 0 and 1")
+    }
+  }
+  if (ymin_is_normalized) {
+    ymin <- unclass(ymin)
+    if (ymin < 0 || ymin > 1) {
+      rlang::abort("Normalized ymin (specified with I()) must be between 0 and 1")
+    }
+  }
+  if (ymax_is_normalized) {
+    ymax <- unclass(ymax)
+    if (ymax < 0 || ymax > 1) {
+      rlang::abort("Normalized ymax (specified with I()) must be between 0 and 1")
+    }
+  }
 
-  # Determine axis from x/y and whether using normalized coordinates
+  # Determine axis from x/y
   axis <- if (!rlang::is_null(x)) "x" else "y"
-  use_normalized <- if (axis == "x") x_is_normalized else y_is_normalized
+
+  # Determine coordinate systems for breaks and limits separately
+  breaks_normalized <- if (axis == "x") x_is_normalized else y_is_normalized
+  limits_normalized <- if (axis == "x") {
+    ymin_is_normalized || ymax_is_normalized
+  } else {
+    xmin_is_normalized || xmax_is_normalized
+  }
 
   # Get breaks
   breaks <- if (!rlang::is_null(x)) x else y
@@ -1649,9 +1735,99 @@ annotate_panel_grid <- function(
     }
   }
 
-  # Create grid lines based on coordinate type
-  if (use_normalized) {
-    # For normalized coordinates, we need to use annotation_custom with grobs
+  # Create grid lines based on coordinate type combinations
+  if (breaks_normalized && limits_normalized) {
+    # Both breaks and limits are normalized - use grobs with npc units
+    grid_annotations <- breaks |>
+      purrr::map(\(break_val) {
+        if (axis == "x") {
+          # Vertical grid line at normalized x position
+          y_start <- if (!rlang::is_null(ymin)) ymin else 0
+          y_end <- if (!rlang::is_null(ymax)) ymax else 1
+
+          grid_grob <- grid::linesGrob(
+            x = grid::unit(c(break_val, break_val), "npc"),
+            y = grid::unit(c(y_start, y_end), "npc"),
+            gp = grid::gpar(
+              col = grid_colour,
+              lwd = grid_linewidth * 72 / 25.4,
+              lty = grid_linetype
+            )
+          )
+        } else {  # y axis
+          # Horizontal grid line at normalized y position
+          x_start <- if (!rlang::is_null(xmin)) xmin else 0
+          x_end <- if (!rlang::is_null(xmax)) xmax else 1
+
+          grid_grob <- grid::linesGrob(
+            x = grid::unit(c(x_start, x_end), "npc"),
+            y = grid::unit(c(break_val, break_val), "npc"),
+            gp = grid::gpar(
+              col = grid_colour,
+              lwd = grid_linewidth * 72 / 25.4,
+              lty = grid_linetype
+            )
+          )
+        }
+
+        ggplot2::annotation_custom(
+          grob = grid_grob,
+          xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
+        )
+      })
+
+    stamp <- c(stamp, grid_annotations)
+
+  } else if (!breaks_normalized && limits_normalized) {
+    # Breaks in data coordinates, limits in normalized - need grobs
+    grid_annotations <- breaks |>
+      purrr::map(\(break_val) {
+        if (axis == "x") {
+          # Vertical grid line at data x position with normalized y limits
+          y_start <- if (!rlang::is_null(ymin)) ymin else 0
+          y_end <- if (!rlang::is_null(ymax)) ymax else 1
+
+          grid_grob <- grid::linesGrob(
+            x = grid::unit(c(0.5, 0.5), "npc"),
+            y = grid::unit(c(y_start, y_end), "npc"),
+            gp = grid::gpar(
+              col = grid_colour,
+              lwd = grid_linewidth * 72 / 25.4,
+              lty = grid_linetype
+            )
+          )
+
+          ggplot2::annotation_custom(
+            grob = grid_grob,
+            xmin = break_val, xmax = break_val, ymin = -Inf, ymax = Inf
+          )
+        } else {  # y axis
+          # Horizontal grid line at data y position with normalized x limits
+          x_start <- if (!rlang::is_null(xmin)) xmin else 0
+          x_end <- if (!rlang::is_null(xmax)) xmax else 1
+
+          grid_grob <- grid::linesGrob(
+            x = grid::unit(c(x_start, x_end), "npc"),
+            y = grid::unit(c(0.5, 0.5), "npc"),
+            gp = grid::gpar(
+              col = grid_colour,
+              lwd = grid_linewidth * 72 / 25.4,
+              lty = grid_linetype
+            )
+          )
+
+          ggplot2::annotation_custom(
+            grob = grid_grob,
+            xmin = -Inf, xmax = Inf, ymin = break_val, ymax = break_val
+          )
+        }
+      })
+
+    stamp <- c(stamp, grid_annotations)
+
+  } else if (breaks_normalized && !limits_normalized) {
+    # Breaks in normalized, limits in data coordinates - use grobs
+    # This case needs grobs positioned across full plot with data limits ignored
     grid_annotations <- breaks |>
       purrr::map(\(break_val) {
         if (axis == "x") {
@@ -1678,7 +1854,6 @@ annotate_panel_grid <- function(
           )
         }
 
-        # For normalized coordinates, span the full plot area
         ggplot2::annotation_custom(
           grob = grid_grob,
           xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
@@ -1688,9 +1863,13 @@ annotate_panel_grid <- function(
     stamp <- c(stamp, grid_annotations)
 
   } else {
-    # Original behavior for data coordinates
+    # Both in data coordinates - use regular annotate
     if (axis == "x") {
       # Add vertical grid lines
+      # Use provided ymin/ymax or default to -Inf/Inf
+      y_start <- if (!rlang::is_null(ymin)) ymin else -Inf
+      y_end <- if (!rlang::is_null(ymax)) ymax else Inf
+
       stamp <- c(
         stamp,
         list(
@@ -1698,8 +1877,8 @@ annotate_panel_grid <- function(
             "segment",
             x = breaks,
             xend = breaks,
-            y = -Inf,
-            yend = Inf,
+            y = y_start,
+            yend = y_end,
             colour = grid_colour,
             linewidth = grid_linewidth,
             linetype = grid_linetype,
@@ -1709,13 +1888,17 @@ annotate_panel_grid <- function(
       )
     } else {  # y axis
       # Add horizontal grid lines
+      # Use provided xmin/xmax or default to -Inf/Inf
+      x_start <- if (!rlang::is_null(xmin)) xmin else -Inf
+      x_end <- if (!rlang::is_null(xmax)) xmax else Inf
+
       stamp <- c(
         stamp,
         list(
           ggplot2::annotate(
             "segment",
-            x = -Inf,
-            xend = Inf,
+            x = x_start,
+            xend = x_end,
             y = breaks,
             yend = breaks,
             colour = grid_colour,
@@ -1766,19 +1949,19 @@ annotate_panel_grid <- function(
 #'
 #' # Using data coordinates with theme defaults
 #' p +
-#'   annotate_shade(
+#'   annotate_panel_shade(
 #'     xmin = 225,
 #'   ) +
 #'   geom_point()
 #'
 #' # Using normalized coordinates
 #' p +
-#'   annotate_shade(
+#'   annotate_panel_shade(
 #'     xmin = I(0.9),
 #'   ) +
 #'   geom_point()
 #'
-annotate_shade <- function(
+annotate_panel_shade <- function(
     ...,
     xmin = -Inf,
     xmax = Inf,
@@ -1954,4 +2137,158 @@ annotate_shade <- function(
   return(stamp)
 }
 
+#' Annotate panel background
+#'
+#' @description Create a custom panel background area by drawing a rectangle with the panel
+#' background fill ("keep" mode) or by removing/modifying the panel background and redrawing it in a
+#' specified area ("transparent" or "blank" modes).
+#'
+#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket]
+#' or [ggplot2::set_theme].
+#'
+#' When `theme = "keep"` (default), the function draws a rectangle with the panel background fill
+#' in the specified area. This is simple and works well when you want to add panel background
+#' to a specific region.
+#'
+#' When `theme = "transparent"`, the function makes the panel background transparent and removes
+#' the border, then redraws the panel background only in the specified area.
+#'
+#' When `theme = "blank"`, the function removes the panel background and border, then redraws
+#' the panel background only in the specified area.
+#'
+#' Note that `"transparent"` and `"blank"` produce visually similar results but are provided
+#' for consistency with other annotate functions.
+#'
+#' @param xmin,xmax The horizontal boundaries of the panel background area.
+#'   Defaults to `-Inf` and `Inf` respectively.
+#' @param ymin,ymax The vertical boundaries of the panel background area.
+#'   Defaults to `-Inf` and `Inf` respectively.
+#' @param fill The fill colour of the rectangle. Defaults to the panel background fill from the current theme.
+#' @param colour The border colour of the rectangle. Defaults to `"transparent"`.
+#' @param theme How to handle existing panel elements. Either `"keep"` (default, overlay only),
+#'   `"transparent"` (make panel background transparent), or `"blank"` (remove panel background).
+#' @param ... Additional arguments passed to `annotate("rect", ...)`.
+#'
+#' @return A list containing annotation layers and optionally theme modifications.
+#' @export
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' set_blanket()
+#'
+#' p <- palmerpenguins::penguins |>
+#'   gg_blanket(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'   )
+#'
+#' # "keep" mode: Simple overlay with panel background (default)
+#' p +
+#'   annotate_panel_background(xmax = 230)
+#'
+#' # "transparent" mode: Make panel transparent, then redraw in specified area
+#' p +
+#'   annotate_panel_background(xmax = 230, theme = "transparent")
+#'
+#' # "blank" mode: Remove panel background, then redraw in specified area
+#' p +
+#'   annotate_panel_background(xmax = 230, theme = "blank")
+#'
+#' # Create a panel window with custom fill
+#' p +
+#'   annotate_panel_background(
+#'     xmin = 180,
+#'     xmax = 220,
+#'     ymin = 3500,
+#'     ymax = 5500,
+#'     fill = "lightblue",
+#'     colour = "blue"
+#'   )
+#'
+annotate_panel_background <- function(
+    xmin = NULL,
+    xmax = NULL,
+    ymin = NULL,
+    ymax = NULL,
+    fill = NULL,
+    colour = "transparent",
+    theme = "keep",
+    ...
+) {
+  # Validate theme argument
+  theme <- rlang::arg_match(theme, c("keep", "transparent", "blank"))
 
+  # Set defaults
+  xmin <- xmin %||% -Inf
+  xmax <- xmax %||% Inf
+  ymin <- ymin %||% -Inf
+  ymax <- ymax %||% Inf
+
+  # Get current theme
+  current_theme <- ggplot2::theme_get()
+
+  # Get panel background fill if not specified
+  if (rlang::is_null(fill)) {
+    panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
+    fill <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
+      panel_bg$fill %||% "#EBEBEBFF"
+    } else {
+      "#EBEBEBFF"
+    }
+  }
+
+  if (theme == "keep") {
+    # Simple mode: just draw a rectangle with specified fill
+    list(
+      ggplot2::annotate(
+        "rect",
+        xmin = xmin,
+        xmax = xmax,
+        ymin = ymin,
+        ymax = ymax,
+        fill = fill,
+        colour = colour,
+        ...
+      )
+    )
+
+  } else if (theme == "transparent") {
+    # Make panel background transparent, then redraw panel in specified area
+    list(
+      theme(
+        panel.background =  ggplot2::element_rect(colour = "transparent", fill = "transparent"),
+        panel.border =  ggplot2::element_rect(colour = "transparent", fill = "transparent")
+      ),
+      ggplot2::annotate(
+        "rect",
+        xmin = xmin,
+        xmax = xmax,
+        ymin = ymin,
+        ymax = ymax,
+        fill = fill,
+        colour = colour,
+        ...
+      )
+    )
+  } else {  # theme == "blank"
+    # Remove panel background and border, then redraw panel in specified area
+    list(
+      theme(
+        panel.background = ggplot2::element_blank(),
+        panel.border = ggplot2::element_blank()
+      ),
+      ggplot2::annotate(
+        "rect",
+        xmin = xmin,
+        xmax = xmax,
+        ymin = ymin,
+        ymax = ymax,
+        fill = fill,
+        colour = colour,
+        ...
+      )
+    )
+  }
+}

@@ -22,7 +22,8 @@ reference:
   - annotate_axis_ticks
   - annotate_axis_text
   - annotate_panel_grid
-  - annotate_shade
+  - annotate_panel_background
+  - annotate_panel_shade
 - title: Blend
 - contents:
   - blend_multiply
@@ -44,7 +45,6 @@ reference:
   - bind_each_all
   - label_every_nth
   - guides_grey
-  - jumble
   - legend_place
 - title: Colours
   - jumble

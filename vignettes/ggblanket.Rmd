@@ -352,7 +352,7 @@ palmerpenguins::penguins |>
     y = body_mass_g,
     size = bill_length_mm,
     shape = sex,
-    annotate = annotate_shade(xmin = I(0.9)),
+    annotate = annotate_panel_shade(xmin = I(0.9)),
   ) 
 ```
 

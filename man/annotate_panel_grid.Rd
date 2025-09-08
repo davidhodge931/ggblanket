@@ -8,6 +8,10 @@ annotate_panel_grid(
   ...,
   x = NULL,
   y = NULL,
+  xmin = NULL,
+  xmax = NULL,
+  ymin = NULL,
+  ymax = NULL,
   minor = FALSE,
   colour = NULL,
   linewidth = NULL,
@@ -21,6 +25,10 @@ annotate_panel_grid(
 \item{x}{A vector of x-axis breaks for vertical grid lines. Cannot be used together with \code{y}. Use \code{I()} to specify normalized coordinates (0-1).}
 
 \item{y}{A vector of y-axis breaks for horizontal grid lines. Cannot be used together with \code{x}. Use \code{I()} to specify normalized coordinates (0-1).}
+
+\item{xmin, xmax}{The starting and ending x positions for horizontal grid lines. Use \code{I()} for normalized coordinates (0-1). Defaults to \code{-Inf} and \code{Inf}.}
+
+\item{ymin, ymax}{The starting and ending y positions for vertical grid lines. Use \code{I()} for normalized coordinates (0-1). Defaults to \code{-Inf} and \code{Inf}.}
 
 \item{minor}{Logical. If \code{FALSE} (default), creates major grid lines. If \code{TRUE}, creates minor grid lines.}
 
