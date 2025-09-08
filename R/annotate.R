@@ -18,6 +18,7 @@
 #' @param ymax The ending y position for a vertical line segment. Use `I()` for normalized coordinates (0-1).
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
+#' @param linetype The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
 #' @param theme How to modify the corresponding theme element. One of `"keep"`, `"transparent"`, or `"blank"`.
 #'   Defaults to `"keep"`.
 #'
@@ -63,6 +64,7 @@ annotate_axis_line <- function(
     ymax = NULL,
     colour = NULL,
     linewidth = NULL,
+    linetype = NULL,
     theme = "keep"
 ) {
   # Validate arguments - can't have both x and y
@@ -178,7 +180,7 @@ annotate_axis_line <- function(
 
   # If still no element found, create a minimal fallback
   if (rlang::is_null(resolved_element)) {
-    resolved_element <- list(colour = "black", linewidth = 0.5)
+    resolved_element <- list(colour = "black", linewidth = 0.5, linetype = "solid")
   }
 
   # Extract theme properties with proper resolution
@@ -198,6 +200,13 @@ annotate_axis_line <- function(
     } else {
       line_linewidth <- linewidth
     }
+  }
+
+  # Extract linetype with proper resolution
+  line_linetype <- if (rlang::is_null(linetype)) {
+    resolved_element$linetype %||% "solid"
+  } else {
+    linetype
   }
 
   stamp <- list()
@@ -221,7 +230,9 @@ annotate_axis_line <- function(
           y = grid::unit(c(ymin, ymax), "npc"),
           gp = grid::gpar(
             col = line_colour,
-            lwd = line_linewidth * 72 / 25.4
+            lwd = line_linewidth * 72 / 25.4,
+            lty = line_linetype,
+            lineend = "butt"
           )
         )
         stamp <- c(
@@ -247,6 +258,7 @@ annotate_axis_line <- function(
               yend = ymax,
               colour = line_colour,
               linewidth = line_linewidth,
+              linetype = line_linetype,
               ...
             )
           )
@@ -269,7 +281,9 @@ annotate_axis_line <- function(
           y = grid::unit(c(y, y), "npc"),
           gp = grid::gpar(
             col = line_colour,
-            lwd = line_linewidth * 72 / 25.4
+            lwd = line_linewidth * 72 / 25.4,
+            lty = line_linetype,
+            lineend = "butt"
           )
         )
         stamp <- c(
@@ -295,6 +309,7 @@ annotate_axis_line <- function(
               yend = y,
               colour = line_colour,
               linewidth = line_linewidth,
+              linetype = line_linetype,
               ...
             )
           )
@@ -319,6 +334,7 @@ annotate_axis_line <- function(
             yend = -Inf,
             colour = line_colour,
             linewidth = line_linewidth,
+            linetype = line_linetype,
             ...
           )
         )
@@ -338,6 +354,7 @@ annotate_axis_line <- function(
             yend = Inf,
             colour = line_colour,
             linewidth = line_linewidth,
+            linetype = line_linetype,
             ...
           )
         )
@@ -357,6 +374,7 @@ annotate_axis_line <- function(
             yend = y_end,
             colour = line_colour,
             linewidth = line_linewidth,
+            linetype = line_linetype,
             ...
           )
         )
@@ -377,6 +395,7 @@ annotate_axis_line <- function(
             yend = y_end,
             colour = line_colour,
             linewidth = line_linewidth,
+            linetype = line_linetype,
             ...
           )
         )
@@ -1751,7 +1770,8 @@ annotate_panel_grid <- function(
             gp = grid::gpar(
               col = grid_colour,
               lwd = grid_linewidth * 72 / 25.4,
-              lty = grid_linetype
+              lty = grid_linetype,
+              lineend = "butt"
             )
           )
         } else {  # y axis
@@ -1765,7 +1785,8 @@ annotate_panel_grid <- function(
             gp = grid::gpar(
               col = grid_colour,
               lwd = grid_linewidth * 72 / 25.4,
-              lty = grid_linetype
+              lty = grid_linetype,
+              lineend = "butt"
             )
           )
         }
@@ -1793,7 +1814,8 @@ annotate_panel_grid <- function(
             gp = grid::gpar(
               col = grid_colour,
               lwd = grid_linewidth * 72 / 25.4,
-              lty = grid_linetype
+              lty = grid_linetype,
+              lineend = "butt"
             )
           )
 
@@ -1812,7 +1834,8 @@ annotate_panel_grid <- function(
             gp = grid::gpar(
               col = grid_colour,
               lwd = grid_linewidth * 72 / 25.4,
-              lty = grid_linetype
+              lty = grid_linetype,
+              lineend = "butt"
             )
           )
 
@@ -1838,7 +1861,8 @@ annotate_panel_grid <- function(
             gp = grid::gpar(
               col = grid_colour,
               lwd = grid_linewidth * 72 / 25.4,
-              lty = grid_linetype
+              lty = grid_linetype,
+              lineend = "butt"
             )
           )
         } else {  # y axis
@@ -1849,7 +1873,8 @@ annotate_panel_grid <- function(
             gp = grid::gpar(
               col = grid_colour,
               lwd = grid_linewidth * 72 / 25.4,
-              lty = grid_linetype
+              lty = grid_linetype,
+              lineend = "butt"
             )
           )
         }
