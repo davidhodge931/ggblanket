@@ -108,7 +108,7 @@ gg_blanket(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Arguments passed to within a \code{params} list in \code{\link[ggplot2:annotate]{ggplot2::annotate()}}. Also, require named arguments (and support trailing commas).}
+\item{...}{Arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}}. Also, require named arguments (and support trailing commas).}
 
 \item{geom}{A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. \code{"point"}).}
 

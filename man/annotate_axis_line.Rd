@@ -38,9 +38,9 @@ annotate_axis_line(
 
 \item{colour}{The colour of the annotated segment. Inherits from the current theme axis.line etc.}
 
-\item{linewidth}{The linewidth of the annotated segment. Inherits from the current theme axis.line etc.}
+\item{linewidth}{A number. Inherits from the current theme axis.line etc.}
 
-\item{linetype}{The linewidth of the annotated segment. Inherits from the current theme axis.line etc.}
+\item{linetype}{An integer. Inherits from the current theme axis.line etc.}
 
 \item{theme}{How to modify the corresponding theme element. One of \code{"keep"}, \code{"transparent"}, or \code{"blank"}.
 Defaults to \code{"keep"}.}

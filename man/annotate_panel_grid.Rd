@@ -34,9 +34,9 @@ annotate_panel_grid(
 
 \item{colour}{The colour of grid lines. Inherits from current theme \code{panel.grid.major} or \code{panel.grid.minor} etc.}
 
-\item{linewidth}{The linewidth of grid lines. Inherits from current theme \code{panel.grid.major} or \code{panel.grid.minor} etc.}
+\item{linewidth}{A number. Inherits from current theme \code{panel.grid.major} or \code{panel.grid.minor} etc.}
 
-\item{linetype}{The linetype of grid lines. Inherits from current theme \code{panel.grid.major} or \code{panel.grid.minor} etc.}
+\item{linetype}{An integer. Inherits from current theme \code{panel.grid.major} or \code{panel.grid.minor} etc.}
 
 \item{theme}{What to do with the equivalent theme elements. Either \code{"keep"}, \code{"transparent"}, or \code{"blank"}. Defaults \code{"keep"}.}
 }

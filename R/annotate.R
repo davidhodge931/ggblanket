@@ -17,8 +17,8 @@
 #' @param ymin The starting y position for a vertical line segment. Use `I()` for normalized coordinates (0-1).
 #' @param ymax The ending y position for a vertical line segment. Use `I()` for normalized coordinates (0-1).
 #' @param colour The colour of the annotated segment. Inherits from the current theme axis.line etc.
-#' @param linewidth The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
-#' @param linetype The linewidth of the annotated segment. Inherits from the current theme axis.line etc.
+#' @param linewidth A number. Inherits from the current theme axis.line etc.
+#' @param linetype An integer. Inherits from the current theme axis.line etc.
 #' @param theme How to modify the corresponding theme element. One of `"keep"`, `"transparent"`, or `"blank"`.
 #'   Defaults to `"keep"`.
 #'
@@ -180,7 +180,7 @@ annotate_axis_line <- function(
 
   # If still no element found, create a minimal fallback
   if (rlang::is_null(resolved_element)) {
-    resolved_element <- list(colour = "black", linewidth = 0.5, linetype = "solid")
+    resolved_element <- list(colour = "black", linewidth = 0.5, linetype = 1)
   }
 
   # Extract theme properties with proper resolution
@@ -204,7 +204,7 @@ annotate_axis_line <- function(
 
   # Extract linetype with proper resolution
   line_linetype <- if (rlang::is_null(linetype)) {
-    resolved_element$linetype %||% "solid"
+    resolved_element$linetype %||% 1
   } else {
     linetype
   }
@@ -1549,8 +1549,8 @@ annotate_axis_text <- function(
 #' @param ymin,ymax The starting and ending y positions for vertical grid lines. Use `I()` for normalized coordinates (0-1). Defaults to `-Inf` and `Inf`.
 #' @param minor Logical. If `FALSE` (default), creates major grid lines. If `TRUE`, creates minor grid lines.
 #' @param colour The colour of grid lines. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
-#' @param linewidth The linewidth of grid lines. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
-#' @param linetype The linetype of grid lines. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
+#' @param linewidth A number. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
+#' @param linetype An integer. Inherits from current theme `panel.grid.major` or `panel.grid.minor` etc.
 #' @param theme What to do with the equivalent theme elements. Either `"keep"`, `"transparent"`, or `"blank"`. Defaults `"keep"`.
 #'
 #' @return A list of annotate annotates and theme elements.
@@ -1689,14 +1689,14 @@ annotate_panel_grid <- function(
       resolved_grid_element <- list(
         colour = "grey95",
         linewidth = 0.25,
-        linetype = "solid"
+        linetype = 1
       )
     } else {
       # Standard defaults for major grid
       resolved_grid_element <- list(
         colour = "grey90",
         linewidth = 0.5,
-        linetype = "solid"
+        linetype = 1
       )
     }
   }
@@ -1720,7 +1720,7 @@ annotate_panel_grid <- function(
     }
   }
 
-  grid_linetype <- linetype %||% resolved_grid_element$linetype %||% "solid"
+  grid_linetype <- linetype %||% resolved_grid_element$linetype %||% 1
 
   stamp <- list()
 
@@ -1953,8 +1953,8 @@ annotate_panel_grid <- function(
 #' @param fill The fill colour of the rectangle. Defaults to a multiply/screen blended colour with `"#8991A1FF"` and the panel background fill.
 #' @param alpha The transparency of the rectangle. Defaults to `0.2` (subtle overlay).
 #' @param colour The border colour of the rectangle. Defaults to `"transparent"`.
-#' @param linewidth The border linewidth of the rectangle. Inherits from the current theme `panel.border` linewidth. Supports `rel()` for relative sizing.
-#' @param linetype The border linetype of the rectangle. Defaults to `1`.
+#' @param linewidth A number. Inherits from the current theme `panel.border` linewidth. Supports `rel()` for relative sizing.
+#' @param linetype An integer. Defaults to `1`.
 #'
 #' @return A list containing an annotation annotate.
 #' @export

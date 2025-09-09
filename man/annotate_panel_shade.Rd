@@ -34,9 +34,9 @@ annotate_panel_shade(
 
 \item{colour}{The border colour of the rectangle. Defaults to \code{"transparent"}.}
 
-\item{linewidth}{The border linewidth of the rectangle. Inherits from the current theme \code{panel.border} linewidth. Supports \code{rel()} for relative sizing.}
+\item{linewidth}{A number. Inherits from the current theme \code{panel.border} linewidth. Supports \code{rel()} for relative sizing.}
 
-\item{linetype}{The border linetype of the rectangle. Defaults to \code{1}.}
+\item{linetype}{An integer. Defaults to \code{1}.}
 }
 \value{
 A list containing an annotation annotate.

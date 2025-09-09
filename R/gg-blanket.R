@@ -6,7 +6,7 @@
 #' This function underlies all other `gg_*` functions.
 #'
 #' @param data A data frame or tibble.
-#' @param ... Arguments passed to within a `params` list in [ggplot2::annotate()]. Also, require named arguments (and support trailing commas).
+#' @param ... Arguments passed to within a `params` list in [ggplot2::layer()]. Also, require named arguments (and support trailing commas).
 #' @param geom A geometric object to display the data. A snakecase character string of a ggproto Geom subclass object minus the Geom prefix (e.g. `"point"`).
 #' @param stat A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. `"identity"`).
 #' @param position A position adjustment. A snakecase character string of a ggproto Position subclass object minus the Position prefix (e.g. `"identity"`), or a `position_*()` function that outputs a ggproto Position subclass object (e.g. `ggplot2::position_identity()`).
@@ -896,6 +896,7 @@ gg_blanket <- function(
         blend
       )
 
+
       # Get plot build
       suppressMessages({
         suppressWarnings({
@@ -1034,6 +1035,7 @@ gg_blanket <- function(
       suppressMessages({
         suppressWarnings({
           plot_build <- ggplot2::ggplot_build(plot)
+
           plot_data <- plot_build$data |> purrr::list_rbind()
 
           facet_nrows <- length(unique(plot_build$layout$layout$ROW))

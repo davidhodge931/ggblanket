@@ -107,7 +107,7 @@ gg_ribbon(
 \arguments{
 \item{data}{A data frame or tibble.}
 
-\item{...}{Arguments passed to within a \code{params} list in \code{\link[ggplot2:annotate]{ggplot2::annotate()}}. Also, require named arguments (and support trailing commas).}
+\item{...}{Arguments passed to within a \code{params} list in \code{\link[ggplot2:layer]{ggplot2::layer()}}. Also, require named arguments (and support trailing commas).}
 
 \item{stat}{A statistical transformation to use on the data. A snakecase character string of a ggproto Stat subclass object minus the Stat prefix (e.g. \code{"identity"}).}
 
