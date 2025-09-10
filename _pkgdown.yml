@@ -19,11 +19,14 @@ reference:
 - title: Annotate
 - contents:
   - annotate_axis_line
-  - annotate_axis_ticks
   - annotate_axis_text
-  - annotate_panel_grid
+  - annotate_axis_ticks
   - annotate_panel_background
+  - annotate_panel_grid
   - annotate_panel_shade
+  - annotate_curve
+  - annotate_segment
+  - annotate_text
 - title: Blend
 - contents:
   - blend_multiply

@@ -50,7 +50,7 @@
 #' @param axis_line_aspect Either `"transparent"`, `"keep"` , or `"blank"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
 #' @param axis_ticks_aspect Either `"transparent"`, `"keep"` , or `"blank"` of how to treat the y axis ticks for an `"x"` `aspect`, and vice versa.
 #' @param panel_grid_aspect Either `"transparent"`, `"keep"` , or `"blank"` of how to treat the x panel grid for an `"x"` `aspect`, and vice versa.
-#' @param annotate A annotate or list of annotation layers to go underneath the `gg_*` `geom`.
+#' @param annotate An annotate layer (or list of annotate layers) under the `gg_*` `geom`.
 #'
 #' @return A ggplot object.
 #' @export

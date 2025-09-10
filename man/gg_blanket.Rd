@@ -196,7 +196,7 @@ gg_blanket(
 
 \item{caption}{Caption title string.}
 
-\item{annotate}{A annotate or list of annotation layers to go underneath the \verb{gg_*} \code{geom}.}
+\item{annotate}{An annotate layer (or list of annotate layers) under the \verb{gg_*} \code{geom}.}
 }
 \value{
 A ggplot object.

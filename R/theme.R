@@ -348,6 +348,8 @@ theme_lighter <- function(
 #'
 #' @description A complete theme for a dark panel background.
 #'
+#' Uses flexoki blue50 for `text_colour` and blue950 for `panel_background_fill`.
+#'
 #' @inheritParams theme_greyer
 #'
 #' @return A ggplot theme.
@@ -369,7 +371,7 @@ theme_darker <- function(
     ...,
     text_size = 10,
     text_family = "",
-    text_colour = beige,
+    text_colour = "#E1ECEBff", #flexoki blue50
     legend_place = "right",
     legend_axis_line_colour = plot_background_fill,
     legend_axis_line_linewidth = axis_line_linewidth,
@@ -383,7 +385,7 @@ theme_darker <- function(
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = black,
+    panel_background_fill = "#101A24ff", #flexoki blue950
     panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
     panel_grid_linewidth = 0.5,
