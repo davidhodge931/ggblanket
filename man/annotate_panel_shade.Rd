@@ -10,7 +10,7 @@ annotate_panel_shade(
   xmax = Inf,
   ymin = -Inf,
   ymax = Inf,
-  fill = NULL,
+  shade = "#8991A1FF",
   alpha = 0.2,
   colour = "transparent",
   linewidth = NULL,
@@ -28,7 +28,7 @@ annotate_panel_shade(
 
 \item{ymax}{A value of length 1. Defaults to \code{Inf}. Use \code{I()} to specify normalized coordinates (0-1).}
 
-\item{fill}{The fill colour of the rectangle. Defaults to a multiply/screen blended colour with \code{"#8991A1FF"} and the panel background fill.}
+\item{shade}{The shade color to blend with the panel background. Defaults to \code{"#8991A1FF"}. The final rectangle color is created by blending this shade with the current panel background: screen blend for dark backgrounds, multiply blend for light backgrounds.}
 
 \item{alpha}{The transparency of the rectangle. Defaults to \code{0.2} (subtle overlay).}
 
@@ -51,26 +51,25 @@ library(ggplot2)
 
 set_blanket()
 
-p <- palmerpenguins::penguins |>
-  gg_blanket(
+palmerpenguins::penguins |>
+  gg_point(
     x = flipper_length_mm,
     y = body_mass_g,
     col = species,
-    border = TRUE,
+    annotate = annotate_panel_shade(
+      xmin = 225,
+      ),
   )
 
-# Using data coordinates with theme defaults
-p +
-  annotate_panel_shade(
-    xmin = 225,
-  ) +
-  geom_point()
-
-# Using normalized coordinates
-p +
-  annotate_panel_shade(
-    xmin = I(0.9),
-  ) +
-  geom_point()
+palmerpenguins::penguins |>
+  gg_point(
+    x = flipper_length_mm,
+    y = body_mass_g,
+    col = species,
+    annotate = annotate_panel_shade(
+      xmin = 225,
+      shade = "#0095A8FF",
+      ),
+  )
 
 }
