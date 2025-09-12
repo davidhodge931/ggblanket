@@ -859,6 +859,24 @@ add_initial_layer <- function(
     return(plot)
   }
 
+  # Get transform functions with proper defaults
+  if (rlang::is_null(colour_border_transform)) {
+    colour_border_transform <- getOption("ggblanket.colour_border_transform")
+    if (rlang::is_null(colour_border_transform)) {
+      # Auto-detect based on theme
+      current_theme <- ggplot2::theme_get()
+      colour_border_transform <- if (is_panel_dark(theme = current_theme)) {
+        blend_screen
+      } else {
+        blend_multiply
+      }
+    }
+  }
+
+  if (rlang::is_null(fill_border_transform)) {
+    fill_border_transform <- getOption("ggblanket.fill_border_transform")
+  }
+
   # Helper function to check if two aesthetics map to the same variable
   aes_are_same <- function(aes1_quo, aes2_quo, data) {
     if (rlang::quo_is_null(aes1_quo) || rlang::quo_is_null(aes2_quo)) {
@@ -877,6 +895,32 @@ add_initial_layer <- function(
         identical(rlang::quo_text(aes1_quo), rlang::quo_text(aes2_quo))
       }
     )
+  }
+
+  # Helper function to determine if aesthetic should be treated as border
+  is_border_aesthetic <- function(aesthetic, geom_name, is_border_geom) {
+    # If explicitly set, use that
+    if (!is.null(is_border_geom) && is.logical(is_border_geom)) {
+      return(is_border_geom)
+    }
+
+    # Auto-detect based on aesthetic and geom
+    if (aesthetic %in% c("shape", "size", "alpha")) {
+      # Check if we're using border-compatible shapes
+      tryCatch({
+        shape <- ggplot2::get_geom_defaults("point")$shape
+        return(!rlang::is_null(shape) && shape %in% 21:25)
+      }, error = function(e) {
+        # If we can't get defaults, assume border for these aesthetics
+        return(TRUE)
+      })
+    } else if (aesthetic == "linewidth") {
+      # Linewidth often applies to border geoms
+      return(TRUE)
+    } else {
+      # linetype and others typically not border
+      return(FALSE)
+    }
   }
 
   # Process each aesthetic
@@ -902,79 +946,43 @@ add_initial_layer <- function(
       aes_are_same(aes_quo, aes_list$fill, data)
 
     if (!same_as_col) {
-      # Apply grey styling
-      override_aes <- switch(
-        aes_name,
-        "linetype" = list(colour = grey_col),
-        "shape" = {
-          if (
-            geom_name %in%
-            c("point", "jitter", "count", "qq", "pointrange") &&
-            is_border_geom
-          ) {
-            list(
-              colour = if (
-                !rlang::is_null(colour_border_transform) &&
-                is.function(colour_border_transform)
-              ) {
-                colour_border_transform(grey_col)
-              } else {
-                grey_col
-              },
-              fill = if (
-                !rlang::is_null(fill_border_transform) &&
-                is.function(fill_border_transform)
-              ) {
-                fill_border_transform(grey_col)
-              } else {
-                grey_col
-              }
-            )
-          } else {
-            list(colour = grey_col)
-          }
-        },
-        "size" = ,
-        "alpha" = {
-          if (
-            geom_name %in%
-            c("point", "jitter", "count", "qq", "pointrange") &&
-            is_border_geom
-          ) {
-            list(
-              colour = if (
-                !rlang::is_null(colour_border_transform) &&
-                is.function(colour_border_transform)
-              ) {
-                colour_border_transform(grey_col)
-              } else {
-                grey_col
-              },
-              fill = if (
-                !rlang::is_null(fill_border_transform) &&
-                is.function(fill_border_transform)
-              ) {
-                fill_border_transform(grey_col)
-              } else {
-                grey_col
-              }
-            )
-          } else {
-            list(colour = grey_col, fill = grey_col)
-          }
-        },
-        "linewidth" = {
-          if (
-            is_border_geom &&
-            !rlang::is_null(colour_border_transform) &&
-            is.function(colour_border_transform)
-          ) {
-            list(colour = colour_border_transform(grey_col), fill = grey_col)
-          } else {
-            list(colour = grey_col, fill = grey_col)
-          }
+      # Determine if this should be treated as a border aesthetic
+      border <- is_border_aesthetic(aes_name, geom_name, is_border_geom)
+
+      # Build override aesthetics
+      if (border) {
+        # Apply transformations
+        override_colour <- if (is.function(colour_border_transform)) {
+          colour_border_transform(grey_col)
+        } else if (!rlang::is_null(colour_border_transform) && is.na(colour_border_transform)) {
+          grey_col
+        } else if (!rlang::is_null(colour_border_transform)) {
+          colour_border_transform
+        } else {
+          grey_col
         }
-      )
+
+        # Handle fill_border_transform
+        override_fill <- if (rlang::is_null(fill_border_transform)) {
+          grey_col
+        } else if (is.na(fill_border_transform)) {
+          grey_col
+        } else if (is.function(fill_border_transform)) {
+          fill_border_transform(grey_col)
+        } else {
+          fill_border_transform
+        }
+
+        override_aes <- list(colour = override_colour, fill = override_fill)
+      } else {
+        # Non-border: use grey for both colour and fill
+        override_aes <- list(colour = grey_col, fill = grey_col)
+      }
+
+      # Special handling for linetype (only needs colour)
+      if (aes_name == "linetype") {
+        override_aes <- list(colour = override_aes$colour)
+      }
 
       plot <- plot +
         ggplot2::guides(
@@ -990,6 +998,7 @@ add_initial_layer <- function(
 
   plot
 }
+
 
 # Symmetric scale functions ----
 
