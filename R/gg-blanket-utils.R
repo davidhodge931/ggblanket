@@ -64,7 +64,11 @@ get_geom_params <- function(geom_name, ...) {
     ),
     density = list(
       outline.type = "upper"
+    ),
+    bar = list(
+      drop = "all"
     )
+
   )
 
   # Get specific params or empty list
