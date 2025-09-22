@@ -14,10 +14,10 @@
 #' @param colour_border_transform A function with input of the `col` or `col_palette`.
 #' @param fill_border_transform A function with input of the `col` or `col_palette`.
 #' @param shape A default shape for point geoms. Must be an integer between 0 and 25.
-#' @param shape_palette_d For shape scales, a numeric vector of shape codes.
+#' @param shape_palette_discrete For shape scales, a numeric vector of shape codes.
 #' @param shape_na A NA shape value.
 #' @param linetype A default linetype for most geoms.
-#' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function.
+#' @param linetype_palette_discrete For linetype scales, a character vector or a `scales::pal_*` function.
 #' @param linewidth A default linewidth for geoms. A number.
 #' @param linewidth_border A default linewidth for geoms that have a border. A number.
 #' @param size A default size for point geoms.
@@ -61,9 +61,9 @@ set_blanket <- function(
     # options
     col_palette_ordinal = NULL,
     col_na = "#A6A6A6FF",
-    shape_palette_d = c(21, 24, 22, 23, 25),
+    shape_palette_discrete = c(21, 24, 22, 23, 25),
     shape_na = 4,
-    linetype_palette_d = 1:6,
+    linetype_palette_discrete = 1:6,
     colour_border_transform = \(x) {
       if (is_panel_dark()) {
         blend_screen(x)
@@ -97,9 +97,9 @@ set_blanket <- function(
   weave_options(
     col_palette_ordinal = col_palette_ordinal,
     col_na = col_na,
-    shape_palette_d = shape_palette_d,
+    shape_palette_discrete = shape_palette_discrete,
     shape_na = shape_na,
-    linetype_palette_d = linetype_palette_d,
+    linetype_palette_discrete = linetype_palette_discrete,
     colour_border_transform = colour_border_transform,
     fill_border_transform = fill_border_transform,
     axis_line_aspect = axis_line_aspect,
@@ -596,9 +596,9 @@ update_geom_palettes <- function(
 #' @param ... Require named arguments (and support trailing commas).
 #' @param col_palette_ordinal For a ordinal colour/fill scale, a `scales::pal_*` function. If NULL, determined from `col_palette_continuous`.
 #' @param col_na A hex code (or name) for the `NA` value.
-#' @param shape_palette_d For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
+#' @param shape_palette_discrete For shape scales, a numeric vector of shape codes. Defaults to c(21, 24, 22, 23, 25).
 #' @param shape_na A NA shape value.
-#' @param linetype_palette_d For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
+#' @param linetype_palette_discrete For linetype scales, a character vector or a `scales::pal_*` function. Defaults to 1:6.
 #' @param colour_border_transform A function with input of the set `col`. Defaults to `blend_screen`/`blend_multiply` based on the panel.
 #' @param fill_border_transform A function with input of the set `col`. Defaults to NULL.
 #' @param axis_line_aspect `"transparent"`, `"blank"` or `"keep"` of how to treat the y axis line for an `"x"` `aspect`, and vice versa.
@@ -612,9 +612,9 @@ weave_options <- function(
     ...,
     col_palette_ordinal = NULL,
     col_na = "#A6A6A6FF",
-    shape_palette_d = c(21, 24, 22, 23, 25),
+    shape_palette_discrete = c(21, 24, 22, 23, 25),
     shape_na = 4,
-    linetype_palette_d = 1:6,
+    linetype_palette_discrete = 1:6,
     colour_border_transform = \(x) {
       if (is_panel_dark()) {
         blend_screen(x)
@@ -664,8 +664,8 @@ weave_options <- function(
     ggblanket.shape_na = shape_na,
 
     # Other palettes
-    ggblanket.shape_palette_d = shape_palette_d,
-    ggblanket.linetype_palette_d = linetype_palette_d,
+    ggblanket.shape_palette_discrete = shape_palette_discrete,
+    ggblanket.linetype_palette_discrete = linetype_palette_discrete,
 
     # Border transform
     ggblanket.colour_border_transform = colour_border_transform,

@@ -573,10 +573,10 @@ gg_blanket <- function(
 
       # Get shape and linetype palettes from options
       if (rlang::is_null(shape_palette)) {
-        shape_palette <- getOption("ggblanket.shape_palette_d")
+        shape_palette <- getOption("ggblanket.shape_palette_discrete")
       }
       if (rlang::is_null(linetype_palette)) {
-        linetype_palette <- getOption("ggblanket.linetype_palette_d")
+        linetype_palette <- getOption("ggblanket.linetype_palette_discrete")
       }
 
       # Step 9: Initialize fixed_params list
