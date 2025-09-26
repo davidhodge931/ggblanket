@@ -21,9 +21,9 @@ set_blanket(
   panel_widths = NULL,
   col_palette_ordinal = NULL,
   col_na = "#A6A6A6FF",
-  shape_palette_d = c(21, 24, 22, 23, 25),
+  shape_palette_discrete = c(21, 24, 22, 23, 25),
   shape_na = 4,
-  linetype_palette_d = 1:6,
+  linetype_palette_discrete = 1:6,
   colour_border_transform = function(x) {
      if (is_panel_dark()) {
         
@@ -70,11 +70,11 @@ set_blanket(
 
 \item{col_na}{A NA colour/fill value.}
 
-\item{shape_palette_d}{For shape scales, a numeric vector of shape codes.}
+\item{shape_palette_discrete}{For shape scales, a numeric vector of shape codes.}
 
 \item{shape_na}{A NA shape value.}
 
-\item{linetype_palette_d}{For linetype scales, a character vector or a \verb{scales::pal_*} function.}
+\item{linetype_palette_discrete}{For linetype scales, a character vector or a \verb{scales::pal_*} function.}
 
 \item{colour_border_transform}{A function with input of the \code{col} or \code{col_palette}.}
 
