@@ -7,33 +7,33 @@
 #' @param geom A geom as either character ("point") or object (ggplot2::GeomPoint).
 #' @param stat A stat as either character ("identity") or object (ggplot2::StatIdentity).
 #' @param position A position as either function (ggplot2::position_identity()) or object (ggplot2::PositionIdentity).
-#' @param x Variable mapped to x, or set value.
-#' @param xmin Variable mapped to xmin, or set value.
-#' @param xmax Variable mapped to xmax, or set value.
-#' @param xend Variable mapped to xend, or set value.
-#' @param y Variable mapped to y, or set value.
-#' @param ymin Variable mapped to ymin, or set value.
-#' @param ymax Variable mapped to ymax, or set value.
-#' @param yend Variable mapped to yend, or set value.
-#' @param z Variable mapped to z, or set value.
-#' @param col Variable mapped to both colour and fill, or set value.
-#' @param alpha Variable mapped to alpha, or set value.
-#' @param shape Variable mapped to shape, or set value.
-#' @param linetype Variable mapped to linetype, or set value.
-#' @param linewidth Variable mapped to linewidth, or set value.
-#' @param size Variable mapped to size, or set value.
-#' @param stroke Variable mapped to stroke, or set value.
-#' @param label Variable mapped to label, or set value.
-#' @param weight Variable mapped to weight, or set value.
-#' @param group Variable mapped to group, or set value.
-#' @param width Variable mapped to width, or set value.
-#' @param height Variable mapped to height, or set value.
-#' @param angle Variable mapped to angle, or set value.
-#' @param slope Variable mapped to slope, or set value.
-#' @param intercept Variable mapped to intercept, or set value.
-#' @param xintercept Variable mapped to xintercept, or set value.
-#' @param yintercept Variable mapped to yintercept, or set value.
-#' @param sample Variable mapped to sample, or set value.
+#' @param x Variable mapped to x, or a set value.
+#' @param xmin Variable mapped to xmin, or a set value.
+#' @param xmax Variable mapped to xmax, or a set value.
+#' @param xend Variable mapped to xend, or a set value.
+#' @param y Variable mapped to y, or a set value.
+#' @param ymin Variable mapped to ymin, or a set value.
+#' @param ymax Variable mapped to ymax, or a set value.
+#' @param yend Variable mapped to yend, or a set value.
+#' @param z Variable mapped to z, or a set value.
+#' @param col Variable mapped to both colour and fill, or a set value.
+#' @param alpha Variable mapped to alpha, or a set value.
+#' @param shape Variable mapped to shape, or a set value.
+#' @param linetype Variable mapped to linetype, or a set value.
+#' @param linewidth Variable mapped to linewidth, or a set value.
+#' @param size Variable mapped to size, or a set value.
+#' @param stroke Variable mapped to stroke, or a set value.
+#' @param label Variable mapped to label, or a set value.
+#' @param weight Variable mapped to weight, or a set value.
+#' @param group Variable mapped to group, or a set value.
+#' @param width Variable mapped to width, or a set value.
+#' @param height Variable mapped to height, or a set value.
+#' @param angle Variable mapped to angle, or a set value.
+#' @param slope Variable mapped to slope, or a set value.
+#' @param intercept Variable mapped to intercept, or a set value.
+#' @param xintercept Variable mapped to xintercept, or a set value.
+#' @param yintercept Variable mapped to yintercept, or a set value.
+#' @param sample Variable mapped to sample, or a set value.
 #' @param mapping Additional aesthetic mapping within a [ggplot2::aes] call.
 #'
 #' @return A complete ggplot2 object
