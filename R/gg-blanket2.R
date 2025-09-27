@@ -28,12 +28,13 @@
 #' @param group Variable mapped to group, or a set value.
 #' @param width Variable mapped to width, or a set value.
 #' @param height Variable mapped to height, or a set value.
-#' @param angle Variable mapped to angle, or a set value.
 #' @param slope Variable mapped to slope, or a set value.
 #' @param intercept Variable mapped to intercept, or a set value.
 #' @param xintercept Variable mapped to xintercept, or a set value.
 #' @param yintercept Variable mapped to yintercept, or a set value.
 #' @param sample Variable mapped to sample, or a set value.
+#' @param angle Variable mapped to angle, or a set value.
+#' @param radius Variable mapped to radius, or a set value.
 #' @param mapping Additional aesthetic mapping within a [ggplot2::aes] call.
 #'
 #' @return A complete ggplot2 object
@@ -77,13 +78,14 @@ gg_blanket <- function(data,
                        group = NULL,
                        width = NULL,
                        height = NULL,
-                       angle = NULL,
                        slope = NULL,
                        intercept = NULL,
                        xintercept = NULL,
                        yintercept = NULL,
                        sample = NULL,
-                       mapping = NULL,
+                       angle = NULL,
+                       radius = NULL,
+                       mapping = NULL
 ) {
 
   # Capture all aesthetics using enquos for lazy evaluation
@@ -107,7 +109,6 @@ gg_blanket <- function(data,
     label = label,
     weight = weight,
     group = group,
-    angle = angle,
     width = width,
     height = height,
     slope = slope,
@@ -115,6 +116,8 @@ gg_blanket <- function(data,
     xintercept = xintercept,
     yintercept = yintercept,
     sample = sample,
+    angle = angle,
+    radius = radius,
     .ignore_empty = "all"  # Ignore missing arguments
   )
 
@@ -136,15 +139,14 @@ gg_blanket <- function(data,
   final_mapping <- combine_aesthetics(final_aesthetics, mapping)
 
   # Capture additional parameters from ...
-  additional_params <- list(...)
+  additional_params <- rlang::list2(...)
 
   # Combine fixed aesthetic values with additional parameters
   all_params <- utils::modifyList(separated$fixed, additional_params)
 
   # Build the complete ggplot with layer
-  ggplot2::ggplot(data) +
+  ggplot2::ggplot(data, mapping = final_mapping) +
     ggplot2::layer(
-      mapping = final_mapping,
       geom = geom_obj,
       stat = stat_obj,
       position = position_obj,
