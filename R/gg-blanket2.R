@@ -3,7 +3,7 @@
 #' both colour and fill.
 #'
 #' @param data A data frame.
-#' @param ... Additional arguments passed to [aes][ggplot2::aes].
+#' @param ... Arguments passed to [ggplot2::layer(params = list(...))].
 #' @param geom A geom as either character ("point") or object (ggplot2::GeomPoint).
 #' @param stat A stat as either character ("identity") or object (ggplot2::StatIdentity).
 #' @param position A position as either function (ggplot2::position_identity()) or object (ggplot2::PositionIdentity).
@@ -23,6 +23,7 @@
 #' @param linewidth Variable mapped to linewidth, or set value.
 #' @param size Variable mapped to size, or set value.
 #' @param stroke Variable mapped to stroke, or set value.
+#' @param label Variable mapped to label, or set value.
 #' @param weight Variable mapped to weight, or set value.
 #' @param group Variable mapped to group, or set value.
 #' @param width Variable mapped to width, or set value.
@@ -33,10 +34,7 @@
 #' @param xintercept Variable mapped to xintercept, or set value.
 #' @param yintercept Variable mapped to yintercept, or set value.
 #' @param sample Variable mapped to sample, or set value.
-#' @param label Variable mapped to label, or set value.
-#' @param mapping Additional aesthetic mapping within a [ggplot2::aes] call..
-
-#' @param ... Additional arguments passed to layer()
+#' @param mapping Additional aesthetic mapping within a [ggplot2::aes] call.
 #'
 #' @return A complete ggplot2 object
 #'
@@ -74,6 +72,7 @@ gg_blanket <- function(data,
                        linewidth = NULL,
                        size = NULL,
                        stroke = NULL,
+                       label = NULL,
                        weight = NULL,
                        group = NULL,
                        width = NULL,
@@ -84,7 +83,6 @@ gg_blanket <- function(data,
                        xintercept = NULL,
                        yintercept = NULL,
                        sample = NULL,
-                       label = NULL,
                        mapping = NULL,
 ) {
 
@@ -106,6 +104,7 @@ gg_blanket <- function(data,
     linewidth = linewidth,
     size = size,
     stroke = stroke,
+    label = label,
     weight = weight,
     group = group,
     angle = angle,
@@ -116,7 +115,6 @@ gg_blanket <- function(data,
     xintercept = xintercept,
     yintercept = yintercept,
     sample = sample,
-    label = label,
     .ignore_empty = "all"  # Ignore missing arguments
   )
 
