@@ -2,7 +2,7 @@
 #'
 #' @description Create annotated text labels.
 #'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#' This function is designed to work with a theme that is globally set.
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("text", ....)`. Require named arguments (and support trailing commas).
 #' @param x,y Position of the text. Use `I()` for normalized coordinates (0-1).
@@ -75,7 +75,7 @@ annotate_text <- function(
 #'
 #' @description Create annotated line segments.
 #'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#' This function is designed to work with a theme that is globally set.
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("segment", ....)`. Require named arguments (and support trailing commas).
 #' @param x,y,xend,yend Start and end positions of the segment. Use `I()` for normalized coordinates (0-1).
@@ -141,7 +141,7 @@ annotate_segment <- function(
 #'
 #' @description Create annotated curved lines.
 #'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#' This function is designed to work with a theme that is globally set.
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("curve", ....)`. Require named arguments (and support trailing commas).
 #' @param x,y,xend,yend Start and end positions of the curve. Use `I()` for normalized coordinates (0-1).

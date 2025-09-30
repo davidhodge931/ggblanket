@@ -2,7 +2,7 @@
 #'
 #' @description Create an annotated segment of the axis line.
 #'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#' This function is designed to work with a theme that is globally set.
 #'
 #' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
@@ -464,7 +464,7 @@ annotate_axis_line <- function(
 #'
 #' @description Create annotated segments of the axis ticks.
 #'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#' This function is designed to work with a theme that is globally set.
 #'
 #' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
@@ -937,7 +937,7 @@ annotate_axis_ticks <- function(
 #'
 #' @description Create annotated text labels for axis breaks.
 #'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#' This function is designed to work with a theme that is globally set.
 #'
 #' It should be used with a `coord` of `ggplot2::coord_cartesian(clip = "off")`.
 #'
@@ -1540,7 +1540,7 @@ annotate_axis_text <- function(
 #'
 #' @description Create annotated segments of the panel grid.
 #'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#' This function is designed to work with a theme that is globally set.
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("segment", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
 #' @param x A vector of x-axis breaks for vertical grid lines. Cannot be used together with `y`. Use `I()` to specify normalized coordinates (0-1).
@@ -2099,7 +2099,7 @@ annotate_panel_background <- function(
 #'
 #' @description Create a subtle shaded rectangle to visually differentiate regions.
 #'
-#' It is designed to work with a theme that is globally set with [ggblanket::set_blanket] or [ggplot2::set_theme].
+#' It is designed to work with a theme that is globally set.
 #'
 #' @param ... Arguments passed to `ggplot2::annotate("rect", ....)` (if normalised coordinates not used). Require named arguments (and support trailing commas).
 #' @param xmin A value of length 1. Defaults to `-Inf`. Use `I()` to specify normalized coordinates (0-1).
