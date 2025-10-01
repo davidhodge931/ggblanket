@@ -1,4 +1,4 @@
-#' Handle the col aesthetic mapping to colour and fill
+`#' Handle the col aesthetic mapping to colour and fill
 #' @param aesthetics Named list of quosures
 #' @return Modified list of aesthetics
 #' @keywords internal
@@ -287,17 +287,6 @@ separate_fixed_and_mapped_aesthetics <- function(aesthetics) {
 #'     \item{limits}{Vector of the computed scale limits}
 #'   }
 #'
-#' @details
-#' This function examines the first panel's scales only. For faceted plots with
-#' different scales per panel, only the first panel's information is returned.
-#'
-#' Scale types are determined by pattern matching on the scale class:
-#' \itemize{
-#'   \item "continuous": Classes containing "Continuous" (e.g., ScaleContinuous)
-#'   \item "discrete": Classes containing "Discrete" (e.g., ScaleDiscrete)
-#'   \item "binned": Classes containing "Binned" (e.g., ScaleBinned)
-#' }
-#'
 #' @examples
 #' library(ggplot2)
 #'
@@ -338,15 +327,22 @@ identify_scale <- function(built) {
     # Determine scale type using stringr
     type <- if (stringr::str_detect(class_name, "Continuous")) {
       "continuous"
-    } else if (stringr::str_detect(class_name, "Discrete")) {
-      "discrete"
     } else if (stringr::str_detect(class_name, "Binned")) {
       "binned"
+    } else if (stringr::str_detect(class_name, "Discrete")) {
+      "discrete"
+    }
+
+    subtype <- if (stringr::str_detect(class_name, "Datetime")) {
+      "datetime"
+    } else if (stringr::str_detect(class_name, "Date")) {
+      "date"
     }
 
     list(
       class = class_name,
       type = type,
+      subtype = subtype,
       limits = scale$get_limits()
     )
   }
