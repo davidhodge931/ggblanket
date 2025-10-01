@@ -93,6 +93,7 @@ gg_blanket <- function(data,
                        x_labels = NULL,
                        x_limits = NULL,
                        x_position = "bottom",
+                       # x_scale_subtype = NULL,
                        x_scale_type = NULL,
                        x_sec_axis = ggplot2::waiver(),
                        x_transform = NULL,
@@ -104,6 +105,7 @@ gg_blanket <- function(data,
                        y_limits = NULL,
                        y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
+                       # y_scale_subtype = NULL,
                        y_scale_type = NULL,
                        y_transform = NULL
 ) {
@@ -182,6 +184,8 @@ gg_blanket <- function(data,
 
   x_scale_subtype <- scale_info$x$subtype
   y_scale_subtype <- scale_info$y$subtype
+  # x_scale_subtype <- x_scale_subtype %||% scale_info$x$subtype
+  # y_scale_subtype <- y_scale_subtype %||% scale_info$y$subtype
 
   # Add x scale based on type
   if (x_scale_type == "discrete") {
