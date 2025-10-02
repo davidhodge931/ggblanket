@@ -1,4 +1,4 @@
-`#' Handle the col aesthetic mapping to colour and fill
+#' Handle the col aesthetic mapping to colour and fill
 #' @param aesthetics Named list of quosures
 #' @return Modified list of aesthetics
 #' @keywords internal
@@ -279,13 +279,6 @@ separate_fixed_and_mapped_aesthetics <- function(aesthetics) {
 #' @param built A built ggplot object, typically from [ggplot2::ggplot_build()]
 #'
 #' @return A named list containing scale information for available aesthetics.
-#'   Each scale entry contains:
-#'   \describe{
-#'     \item{class}{Character string of the scale's primary class name}
-#'     \item{type}{Character string indicating scale type: "continuous",
-#'                 "discrete", or "binned"}
-#'     \item{limits}{Vector of the computed scale limits}
-#'   }
 #'
 #' @examples
 #' library(ggplot2)
@@ -320,23 +313,25 @@ separate_fixed_and_mapped_aesthetics <- function(aesthetics) {
 identify_scale <- function(built) {
   scales_info <- list()
 
-  # Helper function to extract scale info
   extract_scale_info <- function(scale) {
     class_name <- class(scale)[1]
 
-    # Determine scale type using stringr
     type <- if (stringr::str_detect(class_name, "Continuous")) {
       "continuous"
     } else if (stringr::str_detect(class_name, "Binned")) {
       "binned"
     } else if (stringr::str_detect(class_name, "Discrete")) {
       "discrete"
+    } else {
+      NA_character_
     }
 
     subtype <- if (stringr::str_detect(class_name, "Datetime")) {
       "datetime"
     } else if (stringr::str_detect(class_name, "Date")) {
       "date"
+    } else {
+      NA_character_
     }
 
     list(
@@ -347,26 +342,21 @@ identify_scale <- function(built) {
     )
   }
 
-  # Check x scale
   if (length(built$layout$panel_scales_x) > 0) {
     scales_info$x <- extract_scale_info(built$layout$panel_scales_x[[1]])
   }
 
-  # Check y scale
   if (length(built$layout$panel_scales_y) > 0) {
     scales_info$y <- extract_scale_info(built$layout$panel_scales_y[[1]])
   }
 
-  # Check all scales for colour and fill
   for (i in seq_along(built$plot$scales$scales)) {
     scale <- built$plot$scales$scales[[i]]
 
-    # Check if this scale handles colour aesthetic
     if ("colour" %in% scale$aesthetics) {
       scales_info$colour <- extract_scale_info(scale)
     }
 
-    # Check if this scale handles fill aesthetic
     if ("fill" %in% scale$aesthetics) {
       scales_info$fill <- extract_scale_info(scale)
     }
@@ -375,13 +365,48 @@ identify_scale <- function(built) {
   return(scales_info)
 }
 
-#' Add expand via limits to ensure scales with a limits min/max of 0 also have 0 expand at that end
+#' Get expand via limits with limits of 0 also having equivalent 0 expand
 #' @param limits The limits of a built ggplot2 object
 #' @return A expansion vector
 #' @keywords internal
-add_expand_via_limits <- function(limits) {
+get_scale_expand <- function(limits) {
   mult_lower <- if (limits[1] == 0) 0 else 0.05
   mult_upper <- if (limits[2] == 0) 0 else 0.05
 
   ggplot2::expansion(mult = c(mult_lower, mult_upper))
 }
+
+#' Get label function based on scale subtype
+#' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
+#' @return A scales label function
+#' @keywords internal
+get_scale_labels <- function(subtype) {
+  if (is.na(subtype)) {
+    return(scales::label_comma())
+  }
+
+  switch(subtype,
+         date = scales::label_date_short(),
+         datetime = scales::label_date_short(),
+         time = scales::label_time(),
+         scales::label_comma()
+  )
+}
+
+#' Get transform function based on scale subtype
+#' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
+#' @return A scales transform function
+#' @keywords internal
+get_scale_transform <- function(subtype) {
+  if (is.na(subtype)) {
+    return(scales::transform_identity())
+  }
+
+  switch(subtype,
+         date = scales::transform_date(),
+         datetime = scales::transform_time(),
+         time = scales::transform_hms(),
+         scales::transform_identity()
+  )
+}
+

@@ -93,7 +93,7 @@ gg_blanket <- function(data,
                        x_labels = NULL,
                        x_limits = NULL,
                        x_position = "bottom",
-                       # x_scale_subtype = NULL,
+                       x_scale_subtype = NULL,
                        x_scale_type = NULL,
                        x_sec_axis = ggplot2::waiver(),
                        x_transform = NULL,
@@ -105,7 +105,7 @@ gg_blanket <- function(data,
                        y_limits = NULL,
                        y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
-                       # y_scale_subtype = NULL,
+                       y_scale_subtype = NULL,
                        y_scale_type = NULL,
                        y_transform = NULL
 ) {
@@ -181,11 +181,8 @@ gg_blanket <- function(data,
 
   x_scale_type <- x_scale_type %||% scale_info$x$type
   y_scale_type <- y_scale_type %||% scale_info$y$type
-
-  x_scale_subtype <- scale_info$x$subtype
-  y_scale_subtype <- scale_info$y$subtype
-  # x_scale_subtype <- x_scale_subtype %||% scale_info$x$subtype
-  # y_scale_subtype <- y_scale_subtype %||% scale_info$y$subtype
+  x_scale_subtype <- x_scale_subtype %||% scale_info$x$subtype
+  y_scale_subtype <- y_scale_subtype %||% scale_info$y$subtype
 
   # Add x scale based on type
   if (x_scale_type == "discrete") {
@@ -198,27 +195,28 @@ gg_blanket <- function(data,
         position = x_position,
         sec.axis = x_sec_axis
       )
-  } else if (x_scale_type %in% c("continuous")) {
+  } else if (x_scale_type == "continuous") {
     plot <- plot +
       ggplot2::scale_x_continuous(
         breaks = x_breaks %||% ggplot2::waiver(),
         n.breaks = x_breaks_n,
-        expand = x_expand %||% add_expand_via_limits(scale_info$x$limits),
-        labels = x_labels %||% if (x_scale_subtype %in% c("date", "datetime")) scales::label_date_short() else if (x_scale_subtype == "time") scales::label_time() else scales::label_comma(),
+        expand = x_expand %||% get_scale_expand(scale_info$x$limits),
+        labels = x_labels %||% get_scale_labels(x_scale_subtype),
+        limits = x_limits,
         position = x_position,
         sec.axis = x_sec_axis,
-        transform = x_transform %||% if (x_scale_subtype == "date") scales::transform_date() else if (x_scale_subtype %in% c("datetime", "time")) scales::transform_time() else scales::transform_identity()
+        transform = x_transform %||% get_scale_transform(x_scale_subtype)
       )
   } else if (x_scale_type == "binned") {
     plot <- plot +
       ggplot2::scale_x_binned(
         breaks = x_breaks %||% ggplot2::waiver(),
         n.breaks = x_breaks_n,
-        expand = x_expand %||% add_expand_via_limits(scale_info$x$limits),
-        labels = x_labels %||% if (x_scale_subtype %in% c("date", "datetime")) scales::label_date_short() else if (x_scale_subtype == "time") scales::label_time() else scales::label_comma(),
+        expand = x_expand %||% get_scale_expand(scale_info$x$limits),
+        labels = x_labels %||% get_scale_labels(x_scale_subtype),
         limits = x_limits,
         position = x_position,
-        transform = x_transform %||% if (x_scale_subtype == "date") scales::transform_date() else if (x_scale_subtype %in% c("datetime", "time")) scales::transform_time() else scales::transform_identity()
+        transform = x_transform %||% get_scale_transform(x_scale_subtype)
       )
   }
 
@@ -233,28 +231,28 @@ gg_blanket <- function(data,
         position = y_position,
         sec.axis = y_sec_axis
       )
-  } else if (y_scale_type %in% c("continuous")) {
+  } else if (y_scale_type == "continuous") {
     plot <- plot +
       ggplot2::scale_y_continuous(
         breaks = y_breaks %||% ggplot2::waiver(),
         n.breaks = y_breaks_n,
-        expand = y_expand %||% add_expand_via_limits(scale_info$y$limits),
-        labels = y_labels %||% if (y_scale_subtype %in% c("date", "datetime")) scales::label_date_short() else if (y_scale_subtype == "time") scales::label_time() else scales::label_comma(),
+        expand = y_expand %||% get_scale_expand(scale_info$y$limits),
+        labels = y_labels %||% get_scale_labels(y_scale_subtype),
         limits = y_limits,
         position = y_position,
         sec.axis = y_sec_axis,
-        transform = y_transform %||% if (y_scale_subtype == "date") scales::transform_date() else if (y_scale_subtype %in% c("datetime", "time")) scales::transform_time() else scales::transform_identity()
+        transform = y_transform %||% get_scale_transform(y_scale_subtype)
       )
   } else if (y_scale_type == "binned") {
     plot <- plot +
       ggplot2::scale_y_binned(
         breaks = y_breaks %||% ggplot2::waiver(),
         n.breaks = y_breaks_n,
-        expand = y_expand %||% add_expand_via_limits(scale_info$y$limits),
-        labels = y_labels %||% if (y_scale_subtype %in% c("date", "datetime")) scales::label_date_short() else if (y_scale_subtype == "time") scales::label_time() else scales::label_comma(),
+        expand = y_expand %||% get_scale_expand(scale_info$y$limits),
+        labels = y_labels %||% get_scale_labels(y_scale_subtype),
         limits = y_limits,
         position = y_position,
-        transform = y_transform %||% if (y_scale_subtype == "date") scales::transform_date() else if (y_scale_subtype %in% c("datetime", "time")) scales::transform_time() else scales::transform_identity()
+        transform = y_transform %||% get_scale_transform(y_scale_subtype)
       )
   }
 
