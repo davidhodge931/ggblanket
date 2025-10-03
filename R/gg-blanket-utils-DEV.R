@@ -377,20 +377,24 @@ get_scale_expand <- function(limits) {
 }
 
 #' Get label function based on scale temporal
+#' @param stat A stat
 #' @param temporal Scale temporal (e.g., "date", "datetime", "time", or NA)
 #' @return A scales label function
 #' @keywords internal
-get_scale_labels <- function(temporal) {
-  if (is.na(temporal)) {
-    return(scales::label_comma())
-  }
+get_scale_labels <- function(stat, temporal) {
+  if (is_stat_sf(stat)) labels <- ggplot2::waiver()
+  else {
+    if (is.na(temporal)) {
+      labels <- scales::label_comma()
+    }
 
-  switch(temporal,
-         date = scales::label_date_short(),
-         datetime = scales::label_date_short(),
-         time = scales::label_time(),
-         scales::label_comma()
-  )
+    labels <- switch(temporal,
+                     date = scales::label_date_short(),
+                     datetime = scales::label_date_short(),
+                     time = scales::label_time(),
+                     scales::label_comma()
+    )
+  }
 }
 
 #' Get transform function based on scale temporal
