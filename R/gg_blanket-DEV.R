@@ -156,7 +156,8 @@ gg_blanket <- function(data,
   )
 
   # Remove NULL aesthetics (missing arguments)
-  aesthetics <- purrr::discard(aesthetics, rlang::quo_is_missing)
+  # aesthetics <- purrr::discard(aesthetics, rlang::quo_is_missing)
+  aesthetics <- Filter(Negate(rlang::quo_is_missing), aesthetics)
 
   # Separate fixed values from aesthetic mappings
   separated <- separate_fixed_and_mapped_aesthetics(aesthetics)
@@ -229,7 +230,7 @@ gg_blanket <- function(data,
   x_scale_temporal <- x_scale_temporal %||% scale_info$x$temporal
   y_scale_temporal <- y_scale_temporal %||% scale_info$y$temporal
 
-  aspect <- aspect %||% get_aspect(x_scale_type, y_scale_type)
+  aspect <- aspect %||% get_aspect(built)
   coord <- coord %||% get_coord(stat, aspect)
 
   # Add x scale based on type
@@ -321,7 +322,7 @@ gg_blanket <- function(data,
   plot <- plot +
     coord +
     ggplot2::get_theme() +
-    theme_aspect(aspect = aspect)
+    theme_to_aspect(aspect = aspect)
 
   plot
 }

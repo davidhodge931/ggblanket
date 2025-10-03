@@ -453,20 +453,6 @@ get_scale_limits <- function(limits) {
   return(limits)
 }
 
-#' Get aspect
-#' @param x_scale_type Either "discrete", "continuous" or "binned"
-#' @param y_scale_type Either "discrete", "continuous" or "binned"
-#' @return A aspect
-#' @keywords internal
-get_aspect <- function(x_scale_type, y_scale_type) {
-  if (x_scale_type != "discrete" & y_scale_type == "discrete") {
-    aspect <- "y"
-  }
-  else aspect <- "x"
-
-  return(aspect)
-}
-
 #' Is the stat sf or sf_coordinates
 #' @param stat A stat
 is_stat_sf <- function(stat) {
@@ -511,20 +497,20 @@ get_coord <- function(stat, aspect) {
 #' # Hide y-axis lines and x-grid
 #' ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +
-#'   theme_aspect("x", aspect_axis_line = "blank", aspect_panel_grid = "blank")
+#'   theme_to_aspect("x", aspect_axis_line = "blank", aspect_panel_grid = "blank")
 #'
 #' @export
-theme_aspect <- function(
+theme_to_aspect <- function(
     aspect = c("x", "y"),
     aspect_axis_line = c("transparent", "keep", "blank"),
     aspect_axis_ticks = c("transparent", "keep", "blank"),
     aspect_panel_grid = c("transparent", "keep", "blank")) {
 
   # Validate inputs
-  aspect <- match.arg(aspect)
-  aspect_axis_line <- match.arg(aspect_axis_line)
-  aspect_axis_ticks <- match.arg(aspect_axis_ticks)
-  aspect_panel_grid <- match.arg(aspect_panel_grid)
+  aspect <- rlang::arg_match(aspect)
+  aspect_axis_line <- rlang::arg_match(aspect_axis_line)
+  aspect_axis_ticks <- rlang::arg_match(aspect_axis_ticks)
+  aspect_panel_grid <- rlang::arg_match(aspect_panel_grid)
 
   theme <- ggplot2::theme()
 
@@ -580,7 +566,8 @@ theme_aspect <- function(
           panel.grid.minor.x = ggplot2::element_blank()
         )
     }
-  } else {
+  }
+  else if (aspect == "y") {
     # For y aspect, modify x-axis elements and y-grid elements
 
     # Axis lines (x-axis)
@@ -636,3 +623,28 @@ theme_aspect <- function(
   theme
 }
 
+#' Get the aesthetic aspect from a ggplot build object
+#'
+#' Determines whether the plot uses standard (x) or flipped (y) coordinate system
+#' by checking if any layer has flipped aesthetics.
+#'
+#' @param built A ggplot build object (from `ggplot2::ggplot_build()`)
+#'
+#' @return A character string: "y" if any layer has flipped aesthetics, "x" otherwise
+#'
+#' @noRd
+#' @keywords internal
+get_aspect <- function(built) {
+  flipped_aes <- FALSE
+
+  for (layer_data in built$data) {
+    if ("flipped_aes" %in% names(layer_data)) {
+      if (any(layer_data[["flipped_aes"]])) {
+        flipped_aes <- TRUE
+        break
+      }
+    }
+  }
+
+  if (flipped_aes) "y" else "x"
+}
