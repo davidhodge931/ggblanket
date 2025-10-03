@@ -115,7 +115,10 @@ gg_blanket <- function(data,
                        y_palette = seq_len,
                        y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
-                       y_transform = NULL
+                       y_transform = NULL,
+
+                       aspect = NULL,
+                       coord = NULL
 ) {
 
   # Capture all aesthetics using enquos for lazy evaluation
@@ -175,13 +178,24 @@ gg_blanket <- function(data,
   all_params <- utils::modifyList(separated$fixed, additional_params)
 
   # Build initial plot to determine scale types
-  plot <- ggplot2::ggplot(data, mapping = final_mapping) +
-    ggplot2::layer(
-      geom = geom_obj,
-      stat = stat_obj,
-      position = position_obj,
-      params = all_params
-    )
+  if (is_stat_sf(stat)) {
+    plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+      ggplot2::layer_sf(
+        geom = geom_obj,
+        stat = stat_obj,
+        position = position_obj,
+        params = all_params
+      )
+  }
+  else {
+    plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+      ggplot2::layer(
+        geom = geom_obj,
+        stat = stat_obj,
+        position = position_obj,
+        params = all_params
+      )
+  }
 
   # Build and identify scales
   built <- ggplot2::ggplot_build(plot)
@@ -192,6 +206,9 @@ gg_blanket <- function(data,
   x_scale_temporal <- x_scale_temporal %||% scale_info$x$temporal
   y_scale_temporal <- y_scale_temporal %||% scale_info$y$temporal
 
+  aspect <- get_aspect(x_scale_type, y_scale_type)
+  coord <- coord %||% get_coord(stat, aspect)
+
   # Add x scale based on type
   if (x_scale_type == "discrete") {
     plot <- plot +
@@ -201,7 +218,6 @@ gg_blanket <- function(data,
         drop = x_drop,
         expand = x_expand %||% ggplot2::waiver(),
         labels = x_labels %||% ggplot2::waiver(),
-        # limits = x_limits,
         limits = get_limits(x_limits),
         continuous.limits = get_limits_continuous(x_limits),
         palette = x_palette,
@@ -245,7 +261,6 @@ gg_blanket <- function(data,
         drop = y_drop,
         expand = y_expand %||% ggplot2::waiver(),
         labels = y_labels %||% ggplot2::waiver(),
-        # limits = y_limits,
         limits = get_limits(y_limits),
         continuous.limits = get_limits_continuous(y_limits),
         palette = y_palette,
@@ -279,6 +294,9 @@ gg_blanket <- function(data,
         transform = y_transform %||% get_scale_transform(y_scale_temporal)
       )
   }
+
+  plot <- plot +
+    coord
 
   plot
 }

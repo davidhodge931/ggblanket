@@ -436,7 +436,7 @@ get_scale_limits_continuous <- function(limits) {
 
 #' Get scale limits for a discrete scale
 #' @param limits Scale limits
-#' @return A scale limits_continuous
+#' @return A scale limits
 #' @keywords internal
 get_scale_limits <- function(limits) {
   if (!is.null(limits)) {
@@ -448,3 +448,47 @@ get_scale_limits <- function(limits) {
   }
   return(limits)
 }
+
+#' Get aspect
+#' @param x_scale_type Either "discrete", "continuous" or "binned"
+#' @param y_scale_type Either "discrete", "continuous" or "binned"
+#' @return A aspect
+#' @keywords internal
+get_aspect <- function(x_scale_type, y_scale_type) {
+  if (x_scale_type != "discrete" & y_scale_type == "discrete") {
+    aspect <- "y"
+  }
+  else aspect <- "x"
+
+  return(aspect)
+}
+
+#' Is the stat sf or sf_coordinates
+#' @param stat A stat
+is_stat_sf <- function(stat) {
+  identical(stat, ggplot2::StatSf) ||
+    identical(stat, ggplot2::StatSfCoordinates) ||
+    (is.character(stat) && stat %in% c("sf", "sf_coordinates"))
+}
+
+#' Get coord
+#' @param stat A stat
+#' @param aspect Either "x" or or "y"
+#' @return A coord
+#' @keywords internal
+get_coord <- function(stat, aspect) {
+  if (aspect == "y") reverse <- "y"
+  else reverse <- "none"
+
+  if (is_stat_sf(stat)) {
+    coord <- ggplot2::coord_sf(clip = "off")
+  }
+  else {
+    coord <- ggplot2::coord_cartesian(clip = "off", reverse = reverse)
+  }
+
+  return(coord)
+}
+
+
+
