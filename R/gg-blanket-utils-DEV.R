@@ -494,5 +494,145 @@ get_coord <- function(stat, aspect) {
   return(coord)
 }
 
+#' Modify theme elements for a specific axis aspect
+#'
+#' @param aspect Axis aspect to modify: `"x"` modifies y-axis and x-grid elements,
+#'   `"y"` modifies x-axis and y-grid elements.
+#' @param aspect_axis_line Treatment for axis lines: `"transparent"` makes them
+#'   invisible but present, `"keep"` leaves them unchanged, `"blank"` removes them.
+#' @param aspect_axis_ticks Treatment for axis ticks.
+#' @param aspect_panel_grid Treatment for panel grid lines.
+#'
+#' @return A ggplot2 theme object.
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' # Hide y-axis lines and x-grid
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   theme_aspect("x", aspect_axis_line = "blank", aspect_panel_grid = "blank")
+#'
+#' @export
+theme_aspect <- function(
+    aspect = c("x", "y"),
+    aspect_axis_line = c("transparent", "keep", "blank"),
+    aspect_axis_ticks = c("transparent", "keep", "blank"),
+    aspect_panel_grid = c("transparent", "keep", "blank")) {
 
+  # Validate inputs
+  aspect <- match.arg(aspect)
+  aspect_axis_line <- match.arg(aspect_axis_line)
+  aspect_axis_ticks <- match.arg(aspect_axis_ticks)
+  aspect_panel_grid <- match.arg(aspect_panel_grid)
+
+  theme <- ggplot2::theme()
+
+  if (aspect == "x") {
+    # For x aspect, modify y-axis elements and x-grid elements
+
+    # Axis lines (y-axis)
+    if (aspect_axis_line == "transparent") {
+      theme <- theme +
+        ggplot2::theme(
+          axis.line.y.left = ggplot2::element_line(colour = "transparent"),
+          axis.line.y.right = ggplot2::element_line(colour = "transparent")
+        )
+    } else if (aspect_axis_line == "blank") {
+      theme <- theme +
+        ggplot2::theme(
+          axis.line.y.left = ggplot2::element_blank(),
+          axis.line.y.right = ggplot2::element_blank()
+        )
+    }
+    # "keep" means no modification
+
+    # Axis ticks (y-axis)
+    if (aspect_axis_ticks == "transparent") {
+      theme <- theme +
+        ggplot2::theme(
+          axis.ticks.y.left = ggplot2::element_line(colour = "transparent"),
+          axis.ticks.y.right = ggplot2::element_line(colour = "transparent"),
+          axis.minor.ticks.y.left = ggplot2::element_line(colour = "transparent"),
+          axis.minor.ticks.y.right = ggplot2::element_line(colour = "transparent")
+        )
+    } else if (aspect_axis_ticks == "blank") {
+      theme <- theme +
+        ggplot2::theme(
+          axis.ticks.y.left = ggplot2::element_blank(),
+          axis.ticks.y.right = ggplot2::element_blank(),
+          axis.minor.ticks.y.left = ggplot2::element_blank(),
+          axis.minor.ticks.y.right = ggplot2::element_blank()
+        )
+    }
+
+    # Panel grid (x-grid)
+    if (aspect_panel_grid == "transparent") {
+      theme <- theme +
+        ggplot2::theme(
+          panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
+          panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
+        )
+    } else if (aspect_panel_grid == "blank") {
+      theme <- theme +
+        ggplot2::theme(
+          panel.grid.major.x = ggplot2::element_blank(),
+          panel.grid.minor.x = ggplot2::element_blank()
+        )
+    }
+  } else {
+    # For y aspect, modify x-axis elements and y-grid elements
+
+    # Axis lines (x-axis)
+    if (aspect_axis_line == "transparent") {
+      theme <- theme +
+        ggplot2::theme(
+          axis.line.x.bottom = ggplot2::element_line(colour = "transparent"),
+          axis.line.x.top = ggplot2::element_line(colour = "transparent")
+        )
+    } else if (aspect_axis_line == "blank") {
+      theme <- theme +
+        ggplot2::theme(
+          axis.line.x.bottom = ggplot2::element_blank(),
+          axis.line.x.top = ggplot2::element_blank()
+        )
+    }
+
+    # Axis ticks (x-axis)
+    if (aspect_axis_ticks == "transparent") {
+      theme <- theme +
+        ggplot2::theme(
+          axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent"),
+          axis.ticks.x.top = ggplot2::element_line(colour = "transparent"),
+          axis.minor.ticks.x.bottom = ggplot2::element_line(colour = "transparent"),
+          axis.minor.ticks.x.top = ggplot2::element_line(colour = "transparent")
+        )
+    } else if (aspect_axis_ticks == "blank") {
+      theme <- theme +
+        ggplot2::theme(
+          axis.ticks.x.bottom = ggplot2::element_blank(),
+          axis.ticks.x.top = ggplot2::element_blank(),
+          axis.minor.ticks.x.bottom = ggplot2::element_blank(),
+          axis.minor.ticks.x.top = ggplot2::element_blank()
+        )
+    }
+
+    # Panel grid (y-grid)
+    if (aspect_panel_grid == "transparent") {
+      theme <- theme +
+        ggplot2::theme(
+          panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
+          panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
+        )
+    } else if (aspect_panel_grid == "blank") {
+      theme <- theme +
+        ggplot2::theme(
+          panel.grid.major.y = ggplot2::element_blank(),
+          panel.grid.minor.y = ggplot2::element_blank()
+        )
+    }
+  }
+
+  theme
+}
 

@@ -57,6 +57,10 @@ gg_blanket <- function(data,
                        geom = "blank",
                        stat = "identity",
                        position = ggplot2::position_identity(),
+                       coord = NULL,
+                       aspect = NULL,
+                       blend = NULL,
+                       # aesthetics
                        x = NULL,
                        xmin = NULL,
                        xmax = NULL,
@@ -86,12 +90,12 @@ gg_blanket <- function(data,
                        angle = NULL,
                        radius = NULL,
                        mapping = NULL,
-                       # X scale arguments
+                       # x scale arguments
                        x_scale_type = NULL,
                        x_scale_temporal = NULL,
                        x_breaks = NULL,
                        x_breaks_minor = ggplot2::waiver(),
-                       x_breaks_n = NULL,
+                       x_breaks_n = 6,
                        x_drop = FALSE,
                        x_expand = NULL,
                        x_labels = NULL,
@@ -101,12 +105,12 @@ gg_blanket <- function(data,
                        x_position = "bottom",
                        x_sec_axis = ggplot2::waiver(),
                        x_transform = NULL,
-                       # Y scale arguments
+                       # y scale arguments
                        y_scale_type = NULL,
                        y_scale_temporal = NULL,
                        y_breaks = NULL,
                        y_breaks_minor = ggplot2::waiver(),
-                       y_breaks_n = NULL,
+                       y_breaks_n = 6,
                        y_drop = FALSE,
                        y_expand = NULL,
                        y_labels = NULL,
@@ -115,10 +119,7 @@ gg_blanket <- function(data,
                        y_palette = seq_len,
                        y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
-                       y_transform = NULL,
-
-                       aspect = NULL,
-                       coord = NULL
+                       y_transform = NULL
 ) {
 
   # Capture all aesthetics using enquos for lazy evaluation
@@ -178,24 +179,46 @@ gg_blanket <- function(data,
   all_params <- utils::modifyList(separated$fixed, additional_params)
 
   # Build initial plot to determine scale types
-  if (is_stat_sf(stat)) {
-    plot <- ggplot2::ggplot(data, mapping = final_mapping) +
-      ggplot2::layer_sf(
-        geom = geom_obj,
-        stat = stat_obj,
-        position = position_obj,
-        params = all_params
-      )
+  if (is.null(blend)) {
+    if (is_stat_sf(stat)) {
+      plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+        ggplot2::layer_sf(
+          geom = geom_obj,
+          stat = stat_obj,
+          position = position_obj,
+          params = all_params
+        )
+    }
+    else {
+      plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+        ggplot2::layer(
+          geom = geom_obj,
+          stat = stat_obj,
+          position = position_obj,
+          params = all_params
+        )
+    }
   }
   else {
-    plot <- ggplot2::ggplot(data, mapping = final_mapping) +
-      ggplot2::layer(
-        geom = geom_obj,
-        stat = stat_obj,
-        position = position_obj,
-        params = all_params
-      )
-  }
+      if (is_stat_sf(stat)) {
+        plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+          ggplot2::layer_sf(
+            geom = geom_obj,
+            stat = stat_obj,
+            position = position_obj,
+            params = all_params
+        ) |> ggblend::blend(blend = blend)
+      }
+      else {
+        plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+          ggplot2::layer(
+            geom = geom_obj,
+            stat = stat_obj,
+            position = position_obj,
+            params = all_params
+        ) |> ggblend::blend(blend = blend)
+      }
+    }
 
   # Build and identify scales
   built <- ggplot2::ggplot_build(plot)
@@ -206,7 +229,7 @@ gg_blanket <- function(data,
   x_scale_temporal <- x_scale_temporal %||% scale_info$x$temporal
   y_scale_temporal <- y_scale_temporal %||% scale_info$y$temporal
 
-  aspect <- get_aspect(x_scale_type, y_scale_type)
+  aspect <- aspect %||% get_aspect(x_scale_type, y_scale_type)
   coord <- coord %||% get_coord(stat, aspect)
 
   # Add x scale based on type
@@ -218,8 +241,8 @@ gg_blanket <- function(data,
         drop = x_drop,
         expand = x_expand %||% ggplot2::waiver(),
         labels = x_labels %||% ggplot2::waiver(),
-        limits = get_limits(x_limits),
-        continuous.limits = get_limits_continuous(x_limits),
+        limits = get_scale_limits(x_limits),
+        continuous.limits = get_scale_limits_continuous(x_limits),
         palette = x_palette,
         position = x_position,
         sec.axis = x_sec_axis
@@ -261,8 +284,8 @@ gg_blanket <- function(data,
         drop = y_drop,
         expand = y_expand %||% ggplot2::waiver(),
         labels = y_labels %||% ggplot2::waiver(),
-        limits = get_limits(y_limits),
-        continuous.limits = get_limits_continuous(y_limits),
+        limits = get_scale_limits(y_limits),
+        continuous.limits = get_scale_limits_continuous(y_limits),
         palette = y_palette,
         position = y_position,
         sec.axis = y_sec_axis
@@ -296,7 +319,9 @@ gg_blanket <- function(data,
   }
 
   plot <- plot +
-    coord
+    coord +
+    ggplot2::get_theme() +
+    theme_aspect(aspect = aspect)
 
   plot
 }
