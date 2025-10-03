@@ -326,7 +326,7 @@ identify_scale <- function(built) {
       NA_character_
     }
 
-    subtype <- if (stringr::str_detect(class_name, "Datetime")) {
+    temporal <- if (stringr::str_detect(class_name, "Datetime")) {
       "datetime"
     } else if (stringr::str_detect(class_name, "Date")) {
       "date"
@@ -337,7 +337,7 @@ identify_scale <- function(built) {
     list(
       class = class_name,
       type = type,
-      subtype = subtype,
+      temporal = temporal,
       limits = scale$get_limits()
     )
   }
@@ -376,16 +376,16 @@ get_scale_expand <- function(limits) {
   ggplot2::expansion(mult = c(mult_lower, mult_upper))
 }
 
-#' Get label function based on scale subtype
-#' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
+#' Get label function based on scale temporal
+#' @param temporal Scale temporal (e.g., "date", "datetime", "time", or NA)
 #' @return A scales label function
 #' @keywords internal
-get_scale_labels <- function(subtype) {
-  if (is.na(subtype)) {
+get_scale_labels <- function(temporal) {
+  if (is.na(temporal)) {
     return(scales::label_comma())
   }
 
-  switch(subtype,
+  switch(temporal,
          date = scales::label_date_short(),
          datetime = scales::label_date_short(),
          time = scales::label_time(),
@@ -393,16 +393,16 @@ get_scale_labels <- function(subtype) {
   )
 }
 
-#' Get transform function based on scale subtype
-#' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
+#' Get transform function based on scale temporal
+#' @param temporal Scale temporal (e.g., "date", "datetime", "time", or NA)
 #' @return A scales transform function
 #' @keywords internal
-get_scale_transform <- function(subtype) {
-  if (is.na(subtype)) {
+get_scale_transform <- function(temporal) {
+  if (is.na(temporal)) {
     return(scales::transform_identity())
   }
 
-  switch(subtype,
+  switch(temporal,
          date = scales::transform_date(),
          datetime = scales::transform_time(),
          time = scales::transform_hms(),
@@ -410,3 +410,41 @@ get_scale_transform <- function(subtype) {
   )
 }
 
+#' Get scale limits_continuous for a discrete scale
+#' @param limits Scale limits
+#' @return A scale limits_continuous
+#' @keywords internal
+get_scale_limits_continuous <- function(limits) {
+  if (!is.null(limits)) {
+    if (is.vector(limits)) {
+      if (is.numeric(limits)) {
+        limits_continuous <- limits
+      }
+      else {
+        limits_continuous <- NULL
+      }
+    } else {
+      limits_continuous <- NULL
+    }
+  }
+  else {
+    limits_continuous <- NULL
+  }
+
+  return(limits_continuous)
+}
+
+#' Get scale limits for a discrete scale
+#' @param limits Scale limits
+#' @return A scale limits_continuous
+#' @keywords internal
+get_scale_limits <- function(limits) {
+  if (!is.null(limits)) {
+    if (is.vector(limits)) {
+      if (is.numeric(limits)) {
+        limits <- NULL
+      }
+    }
+  }
+  return(limits)
+}

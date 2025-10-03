@@ -87,26 +87,34 @@ gg_blanket <- function(data,
                        radius = NULL,
                        mapping = NULL,
                        # X scale arguments
+                       x_scale_type = NULL,
+                       x_scale_temporal = NULL,
                        x_breaks = NULL,
+                       x_breaks_minor = ggplot2::waiver(),
                        x_breaks_n = NULL,
+                       x_drop = FALSE,
                        x_expand = NULL,
                        x_labels = NULL,
                        x_limits = NULL,
+                       x_oob = scales::oob_keep,
+                       x_palette = seq_len,
                        x_position = "bottom",
-                       x_scale_subtype = NULL,
-                       x_scale_type = NULL,
                        x_sec_axis = ggplot2::waiver(),
                        x_transform = NULL,
                        # Y scale arguments
+                       y_scale_type = NULL,
+                       y_scale_temporal = NULL,
                        y_breaks = NULL,
+                       y_breaks_minor = ggplot2::waiver(),
                        y_breaks_n = NULL,
+                       y_drop = FALSE,
                        y_expand = NULL,
                        y_labels = NULL,
                        y_limits = NULL,
+                       y_oob = scales::oob_keep,
+                       y_palette = seq_len,
                        y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
-                       y_scale_subtype = NULL,
-                       y_scale_type = NULL,
                        y_transform = NULL
 ) {
 
@@ -181,17 +189,22 @@ gg_blanket <- function(data,
 
   x_scale_type <- x_scale_type %||% scale_info$x$type
   y_scale_type <- y_scale_type %||% scale_info$y$type
-  x_scale_subtype <- x_scale_subtype %||% scale_info$x$subtype
-  y_scale_subtype <- y_scale_subtype %||% scale_info$y$subtype
+  x_scale_temporal <- x_scale_temporal %||% scale_info$x$temporal
+  y_scale_temporal <- y_scale_temporal %||% scale_info$y$temporal
 
   # Add x scale based on type
   if (x_scale_type == "discrete") {
     plot <- plot +
       ggplot2::scale_x_discrete(
         breaks = x_breaks %||% ggplot2::waiver(),
+        minor_breaks = x_breaks_minor %||% ggplot2::waiver(),
+        drop = x_drop,
         expand = x_expand %||% ggplot2::waiver(),
         labels = x_labels %||% ggplot2::waiver(),
-        limits = x_limits,
+        # limits = x_limits,
+        limits = get_limits(x_limits),
+        continuous.limits = get_limits_continuous(x_limits),
+        palette = x_palette,
         position = x_position,
         sec.axis = x_sec_axis
       )
@@ -199,13 +212,15 @@ gg_blanket <- function(data,
     plot <- plot +
       ggplot2::scale_x_continuous(
         breaks = x_breaks %||% ggplot2::waiver(),
+        minor_breaks = x_breaks_minor %||% ggplot2::waiver(),
         n.breaks = x_breaks_n,
         expand = x_expand %||% get_scale_expand(scale_info$x$limits),
-        labels = x_labels %||% get_scale_labels(x_scale_subtype),
+        labels = x_labels %||% get_scale_labels(x_scale_temporal),
         limits = x_limits,
+        oob = x_oob,
         position = x_position,
         sec.axis = x_sec_axis,
-        transform = x_transform %||% get_scale_transform(x_scale_subtype)
+        transform = x_transform %||% get_scale_transform(x_scale_temporal)
       )
   } else if (x_scale_type == "binned") {
     plot <- plot +
@@ -213,10 +228,11 @@ gg_blanket <- function(data,
         breaks = x_breaks %||% ggplot2::waiver(),
         n.breaks = x_breaks_n,
         expand = x_expand %||% get_scale_expand(scale_info$x$limits),
-        labels = x_labels %||% get_scale_labels(x_scale_subtype),
+        labels = x_labels %||% get_scale_labels(x_scale_temporal),
         limits = x_limits,
+        oob = x_oob,
         position = x_position,
-        transform = x_transform %||% get_scale_transform(x_scale_subtype)
+        transform = x_transform %||% get_scale_transform(x_scale_temporal)
       )
   }
 
@@ -225,9 +241,14 @@ gg_blanket <- function(data,
     plot <- plot +
       ggplot2::scale_y_discrete(
         breaks = y_breaks %||% ggplot2::waiver(),
+        minor_breaks = y_breaks_minor %||% ggplot2::waiver(),
+        drop = y_drop,
         expand = y_expand %||% ggplot2::waiver(),
         labels = y_labels %||% ggplot2::waiver(),
-        limits = y_limits,
+        # limits = y_limits,
+        limits = get_limits(y_limits),
+        continuous.limits = get_limits_continuous(y_limits),
+        palette = y_palette,
         position = y_position,
         sec.axis = y_sec_axis
       )
@@ -235,13 +256,15 @@ gg_blanket <- function(data,
     plot <- plot +
       ggplot2::scale_y_continuous(
         breaks = y_breaks %||% ggplot2::waiver(),
+        minor_breaks = y_breaks_minor %||% ggplot2::waiver(),
         n.breaks = y_breaks_n,
         expand = y_expand %||% get_scale_expand(scale_info$y$limits),
-        labels = y_labels %||% get_scale_labels(y_scale_subtype),
+        labels = y_labels %||% get_scale_labels(y_scale_temporal),
         limits = y_limits,
+        oob = y_oob,
         position = y_position,
         sec.axis = y_sec_axis,
-        transform = y_transform %||% get_scale_transform(y_scale_subtype)
+        transform = y_transform %||% get_scale_transform(y_scale_temporal)
       )
   } else if (y_scale_type == "binned") {
     plot <- plot +
@@ -249,10 +272,11 @@ gg_blanket <- function(data,
         breaks = y_breaks %||% ggplot2::waiver(),
         n.breaks = y_breaks_n,
         expand = y_expand %||% get_scale_expand(scale_info$y$limits),
-        labels = y_labels %||% get_scale_labels(y_scale_subtype),
+        labels = y_labels %||% get_scale_labels(y_scale_temporal),
         limits = y_limits,
+        oob = y_oob,
         position = y_position,
-        transform = y_transform %||% get_scale_transform(y_scale_subtype)
+        transform = y_transform %||% get_scale_transform(y_scale_temporal)
       )
   }
 
