@@ -69,60 +69,6 @@ combine_aesthetics <- function(individual_aesthetics, mapping) {
   return(combined)
 }
 
-#' Expand nested aes objects within a mapping
-#'
-#' This handles the case where mapping = aes(my_base, my_colors) where
-#' my_base and my_colors are themselves aes() objects.
-#'
-#' @param mapping An aes() object that may contain other aes objects
-#' @return A flattened aes object
-#' @keywords internal
-expand_nested_aes <- function(mapping) {
-  # Start with empty result
-  expanded_elements <- list()
-
-  # Get the calling environment (where the aes objects are defined)
-  calling_env <- parent.frame(3)  # Go up through combine_aesthetics -> gg_blanket -> user
-
-  # Process each element in the mapping
-  for (i in seq_along(mapping)) {
-    name <- names(mapping)[i]
-    expr <- mapping[[i]]
-
-    # Check if this is an unnamed argument that might be an aes object
-    if (is.null(name) || name == "") {
-      # Try to evaluate as an aes object
-      tryCatch({
-        evaluated <- eval(expr, envir = calling_env)
-
-        if (inherits(evaluated, "uneval")) {
-          # It's an aes object - merge all its aesthetics
-          for (aes_name in names(evaluated)) {
-            expanded_elements[[aes_name]] <- evaluated[[aes_name]]
-          }
-        } else {
-          # Not an aes object, but what should we do with unnamed non-aes?
-          warning("Unnamed argument in mapping that is not an aes() object")
-        }
-      }, error = function(e) {
-        warning("Could not evaluate unnamed argument in mapping: ", as.character(expr))
-      })
-    } else {
-      # Named argument - treat as regular aesthetic mapping
-      expanded_elements[[name]] <- expr
-    }
-  }
-
-  # If no elements were expanded, return the original mapping
-  if (length(expanded_elements) == 0) {
-    return(mapping)
-  }
-
-  # Convert back to aes structure
-  class(expanded_elements) <- "uneval"
-  return(expanded_elements)
-}
-
 #' Resolve geom specification to ggplot2 Geom object
 #' @param geom Either character string or Geom object
 #' @return A ggplot2 Geom object
@@ -369,11 +315,12 @@ identify_scale <- function(built) {
 #' @param limits The limits of a built ggplot2 object
 #' @return A expansion vector
 #' @keywords internal
-get_scale_expand <- function(limits) {
+get_expand <- function(limits) {
   mult_lower <- if (limits[1] == 0) 0 else 0.05
   mult_upper <- if (limits[2] == 0) 0 else 0.05
 
-  ggplot2::expansion(mult = c(mult_lower, mult_upper))
+  expand <- ggplot2::expansion(mult = c(mult_lower, mult_upper))
+  return(expand)
 }
 
 #' Get label function based on scale temporal
@@ -381,44 +328,49 @@ get_scale_expand <- function(limits) {
 #' @param temporal Scale temporal (e.g., "date", "datetime", "time", or NA)
 #' @return A scales label function
 #' @keywords internal
-get_scale_labels <- function(stat, temporal) {
+get_labels <- function(stat, temporal) {
   if (is_stat_sf(stat)) labels <- ggplot2::waiver()
   else {
     if (is.na(temporal)) {
       labels <- scales::label_comma()
     }
-
-    labels <- switch(temporal,
-                     date = scales::label_date_short(),
-                     datetime = scales::label_date_short(),
-                     time = scales::label_time(),
-                     scales::label_comma()
-    )
+    else {
+      labels <- switch(temporal,
+                       date = scales::label_date_short(),
+                       datetime = scales::label_date_short(),
+                       time = scales::label_time(),
+                       scales::label_comma()
+      )
+    }
   }
+  return(labels)
 }
 
 #' Get transform function based on scale temporal
 #' @param temporal Scale temporal (e.g., "date", "datetime", "time", or NA)
 #' @return A scales transform function
 #' @keywords internal
-get_scale_transform <- function(temporal) {
+get_transform <- function(temporal) {
   if (is.na(temporal)) {
-    return(scales::transform_identity())
+    transform <- scales::transform_identity()
+  }
+  else {
+    transform <- switch(temporal,
+                        date = scales::transform_date(),
+                        datetime = scales::transform_time(),
+                        time = scales::transform_hms(),
+                        scales::transform_identity()
+    )
   }
 
-  switch(temporal,
-         date = scales::transform_date(),
-         datetime = scales::transform_time(),
-         time = scales::transform_hms(),
-         scales::transform_identity()
-  )
+  return(transform)
 }
 
 #' Get scale limits_continuous for a discrete scale
 #' @param limits Scale limits
 #' @return A scale limits_continuous
 #' @keywords internal
-get_scale_limits_continuous <- function(limits) {
+get_limits_continuous <- function(limits) {
   if (!is.null(limits)) {
     if (is.vector(limits)) {
       if (is.numeric(limits)) {
@@ -442,7 +394,7 @@ get_scale_limits_continuous <- function(limits) {
 #' @param limits Scale limits
 #' @return A scale limits
 #' @keywords internal
-get_scale_limits <- function(limits) {
+get_limits <- function(limits) {
   if (!is.null(limits)) {
     if (is.vector(limits)) {
       if (is.numeric(limits)) {
@@ -502,15 +454,19 @@ get_coord <- function(stat, aspect) {
 #' @export
 theme_to_aspect <- function(
     aspect = c("x", "y"),
-    aspect_axis_line = c("transparent", "keep", "blank"),
-    aspect_axis_ticks = c("transparent", "keep", "blank"),
-    aspect_panel_grid = c("transparent", "keep", "blank")) {
+    aspect_axis_line = NULL,
+    aspect_axis_ticks = NULL,
+    aspect_panel_grid = NULL) {
+
+  aspect_axis_line <- aspect_axis_line %||% getOption("ggblanket.aspect_axis_line") %||% "transparent"
+  aspect_axis_ticks <- aspect_axis_ticks %||% getOption("ggblanket.aspect_axis_ticks") %||% "transparent"
+  aspect_panel_grid <- aspect_panel_grid %||% getOption("ggblanket.aspect_panel_grid") %||% "transparent"
 
   # Validate inputs
-  aspect <- rlang::arg_match(aspect)
-  aspect_axis_line <- rlang::arg_match(aspect_axis_line)
-  aspect_axis_ticks <- rlang::arg_match(aspect_axis_ticks)
-  aspect_panel_grid <- rlang::arg_match(aspect_panel_grid)
+  aspect <- rlang::arg_match(aspect, values = c("x", "y"))
+  aspect_axis_line <- rlang::arg_match(aspect_axis_line, values = c("transparent", "keep", "blank"))
+  aspect_axis_ticks <- rlang::arg_match(aspect_axis_ticks, values = c("transparent", "keep", "blank"))
+  aspect_panel_grid <- rlang::arg_match(aspect_panel_grid, values = c("transparent", "keep", "blank"))
 
   theme <- ggplot2::theme()
 
@@ -620,7 +576,7 @@ theme_to_aspect <- function(
     }
   }
 
-  theme
+  return(theme)
 }
 
 #' Get the aesthetic aspect from a ggplot build object
@@ -646,5 +602,74 @@ get_aspect <- function(built) {
     }
   }
 
-  if (flipped_aes) "y" else "x"
+  aspect <- if (flipped_aes) "y" else "x"
+  return(aspect)
+}
+
+#' Check if geom is a border-type geom
+#'
+#' Border geoms are those that typically have both fill and colour aesthetics,
+#' representing shapes with borders. Point geoms with shapes 21-25 are also
+#' considered border geoms.
+#'
+#' @param geom Either a character string (e.g., "rect") or a ggproto Geom object
+#'   (e.g., ggplot2::GeomRect)
+#' @param shape Optional shape parameter for point geoms. If provided and the geom
+#'   is a point-type geom, shapes 21-25 will be considered border geoms.
+#'
+#' @return Logical indicating if the geom is a border-type geom
+#'
+#' @keywords internal
+is_geom_border <- function(geom, shape = NULL) {
+  # Convert to character if it's a Geom object
+  if (inherits(geom, "Geom")) {
+    geom_class <- class(geom)[1]
+    geom <- tolower(sub("^Geom", "", geom_class))
+  }
+
+  # Validate input
+  if (!is.character(geom) || length(geom) != 1) {
+    cli::cli_abort(c(
+      "Invalid {.arg geom} specification",
+      "i" = "{.arg geom} must be a single character string or Geom object",
+      "x" = "Got {.cls {class(geom)}} of length {length(geom)}"
+    ))
+  }
+
+  # Define polygon/area border geoms
+  border_polygons <- c(
+    "area",
+    "bar",
+    "boxplot",
+    "col",
+    "crossbar",
+    "density",
+    "map",
+    "polygon",
+    "rect",
+    "ribbon",
+    "sf",
+    "smooth",
+    "tile",
+    "violin",
+    "raster",
+    "contour_filled",
+    "density2d_filled",
+    "bin2d",
+    "hex",
+    "star"  # extension
+  )
+
+  # Define point geoms that can be border based on shape
+  border_points <- c("point", "jitter", "count", "qq", "pointrange")
+
+  # Check if it's a polygon border geom
+  is_border_polygon <- geom %in% border_polygons
+
+  # Check if it's a point border geom with appropriate shape
+  is_border_point <- geom %in% border_points &&
+    !rlang::is_null(shape) &&
+    shape %in% 21:25
+
+  is_border_polygon || is_border_point
 }

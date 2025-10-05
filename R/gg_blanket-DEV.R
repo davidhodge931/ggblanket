@@ -60,6 +60,7 @@ gg_blanket <- function(data,
                        coord = NULL,
                        aspect = NULL,
                        blend = NULL,
+                       annotate = NULL,
                        # aesthetics
                        x = NULL,
                        xmin = NULL,
@@ -179,10 +180,19 @@ gg_blanket <- function(data,
   # Combine fixed aesthetic values with additional parameters
   all_params <- utils::modifyList(separated$fixed, additional_params)
 
-  # Build initial plot to determine scale types
+  # Build initial plot
+  plot <- ggplot2::ggplot(data, mapping = final_mapping)
+
+  # Add any annotate layers under
+  if (!rlang::is_null(annotate)) {
+    plot <- plot +
+      annotate
+  }
+
+  # Add the layer
   if (is.null(blend)) {
     if (is_stat_sf(stat)) {
-      plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+      plot <- plot +
         ggplot2::layer_sf(
           geom = geom_obj,
           stat = stat_obj,
@@ -191,7 +201,7 @@ gg_blanket <- function(data,
         )
     }
     else {
-      plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+      plot <- plot +
         ggplot2::layer(
           geom = geom_obj,
           stat = stat_obj,
@@ -202,7 +212,7 @@ gg_blanket <- function(data,
   }
   else {
       if (is_stat_sf(stat)) {
-        plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+        plot <- plot +
           ggplot2::layer_sf(
             geom = geom_obj,
             stat = stat_obj,
@@ -211,7 +221,7 @@ gg_blanket <- function(data,
         ) |> ggblend::blend(blend = blend)
       }
       else {
-        plot <- ggplot2::ggplot(data, mapping = final_mapping) +
+        plot <- plot +
           ggplot2::layer(
             geom = geom_obj,
             stat = stat_obj,
@@ -242,8 +252,8 @@ gg_blanket <- function(data,
         drop = x_drop,
         expand = x_expand %||% ggplot2::waiver(),
         labels = x_labels %||% ggplot2::waiver(),
-        limits = get_scale_limits(x_limits),
-        continuous.limits = get_scale_limits_continuous(x_limits),
+        limits = get_limits(x_limits),
+        continuous.limits = get_limits_continuous(x_limits),
         palette = x_palette,
         position = x_position,
         sec.axis = x_sec_axis
@@ -254,25 +264,25 @@ gg_blanket <- function(data,
         breaks = x_breaks %||% ggplot2::waiver(),
         minor_breaks = x_breaks_minor %||% ggplot2::waiver(),
         n.breaks = x_breaks_n,
-        expand = x_expand %||% get_scale_expand(scale_info$x$limits),
-        labels = x_labels %||% get_scale_labels(stat, x_scale_temporal),
+        expand = x_expand %||% get_expand(scale_info$x$limits),
+        labels = x_labels %||% get_labels(stat, x_scale_temporal),
         limits = x_limits,
         oob = x_oob,
         position = x_position,
         sec.axis = x_sec_axis,
-        transform = x_transform %||% get_scale_transform(x_scale_temporal)
+        transform = x_transform %||% get_transform(x_scale_temporal)
       )
   } else if (x_scale_type == "binned") {
     plot <- plot +
       ggplot2::scale_x_binned(
         breaks = x_breaks %||% ggplot2::waiver(),
         n.breaks = x_breaks_n,
-        expand = x_expand %||% get_scale_expand(scale_info$x$limits),
-        labels = x_labels %||% get_scale_labels(stat, x_scale_temporal),
+        expand = x_expand %||% get_expand(scale_info$x$limits),
+        labels = x_labels %||% get_labels(stat, x_scale_temporal),
         limits = x_limits,
         oob = x_oob,
         position = x_position,
-        transform = x_transform %||% get_scale_transform(x_scale_temporal)
+        transform = x_transform %||% get_transform(x_scale_temporal)
       )
   }
 
@@ -285,8 +295,8 @@ gg_blanket <- function(data,
         drop = y_drop,
         expand = y_expand %||% ggplot2::waiver(),
         labels = y_labels %||% ggplot2::waiver(),
-        limits = get_scale_limits(y_limits),
-        continuous.limits = get_scale_limits_continuous(y_limits),
+        limits = get_limits(y_limits),
+        continuous.limits = get_limits_continuous(y_limits),
         palette = y_palette,
         position = y_position,
         sec.axis = y_sec_axis
@@ -297,25 +307,25 @@ gg_blanket <- function(data,
         breaks = y_breaks %||% ggplot2::waiver(),
         minor_breaks = y_breaks_minor %||% ggplot2::waiver(),
         n.breaks = y_breaks_n,
-        expand = y_expand %||% get_scale_expand(scale_info$y$limits),
-        labels = y_labels %||% get_scale_labels(stat, y_scale_temporal),
+        expand = y_expand %||% get_expand(scale_info$y$limits),
+        labels = y_labels %||% get_labels(stat, y_scale_temporal),
         limits = y_limits,
         oob = y_oob,
         position = y_position,
         sec.axis = y_sec_axis,
-        transform = y_transform %||% get_scale_transform(y_scale_temporal)
+        transform = y_transform %||% get_transform(y_scale_temporal)
       )
   } else if (y_scale_type == "binned") {
     plot <- plot +
       ggplot2::scale_y_binned(
         breaks = y_breaks %||% ggplot2::waiver(),
         n.breaks = y_breaks_n,
-        expand = y_expand %||% get_scale_expand(scale_info$y$limits),
-        labels = y_labels %||% get_scale_labels(stat, y_scale_temporal),
+        expand = y_expand %||% get_expand(scale_info$y$limits),
+        labels = y_labels %||% get_labels(stat, y_scale_temporal),
         limits = y_limits,
         oob = y_oob,
         position = y_position,
-        transform = y_transform %||% get_scale_transform(y_scale_temporal)
+        transform = y_transform %||% get_transform(y_scale_temporal)
       )
   }
 
