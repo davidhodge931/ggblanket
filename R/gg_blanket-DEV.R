@@ -72,6 +72,8 @@ gg_blanket <- function(data,
                        yend = NULL,
                        z = NULL,
                        col = NULL,
+                       colour = NULL,
+                       fill = NULL,
                        alpha = NULL,
                        shape = NULL,
                        linetype = NULL,
@@ -99,12 +101,14 @@ gg_blanket <- function(data,
                        x_breaks_n = 6,
                        x_drop = FALSE,
                        x_expand = NULL,
+                       x_guide = ggplot2::waiver(),
                        x_labels = NULL,
                        x_limits = NULL,
                        x_oob = scales::oob_keep,
                        x_palette = seq_len,
                        x_position = "bottom",
                        x_sec_axis = ggplot2::waiver(),
+                       x_title = \(x) snakecase::to_sentence_case(x),
                        x_transform = NULL,
                        # y scale arguments
                        y_scale_type = NULL,
@@ -114,15 +118,31 @@ gg_blanket <- function(data,
                        y_breaks_n = 6,
                        y_drop = FALSE,
                        y_expand = NULL,
+                       y_guide = ggplot2::waiver(),
                        y_labels = NULL,
                        y_limits = NULL,
                        y_oob = scales::oob_keep,
                        y_palette = seq_len,
                        y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
-                       y_transform = NULL
+                       y_title = \(x) snakecase::to_sentence_case(x),
+                       y_transform = NULL,
+                       # col scale arguments
+                       col_scale_type = NULL,
+                       col_scale_temporal = NULL,
+                       col_breaks = NULL,
+                       col_breaks_n = 6,
+                       col_drop = FALSE,
+                       col_expand = NULL,
+                       col_guide = NULL,
+                       col_labels = NULL,
+                       col_limits = NULL,
+                       col_oob = scales::oob_keep,
+                       col_rescaler = scales::rescale,
+                       col_palette = NULL,
+                       col_title = \(x) snakecase::to_sentence_case(x),
+                       col_transform = NULL
 ) {
-
   # Capture all aesthetics using enquos for lazy evaluation
   aesthetics <- rlang::enquos(
     x = x,
@@ -135,6 +155,8 @@ gg_blanket <- function(data,
     yend = yend,
     z = z,
     col = col,
+    colour = colour,
+    fill = fill,
     alpha = alpha,
     shape = shape,
     linetype = linetype,
@@ -157,7 +179,6 @@ gg_blanket <- function(data,
   )
 
   # Remove NULL aesthetics (missing arguments)
-  # aesthetics <- purrr::discard(aesthetics, rlang::quo_is_missing)
   aesthetics <- Filter(Negate(rlang::quo_is_missing), aesthetics)
 
   # Separate fixed values from aesthetic mappings
@@ -185,8 +206,7 @@ gg_blanket <- function(data,
 
   # Add any annotate layers under
   if (!rlang::is_null(annotate)) {
-    plot <- plot +
-      annotate
+    plot <- plot + annotate
   }
 
   # Add the layer
@@ -211,25 +231,25 @@ gg_blanket <- function(data,
     }
   }
   else {
-      if (is_stat_sf(stat)) {
-        plot <- plot +
-          ggplot2::layer_sf(
-            geom = geom_obj,
-            stat = stat_obj,
-            position = position_obj,
-            params = all_params
+    if (is_stat_sf(stat)) {
+      plot <- plot +
+        ggplot2::layer_sf(
+          geom = geom_obj,
+          stat = stat_obj,
+          position = position_obj,
+          params = all_params
         ) |> ggblend::blend(blend = blend)
-      }
-      else {
-        plot <- plot +
-          ggplot2::layer(
-            geom = geom_obj,
-            stat = stat_obj,
-            position = position_obj,
-            params = all_params
-        ) |> ggblend::blend(blend = blend)
-      }
     }
+    else {
+      plot <- plot +
+        ggplot2::layer(
+          geom = geom_obj,
+          stat = stat_obj,
+          position = position_obj,
+          params = all_params
+        ) |> ggblend::blend(blend = blend)
+    }
+  }
 
   # Build and identify scales
   built <- ggplot2::ggplot_build(plot)
@@ -239,6 +259,8 @@ gg_blanket <- function(data,
   y_scale_type <- y_scale_type %||% scale_info$y$type
   x_scale_temporal <- x_scale_temporal %||% scale_info$x$temporal
   y_scale_temporal <- y_scale_temporal %||% scale_info$y$temporal
+  col_scale_type <- col_scale_type %||% scale_info$colour$type %||% scale_info$fill$type
+  col_scale_temporal <- col_scale_temporal %||% scale_info$colour$temporal %||% scale_info$fill$temporal
 
   aspect <- aspect %||% get_aspect(built)
   coord <- coord %||% get_coord(stat, aspect)
@@ -251,6 +273,7 @@ gg_blanket <- function(data,
         minor_breaks = x_breaks_minor %||% ggplot2::waiver(),
         drop = x_drop,
         expand = x_expand %||% ggplot2::waiver(),
+        guide = x_guide,
         labels = x_labels %||% ggplot2::waiver(),
         limits = get_limits(x_limits),
         continuous.limits = get_limits_continuous(x_limits),
@@ -265,6 +288,7 @@ gg_blanket <- function(data,
         minor_breaks = x_breaks_minor %||% ggplot2::waiver(),
         n.breaks = x_breaks_n,
         expand = x_expand %||% get_expand(scale_info$x$limits),
+        guide = x_guide,
         labels = x_labels %||% get_labels(stat, x_scale_temporal),
         limits = x_limits,
         oob = x_oob,
@@ -278,6 +302,7 @@ gg_blanket <- function(data,
         breaks = x_breaks %||% ggplot2::waiver(),
         n.breaks = x_breaks_n,
         expand = x_expand %||% get_expand(scale_info$x$limits),
+        guide = x_guide,
         labels = x_labels %||% get_labels(stat, x_scale_temporal),
         limits = x_limits,
         oob = x_oob,
@@ -294,6 +319,7 @@ gg_blanket <- function(data,
         minor_breaks = y_breaks_minor %||% ggplot2::waiver(),
         drop = y_drop,
         expand = y_expand %||% ggplot2::waiver(),
+        guide = y_guide,
         labels = y_labels %||% ggplot2::waiver(),
         limits = get_limits(y_limits),
         continuous.limits = get_limits_continuous(y_limits),
@@ -308,6 +334,7 @@ gg_blanket <- function(data,
         minor_breaks = y_breaks_minor %||% ggplot2::waiver(),
         n.breaks = y_breaks_n,
         expand = y_expand %||% get_expand(scale_info$y$limits),
+        guide = y_guide,
         labels = y_labels %||% get_labels(stat, y_scale_temporal),
         limits = y_limits,
         oob = y_oob,
@@ -321,6 +348,7 @@ gg_blanket <- function(data,
         breaks = y_breaks %||% ggplot2::waiver(),
         n.breaks = y_breaks_n,
         expand = y_expand %||% get_expand(scale_info$y$limits),
+        guide = y_guide,
         labels = y_labels %||% get_labels(stat, y_scale_temporal),
         limits = y_limits,
         oob = y_oob,
@@ -331,10 +359,107 @@ gg_blanket <- function(data,
 
   plot <- plot +
     coord +
-    ggplot2::get_theme() +
-    theme_to_aspect(aspect = aspect)
+    theme_to_aspect(aspect = aspect) +
+    ggplot2::labs(
+      x = x_title,
+      y = y_title,
+      colour = col_title,
+      fill = col_title
+    )
+
+  # Add colour/fill scales based on type
+  # Both colour and fill get the same scale since col maps to both
+  if (!is.null(col_scale_type)) {
+    if (col_scale_type == "discrete") {
+      if (rlang::is_null(col_guide)) col_guide <- ggplot2::guide_legend()
+
+      # Apply to colour if it was mapped
+      if (!is.null(scale_info$colour)) {
+        plot <- plot +
+          ggplot2::scale_colour_discrete(
+            palette = col_palette,
+            breaks = col_breaks %||% ggplot2::waiver(),
+            drop = col_drop,
+            guide = col_guide,
+            labels = col_labels %||% ggplot2::waiver(),
+            limits = get_limits(col_limits)
+          )
+      }
+
+      # Apply to fill if it was mapped
+      if (!is.null(scale_info$fill)) {
+        plot <- plot +
+          ggplot2::scale_fill_discrete(
+            palette = col_palette,
+            breaks = col_breaks %||% ggplot2::waiver(),
+            drop = col_drop,
+            guide = col_guide,
+            labels = col_labels %||% ggplot2::waiver(),
+            limits = get_limits(col_limits)
+          )
+      }
+    } else if (col_scale_type == "continuous") {
+      if (rlang::is_null(col_guide)) col_guide <- ggplot2::guide_colorbar()
+
+      # Apply to colour if it was mapped
+      if (!is.null(scale_info$colour)) {
+        plot <- plot +
+          ggplot2::scale_colour_continuous(
+            breaks = col_breaks %||% ggplot2::waiver(),
+            n.breaks = col_breaks_n,
+            guide = col_guide,
+            labels = col_labels %||% ggplot2::waiver(),
+            limits = col_limits,
+            rescaler = col_rescaler,
+            transform = col_transform %||% get_transform(col_scale_temporal %||% NA_character_)
+          )
+      }
+
+      # Apply to fill if it was mapped
+      if (!is.null(scale_info$fill)) {
+        plot <- plot +
+          ggplot2::scale_fill_continuous(
+            breaks = col_breaks %||% ggplot2::waiver(),
+            n.breaks = col_breaks_n,
+            guide = col_guide,
+            labels = col_labels %||% ggplot2::waiver(),
+            limits = col_limits,
+            rescaler = col_rescaler,
+            transform = col_transform %||% get_transform(col_scale_temporal %||% NA_character_)
+          )
+      }
+    } else if (col_scale_type == "binned") {
+      if (rlang::is_null(col_guide)) col_guide <- ggplot2::guide_bins()
+
+      # Apply to colour if it was mapped
+      if (!is.null(scale_info$colour)) {
+        plot <- plot +
+          ggplot2::scale_colour_binned(
+            breaks = col_breaks %||% ggplot2::waiver(),
+            n.breaks = col_breaks_n,
+            guide = col_guide,
+            labels = col_labels %||% ggplot2::waiver(),
+            limits = col_limits,
+            rescaler = col_rescaler,
+            transform = col_transform %||% get_transform(col_scale_temporal %||% NA_character_)
+          )
+      }
+
+      # Apply to fill if it was mapped
+      if (!is.null(scale_info$fill)) {
+        plot <- plot +
+          ggplot2::scale_fill_binned(
+            breaks = col_breaks %||% ggplot2::waiver(),
+            n.breaks = col_breaks_n,
+            guide = col_guide,
+            labels = col_labels %||% ggplot2::waiver(),
+            limits = col_limits,
+            rescaler = col_rescaler,
+            transform = col_transform %||% get_transform(col_scale_temporal %||% NA_character_)
+          )
+      }
+    }
+  }
 
   plot
 }
-
-
