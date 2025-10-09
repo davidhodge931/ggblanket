@@ -455,7 +455,7 @@ is_geom_border <- function(geom_str, shape = NULL) {
   )
 
   # Define point geom_strs that can be border based on shape
-  border_points <- c("point", "jitter", "count", "qq", "pointrange")
+  border_points <- c("point", "pointrange", "dotplot")
 
   # Check if it's a polygon border geom_str
   is_border_polygon <- geom_str %in% border_polygons

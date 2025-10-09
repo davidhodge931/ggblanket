@@ -182,7 +182,6 @@ gg_blanket <- function(data,
   computed_colour <- NULL
   if (!is_colour_mapped) {
     computed_colour <- separated$fixed[["colour"]] %||% separated$fixed[["fill"]] %||% ggplot2::get_theme()$geom@fill
-
     if (border) computed_colour <- highlight(computed_colour)
   }
 
