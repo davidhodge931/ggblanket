@@ -56,7 +56,7 @@ gg_blanket <- function(data,
                        x_palette = seq_len,
                        x_position = "bottom",
                        x_sec_axis = ggplot2::waiver(),
-                       x_title = snakecase::to_sentence_case,
+                       x_title = ggplot2::waiver(),
                        x_transform = NULL,
                        # y scale arguments
                        y_scale_type = NULL,
@@ -73,7 +73,7 @@ gg_blanket <- function(data,
                        y_palette = seq_len,
                        y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
-                       y_title = snakecase::to_sentence_case,
+                       y_title = ggplot2::waiver(),
                        y_transform = NULL,
                        # fill scale arguments
                        fill_scale_type = NULL,
@@ -88,7 +88,7 @@ gg_blanket <- function(data,
                        fill_oob = scales::oob_keep,
                        fill_rescaler = scales::rescale,
                        fill_palette = NULL,
-                       fill_title = snakecase::to_snake_case,
+                       fill_title = ggplot2::waiver(),
                        fill_transform = "identity",
                        # colour scale arguments
                        colour_scale_type = NULL,
@@ -103,7 +103,7 @@ gg_blanket <- function(data,
                        colour_oob = NULL,
                        colour_rescaler = NULL,
                        colour_palette = NULL,
-                       colour_title = NULL,
+                       colour_title = ggplot2::waiver(),
                        colour_transform = NULL
 ) {
 
@@ -147,9 +147,7 @@ gg_blanket <- function(data,
 
   # Store flags for whether colour/fill were originally provided
   is_fill_mapped <- "fill" %in% names(separated$mapped)
-  print(is_fill_mapped)
   is_fill_fixed <- "fill" %in% names(separated$fixed)
-  print(is_fill_fixed)
   is_colour_mapped <- "colour" %in% names(separated$mapped)
   is_colour_fixed <- "colour" %in% names(separated$fixed)
   is_shape_mapped <- "shape" %in% names(separated$mapped)
@@ -275,11 +273,8 @@ gg_blanket <- function(data,
   y_scale_temporal <- y_scale_temporal %||% scale_info$y$temporal
   fill_scale_type <- fill_scale_type %||% scale_info$fill$type
   fill_scale_temporal <- fill_scale_temporal %||% scale_info$fill$temporal
-  colour_scale_type <- colour_scale_type %||% scale_info$colour$type
-  colour_scale_temporal <- colour_scale_temporal %||% scale_info$colour$temporal
-
-  print(colour_scale_type)
-  print(colour_scale_temporal)
+  colour_scale_type <- colour_scale_type %||% scale_info$colour$type %||% scale_info$fill$type
+  colour_scale_temporal <- colour_scale_temporal %||% scale_info$colour$temporal %||% scale_info$fill$temporal
 
   aspect <- aspect %||% get_aspect(built)
   coord <- coord %||% get_coord(stat_str, aspect)
@@ -376,91 +371,130 @@ gg_blanket <- function(data,
       )
   }
 
-  # Add fill scale based on type
-  if (!rlang::is_null(fill_scale_type)) {
-    if (fill_scale_type == "discrete") {
-      if (rlang::is_null(fill_guide)) fill_guide <- ggplot2::guide_legend()
-      plot <- plot +
-        ggplot2::scale_fill_discrete(
-          palette = fill_palette,
-          breaks = fill_breaks %||% ggplot2::waiver(),
-          drop = fill_drop,
-          guide = fill_guide,
-          labels = fill_labels %||% ggplot2::waiver(),
-          limits = get_limits(fill_limits)
-        )
+  if (is_fill_mapped | is_colour_mapped) {
+    if (rlang::is_null(fill_guide)) {
+      if (fill_scale_type == "discrete") fill_guide <- ggplot2::guide_legend()
+      if (fill_scale_type == "continuous") fill_guide <- ggplot2::guide_colourbar()
+      if (fill_scale_type == "bins") fill_guide <- ggplot2::guide_bins()
     }
-    else if (fill_scale_type == "continuous") {
-      if (rlang::is_null(fill_guide)) fill_guide <- ggplot2::guide_colorbar()
-      plot <- plot +
-        ggplot2::scale_fill_continuous(
-          palette = fill_palette,
-          breaks = fill_breaks %||% ggplot2::waiver(),
-          n.breaks = fill_breaks_n,
-          guide = fill_guide,
-          labels = fill_labels %||% ggplot2::waiver(),
-          limits = fill_limits,
-          rescaler = fill_rescaler,
-          transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_)
-        )
-    } else if (fill_scale_type == "binned") {
-      if (rlang::is_null(fill_guide)) fill_guide <- ggplot2::guide_bins()
-      plot <- plot +
-        ggplot2::scale_fill_binned(
-          palette = fill_palette,
-          breaks = fill_breaks %||% ggplot2::waiver(),
-          n.breaks = fill_breaks_n,
-          guide = fill_guide,
-          labels = fill_labels %||% ggplot2::waiver(),
-          limits = fill_limits,
-          rescaler = fill_rescaler,
-          transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_)
-        )
+    if (rlang::is_null(fill_labels)) {
+      if (colour_scale_type == "discrete") fill_labels <- ggplot2::waiver()
+      if (colour_scale_type == "continuous") fill_labels <- scales::label_comma()
+      if (colour_scale_type == "bins") fill_labels <- scales::label_comma()
+    }
+
+    # Add fill scale based on type
+    if (!rlang::is_null(fill_scale_type)) {
+      if (fill_scale_type == "discrete") {
+        plot <- plot +
+          ggplot2::scale_fill_discrete(
+            palette = fill_palette %||% ggplot2::get_theme()$palette.fill.discrete,
+            breaks = fill_breaks %||% ggplot2::waiver(),
+            drop = fill_drop,
+            guide = fill_guide,
+            labels = fill_labels,
+            limits = get_limits(fill_limits)
+          )
+      }
+      else if (fill_scale_type == "continuous") {
+        plot <- plot +
+          ggplot2::scale_fill_continuous(
+            palette = fill_palette %||% ggplot2::get_theme()$palette.fill.continuous,
+            breaks = fill_breaks %||% ggplot2::waiver(),
+            n.breaks = fill_breaks_n,
+            guide = fill_guide,
+            labels = fill_labels,
+            limits = fill_limits,
+            rescaler = fill_rescaler,
+            transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_)
+          )
+      } else if (fill_scale_type == "binned") {
+        plot <- plot +
+          ggplot2::scale_fill_binned(
+            palette = fill_palette %||% ggplot2::get_theme()$palette.fill.continuous,
+            breaks = fill_breaks %||% ggplot2::waiver(),
+            n.breaks = fill_breaks_n,
+            guide = fill_guide,
+            labels = fill_labels,
+            limits = fill_limits,
+            rescaler = fill_rescaler,
+            transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_)
+          )
+      }
+    }
+
+    # Add colour scale based on type - with fill fallbacks
+    if (!rlang::is_null(colour_scale_type)) {
+      if (colour_scale_type == "discrete") {
+        if (border) {
+          colour_palette <- colour_palette %||% highlight(fill_palette) %||%
+            highlight(ggplot2::get_theme()$palette.fill.discrete)
+        }
+        else {
+          colour_palette <- colour_palette %||% fill_palette %||%
+            ggplot2::get_theme()$palette.fill.discrete
+        }
+
+        plot <- plot +
+          ggplot2::scale_colour_discrete(
+            palette = colour_palette ,
+            breaks = colour_breaks %||% fill_breaks,
+            drop = colour_drop  %||% fill_drop,
+            guide = colour_guide  %||%  fill_guide,
+            labels = colour_labels %||% fill_labels,
+            limits = colour_limits %||% fill_limits
+          )
+      }
+      else if (colour_scale_type == "continuous") {
+        if (border) {
+          colour_palette <- colour_palette %||% highlight(fill_palette) %||%
+            highlight(ggplot2::get_theme()$palette.fill.continuous)
+        }
+        else {
+          colour_palette <- colour_palette %||% fill_palette %||%
+            ggplot2::get_theme()$palette.fill.continuous
+        }
+
+        plot <- plot +
+          ggplot2::scale_colour_continuous(
+            palette = colour_palette ,
+            breaks = colour_breaks %||% fill_breaks,
+            n.breaks = colour_breaks_n %||% fill_breaks_n,
+            guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide,
+            labels = colour_labels %||% fill_labels,
+            limits = colour_limits %||% fill_limits,
+            rescaler = colour_rescaler %||% fill_rescaler,
+            transform = colour_transform %||% fill_transform
+          )
+      } else if (colour_scale_type == "binned") {
+        if (border) {
+          colour_palette <- colour_palette %||% highlight(fill_palette) %||%
+            highlight(ggplot2::get_theme()$palette.fill.continuous)
+        }
+        else {
+          colour_palette <- colour_palette %||% fill_palette %||%
+            ggplot2::get_theme()$palette.fill.continuous
+        }
+
+        plot <- plot +
+          ggplot2::scale_colour_binned(
+            palette = colour_palette ,
+            breaks = colour_breaks %||% fill_breaks,
+            n.breaks = colour_breaks_n %||% fill_breaks_n,
+            guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide,
+            labels = colour_labels %||% fill_labels,
+            limits = colour_limits %||% fill_limits,
+            rescaler = colour_rescaler %||% fill_rescaler,
+            transform = colour_transform %||% fill_transform
+          )
+      }
     }
   }
 
-  # # Add colour scale based on type
-  # if (!rlang::is_null(colour_scale_type)) {
-  #   if (colour_scale_type == "discrete") {
-  #     if (rlang::is_null(colour_guide)) colour_guide <- ggplot2::guide_legend()
-  #     plot <- plot +
-  #       ggplot2::scale_colour_discrete(
-  #         palette = colour_palette,
-  #         breaks = colour_breaks %||% ggplot2::waiver(),
-  #         drop = colour_drop,
-  #         guide = colour_guide,
-  #         labels = colour_labels %||% ggplot2::waiver(),
-  #         limits = get_limits(colour_limits)
-  #       )
-  #   }
-  #   else if (colour_scale_type == "continuous") {
-  #     if (rlang::is_null(colour_guide)) colour_guide <- ggplot2::guide_colorbar()
-  #     plot <- plot +
-  #       ggplot2::scale_colour_continuous(
-  #         palette = colour_palette,
-  #         breaks = colour_breaks %||% ggplot2::waiver(),
-  #         n.breaks = colour_breaks_n,
-  #         guide = colour_guide,
-  #         labels = colour_labels %||% ggplot2::waiver(),
-  #         limits = colour_limits,
-  #         rescaler = colour_rescaler,
-  #         transform = colour_transform %||% get_transform(colour_scale_temporal %||% NA_character_)
-  #       )
-  #   } else if (colour_scale_type == "binned") {
-  #     if (rlang::is_null(colour_guide)) colour_guide <- ggplot2::guide_bins()
-  #     plot <- plot +
-  #       ggplot2::scale_colour_binned(
-  #         palette = colour_palette,
-  #         breaks = colour_breaks %||% ggplot2::waiver(),
-  #         n.breaks = colour_breaks_n,
-  #         guide = colour_guide,
-  #         labels = colour_labels %||% ggplot2::waiver(),
-  #         limits = colour_limits,
-  #         rescaler = colour_rescaler,
-  #         transform = colour_transform %||% get_transform(colour_scale_temporal %||% NA_character_)
-  #       )
-  #   }
-  # }
+  if (ggplot2::is_waiver(x_title)) x_title <- snakecase::to_sentence_case
+  if (ggplot2::is_waiver(y_title)) y_title <- snakecase::to_sentence_case
+  if (ggplot2::is_waiver(fill_title)) fill_title <- snakecase::to_sentence_case
+  if (ggplot2::is_waiver(colour_title)) colour_title <- fill_title
 
   plot <- plot +
     coord +
@@ -468,9 +502,80 @@ gg_blanket <- function(data,
     ggplot2::labs(
       x = x_title,
       y = y_title,
+      fill = fill_title,
       colour = colour_title,
-      fill = fill_title
     )
+
+  # Insert this code right after you add all the scales (after line ~545)
+  # and before you add coord + theme
+
+  # Extract scale information
+  fill_scale <- NULL
+  colour_scale <- NULL
+
+  for (i in seq_along(plot$scales$scales)) {
+    scale <- plot$scales$scales[[i]]
+    if ("fill" %in% scale$aesthetics) {
+      fill_scale <- scale
+    }
+    if ("colour" %in% scale$aesthetics) {
+      colour_scale <- scale
+    }
+  }
+
+  # Print comparison
+  cat("\n=== FILL SCALE ===\n")
+  if (!is.null(fill_scale)) {
+    cat("Class:", class(fill_scale), "\n")
+    cat("Aesthetics:", paste(fill_scale$aesthetics, collapse = ", "), "\n")
+    cat("Palette function exists:", !is.null(fill_scale$palette), "\n")
+    if (!is.null(fill_scale$palette)) {
+      cat("Palette is function:", is.function(fill_scale$palette), "\n")
+      # Try to see what the palette produces
+      tryCatch({
+        cat("Sample palette output:", paste(fill_scale$palette(3), collapse = ", "), "\n")
+      }, error = function(e) {
+        cat("Could not sample palette:", e$message, "\n")
+      })
+    }
+    cat("Breaks:", paste(fill_scale$breaks, collapse = ", "), "\n")
+    cat("Limits:", paste(fill_scale$limits, collapse = ", "), "\n")
+    cat("Guide:", class(fill_scale$guide), "\n")
+  } else {
+    cat("No fill scale found\n")
+  }
+
+  cat("\n=== COLOUR SCALE ===\n")
+  if (!is.null(colour_scale)) {
+    cat("Class:", class(colour_scale), "\n")
+    cat("Aesthetics:", paste(colour_scale$aesthetics, collapse = ", "), "\n")
+    cat("Palette function exists:", !is.null(colour_scale$palette), "\n")
+    if (!is.null(colour_scale$palette)) {
+      cat("Palette is function:", is.function(colour_scale$palette), "\n")
+      tryCatch({
+        cat("Sample palette output:", paste(colour_scale$palette(3), collapse = ", "), "\n")
+      }, error = function(e) {
+        cat("Could not sample palette:", e$message, "\n")
+      })
+    }
+    cat("Breaks:", paste(colour_scale$breaks, collapse = ", "), "\n")
+    cat("Limits:", paste(colour_scale$limits, collapse = ", "), "\n")
+    cat("Guide:", class(colour_scale$guide), "\n")
+  } else {
+    cat("No colour scale found\n")
+  }
+
+  cat("\n=== COMPARISON ===\n")
+  cat("is_fill_mapped:", is_fill_mapped, "\n")
+  cat("is_colour_mapped:", is_colour_mapped, "\n")
+  cat("border:", border, "\n")
+  cat("fill_palette provided:", !is.null(fill_palette), "\n")
+  cat("colour_palette provided:", !is.null(colour_palette), "\n")
+
+  # Also print the actual palette variables being used
+  cat("\n=== PALETTE VARIABLES ===\n")
+  cat("fill_palette:", if(is.function(fill_palette)) "function" else fill_palette, "\n")
+  cat("colour_palette:", if(is.function(colour_palette)) "function" else colour_palette, "\n")
 
   plot
 }
