@@ -172,18 +172,22 @@ gg_blanket <- function(data,
   }
 
   # get colour param
+  computed_colour <- NULL
   if (!is_colour_mapped) {
-    colour <- separated$fixed[["colour"]] %||% separated$fixed[["fill"]] %||% ggplot2::get_theme()$geom@fill
+    computed_colour <- separated$fixed[["colour"]] %||% separated$fixed[["fill"]] %||% ggplot2::get_theme()$geom@fill
 
-    if (border) colour <- highlight(colour)
-  } else colour <- NULL
+    if (border) computed_colour <- highlight(computed_colour)
+  }
 
   # get linewidth param
+  computed_linewidth <- NULL
   if (!is_linewidth_mapped) {
-    if (border) colour <- separated$fixed[["linewidth"]] %||% ggplot2::get_theme()$geom@borderwidth
-    else colour <- separated$fixed[["linewidth"]] %||% ggplot2::get_theme()$geom@linewidth
+    if (border) computed_linewidth <- separated$fixed[["linewidth"]] %||% ggplot2::get_theme()$geom@borderwidth
+    else computed_linewidth <- separated$fixed[["linewidth"]] %||% ggplot2::get_theme()$geom@linewidth
+  }
 
-  } else linewidth <- NULL
+  # Remove colour and linewidth from separated$fixed
+  separated$fixed <- separated$fixed[!names(separated$fixed) %in% c("colour", "linewidth")]
 
   # Combine individual aesthetics with mapping argument
   final_mapping <- combine_aesthetics(separated$mapped, mapping)
@@ -192,12 +196,15 @@ gg_blanket <- function(data,
   additional_params <- rlang::list2(...)
 
   # Combine fixed aesthetic values with additional parameters
-
-  return(separated$fixed)
-
-  #NEED TOR REMOVE COLOUR/FIL/LINEWIDTH PARAMS FROM seperated$fixed,
-  # AND THEN ADD colour/linewidth manually
   all_params <- utils::modifyList(separated$fixed, additional_params)
+
+  # Add colour and linewidth back as params if they were computed
+  if (!rlang::is_null(computed_colour)) {
+    all_params$colour <- computed_colour
+  }
+  if (!rlang::is_null(computed_linewidth)) {
+    all_params$linewidth <- computed_linewidth
+  }
 
   # Build initial plot
   plot <- ggplot2::ggplot(data, mapping = final_mapping)
@@ -248,7 +255,6 @@ gg_blanket <- function(data,
         ) |> ggblend::blend(blend = blend)
     }
   }
-
   # Build and identify scales
   built <- ggplot2::ggplot_build(plot)
   scale_info <- identify_scale(built)
@@ -261,6 +267,8 @@ gg_blanket <- function(data,
   colour_scale_temporal <- colour_scale_temporal %||% scale_info$colour$temporal
   fill_scale_type <- fill_scale_type %||% scale_info$fill$type
   fill_scale_temporal <- fill_scale_temporal %||% scale_info$fill$temporal
+
+  ##############################################################################
 
   # If colour was inherited from fill (not explicitly provided), inherit all scale arguments
   if (!rlang::is_null(scale_info$colour) && !rlang::is_null(scale_info$fill)) {
@@ -552,4 +560,3 @@ gg_blanket <- function(data,
 
   plot
 }
-
