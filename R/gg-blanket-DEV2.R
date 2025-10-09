@@ -1,57 +1,4 @@
-#' A modern wrapper that creates a complete ggplot with a layer, accepting all
-#' possible aesthetics as unquoted arguments. The `col` aesthetic is mapped to
-#' both colour and fill.
-#'
-#' @param data A data frame.
-#' @param ... Arguments passed to [ggplot2::layer(params = list(...))].
-#' @param geom A geom as either character ("point") or object (ggplot2::GeomPoint).
-#' @param stat A stat as either character ("identity") or object (ggplot2::StatIdentity).
-#' @param position A position as either function (ggplot2::position_identity()) or object (ggplot2::PositionIdentity).
-#' @param x Variable mapped to x, or a set value.
-#' @param xmin Variable mapped to xmin, or a set value.
-#' @param xmax Variable mapped to xmax, or a set value.
-#' @param xend Variable mapped to xend, or a set value.
-#' @param y Variable mapped to y, or a set value.
-#' @param ymin Variable mapped to ymin, or a set value.
-#' @param ymax Variable mapped to ymax, or a set value.
-#' @param yend Variable mapped to yend, or a set value.
-#' @param z Variable mapped to z, or a set value.
-#' @param col Variable mapped to both colour and fill, or a set value.
-#' @param alpha Variable mapped to alpha, or a set value.
-#' @param shape Variable mapped to shape, or a set value.
-#' @param linetype Variable mapped to linetype, or a set value.
-#' @param linewidth Variable mapped to linewidth, or a set value.
-#' @param size Variable mapped to size, or a set value.
-#' @param stroke Variable mapped to stroke, or a set value.
-#' @param label Variable mapped to label, or a set value.
-#' @param weight Variable mapped to weight, or a set value.
-#' @param group Variable mapped to group, or a set value.
-#' @param width Variable mapped to width, or a set value.
-#' @param height Variable mapped to height, or a set value.
-#' @param slope Variable mapped to slope, or a set value.
-#' @param intercept Variable mapped to intercept, or a set value.
-#' @param xintercept Variable mapped to xintercept, or a set value.
-#' @param yintercept Variable mapped to yintercept, or a set value.
-#' @param sample Variable mapped to sample, or a set value.
-#' @param angle Variable mapped to angle, or a set value.
-#' @param radius Variable mapped to radius, or a set value.
-#' @param mapping Additional aesthetic mapping within a [ggplot2::aes] call.
-#'
-#' @return A complete ggplot2 object
-#'
-#' @examples
-#' library(ggplot2)
-#' library(palmerpenguins)
-#'
-#' penguins |>
-#'   gg_blanket(
-#'     geom = "point",
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'   )
-#'
-#' @export
+# Fixed gg_blanket function with separate colour and fill
 gg_blanket <- function(data,
                        ...,
                        geom = "blank",
@@ -71,7 +18,6 @@ gg_blanket <- function(data,
                        ymax = NULL,
                        yend = NULL,
                        z = NULL,
-                       # col = NULL,
                        colour = NULL,
                        fill = NULL,
                        alpha = NULL,
@@ -131,31 +77,31 @@ gg_blanket <- function(data,
                        colour_scale_type = NULL,
                        colour_scale_temporal = NULL,
                        colour_breaks = NULL,
-                       colour_breaks_n = 6,
-                       colour_drop = FALSE,
+                       colour_breaks_n = NULL,
+                       colour_drop = NULL,
                        colour_expand = NULL,
                        colour_guide = NULL,
                        colour_labels = NULL,
                        colour_limits = NULL,
-                       colour_oob = scales::oob_keep,
-                       colour_rescaler = scales::rescale,
+                       colour_oob = NULL,
+                       colour_rescaler = NULL,
                        colour_palette = NULL,
-                       colour_title = snakecase::to_sentence_case,
+                       colour_title = NULL,
                        colour_transform = NULL,
                        # fill scale arguments
                        fill_scale_type = NULL,
                        fill_scale_temporal = NULL,
                        fill_breaks = NULL,
-                       fill_breaks_n = 6,
-                       fill_drop = FALSE,
+                       fill_breaks_n = NULL,
+                       fill_drop = NULL,
                        fill_expand = NULL,
                        fill_guide = NULL,
                        fill_labels = NULL,
                        fill_limits = NULL,
-                       fill_oob = scales::oob_keep,
-                       fill_rescaler = scales::rescale,
+                       fill_oob = NULL,
+                       fill_rescaler = NULL,
                        fill_palette = NULL,
-                       fill_title = snakecase::to_sentence_case,
+                       fill_title = NULL,
                        fill_transform = NULL
 ) {
   # Capture all aesthetics using enquos for lazy evaluation
@@ -169,7 +115,6 @@ gg_blanket <- function(data,
     ymax = ymax,
     yend = yend,
     z = z,
-    # col = col,
     colour = colour,
     fill = fill,
     alpha = alpha,
@@ -196,12 +141,24 @@ gg_blanket <- function(data,
   # Remove NULL aesthetics (missing arguments)
   aesthetics <- Filter(Negate(rlang::quo_is_missing), aesthetics)
 
-  # Separate fixed values from aesthetic mappings
+  # Separate fixed values from aesthetic mappings BEFORE inheritance
   separated <- separate_fixed_and_mapped_aesthetics(aesthetics)
 
-  # Handle col -> colour/fill mapping for mapped aesthetics
-  # final_aesthetics <- handle_colour_aesthetic(separated$mapped)
-  final_aesthetics <- aesthetics
+  # Store flags for whether colour/fill were originally provided
+  has_colour_mapped <- "colour" %in% names(separated$mapped)
+  has_colour_fixed <- "colour" %in% names(separated$fixed)
+  has_fill_mapped <- "fill" %in% names(separated$mapped)
+  has_fill_fixed <- "fill" %in% names(separated$fixed)
+
+  # Handle colour inheriting from fill
+  # If colour is not provided at all, inherit from fill
+  if (!has_colour_mapped && !has_colour_fixed) {
+    if (has_fill_mapped) {
+      separated$mapped[["colour"]] <- separated$mapped[["fill"]]
+    } else if (has_fill_fixed) {
+      separated$fixed[["colour"]] <- separated$fixed[["fill"]]
+    }
+  }
 
   # Convert geom, stat, position to appropriate objects
   geom_obj <- resolve_geom(geom)
@@ -209,7 +166,7 @@ gg_blanket <- function(data,
   position_obj <- resolve_position(position)
 
   # Combine individual aesthetics with mapping argument
-  final_mapping <- combine_aesthetics(final_aesthetics, mapping)
+  final_mapping <- combine_aesthetics(separated$mapped, mapping)
 
   # Capture additional parameters from ...
   additional_params <- rlang::list2(...)
@@ -279,6 +236,40 @@ gg_blanket <- function(data,
   colour_scale_temporal <- colour_scale_temporal %||% scale_info$colour$temporal
   fill_scale_type <- fill_scale_type %||% scale_info$fill$type
   fill_scale_temporal <- fill_scale_temporal %||% scale_info$fill$temporal
+
+  # If colour was inherited from fill (not explicitly provided), inherit all scale arguments
+  if (!is.null(scale_info$colour) && !is.null(scale_info$fill)) {
+    if (!has_colour_mapped && !has_colour_fixed && (has_fill_mapped || has_fill_fixed)) {
+      # Colour was inherited from fill, so inherit all scale arguments
+      colour_scale_type <- colour_scale_type %||% fill_scale_type
+      colour_scale_temporal <- colour_scale_temporal %||% fill_scale_temporal
+      colour_breaks <- colour_breaks %||% fill_breaks
+      colour_breaks_n <- colour_breaks_n %||% fill_breaks_n
+      colour_drop <- colour_drop %||% fill_drop
+      colour_expand <- colour_expand %||% fill_expand
+      colour_guide <- colour_guide %||% fill_guide
+      colour_labels <- colour_labels %||% fill_labels
+      colour_limits <- colour_limits %||% fill_limits
+      colour_oob <- colour_oob %||% fill_oob
+      colour_rescaler <- colour_rescaler %||% fill_rescaler
+      colour_palette <- colour_palette %||% fill_palette
+      colour_title <- colour_title %||% fill_title
+      colour_transform <- colour_transform %||% fill_transform
+    }
+  }
+
+  # Apply defaults for any remaining NULL values
+  colour_breaks_n <- colour_breaks_n %||% 6
+  colour_drop <- colour_drop %||% FALSE
+  colour_oob <- colour_oob %||% scales::oob_keep
+  colour_rescaler <- colour_rescaler %||% scales::rescale
+  colour_title <- colour_title %||% snakecase::to_sentence_case
+
+  fill_breaks_n <- fill_breaks_n %||% 6
+  fill_drop <- fill_drop %||% FALSE
+  fill_oob <- fill_oob %||% scales::oob_keep
+  fill_rescaler <- fill_rescaler %||% scales::rescale
+  fill_title <- fill_title %||% snakecase::to_sentence_case
 
   aspect <- aspect %||% get_aspect(built)
   coord <- coord %||% get_coord(stat, aspect)
@@ -379,41 +370,41 @@ gg_blanket <- function(data,
   if (!is.null(colour_scale_type)) {
     if (colour_scale_type == "discrete") {
       if (rlang::is_null(colour_guide)) colour_guide <- ggplot2::guide_legend()
-        plot <- plot +
-          ggplot2::scale_colour_discrete(
-            palette = colour_palette,
-            breaks = colour_breaks %||% ggplot2::waiver(),
-            drop = colour_drop,
-            guide = colour_guide,
-            labels = colour_labels %||% ggplot2::waiver(),
-            limits = get_limits(colour_limits)
-          )
+      plot <- plot +
+        ggplot2::scale_colour_discrete(
+          palette = colour_palette,
+          breaks = colour_breaks %||% ggplot2::waiver(),
+          drop = colour_drop,
+          guide = colour_guide,
+          labels = colour_labels %||% ggplot2::waiver(),
+          limits = get_limits(colour_limits)
+        )
     }
     else if (colour_scale_type == "continuous") {
       if (rlang::is_null(colour_guide)) colour_guide <- ggplot2::guide_colorbar()
-        plot <- plot +
-          ggplot2::scale_colour_continuous(
-            breaks = colour_breaks %||% ggplot2::waiver(),
-            n.breaks = colour_breaks_n,
-            guide = colour_guide,
-            labels = colour_labels %||% ggplot2::waiver(),
-            limits = colour_limits,
-            rescaler = colour_rescaler,
-            transform = colour_transform %||% get_transform(colour_scale_temporal %||% NA_character_)
-          )
+      plot <- plot +
+        ggplot2::scale_colour_continuous(
+          breaks = colour_breaks %||% ggplot2::waiver(),
+          n.breaks = colour_breaks_n,
+          guide = colour_guide,
+          labels = colour_labels %||% ggplot2::waiver(),
+          limits = colour_limits,
+          rescaler = colour_rescaler,
+          transform = colour_transform %||% get_transform(colour_scale_temporal %||% NA_character_)
+        )
     } else if (colour_scale_type == "binned") {
       if (rlang::is_null(colour_guide)) colour_guide <- ggplot2::guide_bins()
-        plot <- plot +
-          ggplot2::scale_colour_binned(
-            breaks = colour_breaks %||% ggplot2::waiver(),
-            n.breaks = colour_breaks_n,
-            guide = colour_guide,
-            labels = colour_labels %||% ggplot2::waiver(),
-            limits = colour_limits,
-            rescaler = colour_rescaler,
-            transform = colour_transform %||% get_transform(colour_scale_temporal %||% NA_character_)
-          )
-      }
+      plot <- plot +
+        ggplot2::scale_colour_binned(
+          breaks = colour_breaks %||% ggplot2::waiver(),
+          n.breaks = colour_breaks_n,
+          guide = colour_guide,
+          labels = colour_labels %||% ggplot2::waiver(),
+          limits = colour_limits,
+          rescaler = colour_rescaler,
+          transform = colour_transform %||% get_transform(colour_scale_temporal %||% NA_character_)
+        )
+    }
   }
 
   # Add fill scale based on type
@@ -457,7 +448,6 @@ gg_blanket <- function(data,
     }
   }
 
-
   plot <- plot +
     coord +
     theme_to_aspect(aspect = aspect) +
@@ -465,7 +455,7 @@ gg_blanket <- function(data,
       x = x_title,
       y = y_title,
       colour = colour_title,
-      fill = colour_title
+      fill = fill_title
     )
 
   plot
