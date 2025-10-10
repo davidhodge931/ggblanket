@@ -9,7 +9,7 @@ gg_blanket <- function(data,
                        blend = NULL,
                        annotate = NULL,
                        border = NULL,
-                       highlight = \(x) scales::col_darker(x),
+                       highlight = \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x),
                        # aesthetics
                        x = NULL,
                        xmin = NULL,
@@ -273,7 +273,7 @@ gg_blanket <- function(data,
   colour_scale_type <- colour_scale_type %||% scale_info$colour$type %||% scale_info$fill$type
   colour_scale_temporal <- colour_scale_temporal %||% scale_info$colour$temporal %||% scale_info$fill$temporal
 
-  aspect <- aspect %||% get_aspect(built)
+  aspect <- aspect %||% get_aspect(x_scale_type = x_scale_type, y_scale_type = y_scale_type)
   coord <- coord %||% get_coord(stat_str, aspect)
 
   # Add x scale based on type

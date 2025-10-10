@@ -380,30 +380,22 @@ theme_to_aspect <- function(
   return(theme)
 }
 
-#' Get the aesthetic aspect from a ggplot build object
+#' Determine plot aspect from scale types
 #'
-#' Determines whether the plot uses standard (x) or flipped (y) coordinate system
-#' by checking if any layer has flipped aesthetics.
+#' Returns "y" if the plot has a horizontal orientation (non-discrete x, discrete y),
+#' otherwise returns "x".
 #'
-#' @param built A ggplot build object (from `ggplot2::ggplot_build()`)
+#' @param x_scale_type Scale type for x-axis: "discrete", "continuous", or "binned"
+#' @param y_scale_type Scale type for y-axis: "discrete", "continuous", or "binned"
 #'
-#' @return A character string: "y" if any layer has flipped aesthetics, "x" otherwise
+#' @return "y" for horizontal orientation, "x" otherwise
 #'
 #' @noRd
 #' @keywords internal
-get_aspect <- function(built) {
-  flipped_aes <- FALSE
+get_aspect <- function(x_scale_type, y_scale_type) {
+  if (x_scale_type != "discrete" & y_scale_type == "discrete") aspect <- "y"
+  else aspect <- "x"
 
-  for (layer_data in built$data) {
-    if ("flipped_aes" %in% names(layer_data)) {
-      if (any(layer_data[["flipped_aes"]])) {
-        flipped_aes <- TRUE
-        break
-      }
-    }
-  }
-
-  aspect <- if (flipped_aes) "y" else "x"
   return(aspect)
 }
 
