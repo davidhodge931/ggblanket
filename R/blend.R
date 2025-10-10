@@ -60,6 +60,10 @@ blend <- function(..., blend) {
   # Get the input arguments
   dots <- list(...)
 
+  if (purrr::some(dots, rlang::is_null)) {
+    return(NULL)
+  }
+
   # Check if the first argument is a ggplot2 annotate
   if (length(dots) > 0 && ggplot2::is_layer(dots[[1]])) {
     rlang::abort(c(

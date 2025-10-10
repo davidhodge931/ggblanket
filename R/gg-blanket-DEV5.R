@@ -81,7 +81,6 @@ gg_blanket <- function(data,
                        fill_breaks = ggplot2::waiver(),
                        fill_breaks_n = 6,
                        fill_drop = FALSE,
-                       fill_expand = NULL,
                        fill_guide = NULL,
                        fill_labels = NULL,
                        fill_limits = NULL,
@@ -96,7 +95,6 @@ gg_blanket <- function(data,
                        colour_breaks = NULL,
                        colour_breaks_n = NULL,
                        colour_drop = NULL,
-                       colour_expand = NULL,
                        colour_guide = NULL,
                        colour_labels = NULL,
                        colour_limits = NULL,
@@ -370,7 +368,7 @@ gg_blanket <- function(data,
       )
   }
 
-  if (is_fill_mapped | is_colour_mapped) {
+  if (is_fill_mapped) {
     if (rlang::is_null(fill_guide)) {
       if (fill_scale_type == "discrete") fill_guide <- ggplot2::guide_legend()
       if (fill_scale_type == "continuous") fill_guide <- ggplot2::guide_colourbar()
@@ -504,77 +502,6 @@ gg_blanket <- function(data,
       fill = fill_title,
       colour = colour_title,
     )
-
-  # Insert this code right after you add all the scales (after line ~545)
-  # and before you add coord + theme
-
-  # Extract scale information
-  fill_scale <- NULL
-  colour_scale <- NULL
-
-  for (i in seq_along(plot$scales$scales)) {
-    scale <- plot$scales$scales[[i]]
-    if ("fill" %in% scale$aesthetics) {
-      fill_scale <- scale
-    }
-    if ("colour" %in% scale$aesthetics) {
-      colour_scale <- scale
-    }
-  }
-
-  # Print comparison
-  cat("\n=== FILL SCALE ===\n")
-  if (!is.null(fill_scale)) {
-    cat("Class:", class(fill_scale), "\n")
-    cat("Aesthetics:", paste(fill_scale$aesthetics, collapse = ", "), "\n")
-    cat("Palette function exists:", !is.null(fill_scale$palette), "\n")
-    if (!is.null(fill_scale$palette)) {
-      cat("Palette is function:", is.function(fill_scale$palette), "\n")
-      # Try to see what the palette produces
-      tryCatch({
-        cat("Sample palette output:", paste(fill_scale$palette(3), collapse = ", "), "\n")
-      }, error = function(e) {
-        cat("Could not sample palette:", e$message, "\n")
-      })
-    }
-    cat("Breaks:", paste(fill_scale$breaks, collapse = ", "), "\n")
-    cat("Limits:", paste(fill_scale$limits, collapse = ", "), "\n")
-    cat("Guide:", class(fill_scale$guide), "\n")
-  } else {
-    cat("No fill scale found\n")
-  }
-
-  cat("\n=== COLOUR SCALE ===\n")
-  if (!is.null(colour_scale)) {
-    cat("Class:", class(colour_scale), "\n")
-    cat("Aesthetics:", paste(colour_scale$aesthetics, collapse = ", "), "\n")
-    cat("Palette function exists:", !is.null(colour_scale$palette), "\n")
-    if (!is.null(colour_scale$palette)) {
-      cat("Palette is function:", is.function(colour_scale$palette), "\n")
-      tryCatch({
-        cat("Sample palette output:", paste(colour_scale$palette(3), collapse = ", "), "\n")
-      }, error = function(e) {
-        cat("Could not sample palette:", e$message, "\n")
-      })
-    }
-    cat("Breaks:", paste(colour_scale$breaks, collapse = ", "), "\n")
-    cat("Limits:", paste(colour_scale$limits, collapse = ", "), "\n")
-    cat("Guide:", class(colour_scale$guide), "\n")
-  } else {
-    cat("No colour scale found\n")
-  }
-
-  cat("\n=== COMPARISON ===\n")
-  cat("is_fill_mapped:", is_fill_mapped, "\n")
-  cat("is_colour_mapped:", is_colour_mapped, "\n")
-  cat("border:", border, "\n")
-  cat("fill_palette provided:", !is.null(fill_palette), "\n")
-  cat("colour_palette provided:", !is.null(colour_palette), "\n")
-
-  # Also print the actual palette variables being used
-  cat("\n=== PALETTE VARIABLES ===\n")
-  cat("fill_palette:", if(is.function(fill_palette)) "function" else fill_palette, "\n")
-  cat("colour_palette:", if(is.function(colour_palette)) "function" else colour_palette, "\n")
 
   plot
 }

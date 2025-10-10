@@ -24,12 +24,14 @@ set_blanket <- function(
 
   if (rlang::is_null(fill_palette)) {
     fill_palette_d <- scales::pal_hue()
-    fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9))
+    fill_palette_c <- direction_contrast(scales::pal_viridis(option = "G"))
+    # fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9))
   }
   else if (purrr::is_list(fill_palette)) {
     if (length(fill_palette) == 1) {
       fill_palette_d <- unlist(fill_palette)
-      fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9))
+      fill_palette_c <- direction_contrast(scales::pal_viridis(option = "G"))
+      # fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9))
     }
     else if (length(fill_palette) == 2) {
       fill_palette_d <- fill_palette[[1]]
@@ -38,7 +40,8 @@ set_blanket <- function(
   }
   else if (purrr::is_vector(fill_palette)) {
     fill_palette_d <- unlist(fill_palette)
-    fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9))
+    fill_palette_c <- direction_contrast(scales::pal_viridis(option = "G"))
+    # fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako", begin = 0.1, end = 0.9))
   }
 
   # Colour palette inherits from fill palette with no transformation

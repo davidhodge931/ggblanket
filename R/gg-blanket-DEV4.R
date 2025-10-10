@@ -197,6 +197,8 @@ gg_blanket <- function(data,
 
   #NEED TOR REMOVE COLOUR/FIL/LINEWIDTH PARAMS FROM seperated$fixed,
   # AND THEN ADD colour/linewidth manually
+  # seperated_fixed <- separated$fixed[!names(separated$fixed) %in% c("colour", "linewidth")]
+
   all_params <- utils::modifyList(separated$fixed, additional_params)
 
   # Build initial plot
