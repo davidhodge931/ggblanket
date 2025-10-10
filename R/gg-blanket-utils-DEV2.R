@@ -393,7 +393,9 @@ theme_to_aspect <- function(
 #' @noRd
 #' @keywords internal
 get_aspect <- function(x_scale_type, y_scale_type) {
-  if (x_scale_type != "discrete" & y_scale_type == "discrete") aspect <- "y"
+
+  if (x_scale_type == "discrete" & y_scale_type %in% c("continuous", "binned")) aspect <- "x"
+  else if (x_scale_type %in% c("continuous", "binned") & y_scale_type == "discrete") aspect <- "y"
   else aspect <- "x"
 
   return(aspect)
