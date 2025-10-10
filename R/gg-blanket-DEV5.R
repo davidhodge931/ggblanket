@@ -102,7 +102,18 @@ gg_blanket <- function(data,
                        colour_rescaler = NULL,
                        colour_palette = NULL,
                        colour_title = ggplot2::waiver(),
-                       colour_transform = NULL
+                       colour_transform = NULL,
+                       #facet
+                       facet = NULL,
+                       facet2 = NULL,
+                       facet_axes = "margins",
+                       facet_axis_labels = "all",
+                       facet_drop = FALSE,
+                       facet_layout = "wrap",
+                       facet_ncol = NULL,
+                       facet_nrow = NULL,
+                       facet_scales = "fixed",
+                       facet_space = "fixed"
 ) {
 
   # Capture all aesthetics using enquos for lazy evaluation
@@ -136,6 +147,8 @@ gg_blanket <- function(data,
     sample = sample,
     angle = angle,
     radius = radius,
+    facet = facet,      # Add this
+    facet2 = facet2,    # Add this
     .ignore_empty = "all",
     .ignore_null = "all"
   )
@@ -513,5 +526,42 @@ gg_blanket <- function(data,
       colour = colour_title,
     )
 
-  plot
+  # Add faceting if specified
+  if ("facet" %in% names(separated$mapped)) {
+    facet_var <- separated$mapped$facet
+    facet2_var <- if ("facet2" %in% names(separated$mapped)) separated$mapped$facet2 else NULL
+
+    if (facet_layout == "wrap") {
+      # Build vars() call for facet_wrap
+      if (!is.null(facet2_var)) {
+        facet_vars <- rlang::quos(!!facet_var, !!facet2_var)
+      } else {
+        facet_vars <- rlang::quos(!!facet_var)
+      }
+
+      plot <- plot +
+        ggplot2::facet_wrap(
+          facets = facet_vars,
+          nrow = facet_nrow,
+          ncol = facet_ncol,
+          scales = facet_scales,
+          drop = facet_drop,
+          axes = facet_axes,
+          axis.labels = facet_axis_labels
+        )
+    } else if (facet_layout == "grid") {
+      plot <- plot +
+        ggplot2::facet_grid(
+          rows = rlang::quos(!!facet_var),
+          cols = if (!is.null(facet2_var)) rlang::quos(!!facet2_var) else NULL,
+          scales = facet_scales,
+          space = facet_space,
+          drop = facet_drop,
+          axes = facet_axes,
+          axis.labels = facet_axis_labels
+        )
+    }
+  }
+
+  return(plot)
 }
