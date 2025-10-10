@@ -372,13 +372,17 @@ gg_blanket <- function(data,
     if (rlang::is_null(fill_guide)) {
       if (fill_scale_type == "discrete") fill_guide <- ggplot2::guide_legend()
       if (fill_scale_type == "continuous") fill_guide <- ggplot2::guide_colourbar()
-      if (fill_scale_type == "bins") fill_guide <- ggplot2::guide_bins()
+      if (fill_scale_type == "binned") fill_guide <- ggplot2::guide_bins()
     }
     if (rlang::is_null(fill_labels)) {
       if (colour_scale_type == "discrete") fill_labels <- ggplot2::waiver()
       if (colour_scale_type == "continuous") fill_labels <- scales::label_comma()
-      if (colour_scale_type == "bins") fill_labels <- scales::label_comma()
+      if (colour_scale_type == "binned") fill_labels <- scales::label_comma()
     }
+
+    fill_na <- slate
+    if (border) colour_na <- highlight(fill_na)
+    else colour_na <- fill_na
 
     # Add fill scale based on type
     if (!rlang::is_null(fill_scale_type)) {
@@ -390,7 +394,8 @@ gg_blanket <- function(data,
             drop = fill_drop,
             guide = fill_guide,
             labels = fill_labels,
-            limits = get_limits(fill_limits)
+            limits = get_limits(fill_limits),
+            na.value = fill_na
           )
       }
       else if (fill_scale_type == "continuous") {
@@ -403,7 +408,8 @@ gg_blanket <- function(data,
             labels = fill_labels,
             limits = fill_limits,
             rescaler = fill_rescaler,
-            transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_)
+            transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_),
+            na.value = fill_na
           )
       } else if (fill_scale_type == "binned") {
         plot <- plot +
@@ -415,7 +421,8 @@ gg_blanket <- function(data,
             labels = fill_labels,
             limits = fill_limits,
             rescaler = fill_rescaler,
-            transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_)
+            transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_),
+            na.value = fill_na
           )
       }
     }
@@ -439,7 +446,8 @@ gg_blanket <- function(data,
             drop = colour_drop  %||% fill_drop,
             guide = colour_guide  %||%  fill_guide,
             labels = colour_labels %||% fill_labels,
-            limits = colour_limits %||% fill_limits
+            limits = colour_limits %||% fill_limits,
+            na.value = colour_na
           )
       }
       else if (colour_scale_type == "continuous") {
@@ -461,7 +469,8 @@ gg_blanket <- function(data,
             labels = colour_labels %||% fill_labels,
             limits = colour_limits %||% fill_limits,
             rescaler = colour_rescaler %||% fill_rescaler,
-            transform = colour_transform %||% fill_transform
+            transform = colour_transform %||% fill_transform,
+            na.value = colour_na
           )
       } else if (colour_scale_type == "binned") {
         if (border) {
@@ -482,7 +491,8 @@ gg_blanket <- function(data,
             labels = colour_labels %||% fill_labels,
             limits = colour_limits %||% fill_limits,
             rescaler = colour_rescaler %||% fill_rescaler,
-            transform = colour_transform %||% fill_transform
+            transform = colour_transform %||% fill_transform,
+            na.value = colour_na
           )
       }
     }
