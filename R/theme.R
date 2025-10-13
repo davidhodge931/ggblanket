@@ -63,9 +63,9 @@ theme_greyer <- function(
     panel_background_fill = grey,
     panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 0.5,
-    panel_grid_minor_linetype = 0,
-    panel_grid_minor_linewidth = ggplot2::rel(0.5),
+    panel_grid_linewidth = 1,
+    panel_grid_minor_linetype = 1,
+    panel_grid_minor_linewidth = 0.5,
     plot_background_fill = "white"
 ) {
 
@@ -311,9 +311,9 @@ theme_lighter <- function(
     panel_background_fill = "white",
     panel_grid_colour = beige,
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 0.5,
-    panel_grid_minor_linetype = 0,
-    panel_grid_minor_linewidth = ggplot2::rel(0.5),
+    panel_grid_linewidth = 1,
+    panel_grid_minor_linetype = 1,
+    panel_grid_minor_linewidth = 0.5,
     plot_background_fill = "white"
 ) {
   theme_greyer(
@@ -388,9 +388,9 @@ theme_darker <- function(
     panel_background_fill = "#101A24ff", #flexoki blue950
     panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 0.5,
-    panel_grid_minor_linetype = 0,
-    panel_grid_minor_linewidth = ggplot2::rel(0.5),
+    panel_grid_linewidth = 1,
+    panel_grid_minor_linetype = 1,
+    panel_grid_minor_linewidth = 0.5,
     plot_background_fill = panel_grid_colour
 ) {
   theme_greyer(
@@ -463,9 +463,9 @@ theme_beiger <- function(
     panel_background_fill = beige,
     panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 0.5,
-    panel_grid_minor_linetype = 0,
-    panel_grid_minor_linewidth = ggplot2::rel(0.5),
+    panel_grid_linewidth = 1,
+    panel_grid_minor_linetype = 1,
+    panel_grid_minor_linewidth = 0.5,
     plot_background_fill = "white"
 ) {
   theme_greyer(

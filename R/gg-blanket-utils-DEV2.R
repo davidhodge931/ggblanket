@@ -22,23 +22,46 @@ combine_aesthetics <- function(individual_aesthetics, mapping) {
 
 #' Separate fixed values from aesthetic mappings
 #'
-#' This function takes a list of quosures (captured with enquos()) and separates
-#' them into fixed parameter values and aesthetic mappings based on whether they
-#' contain literal values or expressions/symbols.
-#'
 #' @param aesthetics Named list of quosures from rlang::enquos()
+#' @param data Optional data frame to check for column names
 #' @return List with two components:
 #'   - fixed: Named list of literal values for layer parameters
 #'   - mapped: Named list of quosures for aesthetic mappings
-separate_fixed_and_mapped_aesthetics <- function(aesthetics) {
-  fixed <- aesthetics |>
-    purrr::keep(\(x) rlang::is_syntactic_literal(rlang::quo_get_expr(x))) |>
-    purrr::imap(\(x, name) rlang::eval_tidy(x))
+separate_fixed_and_mapped_aesthetics <- function(aesthetics, data = NULL) {
 
-  mapped <- aesthetics |>
-    purrr::discard(\(x) rlang::is_syntactic_literal(rlang::quo_get_expr(x)))
+  # Aesthetic names that accept single values
+  value_aesthetics <- c("col", "colour", "fill", "shape", "linetype",
+                        "linewidth", "size", "alpha", "stroke")
 
-  return(list(fixed = fixed, mapped = mapped))
+  # Helper to check if quosure evaluates to a single value
+  is_single_value <- function(quo, name) {
+    # Literal values are always fixed
+    if (rlang::is_syntactic_literal(rlang::quo_get_expr(quo))) return(TRUE)
+
+    # Symbols: check if column name first, then try to evaluate
+    if (rlang::is_symbol(rlang::quo_get_expr(quo))) {
+      symbol_name <- rlang::as_name(rlang::quo_get_expr(quo))
+      if (!rlang::is_null(data) && symbol_name %in% names(data)) return(FALSE)
+    }
+
+    # Try to evaluate - if it's a single value, it's fixed
+    if (name %in% value_aesthetics) {
+      tryCatch({
+        val <- rlang::eval_tidy(quo)
+        length(val) == 1 && (is.atomic(val) || is.na(val))
+      }, error = function(e) FALSE)
+    } else {
+      FALSE
+    }
+  }
+
+  # Partition into fixed and mapped
+  is_fixed <- purrr::imap_lgl(aesthetics, is_single_value)
+
+  list(
+    fixed = aesthetics[is_fixed] |> purrr::map(rlang::eval_tidy),
+    mapped = aesthetics[!is_fixed]
+  )
 }
 
 #' Identify Scale from Built ggplot Object
@@ -380,23 +403,64 @@ theme_to_aspect <- function(
   return(theme)
 }
 
-#' Determine plot aspect from scale types
+#' #' Determine plot aspect from scale types
+#' #'
+#' #' Returns "y" if the plot has a horizontal orientation (non-discrete x, discrete y),
+#' #' otherwise returns "x".
+#' #'
+#' #' @param x_scale_type Scale type for x-axis: "discrete", "continuous", or "binned"
+#' #' @param y_scale_type Scale type for y-axis: "discrete", "continuous", or "binned"
+#' #'
+#' #' @return "y" for horizontal orientation, "x" otherwise
+#' #'
+#' #' @noRd
+#' #' @keywords internal
+#' get_aspect <- function(x_scale_type, y_scale_type) {
 #'
-#' Returns "y" if the plot has a horizontal orientation (non-discrete x, discrete y),
-#' otherwise returns "x".
+#'   if (x_scale_type == "discrete" & y_scale_type %in% c("continuous", "binned")) aspect <- "x"
+#'   else if (x_scale_type %in% c("continuous", "binned") & y_scale_type == "discrete") aspect <- "y"
+#'   else aspect <- "x"
+#'
+#'   return(aspect)
+#' }
+
+
+#' Determine plot aspect from scale types and flipped aesthetics
+#'
+#' Returns "y" if the plot has a horizontal orientation. This can be determined by:
+#' - Non-discrete x with discrete y scales
+#' - Presence of flipped_aes = TRUE in any data layer
 #'
 #' @param x_scale_type Scale type for x-axis: "discrete", "continuous", or "binned"
 #' @param y_scale_type Scale type for y-axis: "discrete", "continuous", or "binned"
+#' @param built A built ggplot object from ggplot_build(). Optional.
 #'
 #' @return "y" for horizontal orientation, "x" otherwise
 #'
 #' @noRd
 #' @keywords internal
-get_aspect <- function(x_scale_type, y_scale_type) {
+get_aspect <- function(x_scale_type, y_scale_type, built = NULL) {
 
-  if (x_scale_type == "discrete" & y_scale_type %in% c("continuous", "binned")) aspect <- "x"
-  else if (x_scale_type %in% c("continuous", "binned") & y_scale_type == "discrete") aspect <- "y"
-  else aspect <- "x"
+  # First check if any layer has flipped aesthetics
+  if (!is.null(built)) {
+    for (i in seq_along(built$data)) {
+      layer_data <- built$data[[i]]
+      if ("flipped_aes" %in% names(layer_data)) {
+        if (any(layer_data$flipped_aes, na.rm = TRUE)) {
+          return("y")
+        }
+      }
+    }
+  }
+
+  # Fall back to scale type detection
+  if (x_scale_type == "discrete" & y_scale_type %in% c("continuous", "binned")) {
+    aspect <- "x"
+  } else if (x_scale_type %in% c("continuous", "binned") & y_scale_type == "discrete") {
+    aspect <- "y"
+  } else {
+    aspect <- "x"
+  }
 
   return(aspect)
 }
