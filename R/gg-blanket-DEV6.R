@@ -5,10 +5,11 @@ gg_blanket <- function(data,
                        stat = "identity",
                        position = ggplot2::position_identity(),
                        coord = NULL,
-                       blend = NULL,
+                       # ggblanket-specific
                        annotate = NULL,
+                       blend = NULL,
                        border = NULL,
-                       bordercolour = \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x),
+                       bordercolour_transform = \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x),
                        aspect = NULL,
                        # aesthetics
                        x = NULL,
@@ -191,7 +192,7 @@ gg_blanket <- function(data,
   computed_colour <- NULL
   if (!is_colour_mapped) {
     computed_colour <- separated$fixed[["colour"]] %||% separated$fixed[["fill"]] %||% ggplot2::get_theme()$geom@fill
-    if (border) computed_colour <- bordercolour(computed_colour)
+    if (border) computed_colour <- bordercolour_transform(computed_colour)
   }
 
   # get linewidth param
@@ -388,7 +389,7 @@ gg_blanket <- function(data,
     }
 
     fill_na <- slate
-    if (border) colour_na <- bordercolour(fill_na)
+    if (border) colour_na <- bordercolour_transform(fill_na)
     else colour_na <- fill_na
 
     # Add fill scale based on type
@@ -436,8 +437,8 @@ gg_blanket <- function(data,
     if (!rlang::is_null(colour_scale_type)) {
       if (colour_scale_type == "discrete") {
         if (border) {
-          colour_palette <- colour_palette %||% bordercolour(fill_palette) %||%
-            bordercolour(ggplot2::get_theme()$palette.fill.discrete)
+          colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
+            bordercolour_transform(ggplot2::get_theme()$palette.fill.discrete)
         }
         else {
           colour_palette <- colour_palette %||% fill_palette %||%
@@ -457,8 +458,8 @@ gg_blanket <- function(data,
       }
       else if (colour_scale_type == "continuous") {
         if (border) {
-          colour_palette <- colour_palette %||% bordercolour(fill_palette) %||%
-            bordercolour(ggplot2::get_theme()$palette.fill.continuous)
+          colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
+            bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
         }
         else {
           colour_palette <- colour_palette %||% fill_palette %||%
@@ -478,8 +479,8 @@ gg_blanket <- function(data,
           )
       } else if (colour_scale_type == "binned") {
         if (border) {
-          colour_palette <- colour_palette %||% bordercolour(fill_palette) %||%
-            bordercolour(ggplot2::get_theme()$palette.fill.continuous)
+          colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
+            bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
         }
         else {
           colour_palette <- colour_palette %||% fill_palette %||%

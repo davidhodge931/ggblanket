@@ -191,9 +191,9 @@ theme_greyer <- function(
       ),
       panel.grid.minor.x = NULL,
       panel.grid.minor.y = NULL,
-      panel.spacing = NULL,
-      panel.spacing.x = grid::unit(20, "pt"),
-      panel.spacing.y = grid::unit(10, "pt"),
+      panel.spacing = grid::unit(20, "pt"),
+      panel.spacing.x = NULL,
+      panel.spacing.y = NULL,
       panel.ontop = FALSE,
       spacing = grid::unit(5.5, "pt"),
 

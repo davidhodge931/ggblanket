@@ -20,7 +20,7 @@ set_blanket <- function(
 
   #palette
   if (rlang::is_null(fill_palette)) {
-    fill_palette_d <- scales::pal_hue()
+    fill_palette_d <- jumble
     fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako"))
   }
   else if (purrr::is_list(fill_palette)) {

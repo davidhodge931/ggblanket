@@ -35,23 +35,16 @@
 #'   ),
 #' )
 #'
-#' p <- palmerpenguins::penguins |>
+#' tibble(x = -10:10, y = x^2) |>
 #'   gg_blanket(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     border = TRUE,
+#'     geom = "point",
+#'     x = x,
+#'     y = y,
+#'     annotate = list(
+#'       annotate_axis_line(position = "bottom", theme = "transparent"),
+#'       annotate_axis_ticks(x = seq(-10, 10, 5), theme = "transparent")
+#'     )
 #'   )
-#'
-#' # Full axis line at bottom
-#' p +
-#' annotate_axis_line(position = "bottom") +
-#' geom_point()
-#'
-#' # Vertical line at x=200, partial height
-#' p + annotate_axis_line(x = 200, ymin = I(0.25), ymax = I(0.75))
-#'
-#' # Horizontal line at y=4000, partial width
-#' p + annotate_axis_line(y = 4000, xmin = 180, xmax = 220)
 #'
 annotate_axis_line <- function(
     ...,
@@ -480,6 +473,28 @@ annotate_axis_line <- function(
 #'
 #' @return A list of annotation annotates and theme elements.
 #' @export
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' set_blanket(
+#'   theme = theme_greyer(
+#'     panel_heights = rep(unit(50, "mm"), 100),
+#'     panel_widths = rep(unit(75, "mm"), 100),
+#'   ),
+#' )
+#'
+#' tibble(x = -10:10, y = x^2) |>
+#'   gg_blanket(
+#'     geom = "point",
+#'     x = x,
+#'     y = y,
+#'     annotate = list(
+#'       annotate_axis_line(position = "bottom", theme = "transparent"),
+#'       annotate_axis_ticks(x = seq(-10, 10, 5), theme = "transparent")
+#'     )
+#'   )
+#'
 annotate_axis_ticks <- function(
     ...,
     position = NULL,
