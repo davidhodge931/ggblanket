@@ -380,32 +380,24 @@ gg_blanket <- function(data,
       )
   }
 
-  if (is_fill_mapped) {
-    if (rlang::is_null(fill_guide)) {
-      if (fill_scale_type == "discrete") fill_guide <- ggplot2::guide_legend()
-      if (fill_scale_type == "continuous") fill_guide <- ggplot2::guide_colourbar()
-      if (fill_scale_type == "binned") fill_guide <- ggplot2::guide_bins()
-    }
-    if (rlang::is_null(fill_labels)) {
-      if (colour_scale_type == "discrete") fill_labels <- ggplot2::waiver()
-      if (colour_scale_type == "continuous") fill_labels <- scales::label_comma()
-      if (colour_scale_type == "binned") fill_labels <- scales::label_comma()
-    }
+  fill_na <- oat
+  if (border) colour_na <- bordercolour_transform(fill_na)
+  else colour_na <- fill_na
 
-    fill_na <- slate
-    if (border) colour_na <- bordercolour_transform(fill_na)
-    else colour_na <- fill_na
+  fill_override <- slate
+  if (border) colour_override <- bordercolour_transform(fill_override)
+  else colour_override <- fill_override
 
     # Add fill scale based on type
-    if (!rlang::is_null(fill_scale_type)) {
+  if (!rlang::is_null(fill_scale_type)) {
       if (fill_scale_type == "discrete") {
         plot <- plot +
           ggplot2::scale_fill_discrete(
             palette = fill_palette %||% ggplot2::get_theme()$palette.fill.discrete,
             breaks = fill_breaks %||% ggplot2::waiver(),
             drop = fill_drop,
-            guide = fill_guide,
-            labels = fill_labels,
+            guide = fill_guide %||% ggplot2::guide_legend(),
+            labels = fill_labels %||% ggplot2::waiver(),
             limits = get_limits(fill_limits),
             na.value = fill_na
           )
@@ -415,8 +407,8 @@ gg_blanket <- function(data,
           ggplot2::scale_fill_continuous(
             palette = fill_palette %||% ggplot2::get_theme()$palette.fill.continuous,
             breaks = fill_breaks %||% ggplot2::waiver(),
-            guide = fill_guide,
-            labels = fill_labels,
+            guide = fill_guide %||% ggplot2::guide_colourbar(),
+            labels = fill_labels %||% scales::label_comma(),
             limits = fill_limits,
             rescaler = fill_rescaler,
             transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_),
@@ -427,83 +419,87 @@ gg_blanket <- function(data,
           ggplot2::scale_fill_binned(
             palette = fill_palette %||% ggplot2::get_theme()$palette.fill.continuous,
             breaks = fill_breaks %||% ggplot2::waiver(),
-            guide = fill_guide,
-            labels = fill_labels,
+            guide = fill_guide %||% ggplot2::guide_bins(),
+            labels = fill_labels %||% scales::label_comma(),
             limits = fill_limits,
             rescaler = fill_rescaler,
             transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_),
             na.value = fill_na
           )
       }
+    plot <- plot +
+      ggplot2::theme(geom = ggplot2::element_geom(fill = fill_override))
     }
 
-    # Add colour scale based on type - with fill fallbacks
-    if (!rlang::is_null(colour_scale_type)) {
-      if (colour_scale_type == "discrete") {
-        if (border) {
-          colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
-            bordercolour_transform(ggplot2::get_theme()$palette.fill.discrete)
-        }
-        else {
-          colour_palette <- colour_palette %||% fill_palette %||%
-            ggplot2::get_theme()$palette.fill.discrete
-        }
-
-        plot <- plot +
-          ggplot2::scale_colour_discrete(
-            palette = colour_palette ,
-            breaks = colour_breaks %||% fill_breaks,
-            drop = colour_drop  %||% fill_drop,
-            guide = colour_guide  %||%  fill_guide,
-            labels = colour_labels %||% fill_labels,
-            limits = colour_limits %||% fill_limits,
-            na.value = colour_na
-          )
+  # Add colour scale based on type - with fill fallbacks
+  if (!rlang::is_null(colour_scale_type)) {
+    if (colour_scale_type == "discrete") {
+      if (border) {
+        colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
+          bordercolour_transform(ggplot2::get_theme()$palette.fill.discrete)
       }
-      else if (colour_scale_type == "continuous") {
-        if (border) {
-          colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
-            bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
-        }
-        else {
-          colour_palette <- colour_palette %||% fill_palette %||%
-            ggplot2::get_theme()$palette.fill.continuous
-        }
-
-        plot <- plot +
-          ggplot2::scale_colour_continuous(
-            palette = colour_palette ,
-            breaks = colour_breaks %||% fill_breaks,
-            guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide,
-            labels = colour_labels %||% fill_labels,
-            limits = colour_limits %||% fill_limits,
-            rescaler = colour_rescaler %||% fill_rescaler,
-            transform = colour_transform %||% fill_transform,
-            na.value = colour_na
-          )
-      } else if (colour_scale_type == "binned") {
-        if (border) {
-          colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
-            bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
-        }
-        else {
-          colour_palette <- colour_palette %||% fill_palette %||%
-            ggplot2::get_theme()$palette.fill.continuous
-        }
-
-        plot <- plot +
-          ggplot2::scale_colour_binned(
-            palette = colour_palette ,
-            breaks = colour_breaks %||% fill_breaks,
-            guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide,
-            labels = colour_labels %||% fill_labels,
-            limits = colour_limits %||% fill_limits,
-            rescaler = colour_rescaler %||% fill_rescaler,
-            transform = colour_transform %||% fill_transform,
-            na.value = colour_na
-          )
+      else {
+        colour_palette <- colour_palette %||% fill_palette %||%
+          ggplot2::get_theme()$palette.fill.discrete
       }
+
+      plot <- plot +
+        ggplot2::scale_colour_discrete(
+          palette = colour_palette ,
+          breaks = colour_breaks %||% fill_breaks,
+          drop = colour_drop  %||% fill_drop,
+          guide = colour_guide  %||%  fill_guide %||% ggplot2::guide_legend(),
+          labels = colour_labels %||% fill_labels %||% ggplot2::waiver(),
+          limits = colour_limits %||% fill_limits,
+          na.value = colour_na
+        )
     }
+    else if (colour_scale_type == "continuous") {
+      if (border) {
+        colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
+          bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
+      }
+      else {
+        colour_palette <- colour_palette %||% fill_palette %||%
+          ggplot2::get_theme()$palette.fill.continuous
+      }
+
+      plot <- plot +
+        ggplot2::scale_colour_continuous(
+          palette = colour_palette ,
+          breaks = colour_breaks %||% fill_breaks,
+          guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_colorsteps(),
+          labels = colour_labels %||% fill_labels %||% scales::label_comma(),
+          limits = colour_limits %||% fill_limits,
+          rescaler = colour_rescaler %||% fill_rescaler,
+          transform = colour_transform %||% fill_transform,
+          na.value = colour_na
+        )
+    } else if (colour_scale_type == "binned") {
+      if (border) {
+        colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
+          bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
+      }
+      else {
+        colour_palette <- colour_palette %||% fill_palette %||%
+          ggplot2::get_theme()$palette.fill.continuous
+      }
+
+      plot <- plot +
+        ggplot2::scale_colour_binned(
+          palette = colour_palette ,
+          breaks = colour_breaks %||% fill_breaks,
+          guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_bins(),
+          labels = colour_labels %||% fill_labels %||% scales::label_comma(),
+          limits = colour_limits %||% fill_limits,
+          rescaler = colour_rescaler %||% fill_rescaler,
+          transform = colour_transform %||% fill_transform,
+          na.value = colour_na
+        )
+    }
+
+    plot <- plot +
+      ggplot2::theme(geom = ggplot2::element_geom(colour = colour_override))
   }
 
   if (ggplot2::is_waiver(x_title)) x_title <- snakecase::to_sentence_case
