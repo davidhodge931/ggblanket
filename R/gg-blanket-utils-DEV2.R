@@ -78,10 +78,10 @@ separate_fixed_and_mapped_aesthetics <- function(aesthetics, data = NULL) {
 #'
 #' p1 <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 #' built1 <- ggplot_build(p1)
-#' identify_scale(built1)
+#' identify(built1)
 #'
 #' @export
-identify_scale <- function(built) {
+identify <- function(built) {
   scales_info <- list()
 
   extract_scale_info <- function(scale) {
@@ -238,19 +238,35 @@ is_stat_sf <- function(stat_str) {
 }
 
 #' Get coord
-#' @param stat A stat
-#' @param aspect Either "x" or or "y"
+#' @param stat_str A stat
+#' @param coord_xlim Zoom limits for the x axis.
+#' @param coord_ylim Zoom limits for the y axis.
+#' @param coord_clip Drawing clipped to the panel. "on" or "off".
+#' @param coord_reverse Which direction to reverse. "none", "x", "y" or "xy".
+#' @param coord_ratio Aspect ratio, expressed as y / x.
+#'
 #' @return A coord
 #' @keywords internal
-get_coord <- function(stat, aspect) {
-  if (aspect == "y") reverse <- "y"
-  else reverse <- "none"
+get_coord <- function(stat_str, coord_xlim, coord_ylim, coord_clip, coord_reverse,
+                      coord_ratio) {
 
-  if (is_stat_sf(stat)) {
-    coord <- ggplot2::coord_sf(clip = "off")
+  if (is_stat_sf(stat_str)) {
+    coord <- ggplot2::coord_sf(
+      xlim = coord_xlim,
+      ylim = coord_ylim,
+      clip = coord_clip,
+      reverse = coord_reverse,
+      ratio = coord_ratio
+    )
   }
   else {
-    coord <- ggplot2::coord_cartesian(clip = "off", reverse = reverse)
+    coord <- ggplot2::coord_cartesian(
+      xlim = coord_xlim,
+      ylim = coord_ylim,
+      clip = coord_clip,
+      reverse = coord_reverse,
+      ratio = coord_ratio
+    )
   }
 
   return(coord)
@@ -403,43 +419,21 @@ theme_to_aspect <- function(
   return(theme)
 }
 
-#' #' Determine plot aspect from scale types
-#' #'
-#' #' Returns "y" if the plot has a horizontal orientation (non-discrete x, discrete y),
-#' #' otherwise returns "x".
-#' #'
-#' #' @param x_scale_type Scale type for x-axis: "discrete", "continuous", or "binned"
-#' #' @param y_scale_type Scale type for y-axis: "discrete", "continuous", or "binned"
-#' #'
-#' #' @return "y" for horizontal orientation, "x" otherwise
-#' #'
-#' #' @noRd
-#' #' @keywords internal
-#' get_aspect <- function(x_scale_type, y_scale_type) {
-#'
-#'   if (x_scale_type == "discrete" & y_scale_type %in% c("continuous", "binned")) aspect <- "x"
-#'   else if (x_scale_type %in% c("continuous", "binned") & y_scale_type == "discrete") aspect <- "y"
-#'   else aspect <- "x"
-#'
-#'   return(aspect)
-#' }
-
-
 #' Determine plot aspect from scale types and flipped aesthetics
 #'
 #' Returns "y" if the plot has a horizontal orientation. This can be determined by:
 #' - Non-discrete x with discrete y scales
 #' - Presence of flipped_aes = TRUE in any data layer
 #'
-#' @param x_scale_type Scale type for x-axis: "discrete", "continuous", or "binned"
-#' @param y_scale_type Scale type for y-axis: "discrete", "continuous", or "binned"
+#' @param x_type Scale type for x-axis: "discrete", "continuous", or "binned"
+#' @param y_type Scale type for y-axis: "discrete", "continuous", or "binned"
 #' @param built A built ggplot object from ggplot_build(). Optional.
 #'
 #' @return "y" for horizontal orientation, "x" otherwise
 #'
 #' @noRd
 #' @keywords internal
-get_aspect <- function(x_scale_type, y_scale_type, built = NULL) {
+get_aspect <- function(x_type, y_type, built = NULL) {
 
   # First check if any layer has flipped aesthetics
   if (!is.null(built)) {
@@ -454,9 +448,9 @@ get_aspect <- function(x_scale_type, y_scale_type, built = NULL) {
   }
 
   # Fall back to scale type detection
-  if (x_scale_type == "discrete" & y_scale_type %in% c("continuous", "binned")) {
+  if (x_type == "discrete" & y_type %in% c("continuous", "binned")) {
     aspect <- "x"
-  } else if (x_scale_type %in% c("continuous", "binned") & y_scale_type == "discrete") {
+  } else if (x_type %in% c("continuous", "binned") & y_type == "discrete") {
     aspect <- "y"
   } else {
     aspect <- "x"

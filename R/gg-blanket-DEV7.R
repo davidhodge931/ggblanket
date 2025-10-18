@@ -4,10 +4,9 @@ gg_blanket <- function(data,
                        geom = "blank",
                        stat = "identity",
                        position = ggplot2::position_identity(),
-                       coord = NULL,
-                       # ggblanket-specific
                        annotate = NULL,
                        blend = NULL,
+                       # ggblanket-specific
                        border = NULL,
                        bordercolour_transform = \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x),
                        aspect = NULL,
@@ -16,10 +15,12 @@ gg_blanket <- function(data,
                        xmin = NULL,
                        xmax = NULL,
                        xend = NULL,
+                       xintercept = NULL,
                        y = NULL,
                        ymin = NULL,
                        ymax = NULL,
                        yend = NULL,
+                       yintercept = NULL,
                        z = NULL,
                        fill = NULL,
                        colour = NULL,
@@ -36,15 +37,13 @@ gg_blanket <- function(data,
                        height = NULL,
                        slope = NULL,
                        intercept = NULL,
-                       xintercept = NULL,
-                       yintercept = NULL,
                        sample = NULL,
                        angle = NULL,
                        radius = NULL,
                        mapping = ggplot2::aes(),
-                       # x scale arguments
-                       x_scale_type = NULL,
-                       x_scale_temporal = NULL,
+                       # x scale
+                       x_type = NULL,
+                       x_temporal = NULL,
                        x_breaks = NULL,
                        x_drop = FALSE,
                        x_expand = NULL,
@@ -58,9 +57,9 @@ gg_blanket <- function(data,
                        x_sec_axis = ggplot2::waiver(),
                        x_title = ggplot2::waiver(),
                        x_transform = NULL,
-                       # y scale arguments
-                       y_scale_type = NULL,
-                       y_scale_temporal = NULL,
+                       # y scale
+                       y_type = NULL,
+                       y_temporal = NULL,
                        y_breaks = NULL,
                        y_drop = FALSE,
                        y_expand = NULL,
@@ -74,9 +73,9 @@ gg_blanket <- function(data,
                        y_sec_axis = ggplot2::waiver(),
                        y_title = ggplot2::waiver(),
                        y_transform = NULL,
-                       # fill scale arguments
-                       fill_scale_type = NULL,
-                       fill_scale_temporal = NULL,
+                       # fill scale
+                       fill_type = NULL,
+                       fill_temporal = NULL,
                        fill_breaks = ggplot2::waiver(),
                        fill_drop = FALSE,
                        fill_guide = NULL,
@@ -87,9 +86,9 @@ gg_blanket <- function(data,
                        fill_palette = NULL,
                        fill_title = ggplot2::waiver(),
                        fill_transform = "identity",
-                       # colour scale arguments
-                       colour_scale_type = NULL,
-                       colour_scale_temporal = NULL,
+                       # colour scaleS
+                       colour_type = NULL,
+                       colour_temporal = NULL,
                        colour_breaks = NULL,
                        colour_drop = NULL,
                        colour_guide = NULL,
@@ -101,16 +100,24 @@ gg_blanket <- function(data,
                        colour_title = ggplot2::waiver(),
                        colour_transform = NULL,
                        #facet
-                       facet = NULL,
-                       facet2 = NULL,
+                       facet_facets = NULL,
+                       facet_rows = NULL,
+                       facet_cols = NULL,
                        facet_axes = "margins",
                        facet_axis_labels = "all",
                        facet_drop = FALSE,
-                       facet_layout = "wrap",
+                       facet_labeller = "label_value",
                        facet_ncol = NULL,
                        facet_nrow = NULL,
                        facet_scales = "fixed",
-                       facet_space = "fixed"
+                       facet_space = "fixed",
+                       #coord
+                       coord_xlim = NULL,
+                       coord_ylim = NULL,
+                       coord_clip = "on",
+                       coord_reverse = "none",
+                       coord_ratio = NULL
+
 ) {
 
   # Capture all aesthetics using enquos for lazy evaluation
@@ -144,8 +151,6 @@ gg_blanket <- function(data,
     sample = sample,
     angle = angle,
     radius = radius,
-    facet = facet,
-    facet2 = facet2,
     .ignore_empty = "all",
     .ignore_null = "all"
   )
@@ -274,22 +279,30 @@ gg_blanket <- function(data,
 
   # Build and identify scales
   built <- ggplot2::ggplot_build(plot)
-  scale_info <- identify_scale(built)
+  scale_info <- identify(built)
 
-  x_scale_type <- x_scale_type %||% scale_info$x$type
-  y_scale_type <- y_scale_type %||% scale_info$y$type
-  x_scale_temporal <- x_scale_temporal %||% scale_info$x$temporal
-  y_scale_temporal <- y_scale_temporal %||% scale_info$y$temporal
-  fill_scale_type <- fill_scale_type %||% scale_info$fill$type
-  fill_scale_temporal <- fill_scale_temporal %||% scale_info$fill$temporal
-  colour_scale_type <- colour_scale_type %||% scale_info$colour$type %||% scale_info$fill$type
-  colour_scale_temporal <- colour_scale_temporal %||% scale_info$colour$temporal %||% scale_info$fill$temporal
+  x_type <- x_type %||% scale_info$x$type
+  y_type <- y_type %||% scale_info$y$type
+  x_temporal <- x_temporal %||% scale_info$x$temporal
+  y_temporal <- y_temporal %||% scale_info$y$temporal
+  fill_type <- fill_type %||% scale_info$fill$type
+  fill_temporal <- fill_temporal %||% scale_info$fill$temporal
+  colour_type <- colour_type %||% scale_info$colour$type %||% scale_info$fill$type
+  colour_temporal <- colour_temporal %||% scale_info$colour$temporal %||% scale_info$fill$temporal
 
-  aspect <- aspect %||% get_aspect(built = built, x_scale_type = x_scale_type, y_scale_type = y_scale_type)
-  coord <- coord %||% get_coord(stat_str, aspect)
+  aspect <- aspect %||% get_aspect(built = built, x_type = x_type, y_type = y_type)
+
+  coord <- get_coord(
+    stat_str = stat_str,
+    coord_xlim = coord_xlim,
+    coord_ylim = coord_ylim,
+    coord_clip = coord_clip,
+    coord_reverse = coord_reverse,
+    coord_ratio = coord_ratio
+  )
 
   # Add x scale based on type
-  if (x_scale_type == "discrete") {
+  if (x_type == "discrete") {
     plot <- plot +
       ggplot2::scale_x_discrete(
         breaks = x_breaks %||% ggplot2::waiver(),
@@ -305,37 +318,37 @@ gg_blanket <- function(data,
         sec.axis = x_sec_axis
       )
   }
-  else if (x_scale_type == "continuous") {
+  else if (x_type == "continuous") {
     plot <- plot +
       ggplot2::scale_x_continuous(
         breaks = x_breaks %||% ggplot2::waiver(),
         minor_breaks = x_minor_breaks %||% ggplot2::waiver(),
         expand = x_expand %||% get_expand(scale_info$x$limits),
         guide = x_guide,
-        labels = x_labels %||% get_labels(stat_str, x_scale_temporal),
+        labels = x_labels %||% get_labels(stat_str, x_temporal),
         limits = x_limits,
         oob = x_oob,
         position = x_position,
         sec.axis = x_sec_axis,
-        transform = x_transform %||% get_transform(x_scale_temporal)
+        transform = x_transform %||% get_transform(x_temporal)
       )
   }
-  else if (x_scale_type == "binned") {
+  else if (x_type == "binned") {
     plot <- plot +
       ggplot2::scale_x_binned(
         breaks = x_breaks %||% ggplot2::waiver(),
         expand = x_expand %||% get_expand(scale_info$x$limits),
         guide = x_guide,
-        labels = x_labels %||% get_labels(stat_str, x_scale_temporal),
+        labels = x_labels %||% get_labels(stat_str, x_temporal),
         limits = x_limits,
         oob = x_oob,
         position = x_position,
-        transform = x_transform %||% get_transform(x_scale_temporal)
+        transform = x_transform %||% get_transform(x_temporal)
       )
   }
 
   # Add y scale based on type
-  if (y_scale_type == "discrete") {
+  if (y_type == "discrete") {
     plot <- plot +
       ggplot2::scale_y_discrete(
         breaks = y_breaks %||% ggplot2::waiver(),
@@ -351,32 +364,32 @@ gg_blanket <- function(data,
         sec.axis = y_sec_axis
       )
   }
-  else if (y_scale_type == "continuous") {
+  else if (y_type == "continuous") {
     plot <- plot +
       ggplot2::scale_y_continuous(
         breaks = y_breaks %||% ggplot2::waiver(),
         minor_breaks = y_minor_breaks %||% ggplot2::waiver(),
         expand = y_expand %||% get_expand(scale_info$y$limits),
         guide = y_guide,
-        labels = y_labels %||% get_labels(stat_str, y_scale_temporal),
+        labels = y_labels %||% get_labels(stat_str, y_temporal),
         limits = y_limits,
         oob = y_oob,
         position = y_position,
         sec.axis = y_sec_axis,
-        transform = y_transform %||% get_transform(y_scale_temporal)
+        transform = y_transform %||% get_transform(y_temporal)
       )
   }
-  else if (y_scale_type == "binned") {
+  else if (y_type == "binned") {
     plot <- plot +
       ggplot2::scale_y_binned(
         breaks = y_breaks %||% ggplot2::waiver(),
         expand = y_expand %||% get_expand(scale_info$y$limits),
         guide = y_guide,
-        labels = y_labels %||% get_labels(stat_str, y_scale_temporal),
+        labels = y_labels %||% get_labels(stat_str, y_temporal),
         limits = y_limits,
         oob = y_oob,
         position = y_position,
-        transform = y_transform %||% get_transform(y_scale_temporal)
+        transform = y_transform %||% get_transform(y_temporal)
       )
   }
 
@@ -389,8 +402,8 @@ gg_blanket <- function(data,
   else colour_override <- fill_override
 
     # Add fill scale based on type
-  if (!rlang::is_null(fill_scale_type)) {
-      if (fill_scale_type == "discrete") {
+  if (!rlang::is_null(fill_type)) {
+      if (fill_type == "discrete") {
         plot <- plot +
           ggplot2::scale_fill_discrete(
             palette = fill_palette %||% ggplot2::get_theme()$palette.fill.discrete,
@@ -402,7 +415,7 @@ gg_blanket <- function(data,
             na.value = fill_na
           )
       }
-      else if (fill_scale_type == "continuous") {
+      else if (fill_type == "continuous") {
         plot <- plot +
           ggplot2::scale_fill_continuous(
             palette = fill_palette %||% ggplot2::get_theme()$palette.fill.continuous,
@@ -411,10 +424,10 @@ gg_blanket <- function(data,
             labels = fill_labels %||% scales::label_comma(),
             limits = fill_limits,
             rescaler = fill_rescaler,
-            transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_),
+            transform = fill_transform %||% get_transform(fill_temporal %||% NA_character_),
             na.value = fill_na
           )
-      } else if (fill_scale_type == "binned") {
+      } else if (fill_type == "binned") {
         plot <- plot +
           ggplot2::scale_fill_binned(
             palette = fill_palette %||% ggplot2::get_theme()$palette.fill.continuous,
@@ -423,7 +436,7 @@ gg_blanket <- function(data,
             labels = fill_labels %||% scales::label_comma(),
             limits = fill_limits,
             rescaler = fill_rescaler,
-            transform = fill_transform %||% get_transform(fill_scale_temporal %||% NA_character_),
+            transform = fill_transform %||% get_transform(fill_temporal %||% NA_character_),
             na.value = fill_na
           )
       }
@@ -432,8 +445,8 @@ gg_blanket <- function(data,
     }
 
   # Add colour scale based on type - with fill fallbacks
-  if (!rlang::is_null(colour_scale_type)) {
-    if (colour_scale_type == "discrete") {
+  if (!rlang::is_null(colour_type)) {
+    if (colour_type == "discrete") {
       if (border) {
         colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
           bordercolour_transform(ggplot2::get_theme()$palette.fill.discrete)
@@ -454,7 +467,7 @@ gg_blanket <- function(data,
           na.value = colour_na
         )
     }
-    else if (colour_scale_type == "continuous") {
+    else if (colour_type == "continuous") {
       if (border) {
         colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
           bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
@@ -475,7 +488,7 @@ gg_blanket <- function(data,
           transform = colour_transform %||% fill_transform,
           na.value = colour_na
         )
-    } else if (colour_scale_type == "binned") {
+    } else if (colour_type == "binned") {
       if (border) {
         colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
           bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
@@ -518,21 +531,10 @@ gg_blanket <- function(data,
     )
 
   # Add faceting if specified
-  if ("facet" %in% names(separated$mapped)) {
-    facet_var <- separated$mapped$facet
-    facet2_var <- if ("facet2" %in% names(separated$mapped)) separated$mapped$facet2 else NULL
-
-    if (facet_layout == "wrap") {
-      # Build vars() call for facet_wrap
-      if (!is.null(facet2_var)) {
-        facet_vars <- rlang::quos(!!facet_var, !!facet2_var)
-      } else {
-        facet_vars <- rlang::quos(!!facet_var)
-      }
-
+    if (!rlang::is_null(facet_facets)) {
       plot <- plot +
         ggplot2::facet_wrap(
-          facets = facet_vars,
+          facets = facet_facets,
           nrow = facet_nrow,
           ncol = facet_ncol,
           scales = facet_scales,
@@ -540,11 +542,11 @@ gg_blanket <- function(data,
           axes = facet_axes,
           axis.labels = facet_axis_labels
         )
-    } else if (facet_layout == "grid") {
+    } else if (!rlang::is_null(facet_rows) | !rlang::is_null(facet_cols)) {
       plot <- plot +
         ggplot2::facet_grid(
-          rows = rlang::quos(!!facet_var),
-          cols = if (!is.null(facet2_var)) rlang::quos(!!facet2_var) else NULL,
+          rows = facet_rows,
+          cols = facet_cols,
           scales = facet_scales,
           space = facet_space,
           drop = facet_drop,
@@ -552,7 +554,6 @@ gg_blanket <- function(data,
           axis.labels = facet_axis_labels
         )
     }
-  }
 
   return(plot)
 }
