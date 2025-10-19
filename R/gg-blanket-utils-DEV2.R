@@ -78,10 +78,10 @@ separate_fixed_and_mapped_aesthetics <- function(aesthetics, data = NULL) {
 #'
 #' p1 <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 #' built1 <- ggplot_build(p1)
-#' identify(built1)
+#' identify_scale(built1)
 #'
 #' @export
-identify <- function(built) {
+identify_scale <- function(built) {
   scales_info <- list()
 
   extract_scale_info <- function(scale) {

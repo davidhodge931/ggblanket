@@ -4,9 +4,9 @@ gg_blanket <- function(data,
                        geom = "blank",
                        stat = "identity",
                        position = ggplot2::position_identity(),
+                       # ggblanket-specific
                        annotate = NULL,
                        blend = NULL,
-                       # ggblanket-specific
                        border = NULL,
                        bordercolour_transform = \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x),
                        aspect = NULL,
@@ -279,7 +279,7 @@ gg_blanket <- function(data,
 
   # Build and identify scales
   built <- ggplot2::ggplot_build(plot)
-  scale_info <- identify(built)
+  scale_info <- identify_scale(built)
 
   x_type <- x_type %||% scale_info$x$type
   y_type <- y_type %||% scale_info$y$type
