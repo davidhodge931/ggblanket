@@ -271,7 +271,7 @@ is_stat_sf <- function(stat_str) {
 #' @param coord_ylim Zoom limits for the y axis.
 #' @param coord_clip Drawing clipped to the panel. "on" or "off".
 #' @param coord_reverse Which direction to reverse. "none", "x", "y" or "xy".
-#' @param coord_ratio Aspect ratio, expressed as y / x.
+#' @param coord_ratio theme_orientation ratio, expressed as y / x.
 #'
 #' @return A coord
 #' @keywords internal
@@ -300,14 +300,14 @@ get_coord <- function(stat_str, coord_xlim, coord_ylim, coord_clip, coord_revers
   return(coord)
 }
 
-#' Modify theme elements for a specific axis aspect
+#' Modify theme elements for a specific axis theme_orientation
 #'
-#' @param aspect Axis aspect to modify: `"x"` modifies y-axis and x-grid elements,
+#' @param theme_orientation Axis theme_orientation to modify: `"x"` modifies y-axis and x-grid elements,
 #'   `"y"` modifies x-axis and y-grid elements.
-#' @param aspect_axis_line Treatment for axis lines: `"transparent"` makes them
+#' @param theme_orientation_axis_line Treatment for axis lines: `"transparent"` makes them
 #'   invisible but present, `"keep"` leaves them unchanged, `"blank"` removes them.
-#' @param aspect_axis_ticks Treatment for axis ticks.
-#' @param aspect_panel_grid Treatment for panel grid lines.
+#' @param theme_orientation_axis_ticks Treatment for axis ticks.
+#' @param theme_orientation_panel_grid Treatment for panel grid lines.
 #'
 #' @return A ggplot2 theme object.
 #'
@@ -317,38 +317,38 @@ get_coord <- function(stat_str, coord_xlim, coord_ylim, coord_clip, coord_revers
 #' # Hide y-axis lines and x-grid
 #' ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +
-#'   theme_to_aspect("x", aspect_axis_line = "blank", aspect_panel_grid = "blank")
+#'   theme_to_theme_orientation("x", theme_orientation_axis_line = "blank", theme_orientation_panel_grid = "blank")
 #'
 #' @export
-theme_to_aspect <- function(
-    aspect = c("x", "y"),
-    aspect_axis_line = NULL,
-    aspect_axis_ticks = NULL,
-    aspect_panel_grid = NULL) {
+theme_to_theme_orientation <- function(
+    theme_orientation = c("x", "y"),
+    theme_orientation_axis_line = NULL,
+    theme_orientation_axis_ticks = NULL,
+    theme_orientation_panel_grid = NULL) {
 
-  aspect_axis_line <- aspect_axis_line %||% getOption("ggblanket.aspect_axis_line") %||% "transparent"
-  aspect_axis_ticks <- aspect_axis_ticks %||% getOption("ggblanket.aspect_axis_ticks") %||% "transparent"
-  aspect_panel_grid <- aspect_panel_grid %||% getOption("ggblanket.aspect_panel_grid") %||% "transparent"
+  theme_orientation_axis_line <- theme_orientation_axis_line %||% getOption("ggblanket.theme_orientation_axis_line") %||% "transparent"
+  theme_orientation_axis_ticks <- theme_orientation_axis_ticks %||% getOption("ggblanket.theme_orientation_axis_ticks") %||% "transparent"
+  theme_orientation_panel_grid <- theme_orientation_panel_grid %||% getOption("ggblanket.theme_orientation_panel_grid") %||% "transparent"
 
   # Validate inputs
-  aspect <- rlang::arg_match(aspect, values = c("x", "y"))
-  aspect_axis_line <- rlang::arg_match(aspect_axis_line, values = c("transparent", "keep", "blank"))
-  aspect_axis_ticks <- rlang::arg_match(aspect_axis_ticks, values = c("transparent", "keep", "blank"))
-  aspect_panel_grid <- rlang::arg_match(aspect_panel_grid, values = c("transparent", "keep", "blank"))
+  theme_orientation <- rlang::arg_match(theme_orientation, values = c("x", "y"))
+  theme_orientation_axis_line <- rlang::arg_match(theme_orientation_axis_line, values = c("transparent", "keep", "blank"))
+  theme_orientation_axis_ticks <- rlang::arg_match(theme_orientation_axis_ticks, values = c("transparent", "keep", "blank"))
+  theme_orientation_panel_grid <- rlang::arg_match(theme_orientation_panel_grid, values = c("transparent", "keep", "blank"))
 
   theme <- ggplot2::theme()
 
-  if (aspect == "x") {
-    # For x aspect, modify y-axis elements and x-grid elements
+  if (theme_orientation == "x") {
+    # For x theme_orientation, modify y-axis elements and x-grid elements
 
     # Axis lines (y-axis)
-    if (aspect_axis_line == "transparent") {
+    if (theme_orientation_axis_line == "transparent") {
       theme <- theme +
         ggplot2::theme(
           axis.line.y.left = ggplot2::element_line(colour = "transparent"),
           axis.line.y.right = ggplot2::element_line(colour = "transparent")
         )
-    } else if (aspect_axis_line == "blank") {
+    } else if (theme_orientation_axis_line == "blank") {
       theme <- theme +
         ggplot2::theme(
           axis.line.y.left = ggplot2::element_blank(),
@@ -358,7 +358,7 @@ theme_to_aspect <- function(
     # "keep" means no modification
 
     # Axis ticks (y-axis)
-    if (aspect_axis_ticks == "transparent") {
+    if (theme_orientation_axis_ticks == "transparent") {
       theme <- theme +
         ggplot2::theme(
           axis.ticks.y.left = ggplot2::element_line(colour = "transparent"),
@@ -366,7 +366,7 @@ theme_to_aspect <- function(
           axis.minor.ticks.y.left = ggplot2::element_line(colour = "transparent"),
           axis.minor.ticks.y.right = ggplot2::element_line(colour = "transparent")
         )
-    } else if (aspect_axis_ticks == "blank") {
+    } else if (theme_orientation_axis_ticks == "blank") {
       theme <- theme +
         ggplot2::theme(
           axis.ticks.y.left = ggplot2::element_blank(),
@@ -377,13 +377,13 @@ theme_to_aspect <- function(
     }
 
     # Panel grid (x-grid)
-    if (aspect_panel_grid == "transparent") {
+    if (theme_orientation_panel_grid == "transparent") {
       theme <- theme +
         ggplot2::theme(
           panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
           panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
         )
-    } else if (aspect_panel_grid == "blank") {
+    } else if (theme_orientation_panel_grid == "blank") {
       theme <- theme +
         ggplot2::theme(
           panel.grid.major.x = ggplot2::element_blank(),
@@ -391,17 +391,17 @@ theme_to_aspect <- function(
         )
     }
   }
-  else if (aspect == "y") {
-    # For y aspect, modify x-axis elements and y-grid elements
+  else if (theme_orientation == "y") {
+    # For y theme_orientation, modify x-axis elements and y-grid elements
 
     # Axis lines (x-axis)
-    if (aspect_axis_line == "transparent") {
+    if (theme_orientation_axis_line == "transparent") {
       theme <- theme +
         ggplot2::theme(
           axis.line.x.bottom = ggplot2::element_line(colour = "transparent"),
           axis.line.x.top = ggplot2::element_line(colour = "transparent")
         )
-    } else if (aspect_axis_line == "blank") {
+    } else if (theme_orientation_axis_line == "blank") {
       theme <- theme +
         ggplot2::theme(
           axis.line.x.bottom = ggplot2::element_blank(),
@@ -410,7 +410,7 @@ theme_to_aspect <- function(
     }
 
     # Axis ticks (x-axis)
-    if (aspect_axis_ticks == "transparent") {
+    if (theme_orientation_axis_ticks == "transparent") {
       theme <- theme +
         ggplot2::theme(
           axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent"),
@@ -418,7 +418,7 @@ theme_to_aspect <- function(
           axis.minor.ticks.x.bottom = ggplot2::element_line(colour = "transparent"),
           axis.minor.ticks.x.top = ggplot2::element_line(colour = "transparent")
         )
-    } else if (aspect_axis_ticks == "blank") {
+    } else if (theme_orientation_axis_ticks == "blank") {
       theme <- theme +
         ggplot2::theme(
           axis.ticks.x.bottom = ggplot2::element_blank(),
@@ -429,13 +429,13 @@ theme_to_aspect <- function(
     }
 
     # Panel grid (y-grid)
-    if (aspect_panel_grid == "transparent") {
+    if (theme_orientation_panel_grid == "transparent") {
       theme <- theme +
         ggplot2::theme(
           panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
           panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
         )
-    } else if (aspect_panel_grid == "blank") {
+    } else if (theme_orientation_panel_grid == "blank") {
       theme <- theme +
         ggplot2::theme(
           panel.grid.major.y = ggplot2::element_blank(),
@@ -447,7 +447,7 @@ theme_to_aspect <- function(
   return(theme)
 }
 
-#' Determine plot aspect from scale types and flipped aesthetics
+#' Determine plot theme_orientation from scale types and flipped aesthetics
 #'
 #' Returns "y" if the plot has a horizontal orientation. This can be determined by:
 #' - Non-discrete x with discrete y scales
@@ -461,7 +461,7 @@ theme_to_aspect <- function(
 #'
 #' @noRd
 #' @keywords internal
-get_aspect <- function(x_type, y_type, built = NULL) {
+get_theme_orientation <- function(x_type, y_type, built = NULL) {
 
   # First check if any layer has flipped aesthetics
   if (!is.null(built)) {
@@ -477,14 +477,14 @@ get_aspect <- function(x_type, y_type, built = NULL) {
 
   # Fall back to scale type detection
   if (x_type == "discrete" & y_type %in% c("continuous", "binned")) {
-    aspect <- "x"
+    theme_orientation <- "x"
   } else if (x_type %in% c("continuous", "binned") & y_type == "discrete") {
-    aspect <- "y"
+    theme_orientation <- "y"
   } else {
-    aspect <- "x"
+    theme_orientation <- "x"
   }
 
-  return(aspect)
+  return(theme_orientation)
 }
 
 #' Check if geom is a border-type geom

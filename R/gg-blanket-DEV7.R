@@ -9,7 +9,8 @@ gg_blanket <- function(data,
                        blend = NULL,
                        border = NULL,
                        bordercolour_transform = \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x),
-                       aspect = NULL,
+                       theme_orientation = NULL,
+                       theme_transform = theme_transform_modern,
                        # aesthetics
                        x = NULL,
                        xmin = NULL,
@@ -272,7 +273,7 @@ gg_blanket <- function(data,
     }
   }
 
-  ### identify scales and aspect
+  ### identify scales and theme_orientation
   built <- ggplot2::ggplot_build(plot)
 
   scale_info <- identify_scale(built)
@@ -287,7 +288,7 @@ gg_blanket <- function(data,
   fill_temporal <- fill_temporal %||% scale_info$fill$temporal
   colour_temporal <- colour_temporal %||% scale_info$colour$temporal %||% scale_info$fill$temporal
 
-  aspect <- aspect %||% get_aspect(built = built, x_type = x_type, y_type = y_type)
+  theme_orientation <- theme_orientation %||% get_theme_orientation(built = built, x_type = x_type, y_type = y_type)
 
   ### scales
   if (x_type == "discrete") {
@@ -561,9 +562,11 @@ gg_blanket <- function(data,
         )
     }
 
-  ### aspect
+  ### theme_orientation
   plot <- plot +
-    theme_to_aspect(aspect = aspect)
+    theme_transform(theme_orientation = theme_orientation,
+                    x_type = x_type,
+                    y_type = y_type)
 
   return(plot)
 }
