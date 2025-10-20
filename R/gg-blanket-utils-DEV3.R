@@ -1,12 +1,25 @@
-#' Combine individual aesthetics with mapping argument
+#' #' Combine individual aesthetics with mapping argument
+#' #'
+#' #' This function handles the mapping argument which can contain multiple aes() objects.
+#' #' We use a defuse-and-inject approach to properly handle nested aes objects.
+#' #'
+#' #' @param individual_aesthetics List of quosures from individual arguments
+#' #' @param mapping Additional aes() mapping that may contain multiple aes objects
+#' #' @return Combined aesthetic mapping
+#' #' @keywords internal
+#' combine_aesthetics <- function(individual_aesthetics, mapping) {
+#'   base_mapping <- if (length(individual_aesthetics) > 0) {
+#'     rlang::inject(ggplot2::aes(!!!individual_aesthetics))
+#'   } else {
+#'     ggplot2::aes()
+#'   }
 #'
-#' This function handles the mapping argument which can contain multiple aes() objects.
-#' We use a defuse-and-inject approach to properly handle nested aes objects.
-#'
-#' @param individual_aesthetics List of quosures from individual arguments
-#' @param mapping Additional aes() mapping that may contain multiple aes objects
-#' @return Combined aesthetic mapping
-#' @keywords internal
+#'   if (rlang::is_null(mapping)) return(base_mapping) else {
+#'     purrr::iwalk(mapping, \(x, name) base_mapping[[name]] <<- x)
+#'     return(base_mapping)
+#'   }
+#' }
+
 combine_aesthetics <- function(individual_aesthetics, mapping) {
   base_mapping <- if (length(individual_aesthetics) > 0) {
     rlang::inject(ggplot2::aes(!!!individual_aesthetics))
@@ -14,10 +27,12 @@ combine_aesthetics <- function(individual_aesthetics, mapping) {
     ggplot2::aes()
   }
 
-  if (rlang::is_null(mapping)) return(base_mapping) else {
-    purrr::iwalk(mapping, \(x, name) base_mapping[[name]] <<- x)
-    return(base_mapping)
+  if (!rlang::is_null(mapping)) {
+    all_mappings <- c(as.list(base_mapping), as.list(mapping))
+    base_mapping <- do.call(ggplot2::aes, all_mappings)
   }
+
+  return(base_mapping)
 }
 
 #' Separate fixed values from aesthetic mappings
@@ -170,14 +185,14 @@ get_labels <- function(stat, temporal) {
   if (is_stat_sf(stat)) labels <- ggplot2::waiver()
   else {
     if (is.na(temporal)) {
-      labels <- scales::label_comma()
+      labels <- scales::label_number()
     }
     else {
       labels <- switch(temporal,
                        date = scales::label_date_short(),
                        datetime = scales::label_date_short(),
                        time = scales::label_time(),
-                       scales::label_comma()
+                       scales::label_number()
       )
     }
   }

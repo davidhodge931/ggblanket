@@ -120,7 +120,16 @@ gg_blanket <- function(data,
 
 ) {
 
-  # Capture all aesthetics using enquos for lazy evaluation
+  ### get geom and stat names
+  if (inherits(geom, "Geom")) {
+    geom_str <- class(geom)[1] |> stringr::str_remove("^Geom") |> snakecase::to_snake_case()
+  } else geom_str <- geom
+
+  if (inherits(stat, "Stat")) {
+    stat_str <- class(stat)[1] |> stringr::str_remove("^Stat") |> snakecase::to_snake_case()
+  } else stat_str <- stat
+
+  ### make aesthetics list
   aesthetics <- rlang::enquos(
     x = x,
     xmin = xmin,
@@ -155,37 +164,20 @@ gg_blanket <- function(data,
     .ignore_null = "all"
   )
 
-  # Get a list of fixed aesthetics and mapped aesthetic
+  ### identify whether aesthetics mapped/fixed
   separated <- separate_fixed_and_mapped_aesthetics(aesthetics, data)
 
-  # Check for colour/fill in BOTH individual aesthetics AND mapping
   is_fill_mapped <- "fill" %in% names(separated$mapped) || "fill" %in% names(mapping)
-  is_fill_fixed <- "fill" %in% names(separated$fixed)
   is_colour_mapped <- "colour" %in% names(separated$mapped) || "colour" %in% names(mapping)
-  is_colour_fixed <- "colour" %in% names(separated$fixed)
   is_shape_mapped <- "shape" %in% names(separated$mapped) || "shape" %in% names(mapping)
-  is_shape_fixed <- "shape" %in% names(separated$fixed)
   is_linewidth_mapped <- "linewidth" %in% names(separated$mapped) || "linewidth" %in% names(mapping)
+
+  is_fill_fixed <- "fill" %in% names(separated$fixed)
+  is_colour_fixed <- "colour" %in% names(separated$fixed)
+  is_shape_fixed <- "shape" %in% names(separated$fixed)
   is_linewidth_fixed <- "linewidth" %in% names(separated$fixed)
 
-  # Make colour mapped to fill, if fill is mapped and colour not specified
-  if (is_fill_mapped & !is_colour_mapped & !is_colour_fixed) {
-    # Get fill from either separated$mapped or mapping
-    fill_aesthetic <- separated$mapped$fill %||% mapping$fill
-    separated$mapped$colour <- fill_aesthetic
-    is_colour_mapped <- TRUE
-  }
-
-  # Get geom/stat strings
-  if (inherits(geom, "Geom")) {
-    geom_str <- class(geom)[1] |> stringr::str_remove("^Geom") |> snakecase::to_snake_case()
-  } else geom_str <- geom
-
-  if (inherits(stat, "Stat")) {
-    stat_str <- class(stat)[1] |> stringr::str_remove("^Stat") |> snakecase::to_snake_case()
-  } else stat_str <- stat
-
-  # Get border
+  ### identify if border geom
   shape <- separated$fixed[["shape"]]
   if (rlang::is_null(shape)) shape <- ggplot2::get_theme()$geom@pointshape
 
@@ -193,31 +185,31 @@ gg_blanket <- function(data,
     border <- is_geom_border(geom_str = geom_str, shape = shape)
   }
 
-  # get colour param
+  ### ensure colour is inherited from fill
+  if (is_fill_mapped & !is_colour_mapped & !is_colour_fixed) {
+    fill_aesthetic <- separated$mapped$fill %||% mapping$fill
+    separated$mapped$colour <- fill_aesthetic
+    is_colour_mapped <- TRUE
+  }
+
+  ### compute fixed colour and linewidth based on if border geom
   computed_colour <- NULL
   if (!is_colour_mapped) {
     computed_colour <- separated$fixed[["colour"]] %||% separated$fixed[["fill"]] %||% ggplot2::get_theme()$geom@fill
     if (border) computed_colour <- bordercolour_transform(computed_colour)
   }
 
-  # get linewidth param
   computed_linewidth <- NULL
   if (!is_linewidth_mapped) {
     if (border) computed_linewidth <- separated$fixed[["linewidth"]] %||% ggplot2::get_theme()$geom@borderwidth
     else computed_linewidth <- separated$fixed[["linewidth"]] %||% ggplot2::get_theme()$geom@linewidth
   }
 
-  # Remove colour and linewidth from separated$fixed
+  # Update separated$fixed for computed colour and linewidth
   separated$fixed <- separated$fixed[!names(separated$fixed) %in% c("colour", "linewidth")]
 
-  # Combine individual aesthetics with mapping argument
-  final_mapping <- combine_aesthetics(separated$mapped, mapping)
-
-  # Capture additional parameters from ...
-  additional_params <- rlang::list2(...)
-
   # Combine fixed aesthetic values with additional parameters
-  all_params <- utils::modifyList(separated$fixed, additional_params)
+  all_params <- utils::modifyList(separated$fixed, rlang::list2(...))
 
   # Add colour and linewidth back as params if they were computed
   if (!rlang::is_null(computed_colour)) {
@@ -227,15 +219,18 @@ gg_blanket <- function(data,
     all_params$linewidth <- computed_linewidth
   }
 
-  # Build initial plot
+  # Combine individual aesthetics with mapping argument
+  final_mapping <- combine_aesthetics(separated$mapped, mapping)
+
+  ### aesthetics
   plot <- ggplot2::ggplot(data, mapping = final_mapping)
 
-  # Add any annotate layers under
+  ### annotate
   if (!rlang::is_null(annotate)) {
     plot <- plot + annotate
   }
 
-  # Add the layer
+  ### layer
   if (rlang::is_null(blend)) {
     if (is_stat_sf(stat_str)) {
       plot <- plot +
@@ -277,31 +272,24 @@ gg_blanket <- function(data,
     }
   }
 
-  # Build and identify scales
+  ### identify scales and aspect
   built <- ggplot2::ggplot_build(plot)
+
   scale_info <- identify_scale(built)
 
   x_type <- x_type %||% scale_info$x$type
   y_type <- y_type %||% scale_info$y$type
+  fill_type <- fill_type %||% scale_info$fill$type
+  colour_type <- colour_type %||% scale_info$colour$type %||% scale_info$fill$type
+
   x_temporal <- x_temporal %||% scale_info$x$temporal
   y_temporal <- y_temporal %||% scale_info$y$temporal
-  fill_type <- fill_type %||% scale_info$fill$type
   fill_temporal <- fill_temporal %||% scale_info$fill$temporal
-  colour_type <- colour_type %||% scale_info$colour$type %||% scale_info$fill$type
   colour_temporal <- colour_temporal %||% scale_info$colour$temporal %||% scale_info$fill$temporal
 
   aspect <- aspect %||% get_aspect(built = built, x_type = x_type, y_type = y_type)
 
-  coord <- get_coord(
-    stat_str = stat_str,
-    coord_xlim = coord_xlim,
-    coord_ylim = coord_ylim,
-    coord_clip = coord_clip,
-    coord_reverse = coord_reverse,
-    coord_ratio = coord_ratio
-  )
-
-  # Add x scale based on type
+  ### scales
   if (x_type == "discrete") {
     plot <- plot +
       ggplot2::scale_x_discrete(
@@ -317,6 +305,7 @@ gg_blanket <- function(data,
         position = x_position,
         sec.axis = x_sec_axis
       )
+      # ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_line(linetype = 0))
   }
   else if (x_type == "continuous") {
     plot <- plot +
@@ -363,6 +352,7 @@ gg_blanket <- function(data,
         position = y_position,
         sec.axis = y_sec_axis
       )
+      # ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_line(linetype = 0))
   }
   else if (y_type == "continuous") {
     plot <- plot +
@@ -421,8 +411,9 @@ gg_blanket <- function(data,
             palette = fill_palette %||% ggplot2::get_theme()$palette.fill.continuous,
             breaks = fill_breaks %||% ggplot2::waiver(),
             guide = fill_guide %||% ggplot2::guide_colourbar(),
-            labels = fill_labels %||% scales::label_comma(),
+            labels = fill_labels %||% scales::label_number(),
             limits = fill_limits,
+            oob = fill_oob,
             rescaler = fill_rescaler,
             transform = fill_transform %||% get_transform(fill_temporal %||% NA_character_),
             na.value = fill_na
@@ -433,13 +424,15 @@ gg_blanket <- function(data,
             palette = fill_palette %||% ggplot2::get_theme()$palette.fill.continuous,
             breaks = fill_breaks %||% ggplot2::waiver(),
             guide = fill_guide %||% ggplot2::guide_bins(),
-            labels = fill_labels %||% scales::label_comma(),
+            labels = fill_labels %||% scales::label_number(),
             limits = fill_limits,
+            oob = fill_oob,
             rescaler = fill_rescaler,
             transform = fill_transform %||% get_transform(fill_temporal %||% NA_character_),
             na.value = fill_na
           )
-      }
+    }
+
     plot <- plot +
       ggplot2::theme(geom = ggplot2::element_geom(fill = fill_override))
     }
@@ -482,8 +475,9 @@ gg_blanket <- function(data,
           palette = colour_palette ,
           breaks = colour_breaks %||% fill_breaks,
           guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_colorsteps(),
-          labels = colour_labels %||% fill_labels %||% scales::label_comma(),
+          labels = colour_labels %||% fill_labels %||% scales::label_number(),
           limits = colour_limits %||% fill_limits,
+          oob = colour_oob %||% fill_oob,
           rescaler = colour_rescaler %||% fill_rescaler,
           transform = colour_transform %||% fill_transform,
           na.value = colour_na
@@ -503,8 +497,9 @@ gg_blanket <- function(data,
           palette = colour_palette ,
           breaks = colour_breaks %||% fill_breaks,
           guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_bins(),
-          labels = colour_labels %||% fill_labels %||% scales::label_comma(),
+          labels = colour_labels %||% fill_labels %||% scales::label_number(),
           limits = colour_limits %||% fill_limits,
+          oob = colour_oob %||% fill_oob,
           rescaler = colour_rescaler %||% fill_rescaler,
           transform = colour_transform %||% fill_transform,
           na.value = colour_na
@@ -521,8 +516,6 @@ gg_blanket <- function(data,
   if (ggplot2::is_waiver(colour_title)) colour_title <- fill_title
 
   plot <- plot +
-    coord +
-    theme_to_aspect(aspect = aspect) +
     ggplot2::labs(
       x = x_title,
       y = y_title,
@@ -530,7 +523,20 @@ gg_blanket <- function(data,
       colour = colour_title,
     )
 
-  # Add faceting if specified
+  ### coord
+  coord <- get_coord(
+    stat_str = stat_str,
+    coord_xlim = coord_xlim,
+    coord_ylim = coord_ylim,
+    coord_clip = coord_clip,
+    coord_reverse = coord_reverse,
+    coord_ratio = coord_ratio
+  )
+
+  plot <- plot +
+    coord
+
+  #### facet
     if (!rlang::is_null(facet_facets)) {
       plot <- plot +
         ggplot2::facet_wrap(
@@ -554,6 +560,10 @@ gg_blanket <- function(data,
           axis.labels = facet_axis_labels
         )
     }
+
+  ### aspect
+  plot <- plot +
+    theme_to_aspect(aspect = aspect)
 
   return(plot)
 }
