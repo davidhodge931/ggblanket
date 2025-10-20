@@ -1,25 +1,12 @@
-#' #' Combine individual aesthetics with mapping argument
-#' #'
-#' #' This function handles the mapping argument which can contain multiple aes() objects.
-#' #' We use a defuse-and-inject approach to properly handle nested aes objects.
-#' #'
-#' #' @param individual_aesthetics List of quosures from individual arguments
-#' #' @param mapping Additional aes() mapping that may contain multiple aes objects
-#' #' @return Combined aesthetic mapping
-#' #' @keywords internal
-#' combine_aesthetics <- function(individual_aesthetics, mapping) {
-#'   base_mapping <- if (length(individual_aesthetics) > 0) {
-#'     rlang::inject(ggplot2::aes(!!!individual_aesthetics))
-#'   } else {
-#'     ggplot2::aes()
-#'   }
+#' Combine individual aesthetics with mapping argument
 #'
-#'   if (rlang::is_null(mapping)) return(base_mapping) else {
-#'     purrr::iwalk(mapping, \(x, name) base_mapping[[name]] <<- x)
-#'     return(base_mapping)
-#'   }
-#' }
-
+#' This function handles the mapping argument which can contain multiple aes() objects.
+#' We use a defuse-and-inject approach to properly handle nested aes objects.
+#'
+#' @param individual_aesthetics List of quosures from individual arguments
+#' @param mapping Additional aes() mapping that may contain multiple aes objects
+#' @return Combined aesthetic mapping
+#' @keywords internal
 combine_aesthetics <- function(individual_aesthetics, mapping) {
   base_mapping <- if (length(individual_aesthetics) > 0) {
     rlang::inject(ggplot2::aes(!!!individual_aesthetics))
@@ -232,7 +219,7 @@ is_stat_sf <- function(stat_str) {
 #' @param coord_ylim Zoom limits for the y axis.
 #' @param coord_clip Drawing clipped to the panel. "on" or "off".
 #' @param coord_reverse Which direction to reverse. "none", "x", "y" or "xy".
-#' @param coord_ratio theme_orientation ratio, expressed as y / x.
+#' @param coord_ratio focus ratio, expressed as y / x.
 #'
 #' @return A coord
 #' @keywords internal
@@ -261,154 +248,7 @@ get_coord <- function(stat_str, coord_xlim, coord_ylim, coord_clip, coord_revers
   return(coord)
 }
 
-#' Modify theme elements for a specific axis theme_orientation
-#'
-#' @param theme_orientation Axis theme_orientation to modify: `"x"` modifies y-axis and x-grid elements,
-#'   `"y"` modifies x-axis and y-grid elements.
-#' @param theme_orientation_axis_line Treatment for axis lines: `"transparent"` makes them
-#'   invisible but present, `"keep"` leaves them unchanged, `"blank"` removes them.
-#' @param theme_orientation_axis_ticks Treatment for axis ticks.
-#' @param theme_orientation_panel_grid Treatment for panel grid lines.
-#'
-#' @return A ggplot2 theme object.
-#'
-#' @examples
-#' library(ggplot2)
-#'
-#' # Hide y-axis lines and x-grid
-#' ggplot(mtcars, aes(wt, mpg)) +
-#'   geom_point() +
-#'   theme_to_theme_orientation("x", theme_orientation_axis_line = "blank", theme_orientation_panel_grid = "blank")
-#'
-#' @export
-theme_to_theme_orientation <- function(
-    theme_orientation = c("x", "y"),
-    theme_orientation_axis_line = NULL,
-    theme_orientation_axis_ticks = NULL,
-    theme_orientation_panel_grid = NULL) {
-
-  theme_orientation_axis_line <- theme_orientation_axis_line %||% getOption("ggblanket.theme_orientation_axis_line") %||% "transparent"
-  theme_orientation_axis_ticks <- theme_orientation_axis_ticks %||% getOption("ggblanket.theme_orientation_axis_ticks") %||% "transparent"
-  theme_orientation_panel_grid <- theme_orientation_panel_grid %||% getOption("ggblanket.theme_orientation_panel_grid") %||% "transparent"
-
-  # Validate inputs
-  theme_orientation <- rlang::arg_match(theme_orientation, values = c("x", "y"))
-  theme_orientation_axis_line <- rlang::arg_match(theme_orientation_axis_line, values = c("transparent", "keep", "blank"))
-  theme_orientation_axis_ticks <- rlang::arg_match(theme_orientation_axis_ticks, values = c("transparent", "keep", "blank"))
-  theme_orientation_panel_grid <- rlang::arg_match(theme_orientation_panel_grid, values = c("transparent", "keep", "blank"))
-
-  theme <- ggplot2::theme()
-
-  if (theme_orientation == "x") {
-    # For x theme_orientation, modify y-axis elements and x-grid elements
-
-    # Axis lines (y-axis)
-    if (theme_orientation_axis_line == "transparent") {
-      theme <- theme +
-        ggplot2::theme(
-          axis.line.y.left = ggplot2::element_line(colour = "transparent"),
-          axis.line.y.right = ggplot2::element_line(colour = "transparent")
-        )
-    } else if (theme_orientation_axis_line == "blank") {
-      theme <- theme +
-        ggplot2::theme(
-          axis.line.y.left = ggplot2::element_blank(),
-          axis.line.y.right = ggplot2::element_blank()
-        )
-    }
-    # "keep" means no modification
-
-    # Axis ticks (y-axis)
-    if (theme_orientation_axis_ticks == "transparent") {
-      theme <- theme +
-        ggplot2::theme(
-          axis.ticks.y.left = ggplot2::element_line(colour = "transparent"),
-          axis.ticks.y.right = ggplot2::element_line(colour = "transparent"),
-          axis.minor.ticks.y.left = ggplot2::element_line(colour = "transparent"),
-          axis.minor.ticks.y.right = ggplot2::element_line(colour = "transparent")
-        )
-    } else if (theme_orientation_axis_ticks == "blank") {
-      theme <- theme +
-        ggplot2::theme(
-          axis.ticks.y.left = ggplot2::element_blank(),
-          axis.ticks.y.right = ggplot2::element_blank(),
-          axis.minor.ticks.y.left = ggplot2::element_blank(),
-          axis.minor.ticks.y.right = ggplot2::element_blank()
-        )
-    }
-
-    # Panel grid (x-grid)
-    if (theme_orientation_panel_grid == "transparent") {
-      theme <- theme +
-        ggplot2::theme(
-          panel.grid.major.x = ggplot2::element_line(colour = "transparent"),
-          panel.grid.minor.x = ggplot2::element_line(colour = "transparent")
-        )
-    } else if (theme_orientation_panel_grid == "blank") {
-      theme <- theme +
-        ggplot2::theme(
-          panel.grid.major.x = ggplot2::element_blank(),
-          panel.grid.minor.x = ggplot2::element_blank()
-        )
-    }
-  }
-  else if (theme_orientation == "y") {
-    # For y theme_orientation, modify x-axis elements and y-grid elements
-
-    # Axis lines (x-axis)
-    if (theme_orientation_axis_line == "transparent") {
-      theme <- theme +
-        ggplot2::theme(
-          axis.line.x.bottom = ggplot2::element_line(colour = "transparent"),
-          axis.line.x.top = ggplot2::element_line(colour = "transparent")
-        )
-    } else if (theme_orientation_axis_line == "blank") {
-      theme <- theme +
-        ggplot2::theme(
-          axis.line.x.bottom = ggplot2::element_blank(),
-          axis.line.x.top = ggplot2::element_blank()
-        )
-    }
-
-    # Axis ticks (x-axis)
-    if (theme_orientation_axis_ticks == "transparent") {
-      theme <- theme +
-        ggplot2::theme(
-          axis.ticks.x.bottom = ggplot2::element_line(colour = "transparent"),
-          axis.ticks.x.top = ggplot2::element_line(colour = "transparent"),
-          axis.minor.ticks.x.bottom = ggplot2::element_line(colour = "transparent"),
-          axis.minor.ticks.x.top = ggplot2::element_line(colour = "transparent")
-        )
-    } else if (theme_orientation_axis_ticks == "blank") {
-      theme <- theme +
-        ggplot2::theme(
-          axis.ticks.x.bottom = ggplot2::element_blank(),
-          axis.ticks.x.top = ggplot2::element_blank(),
-          axis.minor.ticks.x.bottom = ggplot2::element_blank(),
-          axis.minor.ticks.x.top = ggplot2::element_blank()
-        )
-    }
-
-    # Panel grid (y-grid)
-    if (theme_orientation_panel_grid == "transparent") {
-      theme <- theme +
-        ggplot2::theme(
-          panel.grid.major.y = ggplot2::element_line(colour = "transparent"),
-          panel.grid.minor.y = ggplot2::element_line(colour = "transparent")
-        )
-    } else if (theme_orientation_panel_grid == "blank") {
-      theme <- theme +
-        ggplot2::theme(
-          panel.grid.major.y = ggplot2::element_blank(),
-          panel.grid.minor.y = ggplot2::element_blank()
-        )
-    }
-  }
-
-  return(theme)
-}
-
-#' Determine plot theme_orientation from scale types and flipped aesthetics
+#' Determine plot focus from scale types and flipped aesthetics
 #'
 #' Returns "y" if the plot has a horizontal orientation. This can be determined by:
 #' - Non-discrete x with discrete y scales
@@ -422,7 +262,7 @@ theme_to_theme_orientation <- function(
 #'
 #' @noRd
 #' @keywords internal
-get_theme_orientation <- function(x_type, y_type, built = NULL) {
+get_focus <- function(x_type, y_type, built = NULL) {
 
   # First check if any layer has flipped aesthetics
   if (!is.null(built)) {
@@ -438,14 +278,14 @@ get_theme_orientation <- function(x_type, y_type, built = NULL) {
 
   # Fall back to scale type detection
   if (x_type == "discrete" & y_type %in% c("continuous", "binned")) {
-    theme_orientation <- "x"
+    focus <- "x"
   } else if (x_type %in% c("continuous", "binned") & y_type == "discrete") {
-    theme_orientation <- "y"
+    focus <- "y"
   } else {
-    theme_orientation <- "x"
+    focus <- "x"
   }
 
-  return(theme_orientation)
+  return(focus)
 }
 
 #' Check if geom is a border-type geom
@@ -507,4 +347,12 @@ is_geom_border <- function(geom_str, shape = NULL) {
     shape %in% 21:25
 
   is_border_polygon || is_border_point
+}
+
+set_refine <- function(refine = NULL) {
+  options("ggblanket.refine" = refine)
+}
+
+get_refine <- function() {
+  getOption("ggblanket.refine")
 }

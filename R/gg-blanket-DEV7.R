@@ -8,9 +8,9 @@ gg_blanket <- function(data,
                        annotate = NULL,
                        blend = NULL,
                        border = NULL,
-                       bordercolour_transform = \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x),
-                       theme_orientation = NULL,
-                       theme_transform = theme_transform_modern,
+                       bordercolour_transform = NULL,
+                       focus = NULL,
+                       refine = NULL,
                        # aesthetics
                        x = NULL,
                        xmin = NULL,
@@ -120,6 +120,10 @@ gg_blanket <- function(data,
                        coord_ratio = NULL
 
 ) {
+
+  if (rlang::is_null(bordercolour_transform)) {
+    bordercolour_transform <- \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x)
+  }
 
   ### get geom and stat names
   if (inherits(geom, "Geom")) {
@@ -283,7 +287,7 @@ gg_blanket <- function(data,
       ylim(y_limits)
   }
 
-  ### identify scales and theme_orientation
+  ### identify scales and focus
   built <- ggplot2::ggplot_build(plot)
 
   scale_info <- identify_scale(built)
@@ -298,7 +302,7 @@ gg_blanket <- function(data,
   fill_temporal <- fill_temporal %||% scale_info$fill$temporal
   colour_temporal <- colour_temporal %||% scale_info$colour$temporal %||% scale_info$fill$temporal
 
-  theme_orientation <- theme_orientation %||% get_theme_orientation(built = built, x_type = x_type, y_type = y_type)
+  focus <- focus %||% get_focus(built = built, x_type = x_type, y_type = y_type)
 
   ### scales
   if (x_type == "discrete") {
@@ -568,11 +572,11 @@ gg_blanket <- function(data,
         )
     }
 
-  ### theme_orientation
+  ### refine the theme
+  refine <- refine %||% get_refine() %||% refine_modern
+
   plot <- plot +
-    theme_transform(theme_orientation = theme_orientation,
-                    x_type = x_type,
-                    y_type = y_type)
+    refine(focus = focus, x_type = x_type, y_type = y_type)
 
   return(plot)
 }

@@ -1,6 +1,6 @@
 # Fixed set_blanket function - colour inherits from fill by default
 set_blanket <- function(
-    #base
+  #base
   theme = NULL,
   #geom
   fill = ifelse(is_panel_dark(), ocean, blue),
@@ -12,7 +12,9 @@ set_blanket <- function(
   #palette
   fill_palette = NULL,
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
-  linetype_palette = scales::pal_manual(1:6)
+  linetype_palette = scales::pal_manual(1:6),
+  #refine options
+  refine = NULL
 ) {
 
   #base
@@ -65,4 +67,7 @@ set_blanket <- function(
         palette.linetype.discrete = linetype_palette
       )
   )
+
+  #refine options
+  set_refine(refine = refine_modern)
 }

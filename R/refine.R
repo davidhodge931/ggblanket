@@ -1,13 +1,13 @@
-theme_transform_modern <- function(
+refine_modern <- function(
     ...,
-    theme_orientation = c("x", "y"),
+    focus = c("x", "y"),
     x_type = c("continuous", "binned", "discrete"),
     y_type = c("continuous", "binned", "discrete")
     ) {
 
   theme <- ggplot2::theme()
 
-  if (theme_orientation == "x") {
+  if (focus == "x") {
       theme <- theme +
         ggplot2::theme(
           axis.line.y.left = ggplot2::element_line(linetype = 0),
@@ -21,7 +21,7 @@ theme_transform_modern <- function(
         )
   }
 
-  if (theme_orientation == "y") {
+  if (focus == "y") {
     theme <- theme +
       ggplot2::theme(
         axis.line.x.bottom = ggplot2::element_line(linetype = 0),
@@ -53,16 +53,16 @@ theme_transform_modern <- function(
   return(theme)
 }
 
-theme_transform_classic <- function(
+refine_classic <- function(
     ...,
-    theme_orientation = c("x", "y"),
+    focus = c("x", "y"),
     x_type = c("continuous", "binned", "discrete"),
     y_type = c("continuous", "binned", "discrete")
 ) {
 
   theme <- ggplot2::theme()
 
-  if (theme_orientation == "x") {
+  if (focus == "x") {
     theme <- theme +
       ggplot2::theme(
         panel.grid.major.x = ggplot2::element_line(linetype = 0),
@@ -70,7 +70,7 @@ theme_transform_classic <- function(
       )
   }
 
-  if (theme_orientation == "y") {
+  if (focus == "y") {
     theme <- theme +
       ggplot2::theme(
         panel.grid.major.y = ggplot2::element_line(linetype = 0),
@@ -96,8 +96,8 @@ theme_transform_classic <- function(
   return(theme)
 }
 
-theme_transform_as_is <- function(
-    theme_orientation = c("x", "y"),
+refine_none <- function(
+    focus = c("x", "y"),
     x_type = c("continuous", "binned", "discrete"),
     y_type = c("continuous", "binned", "discrete")
 ) {
