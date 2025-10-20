@@ -273,6 +273,16 @@ gg_blanket <- function(data,
     }
   }
 
+  if (!rlang::is_null(x_limits)) {
+    plot <- plot +
+      xlim(x_limits)
+  }
+
+  if (!rlang::is_null(y_limits)) {
+    plot <- plot +
+      ylim(y_limits)
+  }
+
   ### identify scales and theme_orientation
   built <- ggplot2::ggplot_build(plot)
 
@@ -300,13 +310,11 @@ gg_blanket <- function(data,
         expand = x_expand %||% ggplot2::waiver(),
         guide = x_guide,
         labels = x_labels %||% ggplot2::waiver(),
-        limits = get_limits(x_limits),
-        continuous.limits = get_limits_continuous(x_limits),
+        limits = x_limits,
         palette = x_palette,
         position = x_position,
         sec.axis = x_sec_axis
       )
-      # ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_line(linetype = 0))
   }
   else if (x_type == "continuous") {
     plot <- plot +
@@ -347,13 +355,11 @@ gg_blanket <- function(data,
         expand = y_expand %||% ggplot2::waiver(),
         guide = y_guide,
         labels = y_labels %||% ggplot2::waiver(),
-        limits = get_limits(y_limits),
-        continuous.limits = get_limits_continuous(y_limits),
+        limits = y_limits,
         palette = y_palette,
         position = y_position,
         sec.axis = y_sec_axis
       )
-      # ggplot2::theme(axis.ticks.x.bottom = ggplot2::element_line(linetype = 0))
   }
   else if (y_type == "continuous") {
     plot <- plot +
@@ -402,7 +408,7 @@ gg_blanket <- function(data,
             drop = fill_drop,
             guide = fill_guide %||% ggplot2::guide_legend(),
             labels = fill_labels %||% ggplot2::waiver(),
-            limits = get_limits(fill_limits),
+            limits = fill_limits,
             na.value = fill_na
           )
       }

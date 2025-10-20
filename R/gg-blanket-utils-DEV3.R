@@ -219,45 +219,6 @@ get_transform <- function(temporal) {
   return(transform)
 }
 
-#' Get scale limits_continuous for a discrete scale
-#' @param limits Scale limits
-#' @return A scale limits_continuous
-#' @keywords internal
-get_limits_continuous <- function(limits) {
-  if (!is.null(limits)) {
-    if (is.vector(limits)) {
-      if (is.numeric(limits)) {
-        limits_continuous <- limits
-      }
-      else {
-        limits_continuous <- NULL
-      }
-    } else {
-      limits_continuous <- NULL
-    }
-  }
-  else {
-    limits_continuous <- NULL
-  }
-
-  return(limits_continuous)
-}
-
-#' Get scale limits for a discrete scale
-#' @param limits Scale limits
-#' @return A scale limits
-#' @keywords internal
-get_limits <- function(limits) {
-  if (!is.null(limits)) {
-    if (is.vector(limits)) {
-      if (is.numeric(limits)) {
-        limits <- NULL
-      }
-    }
-  }
-  return(limits)
-}
-
 #' Is the stat sf or sf_coordinates
 #' @param stat_str A stat string e.g. "sf"
 #' @keywords internal
