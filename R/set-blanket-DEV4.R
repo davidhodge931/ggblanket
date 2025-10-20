@@ -14,7 +14,7 @@ set_blanket <- function(
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype_palette = scales::pal_manual(1:6),
   #refine options
-  refine = NULL
+  refine = refine_modern
 ) {
 
   #base
@@ -69,5 +69,5 @@ set_blanket <- function(
   )
 
   #refine options
-  set_refine(refine = refine_modern)
+  set_refine(refine = refine)
 }
