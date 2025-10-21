@@ -13,8 +13,8 @@ set_blanket <- function(
   fill_palette = NULL,
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype_palette = scales::pal_manual(1:6),
-  #refine options
-  refine = refine_modern
+  #theme_refine options
+  theme_refine = theme_refine_modern
 ) {
 
   #base
@@ -68,6 +68,6 @@ set_blanket <- function(
       )
   )
 
-  #refine options
-  set_refine(refine = refine)
+  #theme_refine options
+  set_theme_refine(theme_refine = theme_refine)
 }

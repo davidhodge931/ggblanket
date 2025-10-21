@@ -46,46 +46,46 @@ gg_blanket <- function(data,
                        x_type = NULL,
                        x_temporal = NULL,
                        x_breaks = NULL,
-                       x_drop = FALSE,
+                       x_drop = TRUE,
                        x_expand = NULL,
                        x_guide = ggplot2::waiver(),
                        x_labels = NULL,
                        x_limits = NULL,
                        x_minor_breaks = ggplot2::waiver(),
+                       x_name = ggplot2::waiver(),
                        x_oob = scales::oob_censor,
                        x_palette = seq_len,
                        x_position = "bottom",
                        x_sec_axis = ggplot2::waiver(),
-                       x_title = ggplot2::waiver(),
                        x_transform = NULL,
                        # y scale
                        y_type = NULL,
                        y_temporal = NULL,
                        y_breaks = NULL,
-                       y_drop = FALSE,
+                       y_drop = TRUE,
                        y_expand = NULL,
                        y_guide = ggplot2::waiver(),
                        y_labels = NULL,
                        y_limits = NULL,
                        y_minor_breaks = ggplot2::waiver(),
+                       y_name = ggplot2::waiver(),
                        y_oob = scales::oob_censor,
                        y_palette = seq_len,
                        y_position = "left",
                        y_sec_axis = ggplot2::waiver(),
-                       y_title = ggplot2::waiver(),
                        y_transform = NULL,
                        # fill scale
                        fill_type = NULL,
                        fill_temporal = NULL,
                        fill_breaks = ggplot2::waiver(),
-                       fill_drop = FALSE,
+                       fill_drop = TRUE,
                        fill_guide = NULL,
                        fill_labels = NULL,
                        fill_limits = NULL,
+                       fill_name = ggplot2::waiver(),
                        fill_oob = scales::oob_censor,
                        fill_rescaler = scales::rescale,
                        fill_palette = NULL,
-                       fill_title = ggplot2::waiver(),
                        fill_transform = "identity",
                        # colour scale
                        colour_type = NULL,
@@ -95,10 +95,10 @@ gg_blanket <- function(data,
                        colour_guide = NULL,
                        colour_labels = NULL,
                        colour_limits = NULL,
+                       colour_name = ggplot2::waiver(),
                        colour_oob = NULL,
                        colour_rescaler = NULL,
                        colour_palette = NULL,
-                       colour_title = ggplot2::waiver(),
                        colour_transform = NULL,
                        #facet
                        facet_facets = NULL,
@@ -106,7 +106,7 @@ gg_blanket <- function(data,
                        facet_cols = NULL,
                        facet_axes = "margins",
                        facet_axis_labels = "all",
-                       facet_drop = FALSE,
+                       facet_drop = TRUE,
                        facet_labeller = "label_value",
                        facet_ncol = NULL,
                        facet_nrow = NULL,
@@ -304,6 +304,12 @@ gg_blanket <- function(data,
 
   focus <- focus %||% get_focus(built = built, x_type = x_type, y_type = y_type)
 
+  # #get titles
+  # if (ggplot2::is_waiver(x_name)) x_name <- snakecase::to_sentence_case
+  # if (ggplot2::is_waiver(y_name)) y_name <- snakecase::to_sentence_case
+  # if (ggplot2::is_waiver(fill_name)) fill_name <- snakecase::to_sentence_case
+  # if (ggplot2::is_waiver(colour_name)) colour_name <- fill_name
+
   ### scales
   if (x_type == "discrete") {
     plot <- plot +
@@ -315,7 +321,7 @@ gg_blanket <- function(data,
         guide = x_guide,
         labels = x_labels %||% ggplot2::waiver(),
         limits = x_limits,
-        palette = x_palette,
+        name = x_name, palette = x_palette,
         position = x_position,
         sec.axis = x_sec_axis
       )
@@ -329,7 +335,7 @@ gg_blanket <- function(data,
         guide = x_guide,
         labels = x_labels %||% get_labels(stat_str, x_temporal),
         limits = x_limits,
-        oob = x_oob,
+        name = x_name, oob = x_oob,
         position = x_position,
         sec.axis = x_sec_axis,
         transform = x_transform %||% get_transform(x_temporal)
@@ -343,7 +349,7 @@ gg_blanket <- function(data,
         guide = x_guide,
         labels = x_labels %||% get_labels(stat_str, x_temporal),
         limits = x_limits,
-        oob = x_oob,
+        name = x_name, oob = x_oob,
         position = x_position,
         transform = x_transform %||% get_transform(x_temporal)
       )
@@ -360,7 +366,7 @@ gg_blanket <- function(data,
         guide = y_guide,
         labels = y_labels %||% ggplot2::waiver(),
         limits = y_limits,
-        palette = y_palette,
+        name = y_name, palette = y_palette,
         position = y_position,
         sec.axis = y_sec_axis
       )
@@ -374,7 +380,7 @@ gg_blanket <- function(data,
         guide = y_guide,
         labels = y_labels %||% get_labels(stat_str, y_temporal),
         limits = y_limits,
-        oob = y_oob,
+        name = y_name, oob = y_oob,
         position = y_position,
         sec.axis = y_sec_axis,
         transform = y_transform %||% get_transform(y_temporal)
@@ -388,7 +394,7 @@ gg_blanket <- function(data,
         guide = y_guide,
         labels = y_labels %||% get_labels(stat_str, y_temporal),
         limits = y_limits,
-        oob = y_oob,
+        name = y_name, oob = y_oob,
         position = y_position,
         transform = y_transform %||% get_transform(y_temporal)
       )
@@ -521,20 +527,37 @@ gg_blanket <- function(data,
       ggplot2::theme(geom = ggplot2::element_geom(colour = colour_override))
   }
 
-  if (ggplot2::is_waiver(x_title)) x_title <- snakecase::to_sentence_case
-  if (ggplot2::is_waiver(y_title)) y_title <- snakecase::to_sentence_case
-  if (ggplot2::is_waiver(fill_title)) fill_title <- snakecase::to_sentence_case
-  if (ggplot2::is_waiver(colour_title)) colour_title <- fill_title
+  # if (!ggplot2::is_waiver(x_name)) {
+  #   plot <- plot + ggplot2::labs(x = x_name)
+  # }
+  # if (!ggplot2::is_waiver(y_name)) {
+  #   plot <- plot + ggplot2::labs(y = y_name)
+  # }
+  # if (!ggplot2::is_waiver(fill_name)) {
+  #   plot <- plot + ggplot2::labs(fill = fill_name)
+  # if (ggplot2::is_waiver(colour_name)) {
+  #   colour_name <- fill_name
+  # }
+  # plot <- plot + ggplot2::labs(colour = colour_name)
 
-  plot <- plot +
-    ggplot2::labs(
-      x = x_title,
-      y = y_title,
-      fill = fill_title,
-      colour = colour_title,
-    )
+  # plot <- plot +
+  #   ggplot2::labs(
+  #     alpha = snakecase::to_sentence_case,
+  #     shape = snakecase::to_sentence_case,
+  #     linetype = snakecase::to_sentence_case,
+  #     linewidth = snakecase::to_sentence_case,
+  #     size = snakecase::to_sentence_case,
+  #
+  #     starshape = snakecase::to_sentence_case,
+  #   )
 
   ### coord
+  # if (rlang::is_null(coord_reverse)) {
+  #   if (!is_stat_sf(stat_str) & focus == "y") {
+  #     coord_reverse <- "y"
+  #   } else coord_reverse <- "none"
+  # }
+
   coord <- get_coord(
     stat_str = stat_str,
     coord_xlim = coord_xlim,
