@@ -232,7 +232,6 @@ get_coord <- function(stat_str, coord_xlim, coord_ylim, coord_clip, coord_revers
       ylim = coord_ylim,
       clip = coord_clip,
       reverse = coord_reverse,
-      ratio = coord_ratio
     )
   }
   else {
