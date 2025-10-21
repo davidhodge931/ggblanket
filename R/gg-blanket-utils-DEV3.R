@@ -288,20 +288,20 @@ get_focus <- function(x_type, y_type, built = NULL) {
   return(focus)
 }
 
-#' Check if geom is a border-type geom
+#' Check if geom is a bordered-type geom
 #'
-#' Border geoms are those that typically have both fill and colour aesthetics,
-#' representing shapes with borders. Point geoms with shapes 21-25 are also
-#' considered border geoms.
+#' bordered geoms are those that typically have both fill and colour aesthetics,
+#' representing shapes with bordereds. Point geoms with shapes 21-25 are also
+#' considered bordered geoms.
 #'
 #' @param geom_str A character string (e.g., "rect").
 #' @param shape Optional shape parameter for point geoms. If provided and the geom
-#'   is a point-type geom, shapes 21-25 will be considered border geoms.
+#'   is a point-type geom, shapes 21-25 will be considered bordered geoms.
 #'
-#' @return Logical indicating if the geom is a border-type geom
+#' @return Logical indicating if the geom is a bordered-type geom
 #'
 #' @keywords internal
-is_geom_border <- function(geom_str, shape = NULL) {
+is_geom_bordered <- function(geom_str, shape = NULL) {
   # Validate input
   if (!is.character(geom_str) || length(geom_str) != 1) {
     cli::cli_abort(c(
@@ -311,8 +311,8 @@ is_geom_border <- function(geom_str, shape = NULL) {
     ))
   }
 
-  # Define polygon/area border geom_strs
-  border_polygons <- c(
+  # Define polygon/area bordered geom_strs
+  bordered_polygons <- c(
     "area",
     "bar",
     "boxplot",
@@ -335,24 +335,24 @@ is_geom_border <- function(geom_str, shape = NULL) {
     "star"  # extension
   )
 
-  # Define point geom_strs that can be border based on shape
-  border_points <- c("point", "pointrange", "dotplot")
+  # Define point geom_strs that can be bordered based on shape
+  bordered_points <- c("point", "pointrange", "dotplot")
 
-  # Check if it's a polygon border geom_str
-  is_border_polygon <- geom_str %in% border_polygons
+  # Check if it's a polygon bordered geom_str
+  is_bordered_polygon <- geom_str %in% bordered_polygons
 
-  # Check if it's a point border geom_str with appropriate shape
-  is_border_point <- geom_str %in% border_points &&
+  # Check if it's a point bordered geom_str with appropriate shape
+  is_bordered_point <- geom_str %in% bordered_points &&
     !rlang::is_null(shape) &&
     shape %in% 21:25
 
-  is_border_polygon || is_border_point
+  is_bordered_polygon || is_bordered_point
 }
 
-set_refine <- function(refine = NULL) {
-  options("ggblanket.refine" = refine)
+set_polish <- function(polish = NULL) {
+  options("ggblanket.polish" = polish)
 }
 
-get_refine <- function() {
-  getOption("ggblanket.refine")
+get_polish <- function() {
+  getOption("ggblanket.polish")
 }

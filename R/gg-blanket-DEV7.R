@@ -1,16 +1,19 @@
 # Fixed gg_blanket function with improved mapping handling
 gg_blanket <- function(data,
                        ...,
+                       # geom
                        geom = "blank",
                        stat = "identity",
                        position = ggplot2::position_identity(),
-                       # ggblanket-specific
-                       annotate = NULL,
                        blend = NULL,
-                       border = NULL,
+                       # colour/linewidth defaults and default colour scale
+                       bordered = NULL,
                        bordercolour_transform = NULL,
+                       # annotate
+                       annotate = NULL,
+                       # theme
                        focus = NULL,
-                       refine = NULL,
+                       polish = NULL,
                        # aesthetics
                        x = NULL,
                        xmin = NULL,
@@ -117,7 +120,11 @@ gg_blanket <- function(data,
                        coord_ylim = NULL,
                        coord_clip = "on",
                        coord_reverse = "none",
-                       coord_ratio = NULL
+                       coord_ratio = NULL,
+                       #titles
+                       title = NULL,
+                       subtitle = NULL,
+                       caption = NULL
 
 ) {
 
@@ -182,12 +189,12 @@ gg_blanket <- function(data,
   is_shape_fixed <- "shape" %in% names(separated$fixed)
   is_linewidth_fixed <- "linewidth" %in% names(separated$fixed)
 
-  ### identify if border geom
+  ### identify if bordered geom
   shape <- separated$fixed[["shape"]]
   if (rlang::is_null(shape)) shape <- ggplot2::get_theme()$geom@pointshape
 
-  if (rlang::is_null(border)) {
-    border <- is_geom_border(geom_str = geom_str, shape = shape)
+  if (rlang::is_null(bordered)) {
+    bordered <- is_geom_bordered(geom_str = geom_str, shape = shape)
   }
 
   ### ensure colour is inherited from fill
@@ -197,16 +204,16 @@ gg_blanket <- function(data,
     is_colour_mapped <- TRUE
   }
 
-  ### compute fixed colour and linewidth based on if border geom
+  ### compute fixed colour and linewidth based on if bordered geom
   computed_colour <- NULL
   if (!is_colour_mapped) {
     computed_colour <- separated$fixed[["colour"]] %||% separated$fixed[["fill"]] %||% ggplot2::get_theme()$geom@fill
-    if (border) computed_colour <- bordercolour_transform(computed_colour)
+    if (bordered) computed_colour <- bordercolour_transform(computed_colour)
   }
 
   computed_linewidth <- NULL
   if (!is_linewidth_mapped) {
-    if (border) computed_linewidth <- separated$fixed[["linewidth"]] %||% ggplot2::get_theme()$geom@borderwidth
+    if (bordered) computed_linewidth <- separated$fixed[["linewidth"]] %||% ggplot2::get_theme()$geom@borderwidth
     else computed_linewidth <- separated$fixed[["linewidth"]] %||% ggplot2::get_theme()$geom@linewidth
   }
 
@@ -401,11 +408,11 @@ gg_blanket <- function(data,
   }
 
   fill_na <- oat
-  if (border) colour_na <- bordercolour_transform(fill_na)
+  if (bordered) colour_na <- bordercolour_transform(fill_na)
   else colour_na <- fill_na
 
   fill_override <- slate
-  if (border) colour_override <- bordercolour_transform(fill_override)
+  if (bordered) colour_override <- bordercolour_transform(fill_override)
   else colour_override <- fill_override
 
     # Add fill scale based on type
@@ -457,7 +464,7 @@ gg_blanket <- function(data,
   # Add colour scale based on type - with fill fallbacks
   if (!rlang::is_null(colour_type)) {
     if (colour_type == "discrete") {
-      if (border) {
+      if (bordered) {
         colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
           bordercolour_transform(ggplot2::get_theme()$palette.fill.discrete)
       }
@@ -478,7 +485,7 @@ gg_blanket <- function(data,
         )
     }
     else if (colour_type == "continuous") {
-      if (border) {
+      if (bordered) {
         colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
           bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
       }
@@ -491,7 +498,7 @@ gg_blanket <- function(data,
         ggplot2::scale_colour_continuous(
           palette = colour_palette ,
           breaks = colour_breaks %||% fill_breaks,
-          guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_colorsteps(),
+          guide = colour_guide %||% if (bordered) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_colorsteps(),
           labels = colour_labels %||% fill_labels %||% scales::label_number(),
           limits = colour_limits %||% fill_limits,
           oob = colour_oob %||% fill_oob,
@@ -500,7 +507,7 @@ gg_blanket <- function(data,
           na.value = colour_na
         )
     } else if (colour_type == "binned") {
-      if (border) {
+      if (bordered) {
         colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
           bordercolour_transform(ggplot2::get_theme()$palette.fill.continuous)
       }
@@ -513,7 +520,7 @@ gg_blanket <- function(data,
         ggplot2::scale_colour_binned(
           palette = colour_palette ,
           breaks = colour_breaks %||% fill_breaks,
-          guide = colour_guide %||% if (border) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_bins(),
+          guide = colour_guide %||% if (bordered) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_bins(),
           labels = colour_labels %||% fill_labels %||% scales::label_number(),
           limits = colour_limits %||% fill_limits,
           oob = colour_oob %||% fill_oob,
@@ -558,6 +565,16 @@ gg_blanket <- function(data,
   #   } else coord_reverse <- "none"
   # }
 
+  if (!rlang::is_null(title)) {
+    plot <- plot + ggplot2::labs(title = title)
+  }
+  if (!rlang::is_null(subtitle)) {
+    plot <- plot + ggplot2::labs(subtitle = subtitle)
+  }
+  if (!rlang::is_null(caption)) {
+    plot <- plot + ggplot2::labs(caption = caption)
+  }
+
   coord <- get_coord(
     stat_str = stat_str,
     coord_xlim = coord_xlim,
@@ -596,10 +613,10 @@ gg_blanket <- function(data,
     }
 
   ### refine the theme
-  refine <- refine %||% get_refine() %||% refine_modern
+  polish <- polish %||% get_polish() %||% polish_modern
 
   plot <- plot +
-    refine(focus = focus, x_type = x_type, y_type = y_type)
+    polish(focus = focus, x_type = x_type, y_type = y_type, geom = geom_str)
 
   return(plot)
 }
