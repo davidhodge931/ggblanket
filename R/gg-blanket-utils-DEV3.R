@@ -355,3 +355,12 @@ set_polish <- function(polish = NULL) {
 get_polish <- function() {
   getOption("ggblanket.polish")
 }
+
+set_bordercolour_transform <- function(bordercolour_transform = NULL) {
+  options("ggblanket.bordercolour_transform" = bordercolour_transform)
+}
+
+get_bordercolour_transform <- function() {
+  getOption("ggblanket.bordercolour_transform")
+}
+

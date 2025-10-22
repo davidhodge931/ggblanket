@@ -216,7 +216,7 @@ polish_void <- function(
   return(theme)
 }
 
-#' None polish
+#' No polish
 #'
 #' Leaves the theme unchanged.
 #'

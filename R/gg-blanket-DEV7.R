@@ -6,11 +6,11 @@ gg_blanket <- function(data,
                        stat = "identity",
                        position = ggplot2::position_identity(),
                        blend = NULL,
-                       # colour/linewidth defaults and default colour scale
+                       # annotate under geom
+                       annotate = NULL,
+                       # colour/linewidth defaults & default colour scale
                        bordered = NULL,
                        bordercolour_transform = NULL,
-                       # annotate
-                       annotate = NULL,
                        # theme
                        focus = NULL,
                        polish = NULL,
@@ -128,7 +128,10 @@ gg_blanket <- function(data,
 
 ) {
 
-  if (rlang::is_null(bordercolour_transform)) {
+  #get options
+  polish <- polish %||% get_polish() %||% polish_modern
+
+  bordercolour_transform <- bordercolour_transform %||% get_bordercolour_transform() %||% {
     bordercolour_transform <- \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x)
   }
 
@@ -612,9 +615,7 @@ gg_blanket <- function(data,
         )
     }
 
-  ### refine the theme
-  polish <- polish %||% get_polish() %||% polish_modern
-
+  ### polish
   plot <- plot +
     polish(focus = focus, x_type = x_type, y_type = y_type, geom = geom_str)
 

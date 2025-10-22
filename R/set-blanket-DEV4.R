@@ -1,7 +1,8 @@
 # Fixed set_blanket function - colour inherits from fill by default
 set_blanket <- function(
-  #base
+  #theme
   theme = NULL,
+  polish = polish_modern,
   #geom
   fill = ifelse(is_panel_dark(), ocean, blue),
   shape = 21,
@@ -9,12 +10,12 @@ set_blanket <- function(
   borderwidth = 0.25,
   size = 1.5,
   stroke = 0.5,
-  #palette
+  #scales
   fill_palette = NULL,
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype_palette = scales::pal_manual(1:6),
-  #polish options
-  polish = polish_modern
+  #theme and scales
+  bordercolour_transform = NULL
 ) {
 
   #base
@@ -68,6 +69,12 @@ set_blanket <- function(
       )
   )
 
-  #polish options
+  #options
   set_polish(polish = polish)
+
+  if (rlang::is_null(bordercolour_transform)) {
+    bordercolour_transform <- \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x)
+  }
+
+  set_bordercolour_transform(bordercolour_transform = bordercolour_transform)
 }
