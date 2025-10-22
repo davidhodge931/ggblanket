@@ -98,7 +98,7 @@ gg_blanket <- function(data,
                        colour_guide = NULL,
                        colour_labels = NULL,
                        colour_limits = NULL,
-                       colour_name = ggplot2::waiver(),
+                       colour_name = NULL,
                        colour_oob = NULL,
                        colour_rescaler = NULL,
                        colour_palette = NULL,
@@ -314,12 +314,6 @@ gg_blanket <- function(data,
 
   focus <- focus %||% get_focus(built = built, x_type = x_type, y_type = y_type)
 
-  # #get titles
-  # if (ggplot2::is_waiver(x_name)) x_name <- snakecase::to_sentence_case
-  # if (ggplot2::is_waiver(y_name)) y_name <- snakecase::to_sentence_case
-  # if (ggplot2::is_waiver(fill_name)) fill_name <- snakecase::to_sentence_case
-  # if (ggplot2::is_waiver(colour_name)) colour_name <- fill_name
-
   ### scales
   if (x_type == "discrete") {
     plot <- plot +
@@ -429,6 +423,7 @@ gg_blanket <- function(data,
             guide = fill_guide %||% ggplot2::guide_legend(),
             labels = fill_labels %||% ggplot2::waiver(),
             limits = fill_limits,
+            name = fill_name,
             na.value = fill_na
           )
       }
@@ -440,6 +435,7 @@ gg_blanket <- function(data,
             guide = fill_guide %||% ggplot2::guide_colourbar(),
             labels = fill_labels %||% scales::label_number(),
             limits = fill_limits,
+            name = fill_name,
             oob = fill_oob,
             rescaler = fill_rescaler,
             transform = fill_transform %||% get_transform(fill_temporal %||% NA_character_),
@@ -453,6 +449,7 @@ gg_blanket <- function(data,
             guide = fill_guide %||% ggplot2::guide_bins(),
             labels = fill_labels %||% scales::label_number(),
             limits = fill_limits,
+            name = fill_name,
             oob = fill_oob,
             rescaler = fill_rescaler,
             transform = fill_transform %||% get_transform(fill_temporal %||% NA_character_),
@@ -484,6 +481,7 @@ gg_blanket <- function(data,
           guide = colour_guide  %||%  fill_guide %||% ggplot2::guide_legend(),
           labels = colour_labels %||% fill_labels %||% ggplot2::waiver(),
           limits = colour_limits %||% fill_limits,
+          name = colour_name %||% fill_name,
           na.value = colour_na
         )
     }
@@ -504,6 +502,7 @@ gg_blanket <- function(data,
           guide = colour_guide %||% if (bordered) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_colorsteps(),
           labels = colour_labels %||% fill_labels %||% scales::label_number(),
           limits = colour_limits %||% fill_limits,
+          name = colour_name %||% fill_name,
           oob = colour_oob %||% fill_oob,
           rescaler = colour_rescaler %||% fill_rescaler,
           transform = colour_transform %||% fill_transform,
@@ -526,6 +525,7 @@ gg_blanket <- function(data,
           guide = colour_guide %||% if (bordered) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_bins(),
           labels = colour_labels %||% fill_labels %||% scales::label_number(),
           limits = colour_limits %||% fill_limits,
+          name = colour_name %||% fill_name,
           oob = colour_oob %||% fill_oob,
           rescaler = colour_rescaler %||% fill_rescaler,
           transform = colour_transform %||% fill_transform,
@@ -536,30 +536,6 @@ gg_blanket <- function(data,
     plot <- plot +
       ggplot2::theme(geom = ggplot2::element_geom(colour = colour_override))
   }
-
-  # if (!ggplot2::is_waiver(x_name)) {
-  #   plot <- plot + ggplot2::labs(x = x_name)
-  # }
-  # if (!ggplot2::is_waiver(y_name)) {
-  #   plot <- plot + ggplot2::labs(y = y_name)
-  # }
-  # if (!ggplot2::is_waiver(fill_name)) {
-  #   plot <- plot + ggplot2::labs(fill = fill_name)
-  # if (ggplot2::is_waiver(colour_name)) {
-  #   colour_name <- fill_name
-  # }
-  # plot <- plot + ggplot2::labs(colour = colour_name)
-
-  # plot <- plot +
-  #   ggplot2::labs(
-  #     alpha = snakecase::to_sentence_case,
-  #     shape = snakecase::to_sentence_case,
-  #     linetype = snakecase::to_sentence_case,
-  #     linewidth = snakecase::to_sentence_case,
-  #     size = snakecase::to_sentence_case,
-  #
-  #     starshape = snakecase::to_sentence_case,
-  #   )
 
   ### coord
   # if (rlang::is_null(coord_reverse)) {

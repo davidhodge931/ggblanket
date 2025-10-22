@@ -14,7 +14,7 @@ set_blanket <- function(
   fill_palette = NULL,
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype_palette = scales::pal_manual(1:6),
-  #theme and scales
+  #geom and scales
   bordercolour_transform = NULL
 ) {
 
