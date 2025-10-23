@@ -446,7 +446,7 @@ gg_blanket <- function(data,
           ggplot2::scale_fill_binned(
             palette = fill_palette %||% ggplot2::get_theme()$palette.fill.continuous,
             breaks = fill_breaks %||% ggplot2::waiver(),
-            guide = fill_guide %||% ggplot2::guide_bins(),
+            guide = fill_guide %||% ggplot2::guide_coloursteps(),
             labels = fill_labels %||% scales::label_number(),
             limits = fill_limits,
             name = fill_name,

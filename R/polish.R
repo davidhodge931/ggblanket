@@ -204,13 +204,13 @@ polish_void <- function(
         axis.title.y.left = ggplot2::element_blank(),
         axis.title.y.right = ggplot2::element_blank(),
 
-        panel.grid = ggplot2::element_line(linetype = 0),
-        panel.grid.major = ggplot2::element_line(linetype = 0),
-        panel.grid.minor = ggplot2::element_line(linetype = 0),
-        panel.grid.major.x = ggplot2::element_line(linetype = 0),
-        panel.grid.minor.x = ggplot2::element_line(linetype = 0),
-        panel.grid.major.y = ggplot2::element_line(linetype = 0),
-        panel.grid.minor.y = ggplot2::element_line(linetype = 0)
+        # panel.grid = ggplot2::element_line(linetype = 0),
+        # panel.grid.major = ggplot2::element_line(linetype = 0),
+        # panel.grid.minor = ggplot2::element_line(linetype = 0),
+        # panel.grid.major.x = ggplot2::element_line(linetype = 0),
+        # panel.grid.minor.x = ggplot2::element_line(linetype = 0),
+        # panel.grid.major.y = ggplot2::element_line(linetype = 0),
+        # panel.grid.minor.y = ggplot2::element_line(linetype = 0)
       )
 
   return(theme)
