@@ -522,7 +522,7 @@ gg_blanket <- function(data,
         ggplot2::scale_colour_binned(
           palette = colour_palette ,
           breaks = colour_breaks %||% fill_breaks,
-          guide = colour_guide %||% if (bordered) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_bins(),
+          guide = colour_guide %||% if (bordered) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_coloursteps(),
           labels = colour_labels %||% fill_labels %||% scales::label_number(),
           limits = colour_limits %||% fill_limits,
           name = colour_name %||% fill_name,
