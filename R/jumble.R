@@ -2,8 +2,6 @@
 #'
 #' @description
 #' A jumble of useful colours.
-#' The first 6 are relatively colour-blind safe on a light background.
-#' The 7th is a oat colour that can be used for NA.
 #'
 #' @format NULL
 #' @return A character vector.
@@ -14,10 +12,9 @@
 jumble <- c(
   "#0095A8FF",
   "#FFA600FF",
-  "#003F5CFF",
+  "#2f4b7cFF",
   "#DA3C39FF",
   "#EC9ECBFF",
-  "#67609CFF",
   "#CDC5BFFF"
 )
 

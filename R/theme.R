@@ -294,7 +294,7 @@ theme_lighter <- function(
     ...,
     text_size = 10,
     text_family = "",
-    text_colour = black,
+    text_colour = black, #flexoki::flexoki$base["base950"]
     legend_place = "right",
     legend_axis_line_colour = plot_background_fill,
     legend_axis_line_linewidth = axis_line_linewidth,
