@@ -163,6 +163,18 @@ flexoki_400 <- c(
   "#CE5D97"   # magenta-400
 )
 
+# Flexoki 500 colors (medium intensity)
+flexoki_500 <- c(
+  "#C03E35",  # red-500
+  "#CB6120",  # orange-500
+  "#BE9207",  # yellow-500
+  "#768D21",  # green-500
+  "#2F968D",  # cyan-500
+  "#3171B2",  # blue-500
+  "#735EB5",  # purple-500
+  "#B74583"   # magenta-500
+)
+
 # Flexoki 600 colors (for light themes)
 flexoki_600 <- c(
   "#AF3029",  # red-600

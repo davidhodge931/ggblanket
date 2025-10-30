@@ -240,7 +240,8 @@ gg_blanket <- function(data,
   final_mapping <- combine_aesthetics(separated$mapped, mapping)
 
   ### aesthetics
-  plot <- ggplot2::ggplot(data, mapping = final_mapping)
+  plot <- data |> ggplot2::ggplot()
+  # plot <- data |> ggraph::ggraph()
 
   ### annotate
   if (!rlang::is_null(annotate)) {
@@ -255,6 +256,7 @@ gg_blanket <- function(data,
           geom = geom,
           stat = stat,
           position = position,
+          mapping = final_mapping,
           params = all_params
         )
     }
@@ -264,6 +266,7 @@ gg_blanket <- function(data,
           geom = geom,
           stat = stat,
           position = position,
+          mapping = final_mapping,
           params = all_params
         )
     }
@@ -275,8 +278,9 @@ gg_blanket <- function(data,
           geom = geom,
           stat = stat,
           position = position,
+          mapping = final_mapping,
           params = all_params
-        ) |> ggblend::blend(blend = blend)
+        ) |> blend()
     }
     else {
       plot <- plot +
@@ -284,8 +288,9 @@ gg_blanket <- function(data,
           geom = geom,
           stat = stat,
           position = position,
+          mapping = final_mapping,
           params = all_params
-        ) |> ggblend::blend(blend = blend)
+        ) |> blend()
     }
   }
 

@@ -4,7 +4,7 @@ set_blanket <- function(
   theme = theme_greyer(),
   polish = polish_modern,
   #geom
-  fill = "#878580", #flexoki::flexoki$base["base500"],
+  fill = flexoki::flexoki$blue["blue400"], #"#878580", #flexoki::flexoki$base["base500"],
   # fill = ifelse(is_panel_dark(), ocean, blue),
   shape = 21,
   linewidth = 0.66,
