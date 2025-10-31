@@ -61,6 +61,7 @@ set_blanket <- function(
         geom.point = ggplot2::element_geom(borderwidth = stroke),
         geom.pointrange = ggplot2::element_geom(borderwidth = stroke),
         geom.dotplot = ggplot2::element_geom(borderwidth = stroke),
+
         palette.colour.discrete = colour_palette_d,
         palette.fill.discrete = fill_palette_d,
         palette.colour.continuous = colour_palette_c,
