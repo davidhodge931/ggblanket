@@ -140,47 +140,13 @@ gg_blanket <- function(data,
   }
 
   ### get geom and stat names
-  # if (inherits(geom, "Geom")) {
-  #   geom_str <- class(geom)[1] |> stringr::str_remove("^Geom") |> snakecase::to_snake_case()
-  # } else geom_str <- geom
-
   geom_info <- get_geom_info(geom)
   geom_fn <- geom_info$fn
   geom_str <- geom_info$str
 
-  # if (rlang::is_null(bordered)) {
-  #   if (geom_str == "sf") {
-  #     if (inherits(data, "sf")) {
-  #       geom_type <- sf::st_geometry_type(data, by_geometry = FALSE)
-  #       if (rlang::is_null(bordered)) bordered <- !any(geom_type %in% c("LINESTRING", "MULTILINESTRING", "CIRCULARSTRING", "COMPOUNDCURVE", "CURVE"))
-  #     }
-  #   } else {
-  #       bordered <- geom_info$fill
-  #   }
-  # }
-
   if (inherits(stat, "Stat")) {
     stat_str <- class(stat)[1] |> stringr::str_remove("^Stat") |> snakecase::to_snake_case()
   } else stat_str <- stat
-
-  # ### get geom and stat names
-  # # Extract geom_str first
-  # if (inherits(geom, "Geom")) {
-  #   geom_str <- class(geom)[1] |> stringr::str_remove("^Geom") |> snakecase::to_snake_case()
-  # } else if (is.function(geom)) {
-  #   # Get function name and extract geom type
-  #   func_name <- as.character(substitute(geom))
-  #   geom_str <- stringr::str_remove(func_name, "^.*geom_")
-  # } else if (is.character(geom)) {
-  #   geom_str <- geom
-  # } else {
-  #   stop("geom must be a string, function, or Geom object", call. = FALSE)
-  # }
-  #
-  # # Handle stat similarly
-  # if (inherits(stat, "Stat")) {
-  #   stat_str <- class(stat)[1] |> stringr::str_remove("^Stat") |> snakecase::to_snake_case()
-  # } else stat_str <- stat
 
   ### make aesthetics list
   aesthetics <- rlang::enquos(
@@ -241,7 +207,7 @@ gg_blanket <- function(data,
           bordered <- !any(geom_type %in% c("LINESTRING", "MULTILINESTRING", "CIRCULARSTRING", "COMPOUNDCURVE", "CURVE"))
         }
       } else {
-          bordered <- geom_info$fill
+          bordered <- geom_info$bordered
       }
   }
 

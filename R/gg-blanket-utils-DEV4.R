@@ -371,50 +371,41 @@ get_bordercolour_transform <- function() {
 #'   - String: `"point"` or `"density_ridges"`
 #'   - Function: `geom_point` or `ggridges::geom_density_ridges` (no parentheses)
 #'
-#' @return List with `fn` (geom function), `str` (geom name string), and `fill` (TRUE if fill is available)
+#' @return List with `fn` (geom function), `str` (geom name string), and `bordered` (TRUE if both fill and colour are available)
 #' @keywords internal
 get_geom_info <- function(geom) {
-
   # Case 1: String input (e.g., "point" or "density_ridges")
   if (is.character(geom)) {
     geom_name <- paste0("geom_", geom)
-
     # Try ggplot2 first
     geom_fn <- tryCatch({
       getExportedValue("ggplot2", geom_name)
     }, error = function(e) NULL)
-
     if (!is.null(geom_fn)) {
       temp_result <- geom_fn()
-
       # Handle sf geoms (returns a list)
       if (is.list(temp_result) && !inherits(temp_result, "LayerInstance")) {
         temp_result <- temp_result[[1]]  # Get the layer from the list
       }
-
+      geom_obj <- temp_result$geom  # Define geom_obj here!
       return(list(
         fn = geom_fn,
         str = geom,
-        fill = "fill" %in% temp_result$geom$aesthetics()
+        bordered = "fill" %in% geom_obj$aesthetics() & "colour" %in% geom_obj$aesthetics()
       ))
     }
-
     # Search other loaded packages
     for (pkg in loadedNamespaces()) {
       if (pkg == "ggplot2") next
-
       geom_fn <- tryCatch({
         getExportedValue(pkg, geom_name)
       }, error = function(e) NULL)
-
       if (!is.null(geom_fn)) {
         temp_result <- geom_fn()
-
         # Handle sf geoms (returns a list)
         if (is.list(temp_result) && !inherits(temp_result, "LayerInstance")) {
           temp_result <- temp_result[[1]]
         }
-
         # Handle LayerInstance (e.g., ggstar::geom_star)
         if (inherits(temp_result, "LayerInstance")) {
           geom_obj <- temp_result$geom
@@ -425,34 +416,28 @@ get_geom_info <- function(geom) {
           geom_obj <- temp_result$geom
           geom_str <- geom
         }
-
         return(list(
           fn = geom_fn,
           str = geom_str,
-          fill = "fill" %in% geom_obj$aesthetics()
+          bordered = "fill" %in% geom_obj$aesthetics() & "colour" %in% geom_obj$aesthetics()
         ))
       }
     }
-
     stop("Geom '", geom_name, "' not found. Make sure the package is loaded.",
          call. = FALSE)
   }
-
   # Case 2: Already a Geom object (user called the function with ())
   if (inherits(geom, "Geom")) {
     stop("Use geom function without parentheses (e.g., geom_histogram not geom_histogram())",
          call. = FALSE)
   }
-
   # Case 3: Function input (e.g., geom_point or ggridges::geom_density_ridges)
   if (is.function(geom)) {
     temp_result <- geom()
-
     # Handle sf geoms (returns a list)
     if (is.list(temp_result) && !inherits(temp_result, "LayerInstance")) {
       temp_result <- temp_result[[1]]
     }
-
     # Handle LayerInstance (e.g., ggstar::geom_star)
     if (inherits(temp_result, "LayerInstance")) {
       geom_obj <- temp_result$geom
@@ -462,17 +447,15 @@ get_geom_info <- function(geom) {
     } else {
       # Standard Geom object
       geom_obj <- temp_result$geom
-      geom_str <- class(temp_result)[1] |>
+      geom_str <- class(geom_obj)[1] |>
         stringr::str_remove("^Geom") |>
         snakecase::to_snake_case()
     }
-
     return(list(
       fn = geom,
       str = geom_str,
-      fill = "fill" %in% geom_obj$aesthetics()
+      bordered = "fill" %in% geom_obj$aesthetics() & "colour" %in% geom_obj$aesthetics()
     ))
   }
-
   stop("geom must be a string or function", call. = FALSE)
 }
