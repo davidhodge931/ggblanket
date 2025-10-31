@@ -218,6 +218,14 @@ gg_blanket <- function(data,
     is_colour_mapped <- TRUE
   }
 
+  # NEW: Check if colour and fill are mapped to the same variable
+  colour_fill_same <- FALSE
+  if (is_colour_mapped && is_fill_mapped) {
+    fill_var <- rlang::as_label(separated$mapped$fill %||% mapping$fill)
+    colour_var <- rlang::as_label(separated$mapped$colour %||% mapping$colour)
+    colour_fill_same <- (fill_var == colour_var)
+  }
+
   ### compute fixed colour and linewidth based on if bordered geom
   computed_colour <- NULL
   if (!is_colour_mapped) {
@@ -487,11 +495,24 @@ gg_blanket <- function(data,
           current_theme$palette.fill.continuous
       }
 
+      if (is.null(colour_guide)) {
+        if (bordered && colour_fill_same) {
+          # Bordered with same variable
+          colour_guide <- ggplot2::guide_none()
+        } else if (bordered && !colour_fill_same) {
+          # Bordered with different variables
+          colour_guide <- ggplot2::guide_colourbar()
+        } else {
+          # Not bordered - use fill_guide or default
+          colour_guide <- fill_guide %||% ggplot2::guide_colourbar()
+        }
+      }
+
       plot <- plot +
         ggplot2::scale_colour_continuous(
           palette = colour_palette ,
           breaks = colour_breaks %||% fill_breaks,
-          guide = colour_guide %||% if (bordered) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_colorsteps(),
+          guide = colour_guide,
           labels = colour_labels %||% fill_labels %||% scales::label_number(),
           limits = colour_limits %||% fill_limits,
           name = colour_name %||% fill_name,
@@ -514,7 +535,7 @@ gg_blanket <- function(data,
         ggplot2::scale_colour_binned(
           palette = colour_palette ,
           breaks = colour_breaks %||% fill_breaks,
-          guide = colour_guide %||% if (bordered) ggplot2::guide_none() else fill_guide %||% ggplot2::guide_coloursteps(),
+          guide = colour_guide %||% fill_guide %||% ggplot2::guide_coloursteps(),
           labels = colour_labels %||% fill_labels %||% scales::label_number(),
           limits = colour_limits %||% fill_limits,
           name = colour_name %||% fill_name,
