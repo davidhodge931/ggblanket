@@ -1,6 +1,6 @@
-#' Greyer theme
+#' Lighter theme
 #'
-#' @description A complete theme for a grey panel background.
+#' @description A complete theme for a white panel background.
 #'
 #' @param ... Require named arguments (and support trailing commas).
 #' @param text_size The base size of the text theme element. Defaults to 10.
@@ -23,7 +23,7 @@
 #' @param panel_grid_colour The colour of the panel.grid theme element.
 #' @param panel_grid_linetype The linetype of the panel.grid.major theme element.
 #' @param panel_grid_linewidth The linewidth of the panel.grid.major theme element.
-#' @param panel_grid_minor_linetype The linetype of the panel.grid.minor theme element. Defaults to 0.
+#' @param panel_grid_minor_linetype The linetype of the panel.grid.minor theme element.
 #' @param panel_grid_minor_linewidth The linewidth of the panel.grid.minor theme element.
 #' @param plot_background_fill The fill (and colour) of the plot.background theme element.
 #'
@@ -33,7 +33,7 @@
 #' @examples
 #' library(ggplot2)
 #'
-#' set_blanket(theme = theme_greyer(legend_place = "top"))
+#' set_blanket(theme = theme_lighter(legend_place = "top"))
 #'
 #' palmerpenguins::penguins |>
 #'   gg_point(
@@ -42,11 +42,11 @@
 #'     col = species,
 #'   )
 #'
-theme_greyer <- function(
+theme_lighter <- function(
     ...,
     text_size = 10,
     text_family = "",
-    text_colour = black,
+    text_colour = flexoki::flexoki$base["black"],
     legend_place = "right",
     legend_axis_line_colour = NULL,
     legend_axis_line_linewidth = NULL,
@@ -60,10 +60,10 @@ theme_greyer <- function(
     axis_ticks_colour = NULL,
     axis_ticks_linewidth = NULL,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = grey,
-    panel_grid_colour = blend_multiply(panel_background_fill),
+    panel_background_fill = "white",
+    panel_grid_colour = flexoki::flexoki$base["base50"],
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 1,
+    panel_grid_linewidth = 1.5,
     panel_grid_minor_linetype = 1,
     panel_grid_minor_linewidth = 0.5,
     plot_background_fill = "white"
@@ -269,11 +269,11 @@ theme_greyer <- function(
   )
 }
 
-#' Lighter theme
+#' Beiger theme
 #'
-#' @description A complete theme with a lighter panel background.
+#' @description A complete theme with a beige panel background.
 #'
-#' @inheritParams theme_greyer
+#' @inheritParams theme_lighter
 #'
 #' @return A ggplot theme.
 #' @export
@@ -281,7 +281,7 @@ theme_greyer <- function(
 #' @examples
 #' library(ggplot2)
 #'
-#' set_blanket(theme = theme_lighter(legend_position = "top"))
+#' set_blanket(theme = theme_beiger(legend_position = "top"))
 #'
 #' palmerpenguins::penguins |>
 #'   gg_point(
@@ -290,11 +290,11 @@ theme_greyer <- function(
 #'     col = species,
 #'   )
 #'
-theme_lighter <- function(
+theme_beiger <- function(
     ...,
     text_size = 10,
     text_family = "",
-    text_colour = black, #flexoki::flexoki$base["base950"]
+    text_colour = flexoki::flexoki$base["black"],
     legend_place = "right",
     legend_axis_line_colour = plot_background_fill,
     legend_axis_line_linewidth = axis_line_linewidth,
@@ -308,15 +308,91 @@ theme_lighter <- function(
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = "white",
-    panel_grid_colour = beige,
+    panel_background_fill = flexoki::flexoki$base["base50"],
+    panel_grid_colour = flexoki::flexoki$base["base100"],
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 1,
+    panel_grid_linewidth = 1.5,
     panel_grid_minor_linetype = 1,
     panel_grid_minor_linewidth = 0.5,
     plot_background_fill = "white"
 ) {
-  theme_greyer(
+  theme_lighter(
+    ...,
+    text_size = text_size,
+    text_family = text_family,
+    text_colour = text_colour,
+    legend_place = legend_place,
+    legend_axis_line_colour = legend_axis_line_colour,
+    legend_axis_line_linewidth = legend_axis_line_linewidth,
+    legend_background_fill = legend_background_fill,
+    legend_key_fill = legend_key_fill,
+    legend_ticks_colour = legend_ticks_colour,
+    legend_ticks_linewidth = legend_ticks_linewidth,
+    legend_ticks_length = legend_ticks_length,
+    axis_line_colour = axis_line_colour,
+    axis_line_linewidth = axis_line_linewidth,
+    axis_ticks_colour = axis_ticks_colour,
+    axis_ticks_linewidth = axis_ticks_linewidth,
+    axis_ticks_length = axis_ticks_length,
+    plot_background_fill = plot_background_fill,
+    panel_background_fill = panel_background_fill,
+    panel_grid_colour = panel_grid_colour,
+    panel_grid_linetype = panel_grid_linetype,
+    panel_grid_linewidth = panel_grid_linewidth,
+    panel_grid_minor_linetype = panel_grid_minor_linetype,
+    panel_grid_minor_linewidth = panel_grid_minor_linewidth
+  )
+}
+
+
+#' Greyer theme
+#'
+#' @description A complete theme with a greyer panel background.
+#'
+#' @inheritParams theme_lighter
+#'
+#' @return A ggplot theme.
+#' @export
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' set_blanket(theme = theme_greyer(legend_position = "top"))
+#'
+#' palmerpenguins::penguins |>
+#'   gg_point(
+#'     x = flipper_length_mm,
+#'     y = body_mass_g,
+#'     col = species,
+#'   )
+#'
+theme_greyer <- function(
+    ...,
+    text_size = 10,
+    text_family = "",
+    text_colour = flexoki::flexoki$base["black"],
+    legend_place = "right",
+    legend_axis_line_colour = plot_background_fill,
+    legend_axis_line_linewidth = axis_line_linewidth,
+    legend_background_fill = plot_background_fill,
+    legend_key_fill = plot_background_fill,
+    legend_ticks_colour = legend_axis_line_colour,
+    legend_ticks_linewidth = legend_axis_line_linewidth,
+    legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
+    axis_line_colour = text_colour,
+    axis_line_linewidth = 0.25,
+    axis_ticks_colour = axis_line_colour,
+    axis_ticks_linewidth = axis_line_linewidth,
+    axis_ticks_length = grid::unit(3.66, "pt"),
+    panel_background_fill = grey,
+    panel_grid_colour = blend_multiply(grey),
+    panel_grid_linetype = 1,
+    panel_grid_linewidth = 1.5,
+    panel_grid_minor_linetype = 1,
+    panel_grid_minor_linewidth = 0.5,
+    plot_background_fill = "white"
+) {
+  theme_lighter(
     ...,
     text_size = text_size,
     text_family = text_family,
@@ -348,9 +424,7 @@ theme_lighter <- function(
 #'
 #' @description A complete theme for a dark panel background.
 #'
-#' Uses flexoki blue50 for `text_colour` and blue950 for `panel_background_fill`.
-#'
-#' @inheritParams theme_greyer
+#' @inheritParams theme_lighter
 #'
 #' @return A ggplot theme.
 #' @export
@@ -371,7 +445,7 @@ theme_darker <- function(
     ...,
     text_size = 10,
     text_family = "",
-    text_colour = "#E1ECEBff", #flexoki blue50
+    text_colour = flexoki::flexoki$base["base50"],
     legend_place = "right",
     legend_axis_line_colour = plot_background_fill,
     legend_axis_line_linewidth = axis_line_linewidth,
@@ -385,13 +459,13 @@ theme_darker <- function(
     axis_ticks_colour = axis_line_colour,
     axis_ticks_linewidth = axis_line_linewidth,
     axis_ticks_length = grid::unit(3.66, "pt"),
-    panel_background_fill = "#101A24ff", #flexoki blue950
-    panel_grid_colour = blend_multiply(panel_background_fill),
+    panel_background_fill = flexoki::flexoki$base["base950"],
+    panel_grid_colour = flexoki::flexoki$base["black"],
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 1,
+    panel_grid_linewidth = 1.5,
     panel_grid_minor_linetype = 1,
     panel_grid_minor_linewidth = 0.5,
-    plot_background_fill = panel_grid_colour
+    plot_background_fill = flexoki::flexoki$base["black"]
 ) {
   theme_greyer(
     ...,
