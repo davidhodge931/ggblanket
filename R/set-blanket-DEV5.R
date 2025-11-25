@@ -1,17 +1,16 @@
 # Fixed set_blanket function - colour inherits from fill by default
 set_blanket <- function(
   #theme
-  theme = theme_greyer(),
+  theme = theme_lighter(),
   polish = polish_modern,
-  #geom
-  fill = flexoki::flexoki$blue["blue400"], #"#878580", #flexoki::flexoki$base["base500"],
-  # fill = ifelse(is_panel_dark(), ocean, blue),
+  #geom: move to theme
+  fill = flexoki::flexoki$blue["blue400"],
   shape = 21,
   linewidth = 0.66,
   borderwidth = 0.25,
   size = 1.5,
   stroke = 0.5,
-  #scales
+  #scales: move to theme
   fill_palette = NULL,
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype_palette = scales::pal_manual(1:6),
