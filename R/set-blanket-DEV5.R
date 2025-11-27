@@ -3,17 +3,16 @@ set_blanket <- function(
   #theme
   theme = theme_lighter(),
   polish = polish_modern,
-  #geom: move to theme
-  fill = flexoki::flexoki$blue["blue400"],
+  #geom
+  fill = flexoki::flexoki$blue["blue400"], #"#878580", #flexoki::flexoki$base["base500"],
+  # fill = ifelse(is_panel_dark(), ocean, blue),
   shape = 21,
   linewidth = 0.66,
   borderwidth = 0.25,
   size = 1.5,
   stroke = 0.5,
-  #scales: move to theme
+  #scales
   fill_palette = NULL,
-  # fill_palette_c = scales::pal_hue(),
-  # fill_palette_d = scales::pal_gradient_n(direction_contrast(viridisLite::mako(n = 10))),
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype_palette = scales::pal_manual(1:6),
   #geom and scales
@@ -26,14 +25,12 @@ set_blanket <- function(
   #palette
   if (rlang::is_null(fill_palette)) {
     fill_palette_d <- scales::pal_hue()
-    # fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako"))
-    fill_palette_c <- scales::pal_gradient_n(direction_contrast(viridisLite::mako(n = 10)))
+    fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako"))
   }
   else if (purrr::is_list(fill_palette)) {
     if (length(fill_palette) == 1) {
       fill_palette_d <- unlist(fill_palette)
-      # fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako"))
-      fill_palette_c <- scales::pal_gradient_n(direction_contrast(viridisLite::mako(n = 10)))
+      fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako"))
     }
     else if (length(fill_palette) == 2) {
       fill_palette_d <- fill_palette[[1]]
@@ -42,8 +39,7 @@ set_blanket <- function(
   }
   else {
     fill_palette_d <- unlist(fill_palette)
-    # fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako"))
-    fill_palette_c <- scales::pal_gradient_n(direction_contrast(viridisLite::mako(n = 10)))
+    fill_palette_c <- direction_contrast(scales::pal_viridis(option = "mako"))
   }
 
   # Colour palette inherits from fill palette with no transformation

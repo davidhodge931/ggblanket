@@ -536,18 +536,16 @@ gg_blanket <- function(data,
         )
     }
     else if (colour_type %in% c("continuous", "binned")) {
-      ###########################################################################
       if (bordered) {
         colour_palette <- colour_palette %||%
           bordercolour_transform(fill_palette) %||%
-          bordercolour_transform(current_theme$palette.fill.continuous) ###It's this
+          bordercolour_transform(current_theme$palette.fill.continuous)
       }
       else {
         colour_palette <- colour_palette %||%
           fill_palette %||%
           current_theme$palette.fill.continuous
       }
-      ###########################################################################
 
       if (colour_type == "continuous") {
         plot <- plot +
