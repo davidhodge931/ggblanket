@@ -267,7 +267,7 @@ gg_blanket <- function(data,
     is_colour_mapped <- TRUE
   }
 
-  # NEW: Check if colour and fill are mapped to the same variable
+  # Check if colour and fill are mapped to the same variable
   colour_fill_same <- FALSE
   if (is_colour_mapped && is_fill_mapped) {
     fill_var <- rlang::as_label(separated$mapped$fill %||% mapping$fill)
@@ -444,12 +444,16 @@ gg_blanket <- function(data,
   }
 
   fill_na <- oat
-  if (bordered) colour_na <- bordercolour_transform(fill_na)
-  else colour_na <- fill_na
-
   fill_override <- slate
-  if (bordered) colour_override <- bordercolour_transform(fill_override)
-  else colour_override <- fill_override
+
+  if (bordered) {
+    colour_na <- bordercolour_transform(fill_na)
+    colour_override <- bordercolour_transform(fill_override)
+  }
+  else {
+    colour_na <- fill_na
+    colour_override <- fill_override
+  }
 
   # Add fill scale based on type
   if (!rlang::is_null(fill_type)) {
@@ -479,10 +483,11 @@ gg_blanket <- function(data,
           name = fill_name,
           oob = fill_oob,
           rescaler = fill_rescaler,
-          trans = fill_transform,
+          transform = fill_transform,
           na.value = fill_na
         )
-    } else if (fill_type == "binned") {
+    }
+    else if (fill_type == "binned") {
       plot <- plot +
         ggplot2::binned_scale(
           aesthetics = "fill",
@@ -494,7 +499,7 @@ gg_blanket <- function(data,
           name = fill_name,
           oob = fill_oob,
           rescaler = fill_rescaler,
-          trans = fill_transform,
+          transform = fill_transform,
           na.value = fill_na
         )
     }
@@ -507,13 +512,11 @@ gg_blanket <- function(data,
   if (!rlang::is_null(colour_type)) {
     if (colour_type == "discrete") {
       if (bordered) {
-        colour_palette <- colour_palette %||%
-          bordercolour_transform(fill_palette) %||%
+        colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
           bordercolour_transform(current_theme$palette.fill.discrete)
       }
       else {
-        colour_palette <- colour_palette %||%
-          fill_palette %||%
+        colour_palette <- colour_palette %||% fill_palette %||%
           current_theme$palette.fill.discrete
       }
 
@@ -533,15 +536,12 @@ gg_blanket <- function(data,
     else if (colour_type == "continuous") {
       if (bordered) {
         colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
-          bordercolour_transform(current_theme$palette.fill.continuous)
+          bordercolour_transform(current_theme$palette.fill.continuous) ###It's this
       }
       else {
         colour_palette <- colour_palette %||% fill_palette %||%
           current_theme$palette.fill.continuous
       }
-
-      # Provide default palette if none specified
-      colour_palette <- colour_palette %||% scales::pal_viridis()
 
       if (is.null(colour_guide)) {
         if (bordered && colour_fill_same) {
@@ -560,20 +560,21 @@ gg_blanket <- function(data,
         ggplot2::continuous_scale(
           aesthetics = "colour",
           palette = colour_palette,
-          breaks = colour_breaks %||% fill_breaks,
-          guide = colour_guide,
-          labels = colour_labels %||% fill_labels %||% scales::label_number(),
-          limits = colour_limits %||% fill_limits,
-          name = colour_name %||% fill_name,
-          oob = colour_oob %||% fill_oob,
-          rescaler = colour_rescaler %||% fill_rescaler,
-          trans = colour_transform %||% fill_transform,
-          na.value = colour_na
+          # breaks = colour_breaks %||% fill_breaks,
+          # guide = colour_guide,
+          # labels = colour_labels %||% fill_labels %||% scales::label_number(),
+          # limits = colour_limits %||% fill_limits,
+          # name = colour_name %||% fill_name,
+          # oob = colour_oob %||% fill_oob,
+          # rescaler = colour_rescaler %||% fill_rescaler,
+          # transform = colour_transform %||% fill_transform,
+          na.value = "orange"  #colour_na
         )
+      return(plot)
+
     } else if (colour_type == "binned") {
       if (bordered) {
-        colour_palette <- colour_palette %||%
-          bordercolour_transform(fill_palette) %||%
+        colour_palette <- colour_palette %||% bordercolour_transform(fill_palette) %||%
           bordercolour_transform(current_theme$palette.fill.continuous)
       }
       else {
@@ -592,7 +593,7 @@ gg_blanket <- function(data,
           name = colour_name %||% fill_name,
           oob = colour_oob %||% fill_oob,
           rescaler = colour_rescaler %||% fill_rescaler,
-          trans = colour_transform %||% fill_transform,
+          transform = colour_transform %||% fill_transform,
           na.value = colour_na
         )
     }
@@ -627,7 +628,7 @@ gg_blanket <- function(data,
           limits = alpha_limits,
           name = alpha_name,
           oob = alpha_oob,
-          trans = alpha_transform
+          transform = alpha_transform
         )
     } else if (alpha_type == "binned") {
       plot <- plot +
@@ -640,7 +641,7 @@ gg_blanket <- function(data,
           limits = alpha_limits,
           name = alpha_name,
           oob = alpha_oob,
-          trans = alpha_transform
+          transform = alpha_transform
         )
     }
   }
@@ -671,7 +672,7 @@ gg_blanket <- function(data,
           limits = size_limits,
           name = size_name,
           oob = size_oob,
-          trans = size_transform
+          transform = size_transform
         )
     } else if (size_type == "binned") {
       plot <- plot +
@@ -684,7 +685,7 @@ gg_blanket <- function(data,
           limits = size_limits,
           name = size_name,
           oob = size_oob,
-          trans = size_transform
+          transform = size_transform
         )
     }
   }
@@ -715,7 +716,7 @@ gg_blanket <- function(data,
           limits = linewidth_limits,
           name = linewidth_name,
           oob = linewidth_oob,
-          trans = linewidth_transform
+          transform = linewidth_transform
         )
     } else if (linewidth_type == "binned") {
       plot <- plot +
@@ -728,7 +729,7 @@ gg_blanket <- function(data,
           limits = linewidth_limits,
           name = linewidth_name,
           oob = linewidth_oob,
-          trans = linewidth_transform
+          transform = linewidth_transform
         )
     }
   }
@@ -841,7 +842,6 @@ gg_blanket <- function(data,
 
   ### theme
   plot <- plot +
-    # current_theme + #for patchwork
     polish(focus = focus, x_type = x_type, y_type = y_type, geom = geom_str)
 
   return(plot)

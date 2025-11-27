@@ -63,7 +63,7 @@ theme_lighter <- function(
     panel_background_fill = "white",
     panel_grid_colour = flexoki::flexoki$base["base50"],
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 0.5,
+    panel_grid_linewidth = 1,
     panel_grid_minor_linetype = 1,
     panel_grid_minor_linewidth = 0.5,
     plot_background_fill = "white"
@@ -311,7 +311,7 @@ theme_beiger <- function(
     panel_background_fill = flexoki::flexoki$base["base50"],
     panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 0.5,
+    panel_grid_linewidth = 1,
     panel_grid_minor_linetype = 1,
     panel_grid_minor_linewidth = 0.5,
     plot_background_fill = "white"
@@ -387,7 +387,7 @@ theme_greyer <- function(
     panel_background_fill = grey,
     panel_grid_colour = blend_multiply(panel_background_fill),
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 0.5,
+    panel_grid_linewidth = 1,
     panel_grid_minor_linetype = 1,
     panel_grid_minor_linewidth = 0.5,
     plot_background_fill = "white"
@@ -462,7 +462,7 @@ theme_darker <- function(
     panel_background_fill = flexoki::flexoki$base["base950"],
     panel_grid_colour = flexoki::flexoki$base["black"],
     panel_grid_linetype = 1,
-    panel_grid_linewidth = 0.5,
+    panel_grid_linewidth = 1,
     panel_grid_minor_linetype = 1,
     panel_grid_minor_linewidth = 0.5,
     plot_background_fill = flexoki::flexoki$base["black"]
