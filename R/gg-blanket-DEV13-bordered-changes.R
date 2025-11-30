@@ -184,7 +184,9 @@ gg_blanket <- function(data,
 
   polish <- polish %||% get_polish() %||% polish_modern
 
-  bordered_colour <- get_bordered_colour()
+  bordered_colour <- get_bordered_colour() %||% {
+    \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x)
+  }
 
   ### get geom and stat names
   geom_info <- get_geom_info(geom)

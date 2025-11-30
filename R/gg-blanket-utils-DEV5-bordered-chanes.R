@@ -397,3 +397,42 @@ get_geom_info <- function(geom) {
   }
   stop("geom must be a string or function", call. = FALSE)
 }
+
+#' Convert discrete palette to function
+#'
+#' Ensures a discrete palette is a function. If already a function, returns as-is.
+#' If a vector, wraps it in a function that subsets the first n values.
+#'
+#' @param palette A palette function, vector, NULL, or waiver
+#' @return A palette function or NULL/waiver
+#' @keywords internal
+as_discrete_palette <- function(palette) {
+  if (is.function(palette)) return(palette)
+  if (is.null(palette) || inherits(palette, "waiver")) return(palette)
+  if (is.atomic(palette)) {
+    return(function(n) palette[seq_len(n)])
+  }
+  stop("palette must be a function, vector, or NULL", call. = FALSE)
+}
+
+#' Convert continuous palette to function
+#'
+#' Ensures a continuous palette is a function. If already a function, returns as-is.
+#' If a character vector, uses scales::pal_gradient_n for color interpolation.
+#' If a numeric vector, creates an interpolation function using rescale or approxfun.
+#'
+#' @param palette A palette function, vector, NULL, or waiver
+#' @return A palette function or NULL/waiver
+#' @keywords internal
+as_continuous_palette <- function(palette) {
+  if (is.function(palette)) return(palette)
+  if (is.null(palette) || inherits(palette, "waiver")) return(palette)
+  if (is.atomic(palette)) {
+    if (is.character(palette)) {
+      return(scales::pal_gradient_n(palette))
+    } else if (is.numeric(palette)) {
+      return(function(x) scales::rescale(x, to = palette, from = c(0, 1)))
+    }
+  }
+  stop("palette must be a function, vector, or NULL", call. = FALSE)
+}
