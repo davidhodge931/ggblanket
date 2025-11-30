@@ -466,7 +466,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "fill",
-          palette = fill_palette %||% current_theme$palette.fill.discrete,
+          palette = fill_palette,
           breaks = fill_breaks %||% ggplot2::waiver(),
           drop = fill_drop,
           guide = fill_guide %||% ggplot2::guide_legend(),
@@ -480,7 +480,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::continuous_scale(
           aesthetics = "fill",
-          palette = fill_palette %||% current_theme$palette.fill.continuous,
+          palette = fill_palette,
           breaks = fill_breaks %||% ggplot2::waiver(),
           guide = fill_guide %||% ggplot2::guide_legend(),
           labels = fill_labels %||% scales::label_number(),
@@ -496,7 +496,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::binned_scale(
           aesthetics = "fill",
-          palette = fill_palette %||% current_theme$palette.fill.continuous,
+          palette = fill_palette,
           breaks = fill_breaks %||% ggplot2::waiver(),
           guide = fill_guide %||% ggplot2::guide_bins(),
           labels = fill_labels %||% scales::label_number(),
@@ -569,15 +569,6 @@ gg_blanket <- function(data,
           )
       }
       else if (colour_type == "binned") {
-        if (is_bordered_colour) {
-          colour_palette <- colour_palette %||% bordered_colour(fill_palette) %||%
-            bordered_colour(current_theme$palette.fill.continuous)
-        }
-        else {
-          colour_palette <- colour_palette %||% fill_palette %||%
-            current_theme$palette.fill.continuous
-        }
-
         plot <- plot +
           ggplot2::binned_scale(
             aesthetics = "colour",
