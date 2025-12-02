@@ -46,7 +46,7 @@ gg_blanket <- function(data,
                        mapping = ggplot2::aes(),
                        # x scale
                        x_type = NULL,
-                       x_temporal = NULL,
+                       x_subtype = NULL,
                        x_breaks = NULL,
                        x_drop = TRUE,
                        x_expand = NULL,
@@ -62,7 +62,7 @@ gg_blanket <- function(data,
                        x_transform = NULL,
                        # y scale
                        y_type = NULL,
-                       y_temporal = NULL,
+                       y_subtype = NULL,
                        y_breaks = NULL,
                        y_drop = TRUE,
                        y_expand = NULL,
@@ -78,7 +78,7 @@ gg_blanket <- function(data,
                        y_transform = NULL,
                        # fill scale
                        fill_type = NULL,
-                       fill_temporal = NULL,
+                       fill_subtype = NULL,
                        fill_breaks = ggplot2::waiver(),
                        fill_drop = TRUE,
                        fill_guide = NULL,
@@ -91,7 +91,7 @@ gg_blanket <- function(data,
                        fill_transform = NULL,
                        # colour scale
                        colour_type = NULL,
-                       colour_temporal = NULL,
+                       colour_subtype = NULL,
                        colour_breaks = NULL,
                        colour_drop = NULL,
                        colour_guide = NULL,
@@ -104,7 +104,7 @@ gg_blanket <- function(data,
                        colour_transform = NULL,
                        # alpha scale
                        alpha_type = NULL,
-                       alpha_temporal = NULL,
+                       alpha_subtype = NULL,
                        alpha_breaks = ggplot2::waiver(),
                        alpha_drop = TRUE,
                        alpha_guide = NULL,
@@ -116,7 +116,7 @@ gg_blanket <- function(data,
                        alpha_transform = NULL,
                        # size scale
                        size_type = NULL,
-                       size_temporal = NULL,
+                       size_subtype = NULL,
                        size_breaks = ggplot2::waiver(),
                        size_drop = TRUE,
                        size_guide = NULL,
@@ -128,7 +128,7 @@ gg_blanket <- function(data,
                        size_transform = NULL,
                        # linewidth scale
                        linewidth_type = NULL,
-                       linewidth_temporal = NULL,
+                       linewidth_subtype = NULL,
                        linewidth_breaks = ggplot2::waiver(),
                        linewidth_drop = TRUE,
                        linewidth_guide = NULL,
@@ -429,13 +429,13 @@ gg_blanket <- function(data,
   linetype_type <- linetype_type %||% scale_info$linetype$type
   shape_type <- shape_type %||% scale_info$shape$type
 
-  x_temporal <- x_temporal %||% scale_info$x$temporal
-  y_temporal <- y_temporal %||% scale_info$y$temporal
-  fill_temporal <- fill_temporal %||% scale_info$fill$temporal
-  colour_temporal <- colour_temporal %||% fill_temporal %||% scale_info$colour$temporal
-  alpha_temporal <- alpha_temporal %||% scale_info$alpha$temporal
-  size_temporal <- size_temporal %||% scale_info$size$temporal
-  linewidth_temporal <- linewidth_temporal %||% scale_info$linewidth$temporal
+  x_subtype <- x_subtype %||% scale_info$x$subtype
+  y_subtype <- y_subtype %||% scale_info$y$subtype
+  fill_subtype <- fill_subtype %||% scale_info$fill$subtype
+  colour_subtype <- colour_subtype %||% fill_subtype %||% scale_info$colour$subtype
+  alpha_subtype <- alpha_subtype %||% scale_info$alpha$subtype
+  size_subtype <- size_subtype %||% scale_info$size$subtype
+  linewidth_subtype <- linewidth_subtype %||% scale_info$linewidth$subtype
 
   focus <- focus %||% get_focus(built = built, x_type = x_type, y_type = y_type)
 
@@ -459,7 +459,7 @@ gg_blanket <- function(data,
   else if (x_type == "continuous") {
     plot <- plot +
       ggplot2::scale_x_continuous(
-        breaks = x_breaks %||% if (!is.na(x_temporal)) {
+        breaks = x_breaks %||% if (!is.na(x_subtype)) {
           if (ncols == 1) scales::breaks_pretty(n = 5) else scales::breaks_pretty(n = 4)
         } else {
           if (ncols == 1) scales::breaks_extended(n = 5) else scales::breaks_extended(n = 4)
@@ -467,31 +467,31 @@ gg_blanket <- function(data,
         minor_breaks = x_minor_breaks %||% ggplot2::waiver(),
         expand = x_expand %||% get_expand(scale_info$x$limits),
         guide = x_guide,
-        labels = x_labels %||% get_labels(stat_str, x_temporal),
+        labels = x_labels %||% get_labels(stat_str, x_subtype),
         limits = x_limits,
         name = x_name,
         oob = x_oob,
         position = x_position,
         sec.axis = x_sec_axis,
-        transform = x_transform %||% get_transform(x_temporal)
+        transform = x_transform %||% get_transform(x_subtype)
       )
   }
   else if (x_type == "binned") {
     plot <- plot +
       ggplot2::scale_x_binned(
-        breaks = x_breaks %||% if (!is.na(x_temporal)) {
+        breaks = x_breaks %||% if (!is.na(x_subtype)) {
           if (ncols == 1) scales::breaks_pretty(n = 5) else scales::breaks_pretty(n = 4)
         } else {
           if (ncols == 1) scales::breaks_extended(n = 5) else scales::breaks_extended(n = 4)
         },
         expand = x_expand %||% get_expand(scale_info$x$limits),
         guide = x_guide,
-        labels = x_labels %||% get_labels(stat_str, x_temporal),
+        labels = x_labels %||% get_labels(stat_str, x_subtype),
         limits = x_limits,
         name = x_name,
         oob = x_oob,
         position = x_position,
-        transform = x_transform %||% get_transform(x_temporal)
+        transform = x_transform %||% get_transform(x_subtype)
       )
   }
 
@@ -515,7 +515,7 @@ gg_blanket <- function(data,
   else if (y_type == "continuous") {
     plot <- plot +
       ggplot2::scale_y_continuous(
-        breaks = y_breaks %||% if (!is.na(y_temporal)) {
+        breaks = y_breaks %||% if (!is.na(y_subtype)) {
           if (nrows == 1) scales::breaks_pretty(n = 5) else scales::breaks_pretty(n = 4)
         } else {
           if (nrows == 1) scales::breaks_extended(n = 5) else scales::breaks_extended(n = 4)
@@ -523,31 +523,31 @@ gg_blanket <- function(data,
         minor_breaks = y_minor_breaks %||% ggplot2::waiver(),
         expand = y_expand %||% get_expand(scale_info$y$limits),
         guide = y_guide,
-        labels = y_labels %||% get_labels(stat_str, y_temporal),
+        labels = y_labels %||% get_labels(stat_str, y_subtype),
         limits = y_limits,
         name = y_name,
         oob = y_oob,
         position = y_position,
         sec.axis = y_sec_axis,
-        transform = y_transform %||% get_transform(y_temporal)
+        transform = y_transform %||% get_transform(y_subtype)
       )
   }
   else if (y_type == "binned") {
     plot <- plot +
       ggplot2::scale_y_binned(
-        breaks = y_breaks %||% if (!is.na(y_temporal)) {
+        breaks = y_breaks %||% if (!is.na(y_subtype)) {
           if (nrows == 1) scales::breaks_pretty(n = 5) else scales::breaks_pretty(n = 4)
         } else {
           if (nrows == 1) scales::breaks_extended(n = 5) else scales::breaks_extended(n = 4)
         },
         expand = y_expand %||% get_expand(scale_info$y$limits),
         guide = y_guide,
-        labels = y_labels %||% get_labels(stat_str, y_temporal),
+        labels = y_labels %||% get_labels(stat_str, y_subtype),
         limits = y_limits,
         name = y_name,
         oob = y_oob,
         position = y_position,
-        transform = y_transform %||% get_transform(y_temporal)
+        transform = y_transform %||% get_transform(y_subtype)
       )
   }
 
@@ -586,12 +586,12 @@ gg_blanket <- function(data,
           palette = as_continuous_palette(fill_palette),
           breaks = fill_breaks %||% ggplot2::waiver(),
           guide = fill_guide %||% ggplot2::guide_legend(),
-          labels = fill_labels %||% get_labels(stat_str, fill_temporal),
+          labels = fill_labels %||% get_labels(stat_str, fill_subtype),
           limits = fill_limits,
           name = fill_name,
           oob = fill_oob,
           rescaler = fill_rescaler,
-          transform = fill_transform %||% get_transform(fill_temporal),
+          transform = fill_transform %||% get_transform(fill_subtype),
           na.value = fill_na
         )
     }
@@ -602,12 +602,12 @@ gg_blanket <- function(data,
           palette = as_continuous_palette(fill_palette),
           breaks = fill_breaks %||% ggplot2::waiver(),
           guide = fill_guide %||% ggplot2::guide_bins(),
-          labels = fill_labels %||% get_labels(stat_str, fill_temporal),
+          labels = fill_labels %||% get_labels(stat_str, fill_subtype),
           limits = fill_limits,
           name = fill_name,
           oob = fill_oob,
           rescaler = fill_rescaler,
-          transform = fill_transform %||% get_transform(fill_temporal),
+          transform = fill_transform %||% get_transform(fill_subtype),
           na.value = fill_na
         )
     }
@@ -662,12 +662,12 @@ gg_blanket <- function(data,
             palette = as_continuous_palette(colour_palette),
             breaks = colour_breaks %||% fill_breaks,
             guide = colour_guide %||% fill_guide %||% ggplot2::guide_legend(),
-            labels = colour_labels %||% fill_labels %||% get_labels(stat_str, colour_temporal),
+            labels = colour_labels %||% fill_labels %||% get_labels(stat_str, colour_subtype),
             limits = colour_limits %||% fill_limits,
             name = colour_name %||% fill_name,
             oob = colour_oob %||% fill_oob,
             rescaler = colour_rescaler %||% fill_rescaler,
-            transform = colour_transform %||% get_transform(colour_temporal),
+            transform = colour_transform %||% get_transform(colour_subtype),
             na.value = colour_na
           )
       }
@@ -678,12 +678,12 @@ gg_blanket <- function(data,
             palette = as_continuous_palette(colour_palette),
             breaks = colour_breaks %||% fill_breaks,
             guide = colour_guide %||% fill_guide %||% ggplot2::guide_bins(),
-            labels = colour_labels %||% fill_labels %||% get_labels(stat_str, colour_temporal),
+            labels = colour_labels %||% fill_labels %||% get_labels(stat_str, colour_subtype),
             limits = colour_limits %||% fill_limits,
             name = colour_name %||% fill_name,
             oob = colour_oob %||% fill_oob,
             rescaler = colour_rescaler %||% fill_rescaler,
-            transform = colour_transform %||% get_transform(colour_temporal),
+            transform = colour_transform %||% get_transform(colour_subtype),
             na.value = colour_na
           )
       }
@@ -715,11 +715,11 @@ gg_blanket <- function(data,
           palette = as_continuous_palette(alpha_palette),
           breaks = alpha_breaks,
           guide = alpha_guide %||% ggplot2::guide_legend(),
-          labels = alpha_labels %||% get_labels(stat_str, alpha_temporal),
+          labels = alpha_labels %||% get_labels(stat_str, alpha_subtype),
           limits = alpha_limits,
           name = alpha_name,
           oob = alpha_oob,
-          transform = alpha_transform %||% get_transform(alpha_temporal)
+          transform = alpha_transform %||% get_transform(alpha_subtype)
         )
     }
     else if (alpha_type == "binned") {
@@ -729,11 +729,11 @@ gg_blanket <- function(data,
           palette = as_continuous_palette(alpha_palette),
           breaks = alpha_breaks,
           guide = alpha_guide %||% ggplot2::guide_bins(),
-          labels = alpha_labels %||% get_labels(stat_str, alpha_temporal),
+          labels = alpha_labels %||% get_labels(stat_str, alpha_subtype),
           limits = alpha_limits,
           name = alpha_name,
           oob = alpha_oob,
-          transform = alpha_transform %||% get_transform(alpha_temporal)
+          transform = alpha_transform %||% get_transform(alpha_subtype)
         )
     }
   }
@@ -760,11 +760,11 @@ gg_blanket <- function(data,
           palette = as_continuous_palette(size_palette),
           breaks = size_breaks,
           guide = size_guide %||% ggplot2::guide_legend(),
-          labels = size_labels %||% get_labels(stat_str, size_temporal),
+          labels = size_labels %||% get_labels(stat_str, size_subtype),
           limits = size_limits,
           name = size_name,
           oob = size_oob,
-          transform = size_transform %||% get_transform(size_temporal)
+          transform = size_transform %||% get_transform(size_subtype)
         )
     }
     else if (size_type == "binned") {
@@ -774,11 +774,11 @@ gg_blanket <- function(data,
           palette = as_continuous_palette(size_palette),
           breaks = size_breaks,
           guide = size_guide %||% ggplot2::guide_bins(),
-          labels = size_labels %||% get_labels(stat_str, size_temporal),
+          labels = size_labels %||% get_labels(stat_str, size_subtype),
           limits = size_limits,
           name = size_name,
           oob = size_oob,
-          transform = size_transform %||% get_transform(size_temporal)
+          transform = size_transform %||% get_transform(size_subtype)
         )
     }
   }
@@ -805,11 +805,11 @@ gg_blanket <- function(data,
           palette = as_continuous_palette(linewidth_palette),
           breaks = linewidth_breaks,
           guide = linewidth_guide %||% ggplot2::guide_legend(),
-          labels = linewidth_labels %||% get_labels(stat_str, linewidth_temporal),
+          labels = linewidth_labels %||% get_labels(stat_str, linewidth_subtype),
           limits = linewidth_limits,
           name = linewidth_name,
           oob = linewidth_oob,
-          transform = linewidth_transform %||% get_transform(linewidth_temporal)
+          transform = linewidth_transform %||% get_transform(linewidth_subtype)
         )
     }
     else if (linewidth_type == "binned") {
@@ -819,11 +819,11 @@ gg_blanket <- function(data,
           palette = as_continuous_palette(linewidth_palette),
           breaks = linewidth_breaks,
           guide = linewidth_guide %||% ggplot2::guide_bins(),
-          labels = linewidth_labels %||% get_labels(stat_str, linewidth_temporal),
+          labels = linewidth_labels %||% get_labels(stat_str, linewidth_subtype),
           limits = linewidth_limits,
           name = linewidth_name,
           oob = linewidth_oob,
-          transform = linewidth_transform %||% get_transform(linewidth_temporal)
+          transform = linewidth_transform %||% get_transform(linewidth_subtype)
         )
     }
   }

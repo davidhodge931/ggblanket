@@ -111,7 +111,7 @@ identify_scale <- function(built) {
     } else {
       NA_character_
     }
-    temporal <- if (stringr::str_detect(class_name, "Datetime")) {
+    subtype <- if (stringr::str_detect(class_name, "Datetime")) {
       "datetime"
     } else if (stringr::str_detect(class_name, "Date")) {
       "date"
@@ -121,7 +121,7 @@ identify_scale <- function(built) {
     list(
       class = class_name,
       type = type,
-      temporal = temporal,
+      subtype = subtype,
       limits = scale$get_limits()
     )
   }
@@ -163,19 +163,19 @@ get_expand <- function(limits) {
   return(expand)
 }
 
-#' Get label function based on scale temporal
+#' Get label function based on scale subtype
 #' @param stat A stat
-#' @param temporal Scale temporal (e.g., "date", "datetime", "time", or NA)
+#' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
 #' @return A scales label function
 #' @keywords internal
-get_labels <- function(stat, temporal) {
+get_labels <- function(stat, subtype) {
   if (is_stat_sf(stat)) labels <- ggplot2::waiver()
   else {
-    if (is.na(temporal)) {
+    if (is.na(subtype)) {
       labels <- scales::label_number()
     }
     else {
-      labels <- switch(temporal,
+      labels <- switch(subtype,
                        date = scales::label_date_short(leading = ""),
                        datetime = scales::label_date_short(leading = ""),
                        time = scales::label_time(),
@@ -186,16 +186,16 @@ get_labels <- function(stat, temporal) {
   return(labels)
 }
 
-#' Get transform function based on scale temporal
-#' @param temporal Scale temporal (e.g., "date", "datetime", "time", or NA)
+#' Get transform function based on scale subtype
+#' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
 #' @return A scales transform function
 #' @keywords internal
-get_transform <- function(temporal) {
-  if (is.na(temporal)) {
+get_transform <- function(subtype) {
+  if (is.na(subtype)) {
     transform <- scales::transform_identity()
   }
   else {
-    transform <- switch(temporal,
+    transform <- switch(subtype,
                         date = scales::transform_date(),
                         datetime = scales::transform_time(),
                         time = scales::transform_hms(),
