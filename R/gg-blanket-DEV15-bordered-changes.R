@@ -428,7 +428,11 @@ gg_blanket <- function(data,
   else if (x_type == "continuous") {
     plot <- plot +
       ggplot2::scale_x_continuous(
-        breaks = x_breaks %||% if (ncols == 1) scales::breaks_extended(n = 6) else scales::breaks_extended(n = 4),
+        breaks = x_breaks %||% if (!is.na(x_temporal)) {
+          if (ncols == 1) scales::breaks_pretty(n = 5) else scales::breaks_pretty(n = 4)
+        } else {
+          if (ncols == 1) scales::breaks_extended(n = 5) else scales::breaks_extended(n = 4)
+        },
         minor_breaks = x_minor_breaks %||% ggplot2::waiver(),
         expand = x_expand %||% get_expand(scale_info$x$limits),
         guide = x_guide,
@@ -444,7 +448,11 @@ gg_blanket <- function(data,
   else if (x_type == "binned") {
     plot <- plot +
       ggplot2::scale_x_binned(
-        breaks = x_breaks %||% if (ncols == 1) scales::breaks_extended(n = 6) else scales::breaks_extended(n = 4),
+        breaks = x_breaks %||% if (!is.na(x_temporal)) {
+          if (ncols == 1) scales::breaks_pretty(n = 5) else scales::breaks_pretty(n = 4)
+        } else {
+          if (ncols == 1) scales::breaks_extended(n = 5) else scales::breaks_extended(n = 4)
+        },
         expand = x_expand %||% get_expand(scale_info$x$limits),
         guide = x_guide,
         labels = x_labels %||% get_labels(stat_str, x_temporal),
@@ -456,7 +464,7 @@ gg_blanket <- function(data,
       )
   }
 
-  ### Add y scale
+  # Add y scale
   if (y_type == "discrete") {
     plot <- plot +
       ggplot2::scale_y_discrete(
@@ -476,7 +484,11 @@ gg_blanket <- function(data,
   else if (y_type == "continuous") {
     plot <- plot +
       ggplot2::scale_y_continuous(
-        breaks = y_breaks %||% if (nrows == 1) scales::breaks_extended(n = 6) else scales::breaks_extended(n = 4),
+        breaks = y_breaks %||% if (!is.na(y_temporal)) {
+          if (nrows == 1) scales::breaks_pretty(n = 5) else scales::breaks_pretty(n = 4)
+        } else {
+          if (nrows == 1) scales::breaks_extended(n = 5) else scales::breaks_extended(n = 4)
+        },
         minor_breaks = y_minor_breaks %||% ggplot2::waiver(),
         expand = y_expand %||% get_expand(scale_info$y$limits),
         guide = y_guide,
@@ -492,7 +504,11 @@ gg_blanket <- function(data,
   else if (y_type == "binned") {
     plot <- plot +
       ggplot2::scale_y_binned(
-        breaks = y_breaks %||% if (nrows == 1) scales::breaks_extended(n = 6) else scales::breaks_extended(n = 4),
+        breaks = y_breaks %||% if (!is.na(y_temporal)) {
+          if (nrows == 1) scales::breaks_pretty(n = 5) else scales::breaks_pretty(n = 4)
+        } else {
+          if (nrows == 1) scales::breaks_extended(n = 5) else scales::breaks_extended(n = 4)
+        },
         expand = y_expand %||% get_expand(scale_info$y$limits),
         guide = y_guide,
         labels = y_labels %||% get_labels(stat_str, y_temporal),
@@ -503,7 +519,6 @@ gg_blanket <- function(data,
         transform = y_transform %||% get_transform(y_temporal)
       )
   }
-
   fill_na <- oat
   fill_override <- slate
 
