@@ -386,6 +386,28 @@ gg_blanket <- function(data,
       )
   }
 
+  if (!rlang::is_null(x_limits)) {
+    if (is.function(x_limits)) {
+      plot <- plot +
+        scale_x_continuous(limits = x_limits)
+    }
+    else {
+      plot <- plot +
+        xlim(x_limits)
+    }
+  }
+
+  if (!rlang::is_null(y_limits)) {
+    if (is.function(y_limits)) {
+      plot <- plot +
+        scale_y_continuous(limits = y_limits)
+    }
+    else {
+      plot <- plot +
+        ylim(y_limits)
+    }
+  }
+
   ### identify scales and focus
   built <- ggplot2::ggplot_build(plot)
   nrows <- length(unique(built$layout$layout$ROW))
