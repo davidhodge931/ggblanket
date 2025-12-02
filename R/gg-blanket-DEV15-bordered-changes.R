@@ -338,6 +338,54 @@ gg_blanket <- function(data,
       )
   }
 
+  ### coord
+  if (!rlang::is_null(title)) {
+    plot <- plot + ggplot2::labs(title = title)
+  }
+  if (!rlang::is_null(subtitle)) {
+    plot <- plot + ggplot2::labs(subtitle = subtitle)
+  }
+  if (!rlang::is_null(caption)) {
+    plot <- plot + ggplot2::labs(caption = caption)
+  }
+
+  coord <- get_coord(
+    stat_str = stat_str,
+    coord_xlim = coord_xlim,
+    coord_ylim = coord_ylim,
+    coord_clip = coord_clip,
+    coord_reverse = coord_reverse,
+    coord_ratio = coord_ratio
+  )
+
+  plot <- plot +
+    coord
+
+  #### facet
+  if (!rlang::is_null(facet_facets)) {
+    plot <- plot +
+      ggplot2::facet_wrap(
+        facets = facet_facets,
+        nrow = facet_nrow,
+        ncol = facet_ncol,
+        scales = facet_scales,
+        drop = facet_drop,
+        axes = facet_axes,
+        axis.labels = facet_axis_labels
+      )
+  } else if (!rlang::is_null(facet_rows) | !rlang::is_null(facet_cols)) {
+    plot <- plot +
+      ggplot2::facet_grid(
+        rows = facet_rows,
+        cols = facet_cols,
+        scales = facet_scales,
+        space = facet_space,
+        drop = facet_drop,
+        axes = facet_axes,
+        axis.labels = facet_axis_labels
+      )
+  }
+
   ### identify scales and focus
   built <- ggplot2::ggplot_build(plot)
   nrows <- length(unique(built$layout$layout$ROW))
@@ -360,8 +408,7 @@ gg_blanket <- function(data,
 
   focus <- focus %||% get_focus(built = built, x_type = x_type, y_type = y_type)
 
-  ### scales
-
+  ### Add x scale
   if (x_type == "discrete") {
     plot <- plot +
       ggplot2::scale_x_discrete(
@@ -409,7 +456,7 @@ gg_blanket <- function(data,
       )
   }
 
-  # Add y scale based on type
+  ### Add y scale
   if (y_type == "discrete") {
     plot <- plot +
       ggplot2::scale_y_discrete(
@@ -469,7 +516,7 @@ gg_blanket <- function(data,
     colour_override <- fill_override
   }
 
-  # Add fill scale based on type
+  # Add fill scale
   if (!rlang::is_null(fill_type)) {
     if (fill_type == "discrete") {
       plot <- plot +
@@ -522,7 +569,7 @@ gg_blanket <- function(data,
       ggplot2::theme(geom = ggplot2::element_geom(fill = fill_override))
   }
 
-  # Add colour scale based on type - with fill fallbacks
+  # Add colour scale
   if (!rlang::is_null(colour_type)) {
     if (colour_type == "discrete") {
       if (is_bordered_colour) {
@@ -599,7 +646,7 @@ gg_blanket <- function(data,
       ggplot2::theme(geom = ggplot2::element_geom(colour = colour_override))
   }
 
-  # Add alpha scale based on type
+  # Add alpha scale
   if (!rlang::is_null(alpha_type)) {
     if (alpha_type == "discrete") {
       plot <- plot +
@@ -644,7 +691,7 @@ gg_blanket <- function(data,
     }
   }
 
-  # Add size scale based on type
+  # Add size scale
   if (!rlang::is_null(size_type)) {
     if (size_type == "discrete") {
       plot <- plot +
@@ -689,7 +736,7 @@ gg_blanket <- function(data,
     }
   }
 
-  # Add linewidth scale based on type
+  # Add linewidth scale
   if (!rlang::is_null(linewidth_type)) {
     if (linewidth_type == "discrete") {
       plot <- plot +
@@ -734,7 +781,7 @@ gg_blanket <- function(data,
     }
   }
 
-  # Add linetype scale based on type (discrete only)
+  # Add linetype scale  (discrete only)
   if (!rlang::is_null(linetype_type)) {
     if (linetype_type == "discrete") {
       plot <- plot +
@@ -751,7 +798,7 @@ gg_blanket <- function(data,
     }
   }
 
-  # Add shape scale based on type (discrete only)
+  # Add shape scale  (discrete only)
   if (!rlang::is_null(shape_type)) {
     if (shape_type == "discrete") {
       plot <- plot +
@@ -766,54 +813,6 @@ gg_blanket <- function(data,
           name = shape_name
         )
     }
-  }
-
-  ### coord
-  if (!rlang::is_null(title)) {
-    plot <- plot + ggplot2::labs(title = title)
-  }
-  if (!rlang::is_null(subtitle)) {
-    plot <- plot + ggplot2::labs(subtitle = subtitle)
-  }
-  if (!rlang::is_null(caption)) {
-    plot <- plot + ggplot2::labs(caption = caption)
-  }
-
-  coord <- get_coord(
-    stat_str = stat_str,
-    coord_xlim = coord_xlim,
-    coord_ylim = coord_ylim,
-    coord_clip = coord_clip,
-    coord_reverse = coord_reverse,
-    coord_ratio = coord_ratio
-  )
-
-  plot <- plot +
-    coord
-
-  #### facet
-  if (!rlang::is_null(facet_facets)) {
-    plot <- plot +
-      ggplot2::facet_wrap(
-        facets = facet_facets,
-        nrow = facet_nrow,
-        ncol = facet_ncol,
-        scales = facet_scales,
-        drop = facet_drop,
-        axes = facet_axes,
-        axis.labels = facet_axis_labels
-      )
-  } else if (!rlang::is_null(facet_rows) | !rlang::is_null(facet_cols)) {
-    plot <- plot +
-      ggplot2::facet_grid(
-        rows = facet_rows,
-        cols = facet_cols,
-        scales = facet_scales,
-        space = facet_space,
-        drop = facet_drop,
-        axes = facet_axes,
-        axis.labels = facet_axis_labels
-      )
   }
 
   ### theme
