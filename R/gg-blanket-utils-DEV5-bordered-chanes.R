@@ -176,8 +176,8 @@ get_labels <- function(stat, temporal) {
     }
     else {
       labels <- switch(temporal,
-                       date = scales::label_date_short(),
-                       datetime = scales::label_date_short(),
+                       date = scales::label_date_short(leading = ""),
+                       datetime = scales::label_date_short(leading = ""),
                        time = scales::label_time(),
                        scales::label_number()
       )
