@@ -1,4 +1,4 @@
-# Updated gg_blanket function with all aesthetic scales
+# Updated gg_blanket function with palette wrappers
 gg_blanket <- function(data,
                        ...,
                        # geom
@@ -277,7 +277,6 @@ gg_blanket <- function(data,
   if (is_colour_mapped && is_fill_mapped) {
     fill_var <- rlang::as_label(separated$mapped$fill %||% mapping$fill)
     colour_var <- rlang::as_label(separated$mapped$colour %||% mapping$colour)
-    # colour_fill_same <- (fill_var == colour_var)
     colour_fill_same <- identical(fill_var, colour_var)
   }
 
@@ -341,6 +340,8 @@ gg_blanket <- function(data,
 
   ### identify scales and focus
   built <- ggplot2::ggplot_build(plot)
+  nrows <- length(unique(built$layout$layout$ROW))
+  ncols <- length(unique(built$layout$layout$COL))
 
   scale_info <- identify_scale(built)
 
@@ -360,6 +361,7 @@ gg_blanket <- function(data,
   focus <- focus %||% get_focus(built = built, x_type = x_type, y_type = y_type)
 
   ### scales
+
   if (x_type == "discrete") {
     plot <- plot +
       ggplot2::scale_x_discrete(
@@ -370,7 +372,8 @@ gg_blanket <- function(data,
         guide = x_guide,
         labels = x_labels %||% ggplot2::waiver(),
         limits = x_limits,
-        name = x_name, palette = x_palette,
+        name = x_name,
+        palette = x_palette,
         position = x_position,
         sec.axis = x_sec_axis
       )
@@ -378,13 +381,14 @@ gg_blanket <- function(data,
   else if (x_type == "continuous") {
     plot <- plot +
       ggplot2::scale_x_continuous(
-        breaks = x_breaks %||% ggplot2::waiver(),
+        breaks = x_breaks %||% if (ncols == 1) scales::breaks_extended(n = 6) else scales::breaks_extended(n = 4),
         minor_breaks = x_minor_breaks %||% ggplot2::waiver(),
         expand = x_expand %||% get_expand(scale_info$x$limits),
         guide = x_guide,
         labels = x_labels %||% get_labels(stat_str, x_temporal),
         limits = x_limits,
-        name = x_name, oob = x_oob,
+        name = x_name,
+        oob = x_oob,
         position = x_position,
         sec.axis = x_sec_axis,
         transform = x_transform %||% get_transform(x_temporal)
@@ -393,12 +397,13 @@ gg_blanket <- function(data,
   else if (x_type == "binned") {
     plot <- plot +
       ggplot2::scale_x_binned(
-        breaks = x_breaks %||% ggplot2::waiver(),
+        breaks = x_breaks %||% if (ncols == 1) scales::breaks_extended(n = 6) else scales::breaks_extended(n = 4),
         expand = x_expand %||% get_expand(scale_info$x$limits),
         guide = x_guide,
         labels = x_labels %||% get_labels(stat_str, x_temporal),
         limits = x_limits,
-        name = x_name, oob = x_oob,
+        name = x_name,
+        oob = x_oob,
         position = x_position,
         transform = x_transform %||% get_transform(x_temporal)
       )
@@ -415,7 +420,8 @@ gg_blanket <- function(data,
         guide = y_guide,
         labels = y_labels %||% ggplot2::waiver(),
         limits = y_limits,
-        name = y_name, palette = y_palette,
+        name = y_name,
+        palette = y_palette,
         position = y_position,
         sec.axis = y_sec_axis
       )
@@ -423,13 +429,14 @@ gg_blanket <- function(data,
   else if (y_type == "continuous") {
     plot <- plot +
       ggplot2::scale_y_continuous(
-        breaks = y_breaks %||% ggplot2::waiver(),
+        breaks = y_breaks %||% if (nrows == 1) scales::breaks_extended(n = 6) else scales::breaks_extended(n = 4),
         minor_breaks = y_minor_breaks %||% ggplot2::waiver(),
         expand = y_expand %||% get_expand(scale_info$y$limits),
         guide = y_guide,
         labels = y_labels %||% get_labels(stat_str, y_temporal),
         limits = y_limits,
-        name = y_name, oob = y_oob,
+        name = y_name,
+        oob = y_oob,
         position = y_position,
         sec.axis = y_sec_axis,
         transform = y_transform %||% get_transform(y_temporal)
@@ -438,12 +445,13 @@ gg_blanket <- function(data,
   else if (y_type == "binned") {
     plot <- plot +
       ggplot2::scale_y_binned(
-        breaks = y_breaks %||% ggplot2::waiver(),
+        breaks = y_breaks %||% if (nrows == 1) scales::breaks_extended(n = 6) else scales::breaks_extended(n = 4),
         expand = y_expand %||% get_expand(scale_info$y$limits),
         guide = y_guide,
         labels = y_labels %||% get_labels(stat_str, y_temporal),
         limits = y_limits,
-        name = y_name, oob = y_oob,
+        name = y_name,
+        oob = y_oob,
         position = y_position,
         transform = y_transform %||% get_transform(y_temporal)
       )
@@ -467,7 +475,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "fill",
-          palette = fill_palette,
+          palette = as_discrete_palette(fill_palette),
           breaks = fill_breaks %||% ggplot2::waiver(),
           drop = fill_drop,
           guide = fill_guide %||% ggplot2::guide_legend(),
@@ -481,7 +489,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::continuous_scale(
           aesthetics = "fill",
-          palette = fill_palette,
+          palette = as_continuous_palette(fill_palette),
           breaks = fill_breaks %||% ggplot2::waiver(),
           guide = fill_guide %||% ggplot2::guide_legend(),
           labels = fill_labels %||% scales::label_number(),
@@ -497,7 +505,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::binned_scale(
           aesthetics = "fill",
-          palette = fill_palette,
+          palette = as_continuous_palette(fill_palette),
           breaks = fill_breaks %||% ggplot2::waiver(),
           guide = fill_guide %||% ggplot2::guide_bins(),
           labels = fill_labels %||% scales::label_number(),
@@ -531,7 +539,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "colour",
-          palette = colour_palette,
+          palette = as_discrete_palette(colour_palette),
           breaks = colour_breaks %||% fill_breaks,
           drop = colour_drop  %||% fill_drop,
           guide = colour_guide  %||%  fill_guide %||% ggplot2::guide_legend(),
@@ -557,7 +565,7 @@ gg_blanket <- function(data,
         plot <- plot +
           ggplot2::continuous_scale(
             aesthetics = "colour",
-            palette = colour_palette,
+            palette = as_continuous_palette(colour_palette),
             breaks = colour_breaks %||% fill_breaks,
             guide = colour_guide %||% fill_guide %||% ggplot2::guide_legend(),
             labels = colour_labels %||% fill_labels %||% scales::label_number(),
@@ -573,7 +581,7 @@ gg_blanket <- function(data,
         plot <- plot +
           ggplot2::binned_scale(
             aesthetics = "colour",
-            palette = colour_palette,
+            palette = as_continuous_palette(colour_palette),
             breaks = colour_breaks %||% fill_breaks,
             guide = colour_guide %||% fill_guide %||% ggplot2::guide_bins(),
             labels = colour_labels %||% fill_labels %||% scales::label_number(),
@@ -597,7 +605,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "alpha",
-          palette = alpha_palette,
+          palette = as_discrete_palette(alpha_palette),
           breaks = alpha_breaks,
           drop = alpha_drop,
           guide = alpha_guide %||% ggplot2::guide_legend(),
@@ -610,7 +618,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::continuous_scale(
           aesthetics = "alpha",
-          palette = alpha_palette,
+          palette = as_continuous_palette(alpha_palette),
           breaks = alpha_breaks,
           guide = alpha_guide %||% ggplot2::guide_legend(),
           labels = alpha_labels %||% scales::label_number(),
@@ -619,11 +627,12 @@ gg_blanket <- function(data,
           oob = alpha_oob,
           transform = alpha_transform
         )
-    } else if (alpha_type == "binned") {
+    }
+    else if (alpha_type == "binned") {
       plot <- plot +
         ggplot2::binned_scale(
           aesthetics = "alpha",
-          palette = alpha_palette,
+          palette = as_continuous_palette(alpha_palette),
           breaks = alpha_breaks,
           guide = alpha_guide %||% ggplot2::guide_bins(),
           labels = alpha_labels %||% scales::label_number(),
@@ -641,7 +650,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "size",
-          palette = size_palette,
+          palette = as_discrete_palette(size_palette),
           breaks = size_breaks,
           drop = size_drop,
           guide = size_guide %||% ggplot2::guide_legend(),
@@ -654,7 +663,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::continuous_scale(
           aesthetics = "size",
-          palette = size_palette,
+          palette = as_continuous_palette(size_palette),
           breaks = size_breaks,
           guide = size_guide %||% ggplot2::guide_legend(),
           labels = size_labels %||% scales::label_number(),
@@ -663,11 +672,12 @@ gg_blanket <- function(data,
           oob = size_oob,
           transform = size_transform
         )
-    } else if (size_type == "binned") {
+    }
+    else if (size_type == "binned") {
       plot <- plot +
         ggplot2::binned_scale(
           aesthetics = "size",
-          palette = size_palette,
+          palette = as_continuous_palette(size_palette),
           breaks = size_breaks,
           guide = size_guide %||% ggplot2::guide_bins(),
           labels = size_labels %||% scales::label_number(),
@@ -685,7 +695,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "linewidth",
-          palette = linewidth_palette,
+          palette = as_discrete_palette(linewidth_palette),
           breaks = linewidth_breaks,
           drop = linewidth_drop,
           guide = linewidth_guide %||% ggplot2::guide_legend(),
@@ -698,7 +708,7 @@ gg_blanket <- function(data,
       plot <- plot +
         ggplot2::continuous_scale(
           aesthetics = "linewidth",
-          palette = linewidth_palette,
+          palette = as_continuous_palette(linewidth_palette),
           breaks = linewidth_breaks,
           guide = linewidth_guide %||% ggplot2::guide_legend(),
           labels = linewidth_labels %||% scales::label_number(),
@@ -707,11 +717,12 @@ gg_blanket <- function(data,
           oob = linewidth_oob,
           transform = linewidth_transform
         )
-    } else if (linewidth_type == "binned") {
+    }
+    else if (linewidth_type == "binned") {
       plot <- plot +
         ggplot2::binned_scale(
           aesthetics = "linewidth",
-          palette = linewidth_palette,
+          palette = as_continuous_palette(linewidth_palette),
           breaks = linewidth_breaks,
           guide = linewidth_guide %||% ggplot2::guide_bins(),
           labels = linewidth_labels %||% scales::label_number(),
@@ -723,13 +734,13 @@ gg_blanket <- function(data,
     }
   }
 
-  # Add linetype scale based on type
+  # Add linetype scale based on type (discrete only)
   if (!rlang::is_null(linetype_type)) {
     if (linetype_type == "discrete") {
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "linetype",
-          palette = linetype_palette,
+          palette = as_discrete_palette(linetype_palette),
           breaks = linetype_breaks,
           drop = linetype_drop,
           guide = linetype_guide %||% ggplot2::guide_legend(),
@@ -738,43 +749,19 @@ gg_blanket <- function(data,
           name = linetype_name
         )
     }
-    else if (linetype_type == "binned") {
-      plot <- plot +
-        ggplot2::binned_scale(
-          aesthetics = "linetype",
-          palette = linetype_palette,
-          breaks = linetype_breaks,
-          guide = linetype_guide %||% ggplot2::guide_bins(),
-          labels = linetype_labels %||% ggplot2::waiver(),
-          limits = linetype_limits,
-          name = linetype_name
-        )
-    }
   }
 
-  # Add shape scale based on type
+  # Add shape scale based on type (discrete only)
   if (!rlang::is_null(shape_type)) {
     if (shape_type == "discrete") {
       plot <- plot +
         ggplot2::discrete_scale(
           aesthetics = "shape",
-          palette = shape_palette,
+          palette = as_discrete_palette(shape_palette),
           breaks = shape_breaks,
           drop = shape_drop,
           guide = shape_guide %||% ggplot2::guide_legend(),
           labels = shape_labels %||% ggplot2::waiver(),
-          limits = shape_limits,
-          name = shape_name
-        )
-    }
-    else if (shape_type == "binned") {
-      plot <- plot +
-        ggplot2::binned_scale(
-          aesthetics = "shape",
-          palette = shape_palette,
-          breaks = shape_breaks,
-          guide = shape_guide %||% ggplot2::guide_bins(),
-          labels = shape_labels %||% scales::label_number(),
           limits = shape_limits,
           name = shape_name
         )
