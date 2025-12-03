@@ -178,10 +178,7 @@ gg_blanket <- function(data,
                        #titles
                        title = NULL,
                        subtitle = NULL,
-                       caption = NULL,
-                       #intialise
-                       ggplot = ggplot2::ggplot
-
+                       caption = NULL
 ) {
 
   #get options
@@ -316,8 +313,7 @@ gg_blanket <- function(data,
   final_mapping <- combine_aesthetics(separated$mapped, mapping)
 
   ### aesthetics
-  plot <- data |> ggplot()
-  # plot <- data |> ggplot2::ggplot(mapping = final_mapping)
+  plot <- data |> ggplot2::ggplot(mapping = final_mapping)
 
   ### annotate
   if (!rlang::is_null(annotate)) {
@@ -331,7 +327,6 @@ gg_blanket <- function(data,
         geom_fn,
         stat = stat,
         position = position,
-        mapping = final_mapping,
         !!!all_params
       ) |> blend()
   }
@@ -341,31 +336,9 @@ gg_blanket <- function(data,
         geom_fn,
         stat = stat,
         position = position,
-        mapping = final_mapping,
         !!!all_params
       )
   }
-
-  ### coord
-  if (!rlang::is_null(title)) {
-    plot <- plot + ggplot2::labs(title = title)
-  }
-  if (!rlang::is_null(subtitle)) {
-    plot <- plot + ggplot2::labs(subtitle = subtitle)
-  }
-  if (!rlang::is_null(caption)) {
-    plot <- plot + ggplot2::labs(caption = caption)
-  }
-
-  plot <- plot +
-    get_coord(
-      coord_type = coord_type,
-      coord_xlim = coord_xlim,
-      coord_ylim = coord_ylim,
-      coord_clip = coord_clip,
-      coord_reverse = coord_reverse,
-      coord_ratio = coord_ratio
-    )
 
   #### facet
   if (!rlang::is_null(facet_facets)) {
@@ -420,6 +393,11 @@ gg_blanket <- function(data,
   ncols <- length(unique(built$layout$layout$COL))
 
   scale_info <- identify_scale(built)
+
+  coord_type <- coord_type %||%
+    stringr::str_to_lower(stringr::str_remove(class(built@layout$coord)[1], "Coord"))
+
+  print(coord_type)
 
   x_type <- x_type %||% scale_info$x$type
   y_type <- y_type %||% scale_info$y$type
@@ -877,6 +855,27 @@ gg_blanket <- function(data,
         )
     }
   }
+
+  ### coord
+  if (!rlang::is_null(title)) {
+    plot <- plot + ggplot2::labs(title = title)
+  }
+  if (!rlang::is_null(subtitle)) {
+    plot <- plot + ggplot2::labs(subtitle = subtitle)
+  }
+  if (!rlang::is_null(caption)) {
+    plot <- plot + ggplot2::labs(caption = caption)
+  }
+
+  plot <- plot +
+    get_coord(
+      coord_type = coord_type,
+      coord_xlim = coord_xlim,
+      coord_ylim = coord_ylim,
+      coord_clip = coord_clip,
+      coord_reverse = coord_reverse,
+      coord_ratio = coord_ratio
+    )
 
   ### theme
   plot <- plot +
