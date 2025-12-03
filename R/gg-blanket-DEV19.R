@@ -397,8 +397,6 @@ gg_blanket <- function(data,
   coord_type <- coord_type %||%
     stringr::str_to_lower(stringr::str_remove(class(built@layout$coord)[1], "Coord"))
 
-  print(coord_type)
-
   x_type <- x_type %||% scale_info$x$type
   y_type <- y_type %||% scale_info$y$type
   fill_type <- fill_type %||% scale_info$fill$type
@@ -566,7 +564,7 @@ gg_blanket <- function(data,
     else if (fill_type %in% c("continuous", "binned")) {
       fill_palette <- fill_palette %||%
         current_theme$palette.fill.continuous %||%
-        scales::pal_gradient_n(direction_contrast(viridis::mako(n = 20)))
+        scales::pal_gradient_n(direction_contrast(viridis::mako(n = 256)))
 
       if (fill_type == "continuous") {
         plot <- plot +
@@ -640,13 +638,13 @@ gg_blanket <- function(data,
         colour_palette <- colour_palette %||%
           bordered_colour(fill_palette) %||%
           bordered_colour(current_theme$palette.fill.continuous) %||%
-          bordered_colour(scales::pal_gradient_n(direction_contrast(viridis::mako(n = 20))))
+          bordered_colour(scales::pal_gradient_n(direction_contrast(viridis::mako(n = 256))))
       }
       else {
         colour_palette <- colour_palette %||%
           fill_palette %||%
           current_theme$palette.fill.continuous %||%
-          scales::pal_gradient_n(direction_contrast(viridis::mako(n = 20)))
+          scales::pal_gradient_n(direction_contrast(viridis::mako(n = 256)))
       }
 
       if (colour_type == "continuous") {

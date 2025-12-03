@@ -5,14 +5,16 @@ set_blanket <- function(
   polish = polish_modern,
   #geom
   fill = flexoki::flexoki$blue["blue400"],
-  shape = 21,
+  shape = 21, #NEED THIS
+  ###
   linewidth = 0.66,
-  borderwidth = 0.25,
+  borderwidth = 0.25, # maybe bordered_linewidth
   stroke = 0.5,
+  ###
   size = 1.5,
   #scales
   fill_palette_discrete = scales::pal_hue(),
-  fill_palette_continuous = scales::pal_gradient_n(direction_contrast(viridis::mako(n = 20))),
+  fill_palette_continuous = scales::pal_gradient_n(direction_contrast(viridis::mako(n = 256))),
   shape_palette_discrete = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype_palette_discrete = scales::pal_manual(1:6),
   #geom and scales
