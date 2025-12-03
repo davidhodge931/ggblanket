@@ -163,26 +163,53 @@ get_expand <- function(limits) {
   return(expand)
 }
 
+#' #' Get label function based on scale subtype
+#' #' @param stat A stat
+#' #' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
+#' #' @return A scales label function
+#' #' @keywords internal
+#' get_labels <- function(stat, subtype) {
+#'   if (is_stat_sf(stat)) labels <- ggplot2::waiver()
+#'   else {
+#'     if (is.na(subtype)) {
+#'       labels <- scales::label_number()
+#'     }
+#'     else {
+#'       labels <- switch(subtype,
+#'                        date = scales::label_date_short(leading = ""),
+#'                        datetime = scales::label_date_short(leading = ""),
+#'                        time = scales::label_time(),
+#'                        scales::label_number()
+#'       )
+#'     }
+#'   }
+#'   return(labels)
+#' }
+
 #' Get label function based on scale subtype
 #' @param stat A stat
 #' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
+#' @param aesthetic The aesthetic being labeled (e.g., "x", "y", "fill", "colour")
 #' @return A scales label function
 #' @keywords internal
-get_labels <- function(stat, subtype) {
-  if (is_stat_sf(stat)) labels <- ggplot2::waiver()
-  else {
-    if (is.na(subtype)) {
-      labels <- scales::label_number()
-    }
-    else {
-      labels <- switch(subtype,
-                       date = scales::label_date_short(leading = ""),
-                       datetime = scales::label_date_short(leading = ""),
-                       time = scales::label_time(),
-                       scales::label_number()
-      )
-    }
+get_labels <- function(stat, subtype, aesthetic = NULL) {
+  # Only waive labels for x/y position scales with sf stat
+  if (is_stat_sf(stat) && !is.null(aesthetic) && aesthetic %in% c("x", "y")) {
+    return(ggplot2::waiver())
   }
+
+  if (is.na(subtype)) {
+    labels <- scales::label_number()
+  }
+  else {
+    labels <- switch(subtype,
+                     date = scales::label_date_short(leading = ""),
+                     datetime = scales::label_date_short(leading = ""),
+                     time = scales::label_time(),
+                     scales::label_number()
+    )
+  }
+
   return(labels)
 }
 
