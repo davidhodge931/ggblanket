@@ -163,38 +163,15 @@ get_expand <- function(limits) {
   return(expand)
 }
 
-#' #' Get label function based on scale subtype
-#' #' @param stat A stat
-#' #' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
-#' #' @return A scales label function
-#' #' @keywords internal
-#' get_labels <- function(stat, subtype) {
-#'   if (is_stat_sf(stat)) labels <- ggplot2::waiver()
-#'   else {
-#'     if (is.na(subtype)) {
-#'       labels <- scales::label_number()
-#'     }
-#'     else {
-#'       labels <- switch(subtype,
-#'                        date = scales::label_date_short(leading = ""),
-#'                        datetime = scales::label_date_short(leading = ""),
-#'                        time = scales::label_time(),
-#'                        scales::label_number()
-#'       )
-#'     }
-#'   }
-#'   return(labels)
-#' }
-
 #' Get label function based on scale subtype
-#' @param stat A stat
+#' @param stat A data frame or sf object
 #' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
 #' @param aesthetic The aesthetic being labeled (e.g., "x", "y", "fill", "colour")
 #' @return A scales label function
 #' @keywords internal
-get_labels <- function(stat, subtype, aesthetic = NULL) {
+get_labels <- function(data, subtype, aesthetic = NULL) {
   # Only waive labels for x/y position scales with sf stat
-  if (is_stat_sf(stat) && !is.null(aesthetic) && aesthetic %in% c("x", "y")) {
+  if (is_stat_sf(data) && !is.null(aesthetic) && aesthetic %in% c("x", "y")) {
     return(ggplot2::waiver())
   }
 
@@ -234,14 +211,14 @@ get_transform <- function(subtype) {
 }
 
 #' Is the stat sf or sf_coordinates
-#' @param stat_str A stat string e.g. "sf"
+#' @param data A dataframe or sf object
 #' @keywords internal
-is_stat_sf <- function(stat_str) {
-  stat_str %in% c("sf", "sf_coordinates")
+is_stat_sf <- function(data) {
+  class(data)[1] == "sf"
 }
 
 #' Get coord
-#' @param stat_str A stat
+#' @param data A data frame or sf object
 #' @param coord_xlim Zoom limits for the x axis.
 #' @param coord_ylim Zoom limits for the y axis.
 #' @param coord_clip Drawing clipped to the panel. "on" or "off".
@@ -250,10 +227,10 @@ is_stat_sf <- function(stat_str) {
 #'
 #' @return A coord
 #' @keywords internal
-get_coord <- function(stat_str, coord_xlim, coord_ylim, coord_clip, coord_reverse,
+get_coord <- function(data, coord_xlim, coord_ylim, coord_clip, coord_reverse,
                       coord_ratio) {
 
-  if (is_stat_sf(stat_str)) {
+  if (is_stat_sf(data)) {
     coord <- ggplot2::coord_sf(
       xlim = coord_xlim,
       ylim = coord_ylim,
