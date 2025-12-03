@@ -163,15 +163,15 @@ get_expand <- function(limits) {
   return(expand)
 }
 
-#' Get label function based on scale subtype
-#' @param stat A data frame or sf object
+#' Get label function
+#' @param coord_type Either "cartesian" or "sf".
 #' @param subtype Scale subtype (e.g., "date", "datetime", "time", or NA)
 #' @param aesthetic The aesthetic being labeled (e.g., "x", "y", "fill", "colour")
 #' @return A scales label function
 #' @keywords internal
-get_labels <- function(data, subtype, aesthetic = NULL) {
-  # Only waive labels for x/y position scales with sf stat
-  if (class(data)[1] == "sf" && !is.null(aesthetic) && aesthetic %in% c("x", "y")) {
+get_labels <- function(coord_type, subtype, aesthetic = NULL) {
+  # Only waive labels for x/y position scales with sf coordinates
+  if (coord_type == "sf" && !is.null(aesthetic) && aesthetic %in% c("x", "y")) {
     return(ggplot2::waiver())
   }
 
@@ -210,15 +210,8 @@ get_transform <- function(subtype) {
   return(transform)
 }
 
-#' #' Is the data sf
-#' #' @param data A dataframe or sf object
-#' #' @keywords internal
-#' is_data_sf <- function(data) {
-#'   class(data)[1] == "sf"
-#' }
-
 #' Get coord
-#' @param data A data frame or sf object
+#' @param coord_type Either "cartesian" or "sf".
 #' @param coord_xlim Zoom limits for the x axis.
 #' @param coord_ylim Zoom limits for the y axis.
 #' @param coord_clip Drawing clipped to the panel. "on" or "off".
@@ -227,18 +220,17 @@ get_transform <- function(subtype) {
 #'
 #' @return A coord
 #' @keywords internal
-get_coord <- function(data, coord_xlim, coord_ylim, coord_clip, coord_reverse,
+get_coord <- function(coord_type, coord_xlim, coord_ylim, coord_clip, coord_reverse,
                       coord_ratio) {
 
-  if (class(data)[1] == "sf") {
+  if (coord_type == "sf") {
     coord <- ggplot2::coord_sf(
       xlim = coord_xlim,
       ylim = coord_ylim,
       clip = coord_clip,
-      reverse = coord_reverse,
+      reverse = coord_reverse
     )
-  }
-  else {
+  } else {
     coord <- ggplot2::coord_cartesian(
       xlim = coord_xlim,
       ylim = coord_ylim,
