@@ -4,18 +4,15 @@ gg_blanket <- function(data,
                        geom = "blank",
                        stat = "identity",
                        position = ggplot2::position_identity(),
-                       aes_global = FALSE,
-                       blend = NULL,
-                       # layers before and after geom
-                       layer_before = NULL,
-                       layer_after = NULL,
-                       # colour/linewidth defaults & default colour scale
+                       # gg_blanket specific
                        is_bordered_colour = NULL,
                        is_bordered_linewidth = NULL,
-                       # theme
+                       blend = NULL,
+                       annotate_before = NULL,
                        focus = NULL,
                        polish = NULL,
                        # aesthetics
+                       global = FALSE,
                        x = NULL,
                        xmin = NULL,
                        xmax = NULL,
@@ -257,7 +254,7 @@ gg_blanket <- function(data,
   if (rlang::is_null(shape)) shape <- current_theme$geom@pointshape
 
   # Determine if geom supports bordered styling (has both fill and colour)
-  is_geom_bordered <- if (geom_str == "sf") {
+  is_bordered_geom <- if (geom_str == "sf") {
     if (inherits(data, "sf")) {
       geom_type <- sf::st_geometry_type(data, by_geometry = FALSE)
       !any(geom_type %in% c("LINESTRING", "MULTILINESTRING", "CIRCULARSTRING", "COMPOUNDCURVE", "CURVE"))
@@ -265,12 +262,14 @@ gg_blanket <- function(data,
       FALSE
     }
   } else {
-    geom_info$is_bordered
+    geom_info$is_bordered_geom
   }
 
+  is_bordered_geom <- geom_info$is_bordered_geom
+
   # Set defaults based on geom capability
-  is_bordered_colour <- is_bordered_colour %||% is_geom_bordered
-  is_bordered_linewidth <- is_bordered_linewidth %||% is_geom_bordered
+  is_bordered_colour <- is_bordered_colour %||% is_bordered_geom
+  is_bordered_linewidth <- is_bordered_linewidth %||% is_bordered_geom
 
   ### ensure colour is inherited from fill
   if (is_fill_mapped & !is_colour_mapped & !is_colour_fixed) {
@@ -318,17 +317,17 @@ gg_blanket <- function(data,
   final_mapping <- combine_aesthetics(separated$mapped, mapping)
 
   ### aesthetics
-  if (aes_global) {
+  if (global) {
     plot <- data |> ggplot(mapping = final_mapping)
   }
   else {
     plot <- data |> ggplot()
   }
 
-  ### layer_before
-  if (!rlang::is_null(layer_before)) {
+  ### annotate_before
+  if (!rlang::is_null(annotate_before)) {
     plot <- plot +
-      layer_before
+      annotate_before
   }
 
   ### layer
@@ -398,11 +397,6 @@ gg_blanket <- function(data,
       plot <- plot +
         ylim(y_limits)
     }
-  }
-
-  if (!rlang::is_null(layer_after)) {
-    plot <- plot +
-      layer_after
   }
 
   ### identify scales and focus
