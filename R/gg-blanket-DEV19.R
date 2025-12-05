@@ -4,9 +4,11 @@ gg_blanket <- function(data,
                        geom = "blank",
                        stat = "identity",
                        position = ggplot2::position_identity(),
+                       aes_global = FALSE,
                        blend = NULL,
-                       # annotate under geom
-                       annotate = NULL,
+                       # layers before and after geom
+                       layer_before = NULL,
+                       layer_after = NULL,
                        # colour/linewidth defaults & default colour scale
                        is_bordered_colour = NULL,
                        is_bordered_linewidth = NULL,
@@ -178,7 +180,10 @@ gg_blanket <- function(data,
                        #titles
                        title = NULL,
                        subtitle = NULL,
-                       caption = NULL
+                       caption = NULL,
+                       #initialise
+                       ggplot = ggplot2::ggplot
+
 ) {
 
   #get options
@@ -313,11 +318,17 @@ gg_blanket <- function(data,
   final_mapping <- combine_aesthetics(separated$mapped, mapping)
 
   ### aesthetics
-  plot <- data |> ggplot2::ggplot(mapping = final_mapping)
+  if (aes_global) {
+    plot <- data |> ggplot(mapping = final_mapping)
+  }
+  else {
+    plot <- data |> ggplot()
+  }
 
-  ### annotate
-  if (!rlang::is_null(annotate)) {
-    plot <- plot + annotate
+  ### layer_before
+  if (!rlang::is_null(layer_before)) {
+    plot <- plot +
+      layer_before
   }
 
   ### layer
@@ -327,6 +338,7 @@ gg_blanket <- function(data,
         geom_fn,
         stat = stat,
         position = position,
+        mapping = final_mapping,
         !!!all_params
       ) |> blend()
   }
@@ -336,6 +348,7 @@ gg_blanket <- function(data,
         geom_fn,
         stat = stat,
         position = position,
+        mapping = final_mapping,
         !!!all_params
       )
   }
@@ -385,6 +398,11 @@ gg_blanket <- function(data,
       plot <- plot +
         ylim(y_limits)
     }
+  }
+
+  if (!rlang::is_null(layer_after)) {
+    plot <- plot +
+      layer_after
   }
 
   ### identify scales and focus
