@@ -7,7 +7,7 @@ gg_blanket <- function(data,
                        # gg_blanket specific
                        is_bordered_colour = NULL,
                        is_bordered_linewidth = NULL,
-                       blend = NULL,
+                       with = NULL,
                        annotate_before = NULL,
                        focus = NULL,
                        polish = NULL,
@@ -331,7 +331,7 @@ gg_blanket <- function(data,
   }
 
   ### layer
-  if (!rlang::is_null(blend)) {
+  if (!rlang::is_null(with)) {
     plot <- plot +
       rlang::exec(
         geom_fn,
@@ -339,7 +339,7 @@ gg_blanket <- function(data,
         position = position,
         mapping = final_mapping,
         !!!all_params
-      ) |> blend()
+      ) |> with()
   }
   else {
     plot <- plot +
