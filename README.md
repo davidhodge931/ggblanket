@@ -62,6 +62,6 @@ to start learning how ggblanket works.
 
 ## Thank you
 
-Thanks to the developers of ggplot2, tidyverse and the R ecosystem.
+Thanks to the developers of ggplot2.
 
 For Dad, always missed (Peter Hodge, 1953-2023).

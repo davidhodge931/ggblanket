@@ -101,11 +101,13 @@ theme_lighter <- function(
   subtitle_colour <- text_colour
   caption_size <- ggplot2::rel(0.9)
   caption_family <- text_family
-  caption_colour <- ifelse(
-    is_panel_dark(),
-    blend_multiply(text_colour),
-    blend_screen(text_colour)
-  )
+
+  caption_colour <- text_colour
+  # caption_colour <- ifelse(
+  #   is_panel_dark(),
+  #   blend_multiply(text_colour),
+  #   blend_screen(text_colour)
+  # )
   caption_hjust <- 0
 
   # Base theme (same for all legend positions)
