@@ -10,8 +10,7 @@ gg_blanket <- function(data,
                        with = NULL,
                        focus = NULL,
                        polish = NULL,
-                       is_bordered_colour = NULL,
-                       is_bordered_linewidth = NULL,
+                       border = is_border(),
 
                        # aesthetics
                        x = NULL,
@@ -266,8 +265,8 @@ gg_blanket <- function(data,
   is_bordered_geom <- geom_info$is_bordered_geom
 
   # Set defaults based on geom capability
-  is_bordered_colour <- is_bordered_colour %||% is_bordered_geom
-  is_bordered_linewidth <- is_bordered_linewidth %||% is_bordered_geom
+  is_bordered_colour <- border$is_colour %||% border$is_geom %||% is_bordered_geom
+  is_bordered_linewidth <- border$is_linewidth %||% border$is_geom %||% is_bordered_geom
 
   ### ensure colour is inherited from fill
   if (is_fill_mapped & !is_colour_mapped & !is_colour_fixed) {

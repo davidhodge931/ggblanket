@@ -8,8 +8,8 @@ set_blanket <- function(
   shape = 21, #NEED THIS
   ###
   linewidth = 0.66,
-  borderwidth = 0.33, # maybe bordered_linewidth
-  stroke = 0.5,
+  borderwidth = 0.33,
+  stroke = 0.33,
   ###
   size = 1.5,
   #scales

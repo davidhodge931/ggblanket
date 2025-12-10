@@ -432,3 +432,21 @@ as_continuous_palette <- function(palette) {
   }
   stop("palette must be a function, vector, or NULL", call. = FALSE)
 }
+
+#' Title
+#'
+#' @param is_geom
+#' @param is_colour
+#' @param is_linewidth
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+is_border <- function(is_geom = NULL, is_colour = NULL, is_linewidth = NULL) {
+    list(
+      is_geom = is_geom,
+      is_colour = is_colour,
+      is_linewidth = is_linewidth
+    )
+}
