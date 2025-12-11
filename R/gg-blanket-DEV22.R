@@ -10,7 +10,7 @@ gg_blanket <- function(data,
                        with = NULL,
                        focus = NULL,
                        polish = NULL,
-                       border = is_border(),
+                       border = as_border(),
 
                        # aesthetics
                        x = NULL,
@@ -185,7 +185,7 @@ gg_blanket <- function(data,
 
   polish <- polish %||% get_polish() %||% polish_modern
 
-  bordered_colour <- get_bordered_colour() %||% {
+  border_colour <- get_border_colour() %||% {
     \(x) if (is_panel_dark()) blend_screen(x) else blend_multiply(x)
   }
 
@@ -246,12 +246,12 @@ gg_blanket <- function(data,
   is_shape_fixed <- "shape" %in% names(separated$fixed)
   is_linewidth_fixed <- "linewidth" %in% names(separated$fixed)
 
-  ### identify if bordered geom
+  ### identify if border geom
   shape <- separated$fixed[["shape"]]
   if (rlang::is_null(shape)) shape <- current_theme$geom@pointshape
 
-  # Determine if geom supports bordered styling (has both fill and colour)
-  is_bordered_geom <- if (geom_str == "sf") {
+  # Determine if geom supports border styling (has both fill and colour)
+  is_border_geom <- if (geom_str == "sf") {
     if (inherits(data, "sf")) {
       geom_type <- sf::st_geometry_type(data, by_geometry = FALSE)
       !any(geom_type %in% c("LINESTRING", "MULTILINESTRING", "CIRCULARSTRING", "COMPOUNDCURVE", "CURVE"))
@@ -259,14 +259,14 @@ gg_blanket <- function(data,
       FALSE
     }
   } else {
-    geom_info$is_bordered_geom
+    geom_info$is_border_geom
   }
 
-  is_bordered_geom <- geom_info$is_bordered_geom
+  is_border_geom <- geom_info$is_border_geom
 
   # Set defaults based on geom capability
-  is_bordered_colour <- border$is_colour %||% border$is_geom %||% is_bordered_geom
-  is_bordered_linewidth <- border$is_linewidth %||% border$is_geom %||% is_bordered_geom
+  is_border_colour <- border$colour %||% border$geom %||% is_border_geom
+  is_border_linewidth <- border$linewidth %||% border$geom %||% is_border_geom
 
   ### ensure colour is inherited from fill
   if (is_fill_mapped & !is_colour_mapped & !is_colour_fixed) {
@@ -283,16 +283,16 @@ gg_blanket <- function(data,
     colour_fill_same <- identical(fill_var, colour_var)
   }
 
-  ### compute fixed colour and linewidth based on if bordered geom
+  ### compute fixed colour and linewidth based on if border geom
   computed_colour <- NULL
   if (!is_colour_mapped) {
     computed_colour <- separated$fixed[["colour"]] %||% separated$fixed[["fill"]] %||% current_theme$geom@fill
-    if (is_bordered_colour) computed_colour <- bordered_colour(computed_colour)
+    if (is_border_colour) computed_colour <- border_colour(computed_colour)
   }
 
   computed_linewidth <- NULL
   if (!is_linewidth_mapped) {
-    if (is_bordered_linewidth) computed_linewidth <- separated$fixed[["linewidth"]] %||% current_theme$geom@borderwidth
+    if (is_border_linewidth) computed_linewidth <- separated$fixed[["linewidth"]] %||% current_theme$geom@borderwidth
     else computed_linewidth <- separated$fixed[["linewidth"]] %||% current_theme$geom@linewidth
   }
 
@@ -539,9 +539,9 @@ gg_blanket <- function(data,
   fill_na <- oat
   fill_override <- slate
 
-  if (is_bordered_colour) {
-    colour_na <- bordered_colour(fill_na)
-    colour_override <- bordered_colour(fill_override)
+  if (is_border_colour) {
+    colour_na <- border_colour(fill_na)
+    colour_override <- border_colour(fill_override)
   }
   else {
     colour_na <- fill_na
@@ -614,11 +614,11 @@ gg_blanket <- function(data,
   # Add colour scale
   if (!rlang::is_null(colour_type)) {
     if (colour_type == "discrete") {
-      if (is_bordered_colour) {
+      if (is_border_colour) {
         colour_palette <- colour_palette %||%
-          bordered_colour(fill_palette) %||%
-          bordered_colour(current_theme$palette.fill.discrete) %||%
-          bordered_colour(scales::pal_hue())
+          border_colour(fill_palette) %||%
+          border_colour(current_theme$palette.fill.discrete) %||%
+          border_colour(scales::pal_hue())
       }
       else {
         colour_palette <- colour_palette %||%
@@ -641,11 +641,11 @@ gg_blanket <- function(data,
         )
     }
     else if (colour_type %in% c("continuous", "binned")) {
-      if (is_bordered_colour) {
+      if (is_border_colour) {
         colour_palette <- colour_palette %||%
-          bordered_colour(fill_palette) %||%
-          bordered_colour(current_theme$palette.fill.continuous) %||%
-          bordered_colour(scales::pal_gradient_n(direction_contrast(viridis::mako(n = 256))))
+          border_colour(fill_palette) %||%
+          border_colour(current_theme$palette.fill.continuous) %||%
+          border_colour(scales::pal_gradient_n(direction_contrast(viridis::mako(n = 256))))
       }
       else {
         colour_palette <- colour_palette %||%

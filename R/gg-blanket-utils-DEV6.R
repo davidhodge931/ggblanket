@@ -291,12 +291,12 @@ get_polish <- function() {
   getOption("ggblanket.polish")
 }
 
-set_bordered_colour <- function(bordered_colour = NULL) {
-  options("ggblanket.bordered_colour" = bordered_colour)
+set_border_colour <- function(border_colour = NULL) {
+  options("ggblanket.border_colour" = border_colour)
 }
 
-get_bordered_colour <- function() {
-  getOption("ggblanket.bordered_colour")
+get_border_colour <- function() {
+  getOption("ggblanket.border_colour")
 }
 
 #' Get geom function and string identifier
@@ -305,7 +305,7 @@ get_bordered_colour <- function() {
 #'   - String: `"point"` or `"density_ridges"`
 #'   - Function: `geom_point` or `ggridges::geom_density_ridges` (no parentheses)
 #'
-#' @return List with `fn` (geom function), `str` (geom name string), and `is_bordered_geom` (TRUE if both fill and colour are available)
+#' @return List with `fn` (geom function), `str` (geom name string), and `is_border_geom` (TRUE if both fill and colour are available)
 #' @keywords internal
 get_geom_info <- function(geom) {
   # Case 1: String input (e.g., "point" or "density_ridges")
@@ -325,7 +325,7 @@ get_geom_info <- function(geom) {
       return(list(
         fn = geom_fn,
         str = geom,
-        is_bordered_geom = "fill" %in% geom_obj$aesthetics() & "colour" %in% geom_obj$aesthetics()
+        is_border_geom = "fill" %in% geom_obj$aesthetics() & "colour" %in% geom_obj$aesthetics()
       ))
     }
     # Search other loaded packages
@@ -353,7 +353,7 @@ get_geom_info <- function(geom) {
         return(list(
           fn = geom_fn,
           str = geom_str,
-          is_bordered_geom = "fill" %in% geom_obj$aesthetics() & "colour" %in% geom_obj$aesthetics()
+          is_border_geom = "fill" %in% geom_obj$aesthetics() & "colour" %in% geom_obj$aesthetics()
         ))
       }
     }
@@ -388,7 +388,7 @@ get_geom_info <- function(geom) {
     return(list(
       fn = geom,
       str = geom_str,
-      is_bordered_geom = "fill" %in% geom_obj$aesthetics() & "colour" %in% geom_obj$aesthetics()
+      is_border_geom = "fill" %in% geom_obj$aesthetics() & "colour" %in% geom_obj$aesthetics()
     ))
   }
   stop("geom must be a string or function", call. = FALSE)
@@ -435,18 +435,18 @@ as_continuous_palette <- function(palette) {
 
 #' Title
 #'
-#' @param is_geom
-#' @param is_colour
-#' @param is_linewidth
+#' @param geom
+#' @param colour
+#' @param linewidth
 #'
 #' @returns
 #' @export
 #'
 #' @examples
-is_border <- function(is_geom = NULL, is_colour = NULL, is_linewidth = NULL) {
+as_border <- function(geom = NULL, colour = NULL, linewidth = NULL) {
     list(
-      is_geom = is_geom,
-      is_colour = is_colour,
-      is_linewidth = is_linewidth
+      geom = geom,
+      colour = colour,
+      linewidth = linewidth
     )
 }
