@@ -193,7 +193,7 @@ width_reference <- list(
 #' @param panel_widths Panel widths for reference standard.
 #'
 #' @export
-update_width_reference <- function(
+set_width_reference <- function(
     ...,
     width = NULL,
     n = NULL,

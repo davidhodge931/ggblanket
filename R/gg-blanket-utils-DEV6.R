@@ -31,12 +31,22 @@ combine_aesthetics <- function(individual_aesthetics, mapping) {
 #'   - mapped: Named list of quosures for aesthetic mappings
 separate_fixed_and_mapped_aesthetics <- function(aesthetics, data = NULL) {
 
-  # Aesthetic names that accept single values
-  value_aesthetics <- c("col", "colour", "fill", "shape", "linetype",
-                        "linewidth", "size", "alpha", "stroke")
+  # Aesthetic names that can accept single values (fixed) or be mapped
+  value_aesthetics <- c("colour", "fill", "alpha", "shape",
+                        "linetype", "linewidth", "size", "stroke",
+                        "width", "height", "angle", "radius",
+                        "label", "weight", "group",
+                        "slope", "intercept", "sample", "z")
+
+  # Position aesthetics should always be mapped (to affect scale limits)
+  position_aesthetics <- c("x", "xmin", "xmax", "xend", "xintercept",
+                           "y", "ymin", "ymax", "yend", "yintercept", "z")
 
   # Helper to check if quosure evaluates to a single value
   is_single_value <- function(quo, name) {
+    # Position aesthetics are ALWAYS mapped (even literals) to affect scales
+    if (name %in% position_aesthetics) return(FALSE)
+
     # Literal values are always fixed
     if (rlang::is_syntactic_literal(rlang::quo_get_expr(quo))) return(TRUE)
 

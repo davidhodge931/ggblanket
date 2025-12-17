@@ -268,6 +268,15 @@ gg_blanket <- function(data,
   is_border_colour <- border$colour %||% border$geom %||% is_border_geom
   is_border_linewidth <- border$linewidth %||% border$geom %||% is_border_geom
 
+  # if (is.logical(border)) {
+  #   is_border_colour <- border
+  #   is_border_linewidth <- border
+  # } else {
+  #   # NULL - use auto-detection
+  #   is_border_colour <- is_border_geom
+  #   is_border_linewidth <- is_border_geom
+  # }
+
   ### ensure colour is inherited from fill
   if (is_fill_mapped & !is_colour_mapped & !is_colour_fixed) {
     fill_aesthetic <- separated$mapped$fill %||% mapping$fill
