@@ -180,6 +180,10 @@ gg_blanket <- function(data,
                        caption = NULL
 ) {
 
+  # if ("col" %in% names(rlang::list2(...))) {
+  #   rlang::abort("Use `colour` instead of `col`")
+  # }
+
   #get options
   current_theme <- ggplot2::get_theme() %||% theme_lighter()
 
