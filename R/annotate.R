@@ -2007,7 +2007,7 @@ annotate_panel_background <- function(
     ymin = -Inf,
     ymax = Inf,
     fill = flexoki::flexoki$base["base400"],
-    alpha = 0.2,
+    alpha = 0.25,
     colour = "transparent",
     linewidth = NULL,
     linetype = NULL
