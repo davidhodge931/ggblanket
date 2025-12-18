@@ -1954,165 +1954,9 @@ annotate_panel_grid <- function(
   return(stamp)
 }
 
-#' Annotate panel background
+#' Annotate panel fill
 #'
-#' @description Create a custom panel background area by drawing a rectangle with the panel
-#' background fill ("keep" mode) or by removing/modifying the panel background and redrawing it in a
-#' specified area ("transparent" or "blank" modes).
-#'
-#' This function is designed to work with a theme that is globally set with [ggblanket::set_blanket]
-#' or [ggplot2::set_theme].
-#'
-#' When `theme = "keep"` (default), the function draws a rectangle with the panel background fill
-#' in the specified area. This is simple and works well when you want to add panel background
-#' to a specific region.
-#'
-#' When `theme = "transparent"`, the function makes the panel background transparent and removes
-#' the border, then redraws the panel background only in the specified area.
-#'
-#' When `theme = "blank"`, the function removes the panel background and border, then redraws
-#' the panel background only in the specified area.
-#'
-#' Note that `"transparent"` and `"blank"` produce visually similar results but are provided
-#' for consistency with other annotate functions.
-#'
-#' @param xmin,xmax The horizontal boundaries of the panel background area.
-#'   Defaults to `-Inf` and `Inf` respectively.
-#' @param ymin,ymax The vertical boundaries of the panel background area.
-#'   Defaults to `-Inf` and `Inf` respectively.
-#' @param fill The fill colour of the rectangle. Defaults to the panel background fill from the current theme.
-#' @param colour The border colour of the rectangle. Defaults to `"transparent"`.
-#' @param theme How to handle existing panel elements. Either `"keep"` (default, overlay only),
-#'   `"transparent"` (make panel background transparent), or `"blank"` (remove panel background).
-#' @param ... Additional arguments passed to `annotate("rect", ...)`.
-#'
-#' @return A list containing annotation layers and optionally theme modifications.
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#'
-#' set_blanket()
-#'
-#' p <- palmerpenguins::penguins |>
-#'   gg_blanket(
-#'     x = flipper_length_mm,
-#'     y = body_mass_g,
-#'     col = species,
-#'   )
-#'
-#' # "keep" mode: Simple overlay with panel background (default)
-#' p +
-#'   annotate_panel_background(xmax = 230)
-#'
-#' # "transparent" mode: Make panel transparent, then redraw in specified area
-#' p +
-#'   annotate_panel_background(xmax = 230, theme = "transparent")
-#'
-#' # "blank" mode: Remove panel background, then redraw in specified area
-#' p +
-#'   annotate_panel_background(xmax = 230, theme = "blank")
-#'
-#' # Create a panel window with custom fill
-#' p +
-#'   annotate_panel_background(
-#'     xmin = 180,
-#'     xmax = 220,
-#'     ymin = 3500,
-#'     ymax = 5500,
-#'     fill = "lightblue",
-#'     colour = "blue"
-#'   )
-#'
-annotate_panel_background <- function(
-    xmin = NULL,
-    xmax = NULL,
-    ymin = NULL,
-    ymax = NULL,
-    fill = NULL,
-    colour = "transparent",
-    theme = "keep",
-    ...
-) {
-  # Validate theme argument
-  theme <- rlang::arg_match(theme, c("keep", "transparent", "blank"))
-
-  # Set defaults
-  xmin <- xmin %||% -Inf
-  xmax <- xmax %||% Inf
-  ymin <- ymin %||% -Inf
-  ymax <- ymax %||% Inf
-
-  # Get current theme
-  current_theme <- ggplot2::theme_get()
-
-  # Get panel background fill if not specified
-  if (rlang::is_null(fill)) {
-    panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
-    fill <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
-      panel_bg$fill %||% "#EBEBEBFF"
-    } else {
-      "#EBEBEBFF"
-    }
-  }
-
-  if (theme == "keep") {
-    # Simple mode: just draw a rectangle with specified fill
-    list(
-      ggplot2::annotate(
-        "rect",
-        xmin = xmin,
-        xmax = xmax,
-        ymin = ymin,
-        ymax = ymax,
-        fill = fill,
-        colour = colour,
-        ...
-      )
-    )
-
-  } else if (theme == "transparent") {
-    # Make panel background transparent, then redraw panel in specified area
-    list(
-      theme(
-        panel.background =  ggplot2::element_rect(colour = "transparent", fill = "transparent"),
-        panel.border =  ggplot2::element_rect(colour = "transparent", fill = "transparent")
-      ),
-      ggplot2::annotate(
-        "rect",
-        xmin = xmin,
-        xmax = xmax,
-        ymin = ymin,
-        ymax = ymax,
-        fill = fill,
-        colour = colour,
-        ...
-      )
-    )
-  } else {  # theme == "blank"
-    # Remove panel background and border, then redraw panel in specified area
-    list(
-      theme(
-        panel.background = ggplot2::element_blank(),
-        panel.border = ggplot2::element_blank()
-      ),
-      ggplot2::annotate(
-        "rect",
-        xmin = xmin,
-        xmax = xmax,
-        ymin = ymin,
-        ymax = ymax,
-        fill = fill,
-        colour = colour,
-        ...
-      )
-    )
-  }
-}
-
-#' Annotate panel shade
-#'
-#' @description Create a subtle shaded rectangle to visually differentiate regions.
+#' @description Create a subtle filld rectangle to visually differentiate regions.
 #'
 #' It is designed to work with a theme that is globally set.
 #'
@@ -2121,7 +1965,7 @@ annotate_panel_background <- function(
 #' @param xmax A value of length 1. Defaults to `Inf`. Use `I()` to specify normalized coordinates (0-1).
 #' @param ymin A value of length 1. Defaults to `-Inf`. Use `I()` to specify normalized coordinates (0-1).
 #' @param ymax A value of length 1. Defaults to `Inf`. Use `I()` to specify normalized coordinates (0-1).
-#' @param shade The shade color to blend with the panel background. Defaults to `"#8991A1FF"`. The final rectangle color is created by blending this shade with the current panel background: screen blend for dark backgrounds, multiply blend for light backgrounds.
+#' @param fill The fill color to blend with the panel background. Defaults to `"#8991A1FF"`. The final rectangle color is created by blending this fill with the current panel background: screen blend for dark backgrounds, multiply blend for light backgrounds.
 #' @param alpha The transparency of the rectangle. Defaults to `0.2` (subtle overlay).
 #' @param colour The border colour of the rectangle. Defaults to `"transparent"`.
 #' @param linewidth A number. Inherits from the current theme `panel.border` linewidth. Supports `rel()` for relative sizing.
@@ -2140,7 +1984,7 @@ annotate_panel_background <- function(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     annotate = annotate_panel_shade(
+#'     annotate = annotate_panel_background(
 #'       xmin = 225,
 #'       ),
 #'   )
@@ -2150,25 +1994,25 @@ annotate_panel_background <- function(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
 #'     col = species,
-#'     annotate = annotate_panel_shade(
+#'     annotate = annotate_panel_background(
 #'       xmin = 225,
-#'       shade = "#0095A8FF",
+#'       fill = "#0095A8FF",
 #'       ),
 #'   )
 #'
-annotate_panel_shade <- function(
+annotate_panel_background <- function(
     ...,
     xmin = -Inf,
     xmax = Inf,
     ymin = -Inf,
     ymax = Inf,
-    shade = "#8991A1FF",
+    fill = flexoki::flexoki$base["base400"],
     alpha = 0.2,
     colour = "transparent",
     linewidth = NULL,
     linetype = NULL
 ) {
-  # Calculate adaptive fill using the shade
+  # Calculate adaptive fill using the fill
   current_theme <- ggplot2::theme_get()
   panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
 
@@ -2179,8 +2023,8 @@ annotate_panel_shade <- function(
   }
 
   fill <- ifelse(is_col_dark(panel_bg_fill),
-                 blend_screen(shade, panel_bg_fill),
-                 blend_multiply(shade, panel_bg_fill))
+                 blend_screen(fill, panel_bg_fill),
+                 blend_multiply(fill, panel_bg_fill))
 
   # Check if coordinates are wrapped in I() for normalized positioning
   xmin_is_normalized <- inherits(xmin, "AsIs")

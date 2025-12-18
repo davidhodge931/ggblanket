@@ -6,7 +6,7 @@
 #' @param ... Require named arguments (and support trailing commas).
 #' @param n Number of categories (excluding dodge groups) in the plot with width to be standardised.
 #' @param dodge_n Number of dodge groups in the plot with width to be standardised.
-#' @param aspect Aspect ("x" or "y") in the plot with width to be standardised.
+#' @param orientation orientation ("x" or "y") in the plot with width to be standardised.
 #' @param panel_widths Panel widths in the plot with width to be standardised.
 #' @param panel_heights Panel heights in the plot with width to be standardised.
 #'
@@ -28,11 +28,11 @@
 #'   mutate(across(sex, \(x) str_to_sentence(x))) |>
 #'   gg_bar(
 #'     x = sex,
-#'     col = species,
+#'     fill = species,
 #'     width = standardise_width(
 #'       n = 2,
 #'       dodge_n = 1,
-#'       aspect = "x",
+#'       orientation = "x",
 #'     )
 #'   )
 #'
@@ -41,12 +41,12 @@
 #'   mutate(across(sex, \(x) str_to_sentence(x))) |>
 #'   gg_bar(
 #'     x = sex,
-#'     col = species,
+#'     fill = species,
 #'     position = position_dodge(),
 #'     width = standardise_width(
 #'       n = 2,
 #'       dodge_n = 3,
-#'       aspect = "x",
+#'       orientation = "x",
 #'     )
 #'   )
 #'
@@ -55,12 +55,12 @@
 #'   mutate(across(sex, \(x) str_to_sentence(x))) |>
 #'   gg_bar(
 #'     y = sex,
-#'     col = species,
+#'     fill = species,
 #'     position = position_dodge(),
 #'     width = standardise_width(
 #'       n = 2,
 #'       dodge_n = 3,
-#'       aspect = "y",
+#'       orientation = "y",
 #'     )
 #'   )
 #'
@@ -86,7 +86,7 @@
 #'          width = standardise_width(
 #'            n = max_n,
 #'            dodge_n = 1,
-#'            aspect = "y",
+#'            orientation = "y",
 #'          ),
 #'          facet_scales = "free_y",
 #'   ) +
@@ -97,7 +97,7 @@ standardise_width <- function(
     ...,
     n = NULL,
     dodge_n = 1,
-    aspect = "x",
+    orientation = "x",
     panel_widths = ggplot2::theme_get()$panel.widths,
     panel_heights = ggplot2::theme_get()$panel.heights
 ) {
@@ -106,8 +106,8 @@ standardise_width <- function(
   }
 
   # Input validation
-  if (!aspect %in% c("x", "y")) {
-    rlang::abort("aspect must be 'x' or 'y'")
+  if (!orientation %in% c("x", "y")) {
+    rlang::abort("orientation must be 'x' or 'y'")
   }
   if (n <= 0) {
     rlang::abort("n must be positive")
@@ -147,12 +147,12 @@ standardise_width <- function(
     !rlang::is_null(panel_heights)
   ) {
     # Convert all units to mm for consistent comparison
-    from_dim <- if (aspect == "x") {
+    from_dim <- if (orientation == "x") {
       grid::convertUnit(panel_widths[1], "mm", valueOnly = TRUE)
     } else {
       grid::convertUnit(panel_heights[1], "mm", valueOnly = TRUE)
     }
-    to_dim <- if (ws$aspect == "x") {
+    to_dim <- if (ws$orientation == "x") {
       grid::convertUnit(ws$panel_widths[1], "mm", valueOnly = TRUE)
     } else {
       grid::convertUnit(ws$panel_heights[1], "mm", valueOnly = TRUE)
@@ -174,7 +174,7 @@ width_reference <- list(
   width = 0.2,
   n = 3,
   dodge_n = 1,
-  aspect = "x",
+  orientation = "x",
   panel_heights = rep(grid::unit(50, "mm"), 100),
   panel_widths = rep(grid::unit(75, "mm"), 100)
 )
@@ -188,7 +188,7 @@ width_reference <- list(
 #' @param width Width value for the reference standard.
 #' @param n Number of categories (excluding dodge groups) in the reference standard.
 #' @param dodge_n Number of dodge groups in reference standard.
-#' @param aspect Aspect of reference standard ("x" or "y").
+#' @param orientation orientation of reference standard ("x" or "y").
 #' @param panel_heights Panel heights for reference standard.
 #' @param panel_widths Panel widths for reference standard.
 #'
@@ -198,7 +198,7 @@ set_width_reference <- function(
     width = NULL,
     n = NULL,
     dodge_n = NULL,
-    aspect = NULL,
+    orientation = NULL,
     panel_heights = NULL,
     panel_widths = NULL
 ) {
@@ -213,8 +213,8 @@ set_width_reference <- function(
   if (!rlang::is_null(dodge_n)) {
     width_reference$dodge_n <- dodge_n
   }
-  if (!rlang::is_null(aspect)) {
-    width_reference$aspect <- aspect
+  if (!rlang::is_null(orientation)) {
+    width_reference$orientation <- orientation
   }
   if (!rlang::is_null(panel_heights)) {
     width_reference$panel_heights <- panel_heights

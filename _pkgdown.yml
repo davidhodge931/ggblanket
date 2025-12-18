@@ -42,7 +42,7 @@ reference:
 - title: Width
 - contents:
   - standardise_width
-  - update_width_reference
+  - set_width_reference
 - title: Other
 - contents:
   - bind_each_all
