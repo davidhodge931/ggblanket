@@ -2013,18 +2013,18 @@ annotate_panel_background <- function(
     linetype = NULL
 ) {
   # Calculate adaptive fill using the fill
-  current_theme <- ggplot2::theme_get()
-  panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
-
-  panel_bg_fill <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
-    panel_bg@fill %||% "#FFFFFFFF"
-  } else {
-    "#FFFFFFFF"
-  }
-
-  fill <- ifelse(is_col_dark(panel_bg_fill),
-                 blend_screen(fill, panel_bg_fill),
-                 blend_multiply(fill, panel_bg_fill))
+  # current_theme <- ggplot2::theme_get()
+  # panel_bg <- ggplot2::calc_element("panel.background", current_theme, skip_blank = TRUE)
+  #
+  # panel_bg_fill <- if (!rlang::is_null(panel_bg) && !inherits(panel_bg, "element_blank")) {
+  #   panel_bg@fill %||% "#FFFFFFFF"
+  # } else {
+  #   "#FFFFFFFF"
+  # }
+  #
+  # fill <- ifelse(is_col_dark(panel_bg_fill),
+  #                blend_screen(fill, panel_bg_fill),
+  #                blend_multiply(fill, panel_bg_fill))
 
   # Check if coordinates are wrapped in I() for normalized positioning
   xmin_is_normalized <- inherits(xmin, "AsIs")
