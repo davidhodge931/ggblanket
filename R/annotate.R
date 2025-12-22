@@ -1954,9 +1954,9 @@ annotate_panel_grid <- function(
   return(stamp)
 }
 
-#' Annotate panel fill
+#' Annotate the panel background
 #'
-#' @description Create a subtle filld rectangle to visually differentiate regions.
+#' @description Annotate a filled rectangle on the panel background.
 #'
 #' It is designed to work with a theme that is globally set.
 #'
@@ -1983,7 +1983,7 @@ annotate_panel_grid <- function(
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'     col = species,
+#'     fill = species,
 #'     annotate = annotate_panel_background(
 #'       xmin = 225,
 #'       ),
@@ -1993,7 +1993,7 @@ annotate_panel_grid <- function(
 #'   gg_point(
 #'     x = flipper_length_mm,
 #'     y = body_mass_g,
-#'     col = species,
+#'     fill = species,
 #'     annotate = annotate_panel_background(
 #'       xmin = 225,
 #'       fill = "#0095A8FF",
