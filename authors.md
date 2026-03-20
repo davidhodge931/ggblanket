@@ -1,0 +1,22 @@
+# Authors and Citation
+
+## Authors
+
+- **David Hodge**. Author, maintainer, copyright holder.
+  [](https://orcid.org/0000-0002-3868-7501)
+
+## Citation
+
+Source:
+[`DESCRIPTION`](https://github.com/davidhodge931/ggblanket/blob/main/DESCRIPTION)
+
+Hodge D (2026). *ggblanket: Simplify 'ggplot2' Visualisation*. R package
+version 12.4.0900, <https://davidhodge931.github.io/ggblanket/>.
+
+    @Manual{,
+      title = {ggblanket: Simplify 'ggplot2' Visualisation},
+      author = {David Hodge},
+      year = {2026},
+      note = {R package version 12.4.0900},
+      url = {https://davidhodge931.github.io/ggblanket/},
+    }

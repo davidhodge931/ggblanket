@@ -72,7 +72,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>ggblanket</h1>
+      <img src="../logo.svg" class="logo" alt=""><h1>ggblanket</h1>
                         <h4 data-toc-skip class="author">David
 Hodge</h4>
             
@@ -166,7 +166,7 @@ can be customised.</p>
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-3-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="a-merged-col-argument-to-colourfill-by-a-variable">3. A merged <code>col</code> argument to colour/fill by a
@@ -187,7 +187,7 @@ nicely.</p>
 <span>    y <span class="op">=</span> <span class="va">island</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">sex</span>, </span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-4-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="a-facet-argument-to-facet-by-a-variable">4. A <code>facet</code> argument to facet by a variable<a class="anchor" aria-label="anchor" href="#a-facet-argument-to-facet-by-a-variable"></a>
@@ -203,7 +203,7 @@ will default to a <code>"wrap"</code> of the <code>facet</code> variable
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-5-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="a-facet2-argument-to-facet-by-a-2nd-variable">5. A <code>facet2</code> argument to facet by a 2nd variable<a class="anchor" aria-label="anchor" href="#a-facet2-argument-to-facet-by-a-2nd-variable"></a>
@@ -220,7 +220,7 @@ will default to a <code>"grid"</code> of the <code>facet</code> variable
 <span>    facet <span class="op">=</span> <span class="va">species</span>,</span>
 <span>    facet2 <span class="op">=</span> <span class="va">sex</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-6-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="other-aesthetics-via-mapping-argument">6. Other aesthetics via <code>mapping</code> argument<a class="anchor" aria-label="anchor" href="#other-aesthetics-via-mapping-argument"></a>
@@ -243,7 +243,7 @@ in the relevant scale etc.</p>
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">sex</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/guides_shape_grey.html">guides_shape_grey</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-7-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="prefixed-arguments-to-customise-xycolfacet">7. Prefixed arguments to customise x/y/col/facet<a class="anchor" aria-label="anchor" href="#prefixed-arguments-to-customise-xycolfacet"></a>
@@ -275,7 +275,7 @@ customised by adding the applicable ggplot2 layer.</p>
 <span>    col_breaks <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    col_palette <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">rocket</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-8-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="smart-_label-defaults-for-axis-and-legend-titles">8. Smart <code>*_label</code> defaults for axis and legend
@@ -296,7 +296,7 @@ sentence case (i.e. <code><a href="https://rdrr.io/pkg/snakecase/man/caseconver
 <span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
 <span>    col <span class="op">=</span> <span class="va">species</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-9-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="other-ggplot2geom_-arguments-via----">9. Other <code>ggplot2::geom_*</code> arguments via
@@ -321,7 +321,7 @@ available.</p>
 <span>    se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    blend <span class="op">=</span> <span class="st">"multiply"</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-10-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="families-of-_mode_-themes-with-legend-variants">10. Families of <code>*_mode_*</code> themes with legend
@@ -343,7 +343,7 @@ linewidths etc.</p>
 <span>    caption <span class="op">=</span> <span class="st">"Source: Gorman, 2020"</span>, </span>
 <span>    theme <span class="op">=</span> <span class="fu"><a href="../reference/dark_mode_r.html">dark_mode_t</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="side-effects-to-the-theme-based-on-the-theme_orientation">11. Side-effects to the <code>theme</code> based on the
@@ -386,7 +386,7 @@ all plots whether the plot is vertical or horizontal.</p>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="one-_symmetric-continuous-scale">12. One <code>*_symmetric</code> continuous scale<a class="anchor" aria-label="anchor" href="#one-_symmetric-continuous-scale"></a>
@@ -444,7 +444,7 @@ to the <code>gg_*()</code> function will inherit to later
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span></span>
 <span>    colour <span class="op">=</span> <span class="va">navy</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="70%"></p>
 <p>The scales are built within the <code>gg_*()</code> function
 <em>without</em> knowledge of later layers. The <code>gg_*()</code>
 function builds scales with regard to the <code>stat</code>,
@@ -477,7 +477,7 @@ So, in some situations, users will need to take care.</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    colour <span class="op">=</span> <span class="va">lightness</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 <div class="section level3">
 <h3 id="arguments-to-customise-setup-with-set_blanket">14. Arguments to customise setup with
@@ -532,7 +532,7 @@ functions.</p>
 <span>  <span class="op">)</span> </span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="70%"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -553,7 +553,7 @@ defaults for <code>geom</code>, <code>stat</code> and
 associated <code>gg_*</code> function.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_spoke.html" class="external-link">geom_spoke</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; geom_spoke: na.rm = FALSE</span></span>
+<span><span class="co">#&gt; geom_spoke: na.rm = FALSE, arrow = NULL, arrow.fill = NULL, lineend = butt, linejoin = round</span></span>
 <span><span class="co">#&gt; stat_identity: na.rm = FALSE</span></span>
 <span><span class="co">#&gt; position_identity</span></span>
 <span></span>
@@ -569,7 +569,7 @@ associated <code>gg_*</code> function.</p>
 <span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="va">angle</span>, radius <span class="op">=</span> <span class="va">speed</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.png" width="70%"></p>
+<p><img src="ggblanket_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="70%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -591,7 +591,7 @@ reference</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
