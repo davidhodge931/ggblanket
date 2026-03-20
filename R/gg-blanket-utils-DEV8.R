@@ -293,12 +293,12 @@ get_focus <- function(x_type, y_type, built = NULL) {
   return(focus)
 }
 
-set_polish <- function(polish = NULL) {
-  options("ggblanket.polish" = polish)
+set_refine <- function(refine = NULL) {
+  options("ggblanket.refine" = refine)
 }
 
-get_polish <- function() {
-  getOption("ggblanket.polish")
+get_refine <- function() {
+  getOption("ggblanket.refine")
 }
 
 set_border_colour <- function(border_colour = NULL) {

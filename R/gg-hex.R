@@ -21,14 +21,14 @@
 #'   )
 #'
 gg_hex <- function(
-  data = NULL,
-  ...,
-  stat = "binhex",
-  position = ggplot2::position_identity(),
-  coord = ggplot2::coord_cartesian(clip = "off"),
+    data = NULL,
+    ...,
+    stat = "binhex",
+    position = ggplot2::position_identity(),
+    coord = ggplot2::coord_cartesian(clip = "off"),
 
-  aspect = NULL,
-  axis_line_aspect = NULL,
+    aspect = NULL,
+    axis_line_aspect = NULL,
   axis_ticks_aspect = NULL,
   panel_grid_aspect = NULL,
   blend = NULL,

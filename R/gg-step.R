@@ -23,13 +23,13 @@
 #'   )
 #'
 gg_step <- function(
-  data = NULL,
-  ...,
-  stat = "identity",
-  position = ggplot2::position_identity(),
-  coord = ggplot2::coord_cartesian(clip = "off"),
+    data = NULL,
+    ...,
+    stat = "identity",
+    position = ggplot2::position_identity(),
+    coord = ggplot2::coord_cartesian(clip = "off"),
 
-  aspect = NULL,
+    aspect = NULL,
   axis_line_aspect = NULL,
   axis_ticks_aspect = NULL,
   panel_grid_aspect = NULL,

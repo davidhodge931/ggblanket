@@ -549,8 +549,8 @@ gg_blanket <- function(data,
       )
   }
 
-  fill_na <- oat
-  fill_override <- slate
+  fill_na <- jumble::grey
+  fill_override <- jumble::slate
 
   if (is_border_colour) {
     colour_na <- border_colour(fill_na)
@@ -618,10 +618,10 @@ gg_blanket <- function(data,
             na.value = fill_na
           )
       }
-
-      plot <- plot +
-        ggplot2::theme(geom = ggplot2::element_geom(fill = fill_override))
     }
+
+    plot <- plot +
+      ggplot2::theme(geom = ggplot2::element_geom(fill = fill_override))
   }
 
   # Add colour scale
@@ -897,7 +897,7 @@ gg_blanket <- function(data,
 
   ### theme
   plot <- plot +
-    polish(focus = focus, x_type = x_type, y_type = y_type, geom = geom_str)
+    polish(focus = focus, x_type = x_type, y_type = y_type)
 
   return(plot)
 }

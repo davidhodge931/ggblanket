@@ -21,11 +21,11 @@
 #'   )
 #'
 gg_histogram <- function(
-  data = NULL,
-  ...,
-  stat = "bin",
-  position = ggplot2::position_stack(),
-  coord = ggplot2::coord_cartesian(clip = "off"),
+    data = NULL,
+    ...,
+    stat = "bin",
+    position = ggplot2::position_stack(),
+    coord = ggplot2::coord_cartesian(clip = "off"),
 
   aspect = NULL,
   axis_line_aspect = NULL,

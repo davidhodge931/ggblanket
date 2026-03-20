@@ -16,7 +16,7 @@
 #'   at high values. If TRUE, maximum contrast is placed at low values.
 #'
 #' @return The palette in the same format as input, oriented for optimal contrast
-#' @export
+#' @noRd
 direction_contrast <- function(palette, ..., reverse = FALSE) {
   # Force evaluation
   force(palette)
@@ -188,7 +188,8 @@ direction_contrast <- function(palette, ..., reverse = FALSE) {
 #'
 #' @return TRUE if dark (luminance <= 50) and FALSE otherwise.
 #'
-#' @export
+#' @noRd
+#'
 is_panel_dark <- function(..., theme = NULL) {
   # Get theme if not provided
   if (rlang::is_null(theme)) {
@@ -212,10 +213,7 @@ is_panel_dark <- function(..., theme = NULL) {
 #'
 #' @return TRUE if dark (luminance <= 50) and FALSE otherwise.
 #'
-#' @export
-#'
-#' @examples
-#' is_col_dark("#0095A8FF")
+#' @noRd
 #'
 is_col_dark <- function(col) {
   # Handle NULL or missing input

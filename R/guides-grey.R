@@ -6,7 +6,7 @@
 #' @param aesthetic Character string naming the aesthetic (e.g. "alpha", "shape",
 #'   "linetype", "linewidth", "size")
 #' @param ... Arguments passed to [ggplot2::guide_legend()]. Require named arguments (and support trailing commas).
-#' @param col Base hex for the legend colour/fill. Defaults to `slate` (i.e. `"#8991A1"`).
+#' @param col Base hex for the legend colour/fill. Defaults to `jumble::slate` (i.e. `"#8991A1"`).
 #' @param colour Direct override for the colour aesthetic in the legend. If NULL,
 #'   determined by `col` and `colour_border_transform`.
 #' @param fill Direct override for the fill aesthetic in the legend. If NULL,
@@ -20,7 +20,7 @@
 guides_grey <- function(
     aesthetic,
     ...,
-    col = slate,
+    col = jumble::slate,
     colour = NULL,
     fill = NULL,
     border = NULL,

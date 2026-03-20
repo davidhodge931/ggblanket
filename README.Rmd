@@ -43,9 +43,13 @@ Computational speed has been traded-off.
 
 ## Installation
 
-``` r
-install.packages("ggblanket")
+Install from CRAN, or development version from [GitHub](https://github.com/).
+
+```r
+install.packages("ggblanket") 
+pak::pak("davidhodge931/ggblanket")
 ```
+
 ## Example
 
 ```{r, fig.asp=0.6}

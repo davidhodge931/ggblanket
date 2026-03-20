@@ -547,8 +547,8 @@ gg_blanket <- function(data,
       )
   }
 
-  fill_na <- oat
-  fill_override <- slate
+  fill_na <- jumble::grey
+  fill_override <- jumble::slate
 
   if (is_bordered_colour) {
     colour_na <- bordered_colour(fill_na)

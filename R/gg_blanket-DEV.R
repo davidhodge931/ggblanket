@@ -16,7 +16,6 @@
 #' @param ymax Variable mapped to ymax, or a set value.
 #' @param yend Variable mapped to yend, or a set value.
 #' @param z Variable mapped to z, or a set value.
-#' @param col Variable mapped to both colour and fill, or a set value.
 #' @param alpha Variable mapped to alpha, or a set value.
 #' @param shape Variable mapped to shape, or a set value.
 #' @param linetype Variable mapped to linetype, or a set value.

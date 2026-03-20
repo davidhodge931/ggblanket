@@ -392,7 +392,7 @@ gg_blanket <- function(data,
       if (colour_scale_type == "binned") fill_labels <- scales::label_comma()
     }
 
-    fill_na <- slate
+    fill_na <- jumble::slate
     if (border) colour_na <- bordercolour_transform(fill_na)
     else colour_na <- fill_na
 

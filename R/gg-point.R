@@ -1,6 +1,6 @@
 #' Point ggplot
 #'
-#' @description Create a point ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [annotate()][ggplot2::annotate()] with [geom_point()][ggplot2::geom_point()] defaults for the geom, stat and position.
+#' @description Create a point ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] with [geom_point()][ggplot2::geom_point()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'

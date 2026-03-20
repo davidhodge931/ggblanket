@@ -1,6 +1,6 @@
 #' Bin2d ggplot
 #'
-#' @description Create a bin2d ggplot with a wrapper around [ggplot()][ggplot2::ggplot()] + [annotate()][ggplot2::annotate()] with [geom_bin2d()][ggplot2::geom_bin2d()] defaults for the geom, stat and position.
+#' @description A bin2d ggplot with [geom_bin2d()][ggplot2::geom_bin2d()] defaults for the geom, stat and position.
 #'
 #' @inheritParams gg_blanket
 #'
@@ -9,7 +9,6 @@
 #'
 #' @examples
 #' library(ggplot2)
-#' library(dplyr)
 #'
 #' set_blanket()
 #'

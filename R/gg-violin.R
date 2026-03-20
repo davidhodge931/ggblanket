@@ -22,11 +22,11 @@
 #'   )
 #'
 gg_violin <- function(
-  data = NULL,
-  ...,
-  stat = "ydensity",
-  position = ggplot2::position_dodge(preserve = "single"),
-  coord = ggplot2::coord_cartesian(clip = "off"),
+    data = NULL,
+    ...,
+    stat = "ydensity",
+    position = ggplot2::position_dodge(preserve = "single"),
+    coord = ggplot2::coord_cartesian(clip = "off"),
 
   aspect = NULL,
   axis_line_aspect = NULL,
