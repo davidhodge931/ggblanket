@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/davidhodge931/ggblanket/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/davidhodge931/ggblanket/blob/v20.0.0/DESCRIPTION)
 
 Hodge D (2026). *ggblanket: Publication-Quality 'ggplot2'
 Visualisation*. R package version 20.0.0,
