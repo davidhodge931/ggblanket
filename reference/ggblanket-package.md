@@ -1,6 +1,8 @@
-# ggblanket: Simplify 'ggplot2' Visualisation
+# ggblanket: Publication-Quality 'ggplot2' Visualisation
 
-Simplify 'ggplot2' visualisation with 'ggblanket' wrapper functions.
+Wrapper 'ggplot2' functions for publication-quality visualisation.
+Aligned with 'ggplot2' and 'tidyverse'. Covers much of what 'ggplot2'
+does.
 
 ## See also
 

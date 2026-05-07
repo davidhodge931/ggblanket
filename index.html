@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Simplify ggplot2 Visualisation • ggblanket</title>
+<title>Publication-Quality ggplot2 Visualisation • ggblanket</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -15,9 +15,9 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Simplify ggplot2 Visualisation">
-<meta name="description" content="Simplify ggplot2 visualisation with ggblanket wrapper functions.">
-<meta property="og:description" content="Simplify ggplot2 visualisation with ggblanket wrapper functions.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Publication-Quality ggplot2 Visualisation">
+<meta name="description" content="Wrapper ggplot2 functions for publication-quality visualisation. Aligned with ggplot2 and tidyverse. Covers much of what ggplot2 does.">
+<meta property="og:description" content="Wrapper ggplot2 functions for publication-quality visualisation. Aligned with ggplot2 and tidyverse. Covers much of what ggplot2 does.">
 <meta property="og:image" content="https://davidhodge931.github.io/ggblanket/logo.svg">
 </head>
 <body>
@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">12.4.0900</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">20.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,17 +37,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="articles/ggblanket.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/1_demo_light.html">Demo: light mode</a></li>
-    <li><a class="dropdown-item" href="articles/2_demo_dark.html">Demo: dark mode</a></li>
-    <li><a class="dropdown-item" href="articles/3_go_further.html">Go further</a></li>
-    <li><a class="dropdown-item" href="articles/4_extensions.html">Extensions</a></li>
-  </ul>
-</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -78,50 +68,97 @@
 <!-- badges: start -->
 
 <div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+<h2 id="objective">Objective<a class="anchor" aria-label="anchor" href="#objective"></a>
 </h2>
-<p>ggblanket is a package of ggplot2 wrapper functions.</p>
-<p>The primary objective is to <strong>simplify ggplot2 visualisation</strong>.</p>
-<p>Secondary objectives relate to:</p>
-<ul>
-<li>Design: produce well-designed visualisation</li>
-<li>Alignment: align with ggplot2 and tidyverse</li>
-<li>Scope: cover much of what ggplot2 does.</li>
-</ul>
-<p>Computational speed has been traded-off.</p>
+<p>ggblanket is a package of ggplot2 wrapper functions for publication-quality visualisation. It seeks to support well-designed visualisation, while aligning as much as possible with ggplot2 and tidyverse conventions.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p>Install from CRAN, or development version from <a href="https://github.com/" class="external-link">GitHub</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ggblanket"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ggblanket"</span><span class="op">)</span> </span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"davidhodge931/ggblanket"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidhodge931.github.io/ggblanket/">ggblanket</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ggblanket2</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/set_blanket.html">set_blanket</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/gg_histogram.html">gg_histogram</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">flipper_length_mm</span>,</span>
-<span>    col <span class="op">=</span> <span class="va">species</span>,</span>
+<span><span class="va">iris</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/gg_point.html">gg_point</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">Sepal.Width</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">Sepal.Length</span>,</span>
+<span>    fill <span class="op">=</span> <span class="va">Species</span>,</span>
+<span>    shape <span class="op">=</span> <span class="va">Species</span>,</span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="75%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-2-1.png" alt="" width="75%"></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/economics.html" class="external-link">economics_long</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/gg_area.html">gg_area</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">date</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">value01</span>,</span>
+<span>    facet_wrap <span class="op">=</span> <span class="va">variable</span>,</span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" alt="" width="75%"></p>
 </div>
 <div class="section level2">
-<h2 id="get-started">Get started<a class="anchor" aria-label="anchor" href="#get-started"></a>
+<h2 id="how-it-works">How it works<a class="anchor" aria-label="anchor" href="#how-it-works"></a>
 </h2>
-<p>Click <a href="https://davidhodge931.github.io/ggblanket/articles/ggblanket.html">here</a> to start learning how ggblanket works.</p>
+<p>Use the <code>gg_*()</code> wrapper functions to:</p>
+<ul>
+<li>Plot a ggplot and geom layer in a single function</li>
+<li>Map aesthetic and facet variables as bare names</li>
+<li>Get <code>colour</code> and <code>colour_*</code> arguments inherited from <code>fill</code> and <code>fill_*</code> arguments</li>
+<li>Change scale arguments easily with prefixed arguments</li>
+<li>If lower x/y scale limit is zero, get default scale expansion of <code>ggplot2::expansion(c(0, 0.5))</code>
+</li>
+<li>Annotate outside the panel easier with <code>coord_clip = "off"</code> default</li>
+<li>Access to other arguments within relevant <code>geom_*</code> function via <code>...</code>
+</li>
+<li>Get global <code><a href="reference/set_blanket.html">set_blanket()</a></code> setting defaults.</li>
+</ul>
+<p>Use the global setup function, <code><a href="reference/set_blanket.html">set_blanket()</a></code>, to:</p>
+<ul>
+<li>Adjust the global theme</li>
+<li>Adjust the global option for how themes are to be refined based on plot scale types etc</li>
+<li>Adjust the global theme <code>fill</code>, <code>colour</code>, <code>linewidth</code>, <code>shape</code>, <code>linetype</code>, <code>size</code>, <code>stroke</code>
+</li>
+<li>Adjust the global theme <code>fill_palette</code>, <code>colour_palette</code>, <code>shape_palette</code> and <code>linetype_palette</code>
+</li>
+<li>Adjust the global option for <code>colour_border</code>, which is a function to transform the <code>colour</code> and <code>colour_palette</code> with input of the <code>fill</code> and <code>fill_palette</code> respectively</li>
+<li>Adjust the global option for <code>fill_border</code>, which is a function to transform the <code>fill</code> and <code>fill_palette</code> with input of the <code>colour</code> and <code>colour_palette</code> respectively</li>
+</ul>
 </div>
 <div class="section level2">
-<h2 id="thank-you">Thank you<a class="anchor" aria-label="anchor" href="#thank-you"></a>
+<h2 id="other-packages">Other packages<a class="anchor" aria-label="anchor" href="#other-packages"></a>
 </h2>
-<p>Thanks to the developers of ggplot2, tidyverse and the R ecosystem.</p>
-<p>For Dad, always missed (Peter Hodge, 1953-2023).</p>
+<p>This package is part of a group of related packages built to extend <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>.</p>
+<table class="table"><tr>
+<td align="center">
+<a href="https://davidhodge931.github.io/ggblanket/"><img src="https://raw.githubusercontent.com/davidhodge931/ggblanket/main/man/figures/logo.svg" width="120" alt="ggblanket"></a>
+</td>
+<td align="center">
+<a href="https://davidhodge931.github.io/ggrefine/" class="external-link"><img src="https://raw.githubusercontent.com/davidhodge931/ggrefine/main/man/figures/logo.svg" width="120" alt="ggrefine"></a>
+</td>
+<td align="center">
+<a href="https://davidhodge931.github.io/ggscribe/" class="external-link"><img src="https://raw.githubusercontent.com/davidhodge931/ggscribe/main/man/figures/logo.svg" width="120" alt="ggscribe"></a>
+</td>
+<td align="center">
+<a href="https://davidhodge931.github.io/ggwidth/" class="external-link"><img src="https://raw.githubusercontent.com/davidhodge931/ggwidth/main/man/figures/logo.svg" width="120" alt="ggwidth"></a>
+</td>
+<td align="center">
+<a href="https://davidhodge931.github.io/blends/" class="external-link"><img src="https://raw.githubusercontent.com/davidhodge931/blends/main/man/figures/logo.svg" width="120" alt="blends"></a>
+</td>
+<td align="center">
+<a href="https://davidhodge931.github.io/jumble/" class="external-link"><img src="https://raw.githubusercontent.com/davidhodge931/jumble/main/man/figures/logo.svg" width="120" alt="jumble"></a>
+</td>
+</tr></table>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -161,9 +198,6 @@
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=ggblanket" class="external-link"><img src="https://www.r-pkg.org/badges/version/ggblanket" alt="CRAN status"></a></li>
 <li><a href="https://r-pkg.org/pkg/ggblanket" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/ggblanket?color=lightgrey" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="https://r-pkg.org/pkg/ggblanket" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-month/ggblanket?color=lightgrey" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="https://r-pkg.org/pkg/ggblanket" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-week/ggblanket?color=lightgrey" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="https://r-pkg.org/pkg/ggblanket" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-day/ggblanket?color=lightgrey" alt="CRAN RStudio mirror downloads"></a></li>
 </ul>
 </div>
 

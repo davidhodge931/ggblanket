@@ -1,71 +1,112 @@
 # ggblanket
 
-## Overview
+## Objective
 
-ggblanket is a package of ggplot2 wrapper functions.
-
-The primary objective is to **simplify ggplot2 visualisation**.
-
-Secondary objectives relate to:
-
-- Design: produce well-designed visualisation
-- Alignment: align with ggplot2 and tidyverse
-- Scope: cover much of what ggplot2 does.
-
-Computational speed has been traded-off.
+ggblanket is a package of ggplot2 wrapper functions for
+publication-quality visualisation. It seeks to support well-designed
+visualisation, while aligning as much as possible with ggplot2 and
+tidyverse conventions.
 
 ## Installation
 
+Install from CRAN, or development version from
+[GitHub](https://github.com/).
+
 ``` r
-install.packages("ggblanket")
+
+install.packages("ggblanket") 
+pak::pak("davidhodge931/ggblanket")
 ```
 
 ## Example
 
 ``` r
-library(ggblanket)
-library(palmerpenguins)
+
+library(ggblanket2)
+library(ggplot2)
+library(dplyr)
 
 set_blanket()
 
-penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
+iris |>
+  gg_point(
+    x = Sepal.Width,
+    y = Sepal.Length,
+    fill = Species,
+    shape = Species,
   )
 ```
 
 ![](reference/figures/README-unnamed-chunk-2-1.png)
 
-## Get started
+``` r
 
-Click
-[here](https://davidhodge931.github.io/ggblanket/articles/ggblanket.html)
-to start learning how ggblanket works.
+ggplot2::economics_long |>
+  gg_area(
+    x = date,
+    y = value01,
+    facet_wrap = variable,
+  )
+```
 
-## Thank you
+![](reference/figures/README-unnamed-chunk-3-1.png)
 
-Thanks to the developers of ggplot2, tidyverse and the R ecosystem.
+## How it works
 
-For Dad, always missed (Peter Hodge, 1953-2023).
+Use the `gg_*()` wrapper functions to:
+
+- Plot a ggplot and geom layer in a single function
+- Map aesthetic and facet variables as bare names
+- Get `colour` and `colour_*` arguments inherited from `fill` and
+  `fill_*` arguments
+- Change scale arguments easily with prefixed arguments
+- If lower x/y scale limit is zero, get default scale expansion of
+  `ggplot2::expansion(c(0, 0.5))`
+- Annotate outside the panel easier with `coord_clip = "off"` default
+- Access to other arguments within relevant `geom_*` function via `...`
+- Get global
+  [`set_blanket()`](https://davidhodge931.github.io/ggblanket/reference/set_blanket.md)
+  setting defaults.
+
+Use the global setup function,
+[`set_blanket()`](https://davidhodge931.github.io/ggblanket/reference/set_blanket.md),
+to:
+
+- Adjust the global theme
+- Adjust the global option for how themes are to be refined based on
+  plot scale types etc
+- Adjust the global theme `fill`, `colour`, `linewidth`, `shape`,
+  `linetype`, `size`, `stroke`
+- Adjust the global theme `fill_palette`, `colour_palette`,
+  `shape_palette` and `linetype_palette`
+- Adjust the global option for `colour_border`, which is a function to
+  transform the `colour` and `colour_palette` with input of the `fill`
+  and `fill_palette` respectively
+- Adjust the global option for `fill_border`, which is a function to
+  transform the `fill` and `fill_palette` with input of the `colour` and
+  `colour_palette` respectively
+
+## Other packages
+
+This package is part of a group of related packages built to extend
+[ggplot2](https://ggplot2.tidyverse.org).
+
+|  |  |  |  |  |  |
+|:--:|:--:|:--:|:--:|:--:|:--:|
+| [![ggblanket](https://raw.githubusercontent.com/davidhodge931/ggblanket/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggblanket/) | [![ggrefine](https://raw.githubusercontent.com/davidhodge931/ggrefine/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggrefine/) | [![ggscribe](https://raw.githubusercontent.com/davidhodge931/ggscribe/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggscribe/) | [![ggwidth](https://raw.githubusercontent.com/davidhodge931/ggwidth/main/man/figures/logo.svg)](https://davidhodge931.github.io/ggwidth/) | [![blends](https://raw.githubusercontent.com/davidhodge931/blends/main/man/figures/logo.svg)](https://davidhodge931.github.io/blends/) | [![jumble](https://raw.githubusercontent.com/davidhodge931/jumble/main/man/figures/logo.svg)](https://davidhodge931.github.io/jumble/) |
 
 # Package index
 
-## Set
-
 - [`set_blanket()`](https://davidhodge931.github.io/ggblanket/reference/set_blanket.md)
-  : Set the style
-
-## Wrap
-
+  : Set ggblanket defaults
 - [`gg_blanket()`](https://davidhodge931.github.io/ggblanket/reference/gg_blanket.md)
-  : Blanket ggplot
+  : Any ggplot
 - [`gg_area()`](https://davidhodge931.github.io/ggblanket/reference/gg_area.md)
   : Area ggplot
 - [`gg_bar()`](https://davidhodge931.github.io/ggblanket/reference/gg_bar.md)
   : Bar ggplot
-- [`gg_bin_2d()`](https://davidhodge931.github.io/ggblanket/reference/gg_bin_2d.md)
-  : Bin_2d ggplot
+- [`gg_bin2d()`](https://davidhodge931.github.io/ggblanket/reference/gg_bin2d.md)
+  : Bin2d ggplot
 - [`gg_boxplot()`](https://davidhodge931.github.io/ggblanket/reference/gg_boxplot.md)
   : Boxplot ggplot
 - [`gg_col()`](https://davidhodge931.github.io/ggblanket/reference/gg_col.md)
@@ -73,29 +114,25 @@ For Dad, always missed (Peter Hodge, 1953-2023).
 - [`gg_contour()`](https://davidhodge931.github.io/ggblanket/reference/gg_contour.md)
   : Contour ggplot
 - [`gg_contour_filled()`](https://davidhodge931.github.io/ggblanket/reference/gg_contour_filled.md)
-  : Contour_filled ggplot
+  : Contour filled ggplot
 - [`gg_crossbar()`](https://davidhodge931.github.io/ggblanket/reference/gg_crossbar.md)
   : Crossbar ggplot
 - [`gg_density()`](https://davidhodge931.github.io/ggblanket/reference/gg_density.md)
   : Density ggplot
-- [`gg_density_2d()`](https://davidhodge931.github.io/ggblanket/reference/gg_density_2d.md)
-  : Density_2d ggplot
-- [`gg_density_2d_filled()`](https://davidhodge931.github.io/ggblanket/reference/gg_density_2d_filled.md)
-  : Density_2d_filled ggplot
+- [`gg_density2d()`](https://davidhodge931.github.io/ggblanket/reference/gg_density2d.md)
+  : Density 2d ggplot
+- [`gg_density2d_filled()`](https://davidhodge931.github.io/ggblanket/reference/gg_density2d_filled.md)
+  : Density 2d filled ggplot
 - [`gg_errorbar()`](https://davidhodge931.github.io/ggblanket/reference/gg_errorbar.md)
   : Errorbar ggplot
 - [`gg_freqpoly()`](https://davidhodge931.github.io/ggblanket/reference/gg_freqpoly.md)
   : Freqpoly ggplot
-- [`gg_function()`](https://davidhodge931.github.io/ggblanket/reference/gg_function.md)
-  : Function ggplot
 - [`gg_hex()`](https://davidhodge931.github.io/ggblanket/reference/gg_hex.md)
   : Hex ggplot
 - [`gg_histogram()`](https://davidhodge931.github.io/ggblanket/reference/gg_histogram.md)
   : Histogram ggplot
 - [`gg_jitter()`](https://davidhodge931.github.io/ggblanket/reference/gg_jitter.md)
   : Jitter ggplot
-- [`gg_label()`](https://davidhodge931.github.io/ggblanket/reference/gg_label.md)
-  : Label ggplot
 - [`gg_line()`](https://davidhodge931.github.io/ggblanket/reference/gg_line.md)
   : Line ggplot
 - [`gg_linerange()`](https://davidhodge931.github.io/ggblanket/reference/gg_linerange.md)
@@ -104,12 +141,10 @@ For Dad, always missed (Peter Hodge, 1953-2023).
   : Path ggplot
 - [`gg_point()`](https://davidhodge931.github.io/ggblanket/reference/gg_point.md)
   : Point ggplot
-- [`gg_pointrange()`](https://davidhodge931.github.io/ggblanket/reference/gg_pointrange.md)
-  : Pointrange ggplot
 - [`gg_polygon()`](https://davidhodge931.github.io/ggblanket/reference/gg_polygon.md)
   : Polygon ggplot
 - [`gg_qq()`](https://davidhodge931.github.io/ggblanket/reference/gg_qq.md)
-  : Qq ggplot
+  : QQ ggplot
 - [`gg_quantile()`](https://davidhodge931.github.io/ggblanket/reference/gg_quantile.md)
   : Quantile ggplot
 - [`gg_raster()`](https://davidhodge931.github.io/ggblanket/reference/gg_raster.md)
@@ -118,80 +153,18 @@ For Dad, always missed (Peter Hodge, 1953-2023).
   : Rect ggplot
 - [`gg_ribbon()`](https://davidhodge931.github.io/ggblanket/reference/gg_ribbon.md)
   : Ribbon ggplot
-- [`gg_rug()`](https://davidhodge931.github.io/ggblanket/reference/gg_rug.md)
-  : Rug ggplot
 - [`gg_segment()`](https://davidhodge931.github.io/ggblanket/reference/gg_segment.md)
   : Segment ggplot
 - [`gg_sf()`](https://davidhodge931.github.io/ggblanket/reference/gg_sf.md)
   : Sf ggplot
 - [`gg_smooth()`](https://davidhodge931.github.io/ggblanket/reference/gg_smooth.md)
   : Smooth ggplot
+- [`gg_spoke()`](https://davidhodge931.github.io/ggblanket/reference/gg_spoke.md)
+  : Spoke ggplot
 - [`gg_step()`](https://davidhodge931.github.io/ggblanket/reference/gg_step.md)
   : Step ggplot
-- [`gg_text()`](https://davidhodge931.github.io/ggblanket/reference/gg_text.md)
-  : Text ggplot
 - [`gg_tile()`](https://davidhodge931.github.io/ggblanket/reference/gg_tile.md)
   : Tile ggplot
 - [`gg_violin()`](https://davidhodge931.github.io/ggblanket/reference/gg_violin.md)
   : Violin ggplot
 
-## Theme
-
-- [`light_mode_r()`](https://davidhodge931.github.io/ggblanket/reference/light_mode_r.md)
-  [`light_mode_t()`](https://davidhodge931.github.io/ggblanket/reference/light_mode_r.md)
-  [`light_mode_b()`](https://davidhodge931.github.io/ggblanket/reference/light_mode_r.md)
-  : Light mode theme family
-- [`dark_mode_r()`](https://davidhodge931.github.io/ggblanket/reference/dark_mode_r.md)
-  [`dark_mode_t()`](https://davidhodge931.github.io/ggblanket/reference/dark_mode_r.md)
-  [`dark_mode_b()`](https://davidhodge931.github.io/ggblanket/reference/dark_mode_r.md)
-  : Dark mode theme family
-
-## Palette
-
-- [`blue`](https://davidhodge931.github.io/ggblanket/reference/blue.md)
-  : A blue colour
-- [`jumble`](https://davidhodge931.github.io/ggblanket/reference/jumble.md)
-  [`teal`](https://davidhodge931.github.io/ggblanket/reference/jumble.md)
-  [`orange`](https://davidhodge931.github.io/ggblanket/reference/jumble.md)
-  [`navy`](https://davidhodge931.github.io/ggblanket/reference/jumble.md)
-  [`red`](https://davidhodge931.github.io/ggblanket/reference/jumble.md)
-  [`pink`](https://davidhodge931.github.io/ggblanket/reference/jumble.md)
-  [`purple`](https://davidhodge931.github.io/ggblanket/reference/jumble.md)
-  : The jumble palette
-- [`grey`](https://davidhodge931.github.io/ggblanket/reference/grey.md)
-  : A grey colour
-- [`lightness`](https://davidhodge931.github.io/ggblanket/reference/lightness.md)
-  [`darkness`](https://davidhodge931.github.io/ggblanket/reference/lightness.md)
-  : Mode colour and linewidth defaults
-
-## Extra
-
-- [`aes_contrast()`](https://davidhodge931.github.io/ggblanket/reference/aes_contrast.md)
-  : A colour aesthetic for contrast
-- [`annotate_axis_line()`](https://davidhodge931.github.io/ggblanket/reference/annotate_axis_line.md)
-  : Annotated axis line segment
-- [`bind_each_all()`](https://davidhodge931.github.io/ggblanket/reference/bind_each_all.md)
-  : Bind each all.
-- [`guides_shape_grey()`](https://davidhodge931.github.io/ggblanket/reference/guides_shape_grey.md)
-  [`guides_linewidth_grey()`](https://davidhodge931.github.io/ggblanket/reference/guides_shape_grey.md)
-  [`guides_size_grey()`](https://davidhodge931.github.io/ggblanket/reference/guides_shape_grey.md)
-  : Guides for legend element colour
-- [`label_every_nth()`](https://davidhodge931.github.io/ggblanket/reference/label_every_nth.md)
-  : Label every nth element
-- [`scale_x_symmetric()`](https://davidhodge931.github.io/ggblanket/reference/scale_x_symmetric.md)
-  : Symmetric x continuous scale
-- [`scale_y_symmetric()`](https://davidhodge931.github.io/ggblanket/reference/scale_y_symmetric.md)
-  : Symmetric y continuous scale
-
-# Articles
-
-### All vignettes
-
-- [Demo: light
-  mode](https://davidhodge931.github.io/ggblanket/articles/1_demo_light.md):
-- [Demo: dark
-  mode](https://davidhodge931.github.io/ggblanket/articles/2_demo_dark.md):
-- [Go
-  further](https://davidhodge931.github.io/ggblanket/articles/3_go_further.md):
-- [Extensions](https://davidhodge931.github.io/ggblanket/articles/4_extensions.md):
-- [ggblanket](https://davidhodge931.github.io/ggblanket/articles/ggblanket.md):

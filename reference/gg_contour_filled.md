@@ -1,89 +1,178 @@
-# Contour_filled ggplot
+# Contour filled ggplot
 
-Create a contour_filled ggplot with a wrapper around
-[`ggplot2::ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html) +
-[geom_contour_filled()](https://ggplot2.tidyverse.org/reference/geom_contour.html).
+A contour filled ggplot with
+[geom_contour_filled()](https://ggplot2.tidyverse.org/reference/geom_contour.html)
+defaults for the geom, stat and position.
+
+Note `gg_contour_filled` defaults to `colour = NA`.
 
 ## Usage
 
 ``` r
 gg_contour_filled(
-  data = NULL,
+  data,
   ...,
+  geom = "contour_filled",
   stat = "contour_filled",
-  position = "identity",
-  coord = ggplot2::coord_cartesian(clip = "off"),
-  theme = NULL,
-  theme_orientation = NULL,
-  theme_axis_line_rm = NULL,
-  theme_axis_ticks_rm = NULL,
-  theme_panel_grid_rm = NULL,
-  blend = NULL,
+  position = ggplot2::position_identity(),
+  before = NULL,
+  with = NULL,
+  focus = NULL,
+  refine = NULL,
+  border = FALSE,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
   xend = NULL,
+  xintercept = NULL,
   y = NULL,
   ymin = NULL,
   ymax = NULL,
   yend = NULL,
+  yintercept = NULL,
   z = NULL,
-  col = NULL,
-  facet = NULL,
-  facet2 = NULL,
-  group = NULL,
-  subgroup = NULL,
+  fill = ggplot2::after_stat(.data$level),
+  colour = NULL,
+  alpha = NULL,
+  shape = NULL,
+  linetype = NULL,
+  linewidth = NULL,
+  size = NULL,
+  stroke = NULL,
   label = NULL,
-  text = NULL,
+  weight = NULL,
+  group = NULL,
+  width = NULL,
+  height = NULL,
+  slope = NULL,
+  intercept = NULL,
   sample = NULL,
-  mapping = NULL,
+  angle = NULL,
+  radius = NULL,
+  mapping = ggplot2::aes(),
+  x_type = NULL,
+  x_subtype = NULL,
   x_breaks = NULL,
-  x_breaks_n = NULL,
+  x_drop = TRUE,
   x_expand = NULL,
-  x_limits_include = NULL,
-  x_label = NULL,
+  x_guide = ggplot2::waiver(),
   x_labels = NULL,
+  x_limits = NULL,
+  x_minor_breaks = ggplot2::waiver(),
+  x_name = ggplot2::waiver(),
+  x_oob = scales::oob_censor,
+  x_palette = seq_len,
   x_position = "bottom",
   x_sec_axis = ggplot2::waiver(),
-  x_symmetric = NULL,
   x_transform = NULL,
+  y_type = NULL,
+  y_subtype = NULL,
   y_breaks = NULL,
-  y_breaks_n = NULL,
+  y_drop = TRUE,
   y_expand = NULL,
-  y_limits_include = NULL,
-  y_label = NULL,
+  y_guide = ggplot2::waiver(),
   y_labels = NULL,
+  y_limits = NULL,
+  y_minor_breaks = ggplot2::waiver(),
+  y_name = ggplot2::waiver(),
+  y_oob = scales::oob_censor,
+  y_palette = seq_len,
   y_position = "left",
   y_sec_axis = ggplot2::waiver(),
-  y_symmetric = NULL,
   y_transform = NULL,
-  col_breaks = NULL,
-  col_breaks_n = 5,
-  col_drop = FALSE,
-  col_limits_include = NULL,
-  col_label = NULL,
-  col_labels = NULL,
-  col_legend_ncol = NULL,
-  col_legend_nrow = NULL,
-  col_legend_rev = FALSE,
-  col_palette = NULL,
-  col_palette_na = NULL,
-  col_rescale = scales::rescale(),
-  col_steps = FALSE,
-  col_transform = NULL,
-  facet_axes = NULL,
-  facet_axis_labels = "margins",
-  facet_drop = FALSE,
-  facet_labels = NULL,
-  facet_layout = NULL,
+  fill_type = NULL,
+  fill_subtype = NULL,
+  fill_breaks = ggplot2::waiver(),
+  fill_drop = TRUE,
+  fill_guide = NULL,
+  fill_labels = NULL,
+  fill_limits = NULL,
+  fill_name = ggplot2::waiver(),
+  fill_oob = scales::oob_censor,
+  fill_rescaler = scales::rescale,
+  fill_palette = NULL,
+  fill_transform = NULL,
+  colour_type = NULL,
+  colour_subtype = NULL,
+  colour_breaks = NULL,
+  colour_drop = NULL,
+  colour_guide = NULL,
+  colour_labels = NULL,
+  colour_limits = NULL,
+  colour_name = NULL,
+  colour_oob = NULL,
+  colour_rescaler = NULL,
+  colour_palette = NULL,
+  colour_transform = NULL,
+  alpha_type = NULL,
+  alpha_subtype = NULL,
+  alpha_breaks = ggplot2::waiver(),
+  alpha_drop = TRUE,
+  alpha_guide = NULL,
+  alpha_labels = NULL,
+  alpha_limits = NULL,
+  alpha_name = ggplot2::waiver(),
+  alpha_oob = scales::oob_censor,
+  alpha_palette = NULL,
+  alpha_transform = NULL,
+  size_type = NULL,
+  size_subtype = NULL,
+  size_breaks = ggplot2::waiver(),
+  size_drop = TRUE,
+  size_guide = NULL,
+  size_labels = NULL,
+  size_limits = NULL,
+  size_name = ggplot2::waiver(),
+  size_oob = scales::oob_censor,
+  size_palette = NULL,
+  size_transform = NULL,
+  linewidth_type = NULL,
+  linewidth_subtype = NULL,
+  linewidth_breaks = ggplot2::waiver(),
+  linewidth_drop = TRUE,
+  linewidth_guide = NULL,
+  linewidth_labels = NULL,
+  linewidth_limits = NULL,
+  linewidth_name = ggplot2::waiver(),
+  linewidth_oob = scales::oob_censor,
+  linewidth_palette = NULL,
+  linewidth_transform = NULL,
+  linetype_type = NULL,
+  linetype_breaks = ggplot2::waiver(),
+  linetype_drop = TRUE,
+  linetype_guide = NULL,
+  linetype_labels = NULL,
+  linetype_limits = NULL,
+  linetype_name = ggplot2::waiver(),
+  linetype_palette = NULL,
+  shape_type = NULL,
+  shape_breaks = ggplot2::waiver(),
+  shape_drop = TRUE,
+  shape_guide = NULL,
+  shape_labels = NULL,
+  shape_limits = NULL,
+  shape_name = ggplot2::waiver(),
+  shape_palette = NULL,
+  facet_wrap = NULL,
+  facet_rows = NULL,
+  facet_cols = NULL,
+  facet_axes = "margins",
+  facet_axis_labels = "all",
+  facet_drop = TRUE,
+  facet_labeller = "label_value",
   facet_ncol = NULL,
   facet_nrow = NULL,
   facet_scales = "fixed",
   facet_space = "fixed",
+  coord_xlim = NULL,
+  coord_ylim = NULL,
+  coord_clip = NULL,
+  coord_reverse = "none",
+  coord_ratio = NULL,
   title = NULL,
   subtitle = NULL,
   caption = NULL,
-  label_case = NULL
+  ggplot = NULL
 )
 ```
 
@@ -91,224 +180,729 @@ gg_contour_filled(
 
 - data:
 
-  A data frame or tibble.
+  A data frame.
 
 - ...:
 
-  Other arguments passed to within a `params` list in
-  [`layer()`](https://ggplot2.tidyverse.org/reference/layer.html).
+  Arguments passed to the geom layer, including geom params.
+
+- geom:
+
+  A geom as a string (`"point"`). Note relevant geom library must be
+  loaded.
 
 - stat:
 
-  A statistical transformation to use on the data. A snakecase character
-  string of a ggproto Stat subclass object minus the Stat prefix (e.g.
-  `"identity"`).
+  A stat as a string (`"identity"`). Note relevant stat library must be
+  loaded.
 
 - position:
 
-  A position adjustment. A snakecase character string of a ggproto
-  Position subclass object minus the Position prefix (e.g.
-  `"identity"`), or a `position_*()` function that outputs a ggproto
-  Position subclass object (e.g.
-  [`ggplot2::position_identity()`](https://ggplot2.tidyverse.org/reference/position_identity.html)).
+  A position as a function
+  ([`ggplot2::position_identity()`](https://ggplot2.tidyverse.org/reference/position_identity.html)).
 
-- coord:
+- before:
 
-  A coordinate system. A `coord_*()` function that outputs a constructed
-  ggproto Coord subclass object (e.g.
-  [`ggplot2::coord_cartesian()`](https://ggplot2.tidyverse.org/reference/coord_cartesian.html)).
+  A ggplot2 layer to add before the geom layer. Unaffected by border
+  transformations.
 
-- theme:
+- with:
 
-  A ggplot2 theme (e.g.
-  [`light_mode_t()`](https://davidhodge931.github.io/ggblanket/reference/light_mode_r.md)
-  or
-  [`dark_mode_r()`](https://davidhodge931.github.io/ggblanket/reference/dark_mode_r.md)).
-  (Or a list that includes 1. a theme and 2. a
-  [`ggplot2::labs()`](https://ggplot2.tidyverse.org/reference/labs.html)
-  function. E.g.
-  `list(light_mode_r(), labs(colour = NULL, fill = NULL)`).
+  A function to apply to the geom layer.
 
-- theme_orientation:
+- focus:
 
-  The orientation of plot, which affects the theme components that are
-  removed. Either `"x"` or `"y"`.
+  The orientation focus of the plot. Either `"x"` (default) or `"y"` for
+  horizontal plots. Auto-detected from scale types.
 
-- theme_axis_line_rm:
+- refine:
 
-  `TRUE` or `FALSE` of whether to remove the relevant axis line per the
-  `theme_orientation` of the plot.
+  A function to refine the theme based on focus and scale types.
+  Defaults to
+  [`ggrefine::modern`](https://davidhodge931.github.io/ggrefine/reference/modern.html).
 
-- theme_axis_ticks_rm:
+- border:
 
-  `TRUE` or `FALSE` of whether to remove the relevant axis ticks per the
-  `theme_orientation` of the plot.
+  Whether to apply border colour and linewidth. `TRUE` forces border on,
+  `FALSE` forces off.
 
-- theme_panel_grid_rm:
+- x:
 
-  `TRUE` or `FALSE` of whether to remove the relevant panel grid per the
-  `theme_orientation` of the plot.
+  Variable mapped to x.
 
-- blend:
+- xmin:
 
-  The blending mode per
-  [`ggblend::blend()`](https://mjskay.github.io/ggblend/reference/blend.html)
-  (e.g. "multiply").
+  Variable mapped to xmin.
 
-- x, xmin, xmax, xend, y, ymin, ymax, yend, z, col, facet, facet2,
-  group, subgroup, label, text, sample:
+- xmax:
 
-  An unquoted aesthetic variable.
+  Variable mapped to xmax.
+
+- xend:
+
+  Variable mapped to xend.
+
+- xintercept:
+
+  Variable mapped to xintercept.
+
+- y:
+
+  Variable mapped to y.
+
+- ymin:
+
+  Variable mapped to ymin.
+
+- ymax:
+
+  Variable mapped to ymax.
+
+- yend:
+
+  Variable mapped to yend.
+
+- yintercept:
+
+  Variable mapped to yintercept.
+
+- z:
+
+  Variable mapped to z.
+
+- fill:
+
+  Variable mapped to fill, or a set value. When mapped, colour inherits
+  the same mapping unless colour is specified separately.
+
+- colour:
+
+  Variable mapped to colour, or a set value. When not specified and fill
+  is mapped, colour inherits from fill.
+
+- alpha:
+
+  Variable mapped to alpha, or a set value.
+
+- shape:
+
+  Variable mapped to shape, or a set value.
+
+- linetype:
+
+  Variable mapped to linetype, or a set value.
+
+- linewidth:
+
+  Variable mapped to linewidth, or a set value.
+
+- size:
+
+  Variable mapped to size, or a set value.
+
+- stroke:
+
+  Variable mapped to stroke, or a set value.
+
+- label:
+
+  Variable mapped to label, or a set value.
+
+- weight:
+
+  Variable mapped to weight, or a set value.
+
+- group:
+
+  Variable mapped to group, or a set value.
+
+- width:
+
+  Variable mapped to width, or a set value.
+
+- height:
+
+  Variable mapped to height, or a set value.
+
+- slope:
+
+  Variable mapped to slope, or a set value.
+
+- intercept:
+
+  Variable mapped to intercept, or a set value.
+
+- sample:
+
+  Variable mapped to sample, or a set value.
+
+- angle:
+
+  Variable mapped to angle, or a set value.
+
+- radius:
+
+  Variable mapped to radius, or a set value.
 
 - mapping:
 
-  A set of additional aesthetic mappings in
-  [`ggplot2::aes()`](https://ggplot2.tidyverse.org/reference/aes.html).
-  Intended primarily for non-supported aesthetics (e.g. `shape`,
-  `linetype`, `linewidth`, or `size`), but can also be used for delayed
-  evaluation etc.
+  Additional aesthetic mappings from
+  [`ggplot2::aes()`](https://ggplot2.tidyverse.org/reference/aes.html),
+  merged with individual aesthetic arguments.
 
-- x_breaks, y_breaks, col_breaks:
+- x_type:
 
-  A `scales::breaks_*` function (e.g. `scales::breaks_*()`), or a vector
-  of breaks.
+  Scale type for x. One of `"continuous"`, `"discrete"`, or `"binned"`.
+  Auto-detected if `NULL`.
 
-- x_breaks_n, y_breaks_n, col_breaks_n:
+- x_subtype:
 
-  A number of desired breaks for when `*_breaks = NULL`.
+  Scale subtype for x. One of `"date"`, `"datetime"`, `"time"`, or `NA`.
+  Auto-detected if `NULL`.
 
-- x_expand, y_expand:
+- x_breaks:
 
-  Padding to the limits with the
-  [`ggplot2::expansion()`](https://ggplot2.tidyverse.org/reference/expansion.html)
-  function, or a vector of length 2 (e.g. `c(0, 0)`).
+  Breaks for the x scale. Defaults to
+  [`scales::breaks_pretty()`](https://scales.r-lib.org/reference/breaks_pretty.html)
+  for date/datetime subtypes, otherwise
+  [`scales::breaks_extended()`](https://scales.r-lib.org/reference/breaks_extended.html).
 
-- x_limits_include, y_limits_include, col_limits_include:
+- x_drop:
 
-  For a continuous variable, any values that the limits should encompass
-  (e.g. `0`). For a discrete scale, manipulate the data instead with
-  [`forcats::fct_expand`](https://forcats.tidyverse.org/reference/fct_expand.html).
+  Whether to drop unused levels for a discrete x scale. Defaults to
+  `TRUE`.
 
-- x_label, y_label, col_label:
+- x_expand:
 
-  Label for the axis or legend title. Use `+ ggplot2::labs(... = NULL)`
-  for no title.
+  Expansion for the x scale. Defaults to zero expansion where the limit
+  is zero, otherwise 5% expansion.
 
-- x_labels, y_labels, col_labels, facet_labels:
+- x_guide:
 
-  A function that takes the breaks as inputs (e.g.
-  `\(x) stringr::str_to_sentence(x)` or `scales::label_*()`), or a
-  vector of labels. (Note this must be named for `facet_labels`).
+  Guide for the x scale. Defaults to
+  [`ggplot2::waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html).
 
-- x_position, y_position:
+- x_labels:
 
-  The position of the axis (i.e. `"left"`, `"right"`, `"bottom"` or
-  `"top"`).If using `y_position = "top"` with a `*_theme_*` theme, add
-  `caption = ""` or `caption = "\n"`.
+  Labels for the x scale. Defaults to
+  [`scales::label_date_short()`](https://scales.r-lib.org/reference/label_date.html)
+  for date/datetime, otherwise
+  [`scales::label_number()`](https://scales.r-lib.org/reference/label_number.html).
 
-- x_sec_axis, y_sec_axis:
+- x_limits:
 
-  A secondary axis with
-  [`ggplot2::dup_axis()`](https://ggplot2.tidyverse.org/reference/sec_axis.html)
-  or
-  [`ggplot2::sec_axis()`](https://ggplot2.tidyverse.org/reference/sec_axis.html).
+  Limits for the x scale. Accepts a vector or a function.
 
-- x_symmetric, y_symmetric:
+- x_minor_breaks:
 
-  `TRUE` or `FALSE` of whether a symmetric scale.
+  Minor breaks for the x scale.
 
-- x_transform, y_transform, col_transform:
+- x_name:
 
-  For a continuous scale, a transformation object (e.g.
-  [`scales::transform_log10()`](https://scales.r-lib.org/reference/transform_log.html))
-  or character string of this minus the `transform_` prefix (e.g.
-  `"log10"`).
+  Name/title for the x scale. Defaults to
+  [`ggplot2::waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html).
 
-- col_drop, facet_drop:
+- x_oob:
 
-  For a discrete variable, FALSE or TRUE of whether to drop unused
-  levels.
+  Out-of-bounds handler for the x scale. Defaults to
+  [scales::oob_censor](https://scales.r-lib.org/reference/oob.html).
 
-- col_legend_ncol, col_legend_nrow:
+- x_palette:
 
-  The number of columns and rows in a legend guide.
+  Palette for a discrete x scale. Defaults to `seq_len`.
 
-- col_legend_rev:
+- x_position:
 
-  `TRUE` or `FALSE` of whether to reverse the elements of a legend
-  guide. Defaults to `FALSE`.
+  Position of the x axis. Either `"bottom"` (default) or `"top"`.
 
-- col_palette:
+- x_sec_axis:
 
-  A character vector of hex codes (or names) or a `scales::pal_*()`
-  function.
+  Secondary axis for x. Defaults to
+  [`ggplot2::waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html).
 
-- col_palette_na:
+- x_transform:
 
-  A hex code (or name) for the colour of `NA` values.
+  Transform for the x scale. Auto-detected from subtype if `NULL`.
 
-- col_rescale:
+- y_type:
 
-  For a continuous variable, a
-  [`scales::rescale()`](https://scales.r-lib.org/reference/rescale.html)
-  function.
+  Scale type for y. One of `"continuous"`, `"discrete"`, or `"binned"`.
+  Auto-detected if `NULL`.
 
-- col_steps:
+- y_subtype:
 
-  For a continuous variable, `TRUE` or `FALSE` of whether to colour in
-  steps. Defaults to `FALSE`.
+  Scale subtype for y. One of `"date"`, `"datetime"`, `"time"`, or `NA`.
+  Auto-detected if `NULL`.
+
+- y_breaks:
+
+  Breaks for the y scale. Defaults to
+  [`scales::breaks_pretty()`](https://scales.r-lib.org/reference/breaks_pretty.html)
+  for date/datetime subtypes, otherwise
+  [`scales::breaks_extended()`](https://scales.r-lib.org/reference/breaks_extended.html).
+
+- y_drop:
+
+  Whether to drop unused levels for a discrete y scale. Defaults to
+  `TRUE`.
+
+- y_expand:
+
+  Expansion for the y scale. Defaults to zero expansion where the limit
+  is zero, otherwise 5% expansion.
+
+- y_guide:
+
+  Guide for the y scale. Defaults to
+  [`ggplot2::waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html).
+
+- y_labels:
+
+  Labels for the y scale. Defaults to
+  [`scales::label_date_short()`](https://scales.r-lib.org/reference/label_date.html)
+  for date/datetime, otherwise
+  [`scales::label_number()`](https://scales.r-lib.org/reference/label_number.html).
+
+- y_limits:
+
+  Limits for the y scale. Accepts a vector or a function.
+
+- y_minor_breaks:
+
+  Minor breaks for the y scale.
+
+- y_name:
+
+  Name/title for the y scale. Defaults to
+  [`ggplot2::waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html).
+
+- y_oob:
+
+  Out-of-bounds handler for the y scale. Defaults to
+  [scales::oob_censor](https://scales.r-lib.org/reference/oob.html).
+
+- y_palette:
+
+  Palette for a discrete y scale. Defaults to `seq_len`.
+
+- y_position:
+
+  Position of the y axis. Either `"left"` (default) or `"right"`.
+
+- y_sec_axis:
+
+  Secondary axis for y. Defaults to
+  [`ggplot2::waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html).
+
+- y_transform:
+
+  Transform for the y scale. Auto-detected from subtype if `NULL`.
+
+- fill_type:
+
+  Scale type for fill. One of `"continuous"`, `"discrete"`, or
+  `"binned"`. Auto-detected if `NULL`.
+
+- fill_subtype:
+
+  Scale subtype for fill. Auto-detected if `NULL`.
+
+- fill_breaks:
+
+  Breaks for the fill scale.
+
+- fill_drop:
+
+  Whether to drop unused levels for a discrete fill scale. Defaults to
+  `TRUE`.
+
+- fill_guide:
+
+  Guide for the fill scale.
+
+- fill_labels:
+
+  Labels for the fill scale.
+
+- fill_limits:
+
+  Limits for the fill scale.
+
+- fill_name:
+
+  Name/title for the fill scale.
+
+- fill_oob:
+
+  Out-of-bounds handler for the fill scale. Defaults to
+  [scales::oob_censor](https://scales.r-lib.org/reference/oob.html).
+
+- fill_rescaler:
+
+  Rescaler for the fill scale. Defaults to
+  [scales::rescale](https://scales.r-lib.org/reference/rescale.html).
+
+- fill_palette:
+
+  Palette for the fill scale.
+
+- fill_transform:
+
+  Transform for the fill scale. Auto-detected from subtype if `NULL`.
+
+- colour_type:
+
+  Scale type for colour. Inherits from `fill_type` if `NULL`.
+
+- colour_subtype:
+
+  Scale subtype for colour. Inherits from `fill_subtype` if `NULL`.
+
+- colour_breaks:
+
+  Breaks for the colour scale. Inherits from `fill_breaks` if `NULL`.
+
+- colour_drop:
+
+  Whether to drop unused levels for a discrete colour scale. Inherits
+  from `fill_drop` if `NULL`.
+
+- colour_guide:
+
+  Guide for the colour scale. Inherits from `fill_guide` if `NULL`.
+
+- colour_labels:
+
+  Labels for the colour scale. Inherits from `fill_labels` if `NULL`.
+
+- colour_limits:
+
+  Limits for the colour scale. Inherits from `fill_limits` if `NULL`.
+
+- colour_name:
+
+  Name/title for the colour scale. Inherits from `fill_name` if `NULL`.
+
+- colour_oob:
+
+  Out-of-bounds handler for the colour scale. Inherits from `fill_oob`
+  if `NULL`.
+
+- colour_rescaler:
+
+  Rescaler for the colour scale. Inherits from `fill_rescaler` if
+  `NULL`.
+
+- colour_palette:
+
+  Palette for the colour scale.
+
+- colour_transform:
+
+  Transform for the colour scale. Inherits from `fill_transform` if
+  `NULL`.
+
+- alpha_type:
+
+  Scale type for alpha. One of `"continuous"`, `"discrete"`, or
+  `"binned"`. Auto-detected if `NULL`.
+
+- alpha_subtype:
+
+  Scale subtype for alpha. Auto-detected if `NULL`.
+
+- alpha_breaks:
+
+  Breaks for the alpha scale.
+
+- alpha_drop:
+
+  Whether to drop unused levels for a discrete alpha scale. Defaults to
+  `TRUE`.
+
+- alpha_guide:
+
+  Guide for the alpha scale. Defaults to `NULL`.
+
+- alpha_labels:
+
+  Labels for the alpha scale.
+
+- alpha_limits:
+
+  Limits for the alpha scale.
+
+- alpha_name:
+
+  Name/title for the alpha scale.
+
+- alpha_oob:
+
+  Out-of-bounds handler for the alpha scale. Defaults to
+  [scales::oob_censor](https://scales.r-lib.org/reference/oob.html).
+
+- alpha_palette:
+
+  Palette for the alpha scale.
+
+- alpha_transform:
+
+  Transform for the alpha scale.
+
+- size_type:
+
+  Scale type for size. One of `"continuous"`, `"discrete"`, or
+  `"binned"`. Auto-detected if `NULL`.
+
+- size_subtype:
+
+  Scale subtype for size. Auto-detected if `NULL`.
+
+- size_breaks:
+
+  Breaks for the size scale.
+
+- size_drop:
+
+  Whether to drop unused levels for a discrete size scale. Defaults to
+  `TRUE`.
+
+- size_guide:
+
+  Guide for the size scale. Defaults to `NULL`.
+
+- size_labels:
+
+  Labels for the size scale.
+
+- size_limits:
+
+  Limits for the size scale.
+
+- size_name:
+
+  Name/title for the size scale.
+
+- size_oob:
+
+  Out-of-bounds handler for the size scale. Defaults to
+  [scales::oob_censor](https://scales.r-lib.org/reference/oob.html).
+
+- size_palette:
+
+  Palette for the size scale.
+
+- size_transform:
+
+  Transform for the size scale.
+
+- linewidth_type:
+
+  Scale type for linewidth. One of `"continuous"`, `"discrete"`, or
+  `"binned"`. Auto-detected if `NULL`.
+
+- linewidth_subtype:
+
+  Scale subtype for linewidth. Auto-detected if `NULL`.
+
+- linewidth_breaks:
+
+  Breaks for the linewidth scale.
+
+- linewidth_drop:
+
+  Whether to drop unused levels for a discrete linewidth scale. Defaults
+  to `TRUE`.
+
+- linewidth_guide:
+
+  Guide for the linewidth scale. Defaults to `NULL`.
+
+- linewidth_labels:
+
+  Labels for the linewidth scale.
+
+- linewidth_limits:
+
+  Limits for the linewidth scale.
+
+- linewidth_name:
+
+  Name/title for the linewidth scale.
+
+- linewidth_oob:
+
+  Out-of-bounds handler for the linewidth scale. Defaults to
+  [scales::oob_censor](https://scales.r-lib.org/reference/oob.html).
+
+- linewidth_palette:
+
+  Palette for the linewidth scale.
+
+- linewidth_transform:
+
+  Transform for the linewidth scale.
+
+- linetype_type:
+
+  Scale type for linetype. Only `"discrete"` is supported.
+
+- linetype_breaks:
+
+  Breaks for the linetype scale.
+
+- linetype_drop:
+
+  Whether to drop unused levels for the linetype scale. Defaults to
+  `TRUE`.
+
+- linetype_guide:
+
+  Guide for the linetype scale. Defaults to `NULL`.
+
+- linetype_labels:
+
+  Labels for the linetype scale.
+
+- linetype_limits:
+
+  Limits for the linetype scale.
+
+- linetype_name:
+
+  Name/title for the linetype scale.
+
+- linetype_palette:
+
+  Palette for the linetype scale.
+
+- shape_type:
+
+  Scale type for shape. Only `"discrete"` is supported.
+
+- shape_breaks:
+
+  Breaks for the shape scale.
+
+- shape_drop:
+
+  Whether to drop unused levels for the shape scale. Defaults to `TRUE`.
+
+- shape_guide:
+
+  Guide for the shape scale. Defaults to `NULL`.
+
+- shape_labels:
+
+  Labels for the shape scale.
+
+- shape_limits:
+
+  Limits for the shape scale.
+
+- shape_name:
+
+  Name/title for the shape scale.
+
+- shape_palette:
+
+  Palette for the shape scale.
+
+- facet_wrap:
+
+  Variables to facet by, passed to
+  [`ggplot2::facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html).
+  Accepts a bare variable name or
+  [`ggplot2::vars()`](https://ggplot2.tidyverse.org/reference/vars.html)
+  for multiple variables.
+
+- facet_rows:
+
+  Row variables for
+  [`ggplot2::facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html).
+  Accepts a bare variable name or
+  [`ggplot2::vars()`](https://ggplot2.tidyverse.org/reference/vars.html)
+  for multiple variables.
+
+- facet_cols:
+
+  Column variables for
+  [`ggplot2::facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html).
+  Accepts a bare variable name or
+  [`ggplot2::vars()`](https://ggplot2.tidyverse.org/reference/vars.html)
+  for multiple variables.
 
 - facet_axes:
 
-  Whether to add interior axes and ticks with `"margins"`, `"all"`,
-  `"all_x"`, or `"all_y"`. Sometimes `+ *_theme_*()` may be needed.
+  Which axes to draw on facet panels. Defaults to `"margins"`.
 
 - facet_axis_labels:
 
-  Whether to add interior axis labels with `"margins"`, `"all"`,
-  `"all_x"`, or `"all_y"`.
+  Which axis labels to draw on facet panels. Defaults to `"all"`.
 
-- facet_layout:
+- facet_drop:
 
-  Whether the layout is to be `"wrap"` or `"grid"`. If `NULL` and a
-  single `facet` (or `facet2`) argument is provided, then defaults to
-  `"wrap"`. If `NULL` and both facet and facet2 arguments are provided,
-  defaults to `"grid"`.
+  Whether to drop unused factor levels in facets. Defaults to `TRUE`.
 
-- facet_ncol, facet_nrow:
+- facet_labeller:
 
-  The number of columns and rows of facet panels. Only applies to a
-  facet layout of `"wrap"`.
+  Labeller for facet strip labels. Defaults to `"label_value"`.
+
+- facet_ncol:
+
+  Number of columns for
+  [`ggplot2::facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html).
+
+- facet_nrow:
+
+  Number of rows for
+  [`ggplot2::facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html).
 
 - facet_scales:
 
-  Whether facet scales should be `"fixed"` across facets, `"free"` in
-  both directions, or free in just one direction (i.e. `"free_x"` or
-  `"free_y"`). Defaults to `"fixed"`.
+  Whether facet scales are fixed or free. Defaults to `"fixed"`.
 
 - facet_space:
 
-  When the facet scales are *not* `"fixed"`, whether facet space should
-  be `"fixed"` across facets, `"free"` to be proportional in both
-  directions, or free to be proportional in just one direction (i.e.
-  `"free_x"` or `"free_y"`). Defaults to `"fixed"`.
+  Whether facet space is fixed or free. Defaults to `"fixed"`.
+
+- coord_xlim, coord_ylim:
+
+  Zoom limits within the coordinate system.
+
+- coord_clip:
+
+  Whether drawing is clipped to the panel. Either `"on"` or `"off"`.
+
+- coord_reverse:
+
+  Which axes to reverse. One of `"none"` (default), `"x"`, `"y"`, or
+  `"xy"`.
+
+- coord_ratio:
+
+  Aspect ratio expressed as y / x, for
+  [`ggplot2::coord_cartesian()`](https://ggplot2.tidyverse.org/reference/coord_cartesian.html).
 
 - title:
 
-  Title string.
+  Plot title passed to
+  [`ggplot2::labs()`](https://ggplot2.tidyverse.org/reference/labs.html).
 
 - subtitle:
 
-  Subtitle string.
+  Plot subtitle passed to
+  [`ggplot2::labs()`](https://ggplot2.tidyverse.org/reference/labs.html).
 
 - caption:
 
-  Caption title string.
+  Plot caption passed to
+  [`ggplot2::labs()`](https://ggplot2.tidyverse.org/reference/labs.html).
 
-- label_case:
+- ggplot:
 
-  A function to format the label of unlabelled variables. Defaults to
-  [`snakecase::to_sentence_case`](https://rdrr.io/pkg/snakecase/man/caseconverter.html).
+  A base ggplot object to use. Defaults to `NULL`, which uses
+  `\(x) ggplot2::ggplot(x)`.
 
 ## Value
 
@@ -317,23 +911,12 @@ A ggplot object.
 ## Examples
 
 ``` r
-library(ggplot2)
-library(dplyr)
-
-set_blanket()
-#> Warning: Duplicated aesthetics after name standardisation: fill
-#> Warning: Duplicated aesthetics after name standardisation: fill
-
-faithfuld |>
+ggplot2::faithfuld |>
   gg_contour_filled(
     x = waiting,
     y = eruptions,
     z = density,
-    bins = 8,
+    fill_palette = scales::pal_viridis(option = "turbo"),
   )
-#> Scale for colour is already present.
-#> Adding another scale for colour, which will replace the existing scale.
-#> Ignoring unknown labels:
-#> • colour : "Level"
 
 ```

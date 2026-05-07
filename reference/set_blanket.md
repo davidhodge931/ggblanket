@@ -1,40 +1,51 @@
-# Set the style
+# Set ggblanket defaults
 
-Set the style by setting:
+Use `set_blanket` to:
 
-1.  the theme, and how/what side-effects are to be applied
+- Set a global theme via
+  [`ggplot2::set_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.html)
 
-2.  the geom defaults, including the colour (and fill) of geoms
+- Set a global option for how themes are to be refined based on plot
+  scale types via `refine`
 
-3.  the geom colour (and fill) palettes (i.e. discrete, continuous and
-    ordinal)
+- Update the global theme `fill`, `colour`, `linewidth`, `shape`,
+  `linetype`, `size`, `stroke`
 
-4.  the function to apply to a unspecified/unlabelled `x_label`,
-    `y_label`, `col_label` etc.
+- Update the global theme `fill_palette`, `colour_palette`,
+  `shape_palette` and `linetype_palette`
 
-[`ggplot2::update_geom_defaults()`](https://ggplot2.tidyverse.org/reference/update_defaults.html)
-can be used to further fine-tune geom defaults.
+- Set a global option for `colour_border`, which is a function to
+  transform the `colour` and `colour_palette` with input of the `fill`
+  and `fill_palette` respectively
+
+- Set a global option for `fill_border`, which is a function to
+  transform the `fill` and `fill_palette` with input of the `colour` and
+  `colour_palette` respectively.
+
+- Set a global option `coord_clip`.
 
 ## Usage
 
 ``` r
 set_blanket(
   ...,
-  theme = light_mode_r(),
-  theme_orientation = NULL,
-  theme_axis_line_rm = TRUE,
-  theme_axis_ticks_rm = TRUE,
-  theme_panel_grid_rm = TRUE,
-  col_palette_d = jumble,
-  col_palette_c = viridisLite::mako(n = 9, direction = -1),
-  col_palette_o = scales::pal_viridis(option = "G", direction = -1),
-  col_palette_na_d = "#CDC5BFFF",
-  col_palette_na_c = "#988F88FF",
-  col_palette_na_o = "#988F88FF",
-  colour = "#357BA2FF",
-  fill = colour,
+  theme = ggrefine::theme_grey(),
+  refine = ggrefine::modern,
+  fill = "#357BA2FF",
+  fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
+  fill_border = NULL,
+  colour = fill,
+  colour_palette = fill_palette,
+  colour_border = NULL,
   linewidth = 0.66,
-  label_case = snakecase::to_sentence_case
+  linewidth_border = 0.33,
+  shape = 21,
+  shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
+  linetype = 1,
+  linetype_palette = scales::pal_manual(1:6),
+  size = 1.5,
+  stroke = 0.33,
+  coord_clip = "off"
 )
 ```
 
@@ -42,120 +53,128 @@ set_blanket(
 
 - ...:
 
-  Provided to require argument naming, support trailing commas etc.
+  Not used. Forces named arguments.
 
 - theme:
 
-  A ggplot2 theme (e.g.
-  [`light_mode_t()`](https://davidhodge931.github.io/ggblanket/reference/light_mode_r.md)
-  or
-  [`dark_mode_r()`](https://davidhodge931.github.io/ggblanket/reference/dark_mode_r.md)).
+  A ggplot2 theme. Defaults to
+  [`ggrefine::theme_grey()`](https://davidhodge931.github.io/ggrefine/reference/theme_grey.html).
 
-- theme_orientation:
+- refine:
 
-  The orientation of plot, which affects the theme components that can
-  be removed by the `gg_*` function. Either `"x"` or `"y"`. Defaults to
-  `NULL`, which lets the `gg_*` function guess it based on the data.
-
-- theme_axis_line_rm:
-
-  `TRUE` or `FALSE` of whether the `gg_*` function should remove the
-  relevant axis line per the `theme_orientation` of the plot.
-
-- theme_axis_ticks_rm:
-
-  `TRUE` or `FALSE` of whether the `gg_*` function should remove the
-  relevant axis ticks per the `theme_orientation` of the plot.
-
-- theme_panel_grid_rm:
-
-  `TRUE` or `FALSE` of whether the `gg_*` function should remove the
-  relevant panel grid per the `theme_orientation` of the plot.
-
-- col_palette_d:
-
-  For a discrete scale, a character vector of hex codes.
-
-- col_palette_c:
-
-  For a continuous scale, a character vector of hex codes.
-
-- col_palette_o:
-
-  For an ordinal scale, a `scales::pal_*()` function.
-
-- col_palette_na_d:
-
-  For a discrete scale, a hex code.
-
-- col_palette_na_c:
-
-  For a continuous scale, a hex code.
-
-- col_palette_na_o:
-
-  For an ordinal scale, a hex code.
-
-- colour:
-
-  A default hex code for the colour of geoms (i.e. geoms other than
-  "text", "label", "hline", and "vline"). Note, the "fill" inherits from
-  this argument.
+  A refine function. Defaults to
+  [ggrefine::modern](https://davidhodge931.github.io/ggrefine/reference/modern.html).
 
 - fill:
 
-  A default hex code for the fill of relevant geoms (i.e. geoms other
-  than "label"). Inherits from colour.
+  Default fill colour. Defaults to `"#357BA2FF"`.
+
+- fill_palette:
+
+  Palette for fill scales. A single discrete palette or
+  `list(discrete, continuous)`. Defaults to
+  `list(jumble::jumble, viridis::turbo(n = 256))`.
+
+- fill_border:
+
+  When `border = TRUE`, a function applied to `fill` and `fill_palette`
+  to derive the fill. Defaults to `\(x) x`.
+
+- colour:
+
+  Default colour. Defaults to `fill`.
+
+- colour_palette:
+
+  Palette for colour scales. Same format as `fill_palette`. Defaults to
+  `fill_palette`.
+
+- colour_border:
+
+  When `border = TRUE`, a function applied to `fill` and `fill_palette`
+  to derive the colour. If `fill_border` is `NULL`, defaults to
+  [`blends::multiply()`](https://davidhodge931.github.io/blends/reference/multiply.html)
+  for light panels and
+  [`blends::screen()`](https://davidhodge931.github.io/blends/reference/screen.html)
+  for dark panels. Otherwise defaults to `\(x) x`.
 
 - linewidth:
 
-  A numeric linewidth (i.e. for geoms that are polygons, and do not
-  potentially have necessary adjacent lines - these get a linewidth of
-  0). Defaults to 0.66.
+  Default linewidth. Defaults to `0.66`.
 
-- label_case:
+- linewidth_border:
 
-  A function to apply to a unspecified/unlabelled `x_label`, `y_label`,
-  `col_label` etc. Defaults to
-  [`snakecase::to_sentence_case`](https://rdrr.io/pkg/snakecase/man/caseconverter.html).
+  When `border = TRUE`, the default linewidth. Defaults to `0.33`.
+
+- shape:
+
+  Default point shape. Defaults to `21`.
+
+- shape_palette:
+
+  Palette for shape scales. Defaults to
+  `scales::pal_manual(c(21, 24, 22, 23, 25))`.
+
+- linetype:
+
+  Default linetype. Defaults to `1`.
+
+- linetype_palette:
+
+  Palette for linetype scales. Defaults to `scales::pal_manual(1:6)`.
+
+- size:
+
+  Default point size. Defaults to `1.5`.
+
+- stroke:
+
+  Default stroke for point geoms. Defaults to `0.33`.
+
+- coord_clip:
+
+  Whether drawing is clipped to the panel. Either `"on"` or `"off"`
+  (default).
 
 ## Value
 
-A globally set style.
+Called for side effects.
+
+## See also
+
+[`scales::number_options()`](https://scales.r-lib.org/reference/number_options.html)
 
 ## Examples
 
 ``` r
-library(ggplot2)
-library(ggblanket)
-library(palmerpenguins)
+set_blanket(
+  fill_palette = scales::pal_hue(),
+)
+
+palmerpenguins::penguins |>
+  gg_density(
+    x = flipper_length_mm,
+    fill = species,
+  )
+#> Warning: Removed 2 rows containing non-finite outside the scale range
+#> (`stat_density()`).
+#> Warning: Removed 2 rows containing non-finite outside the scale range
+#> (`stat_density()`).
+
 
 set_blanket(
-  theme = dark_mode_r(),
-  colour = "#E7298AFF",
-  col_palette_d = c("#1B9E77FF", "#D95F02FF", "#7570b3FF", "#E7298AFF",
-                    "#66A61EFF", "#E6AB02FF", "#A6761DFF", "#666666FF"),
+  fill_palette = scales::pal_hue(),
+  fill_border = \(x) scales::alpha(x, 0.75),
 )
-#> Warning: Duplicated aesthetics after name standardisation: fill
-#> Warning: Duplicated aesthetics after name standardisation: fill
 
-penguins |>
-  gg_point(
+palmerpenguins::penguins |>
+  gg_density(
     x = flipper_length_mm,
-    y = body_mass_g,
+    fill = species,
   )
-#> Warning: Removed 2 rows containing missing values or values outside the scale range
-#> (`geom_point()`).
-
-
-penguins |>
-  gg_histogram(
-    x = flipper_length_mm,
-    col = species,
-  )
-#> Scale for colour is already present.
-#> Adding another scale for colour, which will replace the existing scale.
-#> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
-#> Warning: Removed 2 rows containing non-finite outside the scale range (`stat_bin()`).
+#> Warning: Removed 2 rows containing non-finite outside the scale range
+#> (`stat_density()`).
+#> Warning: Removed 2 rows containing non-finite outside the scale range
+#> (`stat_density()`).
 
 ```

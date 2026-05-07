@@ -10,13 +10,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/davidhodge931/ggblanket/blob/main/DESCRIPTION)
 
-Hodge D (2026). *ggblanket: Simplify 'ggplot2' Visualisation*. R package
-version 12.4.0900, <https://davidhodge931.github.io/ggblanket/>.
+Hodge D (2026). *ggblanket: Publication-Quality 'ggplot2'
+Visualisation*. R package version 20.0.0,
+<https://davidhodge931.github.io/ggblanket/>.
 
     @Manual{,
-      title = {ggblanket: Simplify 'ggplot2' Visualisation},
+      title = {ggblanket: Publication-Quality 'ggplot2' Visualisation},
       author = {David Hodge},
       year = {2026},
-      note = {R package version 12.4.0900},
+      note = {R package version 20.0.0},
       url = {https://davidhodge931.github.io/ggblanket/},
     }
