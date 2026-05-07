@@ -2,12 +2,6 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-
-#' @importFrom rlang !!
-#' @importFrom rlang !!!
-#' @importFrom rlang .data
-#' @importFrom rlang :=
-
-utils::globalVariables(c(".x"))
+#' @importFrom ggplot2 .data
 ## usethis namespace: end
 NULL

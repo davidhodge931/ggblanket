@@ -4,11 +4,11 @@
 \name{ggblanket-package}
 \alias{ggblanket}
 \alias{ggblanket-package}
-\title{ggblanket: Simplify 'ggplot2' Visualisation}
+\title{ggblanket: Publication-Quality 'ggplot2' Visualisation}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Simplify 'ggplot2' visualisation with 'ggblanket' wrapper functions.
+Wrapper 'ggplot2' functions for publication-quality visualisation. Aligned with 'ggplot2' and 'tidyverse'. Covers much of what 'ggplot2' does.
 }
 \seealso{
 Useful links:
