@@ -78,7 +78,7 @@ Called for side effects.
 \description{
 Use \code{set_blanket} to:
 \itemize{
-\item Set a global theme via \code{\link[ggplot2:get_theme]{ggplot2::set_theme()}}
+\item Set a global theme via \code{\link[ggplot2:set_theme]{ggplot2::set_theme()}}
 \item Set a global option for how themes are to be refined based on plot scale
 types via \code{refine}
 \item Update the global theme \code{fill}, \code{colour}, \code{linewidth}, \code{shape},

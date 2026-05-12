@@ -376,6 +376,7 @@ get_refine <- function() {
 set_colour_border <- function(colour_border = NULL) {
   if (is.null(colour_border)) {
     colour_border <- \(x) {
+      if (is.null(x)) return(x)
       if (is_panel_dark()) blends::screen(x) else blends::multiply(x)
     }
   }
@@ -538,16 +539,10 @@ get_geom_info <- function(geom) {
 #' @return A palette function or NULL/waiver
 #' @noRd
 as_discrete_palette <- function(palette) {
-  if (is.function(palette)) {
-    return(palette)
-  }
-  if (is.null(palette) || inherits(palette, "waiver")) {
-    return(palette)
-  }
-  if (is.atomic(palette)) {
-    return(function(n) palette[seq_len(n)])
-  }
-  stop("palette must be a function, vector, or NULL", call. = FALSE)
+  if (is.function(palette)) palette
+  else if (is.null(palette) || inherits(palette, "waiver")) palette
+  else if (is.atomic(palette)) function(n) unname(palette[seq_len(n)])
+  else stop("palette must be a function, vector, or NULL", call. = FALSE)
 }
 
 #' Convert continuous palette to function
@@ -560,20 +555,13 @@ as_discrete_palette <- function(palette) {
 #' @return A palette function or NULL/waiver
 #' @noRd
 as_continuous_palette <- function(palette) {
-  if (is.function(palette)) {
-    return(palette)
+  if (is.function(palette)) palette
+  else if (is.null(palette) || inherits(palette, "waiver")) palette
+  else if (is.atomic(palette)) {
+    if (is.character(palette)) scales::pal_gradient_n(palette)
+    else if (is.numeric(palette)) function(x) scales::rescale(x, to = palette, from = c(0, 1))
   }
-  if (is.null(palette) || inherits(palette, "waiver")) {
-    return(palette)
-  }
-  if (is.atomic(palette)) {
-    if (is.character(palette)) {
-      return(scales::pal_gradient_n(palette))
-    } else if (is.numeric(palette)) {
-      return(function(x) scales::rescale(x, to = palette, from = c(0, 1)))
-    }
-  }
-  stop("palette must be a function, vector, or NULL", call. = FALSE)
+  else stop("palette must be a function, vector, or NULL", call. = FALSE)
 }
 
 # Helper — compose a border function with a palette, regardless of type
@@ -581,7 +569,9 @@ apply_border_to_palette <- function(palette, border_fn) {
   if (is.function(palette)) {
     \(n) border_fn(palette(n))
   } else if (is.atomic(palette)) {
-    border_fn(palette)
+    result <- border_fn(palette)
+    names(result) <- names(palette)  # preserve names through border transform
+    result
   } else {
     palette
   }
@@ -717,4 +707,9 @@ is_col_dark <- function(col) {
 
   # Return TRUE if low luminance
   col_luminance <= 50
+}
+
+# Helper — detect if palette is a named vector warranting scale_*_manual routing
+is_named_palette <- function(palette) {
+  is.atomic(palette) && !is.null(names(palette))
 }

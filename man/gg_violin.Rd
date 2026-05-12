@@ -263,7 +263,7 @@ gg_violin(
 
 \item{x_guide}{Guide for the x scale. Defaults to \code{\link[ggplot2:waiver]{ggplot2::waiver()}}.}
 
-\item{x_labels}{Labels for the x scale. Defaults to \code{\link[scales:label_date]{scales::label_date_short()}} for date/datetime, otherwise \code{\link[scales:label_number]{scales::label_number()}}.}
+\item{x_labels}{Labels for the x scale. Defaults to \code{\link[scales:label_date_short]{scales::label_date_short()}} for date/datetime, otherwise \code{\link[scales:label_number]{scales::label_number()}}.}
 
 \item{x_limits}{Limits for the x scale. Accepts a vector or a function.}
 
@@ -271,7 +271,7 @@ gg_violin(
 
 \item{x_name}{Name/title for the x scale. Defaults to \code{\link[ggplot2:waiver]{ggplot2::waiver()}}.}
 
-\item{x_oob}{Out-of-bounds handler for the x scale. Defaults to \link[scales:oob]{scales::oob_censor}.}
+\item{x_oob}{Out-of-bounds handler for the x scale. Defaults to \link[scales:oob_censor]{scales::oob_censor}.}
 
 \item{x_palette}{Palette for a discrete x scale. Defaults to \code{seq_len}.}
 
@@ -293,7 +293,7 @@ gg_violin(
 
 \item{y_guide}{Guide for the y scale. Defaults to \code{\link[ggplot2:waiver]{ggplot2::waiver()}}.}
 
-\item{y_labels}{Labels for the y scale. Defaults to \code{\link[scales:label_date]{scales::label_date_short()}} for date/datetime, otherwise \code{\link[scales:label_number]{scales::label_number()}}.}
+\item{y_labels}{Labels for the y scale. Defaults to \code{\link[scales:label_date_short]{scales::label_date_short()}} for date/datetime, otherwise \code{\link[scales:label_number]{scales::label_number()}}.}
 
 \item{y_limits}{Limits for the y scale. Accepts a vector or a function.}
 
@@ -301,7 +301,7 @@ gg_violin(
 
 \item{y_name}{Name/title for the y scale. Defaults to \code{\link[ggplot2:waiver]{ggplot2::waiver()}}.}
 
-\item{y_oob}{Out-of-bounds handler for the y scale. Defaults to \link[scales:oob]{scales::oob_censor}.}
+\item{y_oob}{Out-of-bounds handler for the y scale. Defaults to \link[scales:oob_censor]{scales::oob_censor}.}
 
 \item{y_palette}{Palette for a discrete y scale. Defaults to \code{seq_len}.}
 
@@ -327,7 +327,7 @@ gg_violin(
 
 \item{fill_name}{Name/title for the fill scale.}
 
-\item{fill_oob}{Out-of-bounds handler for the fill scale. Defaults to \link[scales:oob]{scales::oob_censor}.}
+\item{fill_oob}{Out-of-bounds handler for the fill scale. Defaults to \link[scales:oob_censor]{scales::oob_censor}.}
 
 \item{fill_rescaler}{Rescaler for the fill scale. Defaults to \link[scales:rescale]{scales::rescale}.}
 
@@ -375,7 +375,7 @@ gg_violin(
 
 \item{alpha_name}{Name/title for the alpha scale.}
 
-\item{alpha_oob}{Out-of-bounds handler for the alpha scale. Defaults to \link[scales:oob]{scales::oob_censor}.}
+\item{alpha_oob}{Out-of-bounds handler for the alpha scale. Defaults to \link[scales:oob_censor]{scales::oob_censor}.}
 
 \item{alpha_palette}{Palette for the alpha scale.}
 
@@ -397,7 +397,7 @@ gg_violin(
 
 \item{size_name}{Name/title for the size scale.}
 
-\item{size_oob}{Out-of-bounds handler for the size scale. Defaults to \link[scales:oob]{scales::oob_censor}.}
+\item{size_oob}{Out-of-bounds handler for the size scale. Defaults to \link[scales:oob_censor]{scales::oob_censor}.}
 
 \item{size_palette}{Palette for the size scale.}
 
@@ -419,7 +419,7 @@ gg_violin(
 
 \item{linewidth_name}{Name/title for the linewidth scale.}
 
-\item{linewidth_oob}{Out-of-bounds handler for the linewidth scale. Defaults to \link[scales:oob]{scales::oob_censor}.}
+\item{linewidth_oob}{Out-of-bounds handler for the linewidth scale. Defaults to \link[scales:oob_censor]{scales::oob_censor}.}
 
 \item{linewidth_palette}{Palette for the linewidth scale.}
 

@@ -471,7 +471,7 @@ gg_blanket <- function(
     computed_colour <- separated$fixed[["colour"]] %||%
       separated$fixed[["fill"]] %||%
       current_theme$geom@fill
-    if (is_colour_border) {
+    if (is_colour_border && !is.null(computed_colour)) {
       computed_colour <- colour_border_fn(computed_colour)
     }
   }
@@ -551,7 +551,8 @@ gg_blanket <- function(
       current_theme$palette.colour.discrete
 
     plot <- plot +
-      ggplot2::scale_colour_discrete(
+      ggplot2::discrete_scale(
+        aesthetics = "colour",
         palette = if (!is.null(before_palette)) {
           as_discrete_palette(before_palette)
         } else {
@@ -833,35 +834,51 @@ gg_blanket <- function(
   ### fill scale
   if (!is.null(fill_type)) {
     if (fill_type == "discrete") {
-      # Resolve raw palette — kept unmodified so colour scale can reference it correctly
       fill_palette <- fill_palette %||%
         current_theme$palette.fill.discrete %||%
         scales::pal_hue()
-      # Apply fill_border_fn only for the fill scale itself
-      fill_palette_scaled <- if (is_fill_border) {
-        apply_border_to_palette(fill_palette, fill_border_fn)
-      } else {
-        fill_palette
-      }
 
-      plot <- plot +
-        ggplot2::discrete_scale(
-          aesthetics = "fill",
-          palette    = as_discrete_palette(fill_palette_scaled),
-          breaks     = fill_breaks %||% ggplot2::waiver(),
-          drop       = fill_drop,
-          guide      = fill_guide %||% ggplot2::guide_legend(),
-          labels     = fill_labels %||% ggplot2::waiver(),
-          limits     = fill_limits,
-          name       = fill_name,
-          na.value   = fill_na
-        )
+      if (is_named_palette(fill_palette)) {
+        fill_values <- if (is_fill_border) {
+          stats::setNames(fill_border_fn(fill_palette), names(fill_palette))
+        } else {
+          fill_palette
+        }
+        plot <- plot +
+          ggplot2::scale_discrete_manual(
+            aesthetics = "fill",
+            values   = fill_values,
+            breaks   = fill_breaks %||% ggplot2::waiver(),
+            drop     = fill_drop,
+            guide    = fill_guide %||% ggplot2::guide_legend(),
+            labels   = fill_labels %||% ggplot2::waiver(),
+            limits   = fill_limits,
+            name     = fill_name,
+            na.value = fill_na
+          )
+      } else {
+        fill_palette_scaled <- if (is_fill_border) {
+          apply_border_to_palette(fill_palette, fill_border_fn)
+        } else {
+          fill_palette
+        }
+        plot <- plot +
+          ggplot2::discrete_scale(
+            aesthetics = "fill",
+            palette    = as_discrete_palette(fill_palette_scaled),
+            breaks     = fill_breaks %||% ggplot2::waiver(),
+            drop       = fill_drop,
+            guide      = fill_guide %||% ggplot2::guide_legend(),
+            labels     = fill_labels %||% ggplot2::waiver(),
+            limits     = fill_limits,
+            name       = fill_name,
+            na.value   = fill_na
+          )
+      }
     } else if (fill_type %in% c("continuous", "binned")) {
-      # Resolve raw palette — kept unmodified so colour scale can reference it correctly
       fill_palette <- fill_palette %||%
         current_theme$palette.fill.continuous %||%
         scales::pal_gradient_n(viridis::turbo(n = 256))
-      # Apply fill_border_fn only for the fill scale itself
       fill_palette_scaled <- if (is_fill_border) {
         apply_border_to_palette(fill_palette, fill_border_fn)
       } else {
@@ -919,18 +936,38 @@ gg_blanket <- function(
           scales::pal_hue()
       }
 
-      plot <- plot +
-        ggplot2::discrete_scale(
-          aesthetics = "colour",
-          palette    = as_discrete_palette(colour_palette),
-          breaks     = colour_breaks %||% fill_breaks,
-          drop       = colour_drop   %||% fill_drop,
-          guide      = colour_guide  %||% fill_guide %||% ggplot2::guide_legend(),
-          labels     = colour_labels %||% fill_labels %||% ggplot2::waiver(),
-          limits     = colour_limits %||% fill_limits,
-          name       = colour_name   %||% fill_name,
-          na.value   = colour_na
-        )
+      if (is_named_palette(colour_palette)) {
+        colour_values <- if (is.null(names(colour_palette)) && is_named_palette(fill_palette)) {
+          stats::setNames(colour_palette, names(fill_palette))
+        } else {
+          colour_palette
+        }
+        plot <- plot +
+          ggplot2::scale_discrete_manual(
+            aesthetics = "colour",
+            values   = colour_values,
+            breaks   = colour_breaks %||% fill_breaks,
+            drop     = colour_drop   %||% fill_drop,
+            guide    = colour_guide  %||% fill_guide %||% ggplot2::guide_legend(),
+            labels   = colour_labels %||% fill_labels %||% ggplot2::waiver(),
+            limits   = colour_limits %||% fill_limits,
+            name     = colour_name   %||% fill_name,
+            na.value = colour_na
+          )
+      } else {
+        plot <- plot +
+          ggplot2::discrete_scale(
+            aesthetics = "colour",
+            palette    = as_discrete_palette(colour_palette),
+            breaks     = colour_breaks %||% fill_breaks,
+            drop       = colour_drop   %||% fill_drop,
+            guide      = colour_guide  %||% fill_guide %||% ggplot2::guide_legend(),
+            labels     = colour_labels %||% fill_labels %||% ggplot2::waiver(),
+            limits     = colour_limits %||% fill_limits,
+            name       = colour_name   %||% fill_name,
+            na.value   = colour_na
+          )
+      }
     } else if (colour_type %in% c("continuous", "binned")) {
       if (is_colour_border) {
         colour_palette <- colour_palette %||%
@@ -994,44 +1031,56 @@ gg_blanket <- function(
   # Add alpha scale
   if (!is.null(alpha_type)) {
     if (alpha_type == "discrete") {
-      plot <- plot +
-        ggplot2::discrete_scale(
-          aesthetics = "alpha",
-          palette = as_discrete_palette(alpha_palette),
-          breaks = alpha_breaks,
-          drop = alpha_drop,
-          guide = alpha_guide %||% ggplot2::guide_legend(),
-          labels = alpha_labels %||% ggplot2::waiver(),
-          limits = alpha_limits,
-          name = alpha_name
-        )
+      if (is_named_palette(alpha_palette)) {
+        plot <- plot +
+          ggplot2::scale_discrete_manual(
+            aesthetics = "alpha",
+            values     = alpha_palette,
+            breaks     = alpha_breaks,
+            drop       = alpha_drop,
+            guide      = alpha_guide %||% ggplot2::guide_legend(),
+            labels     = alpha_labels %||% ggplot2::waiver(),
+            limits     = alpha_limits,
+            name       = alpha_name
+          )
+      } else {
+        plot <- plot +
+          ggplot2::discrete_scale(
+            aesthetics = "alpha",
+            palette    = as_discrete_palette(alpha_palette),
+            breaks     = alpha_breaks,
+            drop       = alpha_drop,
+            guide      = alpha_guide %||% ggplot2::guide_legend(),
+            labels     = alpha_labels %||% ggplot2::waiver(),
+            limits     = alpha_limits,
+            name       = alpha_name
+          )
+      }
     } else if (alpha_type == "continuous") {
       plot <- plot +
         ggplot2::continuous_scale(
           aesthetics = "alpha",
-          palette = as_continuous_palette(alpha_palette),
-          breaks = alpha_breaks,
-          guide = alpha_guide %||% ggplot2::guide_legend(),
-          labels = alpha_labels %||%
-            get_labels(coord_type, alpha_subtype, "alpha"),
-          limits = alpha_limits,
-          name = alpha_name,
-          oob = alpha_oob,
-          transform = alpha_transform %||% get_transform(alpha_subtype)
+          palette    = as_continuous_palette(alpha_palette),
+          breaks     = alpha_breaks,
+          guide      = alpha_guide %||% ggplot2::guide_legend(),
+          labels     = alpha_labels %||% get_labels(coord_type, alpha_subtype, "alpha"),
+          limits     = alpha_limits,
+          name       = alpha_name,
+          oob        = alpha_oob,
+          transform  = alpha_transform %||% get_transform(alpha_subtype)
         )
     } else if (alpha_type == "binned") {
       plot <- plot +
         ggplot2::binned_scale(
           aesthetics = "alpha",
-          palette = as_continuous_palette(alpha_palette),
-          breaks = alpha_breaks,
-          guide = alpha_guide %||% ggplot2::guide_bins(),
-          labels = alpha_labels %||%
-            get_labels(coord_type, alpha_subtype, "alpha"),
-          limits = alpha_limits,
-          name = alpha_name,
-          oob = alpha_oob,
-          transform = alpha_transform %||% get_transform(alpha_subtype)
+          palette    = as_continuous_palette(alpha_palette),
+          breaks     = alpha_breaks,
+          guide      = alpha_guide %||% ggplot2::guide_bins(),
+          labels     = alpha_labels %||% get_labels(coord_type, alpha_subtype, "alpha"),
+          limits     = alpha_limits,
+          name       = alpha_name,
+          oob        = alpha_oob,
+          transform  = alpha_transform %||% get_transform(alpha_subtype)
         )
     }
   }
@@ -1039,44 +1088,56 @@ gg_blanket <- function(
   # Add size scale
   if (!is.null(size_type)) {
     if (size_type == "discrete") {
-      plot <- plot +
-        ggplot2::discrete_scale(
-          aesthetics = "size",
-          palette = as_discrete_palette(size_palette),
-          breaks = size_breaks,
-          drop = size_drop,
-          guide = size_guide %||% ggplot2::guide_legend(),
-          labels = size_labels %||% ggplot2::waiver(),
-          limits = size_limits,
-          name = size_name
-        )
+      if (is_named_palette(size_palette)) {
+        plot <- plot +
+          ggplot2::scale_discrete_manual(
+            aesthetics = "size",
+            values     = size_palette,
+            breaks     = size_breaks,
+            drop       = size_drop,
+            guide      = size_guide %||% ggplot2::guide_legend(),
+            labels     = size_labels %||% ggplot2::waiver(),
+            limits     = size_limits,
+            name       = size_name
+          )
+      } else {
+        plot <- plot +
+          ggplot2::discrete_scale(
+            aesthetics = "size",
+            palette    = as_discrete_palette(size_palette),
+            breaks     = size_breaks,
+            drop       = size_drop,
+            guide      = size_guide %||% ggplot2::guide_legend(),
+            labels     = size_labels %||% ggplot2::waiver(),
+            limits     = size_limits,
+            name       = size_name
+          )
+      }
     } else if (size_type == "continuous") {
       plot <- plot +
         ggplot2::continuous_scale(
           aesthetics = "size",
-          palette = as_continuous_palette(size_palette),
-          breaks = size_breaks,
-          guide = size_guide %||% ggplot2::guide_legend(),
-          labels = size_labels %||%
-            get_labels(coord_type, size_subtype, "size"),
-          limits = size_limits,
-          name = size_name,
-          oob = size_oob,
-          transform = size_transform %||% get_transform(size_subtype)
+          palette    = as_continuous_palette(size_palette),
+          breaks     = size_breaks,
+          guide      = size_guide %||% ggplot2::guide_legend(),
+          labels     = size_labels %||% get_labels(coord_type, size_subtype, "size"),
+          limits     = size_limits,
+          name       = size_name,
+          oob        = size_oob,
+          transform  = size_transform %||% get_transform(size_subtype)
         )
     } else if (size_type == "binned") {
       plot <- plot +
         ggplot2::binned_scale(
           aesthetics = "size",
-          palette = as_continuous_palette(size_palette),
-          breaks = size_breaks,
-          guide = size_guide %||% ggplot2::guide_bins(),
-          labels = size_labels %||%
-            get_labels(coord_type, size_subtype, "size"),
-          limits = size_limits,
-          name = size_name,
-          oob = size_oob,
-          transform = size_transform %||% get_transform(size_subtype)
+          palette    = as_continuous_palette(size_palette),
+          breaks     = size_breaks,
+          guide      = size_guide %||% ggplot2::guide_bins(),
+          labels     = size_labels %||% get_labels(coord_type, size_subtype, "size"),
+          limits     = size_limits,
+          name       = size_name,
+          oob        = size_oob,
+          transform  = size_transform %||% get_transform(size_subtype)
         )
     }
   }
@@ -1084,79 +1145,119 @@ gg_blanket <- function(
   # Add linewidth scale
   if (!is.null(linewidth_type)) {
     if (linewidth_type == "discrete") {
-      plot <- plot +
-        ggplot2::discrete_scale(
-          aesthetics = "linewidth",
-          palette = as_discrete_palette(linewidth_palette),
-          breaks = linewidth_breaks,
-          drop = linewidth_drop,
-          guide = linewidth_guide %||% ggplot2::guide_legend(),
-          labels = linewidth_labels %||% ggplot2::waiver(),
-          limits = linewidth_limits,
-          name = linewidth_name
-        )
+      if (is_named_palette(linewidth_palette)) {
+        plot <- plot +
+          ggplot2::scale_discrete_manual(
+            aesthetics = "linewidth",
+            values     = linewidth_palette,
+            breaks     = linewidth_breaks,
+            drop       = linewidth_drop,
+            guide      = linewidth_guide %||% ggplot2::guide_legend(),
+            labels     = linewidth_labels %||% ggplot2::waiver(),
+            limits     = linewidth_limits,
+            name       = linewidth_name
+          )
+      } else {
+        plot <- plot +
+          ggplot2::discrete_scale(
+            aesthetics = "linewidth",
+            palette    = as_discrete_palette(linewidth_palette),
+            breaks     = linewidth_breaks,
+            drop       = linewidth_drop,
+            guide      = linewidth_guide %||% ggplot2::guide_legend(),
+            labels     = linewidth_labels %||% ggplot2::waiver(),
+            limits     = linewidth_limits,
+            name       = linewidth_name
+          )
+      }
     } else if (linewidth_type == "continuous") {
       plot <- plot +
         ggplot2::continuous_scale(
           aesthetics = "linewidth",
-          palette = as_continuous_palette(linewidth_palette),
-          breaks = linewidth_breaks,
-          guide = linewidth_guide %||% ggplot2::guide_legend(),
-          labels = linewidth_labels %||%
-            get_labels(coord_type, linewidth_subtype, "linewidth"),
-          limits = linewidth_limits,
-          name = linewidth_name,
-          oob = linewidth_oob,
-          transform = linewidth_transform %||% get_transform(linewidth_subtype)
+          palette    = as_continuous_palette(linewidth_palette),
+          breaks     = linewidth_breaks,
+          guide      = linewidth_guide %||% ggplot2::guide_legend(),
+          labels     = linewidth_labels %||% get_labels(coord_type, linewidth_subtype, "linewidth"),
+          limits     = linewidth_limits,
+          name       = linewidth_name,
+          oob        = linewidth_oob,
+          transform  = linewidth_transform %||% get_transform(linewidth_subtype)
         )
     } else if (linewidth_type == "binned") {
       plot <- plot +
         ggplot2::binned_scale(
           aesthetics = "linewidth",
-          palette = as_continuous_palette(linewidth_palette),
-          breaks = linewidth_breaks,
-          guide = linewidth_guide %||% ggplot2::guide_bins(),
-          labels = linewidth_labels %||%
-            get_labels(coord_type, linewidth_subtype, "linewidth"),
-          limits = linewidth_limits,
-          name = linewidth_name,
-          oob = linewidth_oob,
-          transform = linewidth_transform %||% get_transform(linewidth_subtype)
+          palette    = as_continuous_palette(linewidth_palette),
+          breaks     = linewidth_breaks,
+          guide      = linewidth_guide %||% ggplot2::guide_bins(),
+          labels     = linewidth_labels %||% get_labels(coord_type, linewidth_subtype, "linewidth"),
+          limits     = linewidth_limits,
+          name       = linewidth_name,
+          oob        = linewidth_oob,
+          transform  = linewidth_transform %||% get_transform(linewidth_subtype)
         )
     }
   }
 
-  # Add linetype scale (discrete only)
+  # Add linetype scale
   if (!is.null(linetype_type)) {
     if (linetype_type == "discrete") {
-      plot <- plot +
-        ggplot2::discrete_scale(
-          aesthetics = "linetype",
-          palette = as_discrete_palette(linetype_palette),
-          breaks = linetype_breaks,
-          drop = linetype_drop,
-          guide = linetype_guide %||% ggplot2::guide_legend(),
-          labels = linetype_labels %||% ggplot2::waiver(),
-          limits = linetype_limits,
-          name = linetype_name
-        )
+      if (is_named_palette(linetype_palette)) {
+        plot <- plot +
+          ggplot2::scale_discrete_manual(
+            aesthetics = "linetype",
+            values     = linetype_palette,
+            breaks     = linetype_breaks,
+            drop       = linetype_drop,
+            guide      = linetype_guide %||% ggplot2::guide_legend(),
+            labels     = linetype_labels %||% ggplot2::waiver(),
+            limits     = linetype_limits,
+            name       = linetype_name
+          )
+      } else {
+        plot <- plot +
+          ggplot2::discrete_scale(
+            aesthetics = "linetype",
+            palette    = as_discrete_palette(linetype_palette),
+            breaks     = linetype_breaks,
+            drop       = linetype_drop,
+            guide      = linetype_guide %||% ggplot2::guide_legend(),
+            labels     = linetype_labels %||% ggplot2::waiver(),
+            limits     = linetype_limits,
+            name       = linetype_name
+          )
+      }
     }
   }
 
-  # Add shape scale (discrete only)
+  # Add shape scale
   if (!is.null(shape_type)) {
     if (shape_type == "discrete") {
-      plot <- plot +
-        ggplot2::discrete_scale(
-          aesthetics = "shape",
-          palette = as_discrete_palette(shape_palette),
-          breaks = shape_breaks,
-          drop = shape_drop,
-          guide = shape_guide %||% ggplot2::guide_legend(),
-          labels = shape_labels %||% ggplot2::waiver(),
-          limits = shape_limits,
-          name = shape_name
-        )
+      if (is_named_palette(shape_palette)) {
+        plot <- plot +
+          ggplot2::scale_discrete_manual(
+            aesthetics = "shape",
+            values     = shape_palette,
+            breaks     = shape_breaks,
+            drop       = shape_drop,
+            guide      = shape_guide %||% ggplot2::guide_legend(),
+            labels     = shape_labels %||% ggplot2::waiver(),
+            limits     = shape_limits,
+            name       = shape_name
+          )
+      } else {
+        plot <- plot +
+          ggplot2::discrete_scale(
+            aesthetics = "shape",
+            palette    = as_discrete_palette(shape_palette),
+            breaks     = shape_breaks,
+            drop       = shape_drop,
+            guide      = shape_guide %||% ggplot2::guide_legend(),
+            labels     = shape_labels %||% ggplot2::waiver(),
+            limits     = shape_limits,
+            name       = shape_name
+          )
+      }
     }
   }
 

@@ -6,7 +6,7 @@
 \alias{ggblanket-package}
 \title{ggblanket: Publication-Quality 'ggplot2' Visualisation}
 \description{
-\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
 
 Wrapper 'ggplot2' functions for publication-quality visualisation. Aligned with 'ggplot2' and 'tidyverse'. Covers much of what 'ggplot2' does.
 }
@@ -21,6 +21,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: David Hodge \email{davidhodge931@gmail.com} (\href{https://orcid.org/0000-0002-3868-7501}{ORCID}) [copyright holder]
+
+Authors:
+\itemize{
+  \item David Hodge \email{davidhodge931@gmail.com} (\href{https://orcid.org/0000-0002-3868-7501}{ORCID}) [copyright holder]
+}
 
 }
 \keyword{internal}
