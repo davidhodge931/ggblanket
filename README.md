@@ -31,7 +31,7 @@ pak::pak("davidhodge931/ggblanket")
 ## Example
 
 ``` r
-library(ggblanket2)
+library(ggblanket)
 library(ggplot2)
 library(dplyr)
 
@@ -70,7 +70,6 @@ Use the `gg_*()` wrapper functions to:
 - Change scale arguments easily with prefixed arguments
 - If lower x/y scale limit is zero, get default scale expansion of
   `ggplot2::expansion(c(0, 0.5))`
-- Annotate outside the panel easier with `coord_clip = "off"` default
 - Access to other arguments within relevant `geom_*` function via `...`
 - Get global `set_blanket()` setting defaults.
 

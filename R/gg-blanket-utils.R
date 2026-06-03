@@ -410,7 +410,7 @@ get_stroke <- function() {
   getOption("ggblanket.stroke")
 }
 
-set_coord_clip <- function(coord_clip = "off") {
+set_coord_clip <- function(coord_clip = "on") {
   options("ggblanket.coord_clip" = coord_clip)
 }
 get_coord_clip <- function() {
