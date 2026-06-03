@@ -43,7 +43,7 @@
 #'   `scales::pal_manual(1:6)`.
 #' @param size Default point size. Defaults to `1.5`.
 #' @param stroke Default stroke for point geoms. Defaults to `0.33`.
-#' @param coord_clip Whether drawing is clipped to the panel. Either `"on"` or `"off"` (default).
+#' @param coord_clip Whether drawing is clipped to the panel. Either `"on"` or `"off"`.
 #'
 #' @return Called for side effects.
 #' @export
@@ -90,7 +90,7 @@ set_blanket <- function(
     linetype_palette = scales::pal_manual(1:6),
     size             = 1.5,
     stroke           = 0.33,
-    coord_clip       = "off"
+    coord_clip       = "on"
 ) {
   rlang::check_dots_empty()
 

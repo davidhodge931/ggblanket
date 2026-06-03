@@ -22,7 +22,7 @@ set_blanket(
   linetype_palette = scales::pal_manual(1:6),
   size = 1.5,
   stroke = 0.33,
-  coord_clip = "off"
+  coord_clip = "on"
 )
 }
 \arguments{
@@ -70,7 +70,7 @@ Defaults to \code{0.33}.}
 
 \item{stroke}{Default stroke for point geoms. Defaults to \code{0.33}.}
 
-\item{coord_clip}{Whether drawing is clipped to the panel. Either \code{"on"} or \code{"off"} (default).}
+\item{coord_clip}{Whether drawing is clipped to the panel. Either \code{"on"} or \code{"off"}.}
 }
 \value{
 Called for side effects.
