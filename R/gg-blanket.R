@@ -158,7 +158,7 @@
 #' @param facet_nrow Number of rows for [ggplot2::facet_wrap()].
 #' @param facet_scales Whether facet scales are fixed or free. Defaults to `"fixed"`.
 #' @param facet_space Whether facet space is fixed or free. Defaults to `"fixed"`.
-#' @param coord_clip Whether drawing is clipped to the panel. Either `"on"` or `"off"`.
+#' @param coord_clip Whether drawing is clipped to the panel. Either `"on"` or `"on"`.
 #' @param coord_ratio Aspect ratio expressed as y / x, for [ggplot2::coord_cartesian()].
 #' @param coord_reverse Which axes to reverse. One of `"none"` (default), `"x"`, `"y"`, or `"xy"`.
 #' @param coord_xlim,coord_ylim Zoom limits within the coordinate system.
@@ -1272,7 +1272,7 @@ gg_blanket <- function(
       coord_type        = coord_type,
       coord_xlim      = coord_xlim,
       coord_ylim      = coord_ylim,
-      coord_clip = coord_clip %||% get_coord_clip() %||% "off",
+      coord_clip = coord_clip %||% get_coord_clip() %||% "on",
       coord_reverse     = coord_reverse,
       coord_ratio       = coord_ratio
     )

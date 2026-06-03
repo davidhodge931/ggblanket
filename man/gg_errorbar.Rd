@@ -481,7 +481,7 @@ gg_errorbar(
 
 \item{coord_xlim, coord_ylim}{Zoom limits within the coordinate system.}
 
-\item{coord_clip}{Whether drawing is clipped to the panel. Either \code{"on"} or \code{"off"}.}
+\item{coord_clip}{Whether drawing is clipped to the panel. Either \code{"on"} or \code{"on"}.}
 
 \item{coord_reverse}{Which axes to reverse. One of \code{"none"} (default), \code{"x"}, \code{"y"}, or \code{"xy"}.}
 
