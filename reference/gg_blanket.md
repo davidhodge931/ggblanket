@@ -873,7 +873,7 @@ gg_blanket(
 
 - coord_clip:
 
-  Whether drawing is clipped to the panel. Either `"on"` or `"off"`.
+  Whether drawing is clipped to the panel. Either `"on"` or `"on"`.
 
 - coord_reverse:
 
