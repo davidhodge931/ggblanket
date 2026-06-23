@@ -17,8 +17,8 @@
 #' * Set a global option `coord_clip`.
 #'
 #' @param ... Not used. Forces named arguments.
-#' @param theme A ggplot2 theme. Defaults to [ggrefine::theme_grey()].
-#' @param refine A refine function. Defaults to [ggrefine::modern].
+#' @param theme A ggplot2 theme. Defaults to [ggrefine::theme_light()].
+#' @param refine A function to refine the theme from the ggrefine package.
 #' @param fill Default fill colour. Defaults to `"#357BA2FF"`.
 #' @param fill_palette Palette for fill scales. A single discrete palette or
 #'   `list(discrete, continuous)`. Defaults to
@@ -75,7 +75,7 @@
 set_blanket <- function(
     ...,
     theme            = ggrefine::theme_grey(),
-    refine           = ggrefine::modern,
+    refine           = modern_drift,
     fill             = "#357BA2FF",
     fill_palette     = list(jumble::jumble, viridis::turbo(n = 256)),
     fill_border      = NULL,

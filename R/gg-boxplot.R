@@ -40,7 +40,7 @@ gg_boxplot <- function(
   position = ggplot2::position_dodge2(preserve = "single"),
   before = NULL,
   with = NULL,
-  focus = NULL,
+  
   refine = NULL,
   border = TRUE,
   x = NULL,
@@ -208,7 +208,7 @@ gg_boxplot <- function(
     position = position,
     before = before,
     with = with,
-    focus = focus,
+    
     refine = refine,
     border = border,
     x = {{ x }},

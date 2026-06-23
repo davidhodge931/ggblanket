@@ -12,7 +12,6 @@ gg_hex(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  focus = NULL,
   refine = NULL,
   border = FALSE,
   x = NULL,
@@ -185,9 +184,7 @@ gg_hex(
 
 \item{with}{A function to apply to the geom layer.}
 
-\item{focus}{The orientation focus of the plot. Either \code{"x"} (default) or \code{"y"} for horizontal plots. Auto-detected from scale types.}
-
-\item{refine}{A function to refine the theme based on focus and scale types. Defaults to \code{ggrefine::modern}.}
+\item{refine}{A bare function from the ggrefine package.}
 
 \item{border}{Whether to apply border colour and linewidth. \code{TRUE} forces border on, \code{FALSE} forces off.}
 

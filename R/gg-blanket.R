@@ -11,8 +11,7 @@
 #' @param position A position as a function (`ggplot2::position_identity()`).
 #' @param before A ggplot2 layer to add before the geom layer. Unaffected by border transformations.
 #' @param with A function to apply to the geom layer.
-#' @param focus The orientation focus of the plot. Either `"x"` (default) or `"y"` for horizontal plots. Auto-detected from scale types.
-#' @param refine A function to refine the theme based on focus and scale types. Defaults to `ggrefine::modern`.
+#' @param refine A bare function from the ggrefine package. Defaults to that globally set.
 #' @param border Whether to apply border colour and linewidth. `TRUE` forces border on, `FALSE` forces off.
 #' @param x Variable mapped to x.
 #' @param xmin Variable mapped to xmin.
@@ -198,7 +197,7 @@ gg_blanket <- function(
     # gg_blanket specific
     before = NULL,
     with = NULL,
-    focus = NULL,
+
     refine = NULL,
     border = NULL,
 
@@ -387,9 +386,9 @@ gg_blanket <- function(
 
   refine <- refine %||%
     if (!is.null(ggplot) || geom_str == "sf") {
-      ggrefine::void
+      void_drop
     } else {
-      get_refine() %||% ggrefine::modern
+      get_refine() %||% modern_drift
     }
 
   # Resolve border functions and linewidth from options, with sensible fallbacks
@@ -532,6 +531,8 @@ gg_blanket <- function(
   } else {
     ggplot
   }
+
+  # plot <- plot + current_theme
 
   ### before
   if (!is.null(before)) {
@@ -699,7 +700,7 @@ gg_blanket <- function(
   is_x_mapped <- "x" %in% names(separated$mapped) || "x" %in% names(mapping)
   is_y_mapped <- "y" %in% names(separated$mapped) || "y" %in% names(mapping)
 
-  focus <- focus %||% get_focus(
+  focus <- get_focus(
     x_type      = x_type,
     y_type      = y_type,
     built       = built,
@@ -1277,9 +1278,14 @@ gg_blanket <- function(
       coord_ratio       = coord_ratio
     )
 
+  if (x_type == "discrete" & y_type == "discrete") discrete <- "both"
+  else if (x_type == "discrete" & y_type != "discrete") discrete <- "x"
+  else if (x_type != "discrete" & y_type == "discrete") discrete <- "y"
+  else if (x_type != "discrete" & y_type != "discrete") discrete <- "none"
+
   ### theme refine
   plot <- plot +
-    refine(focus = focus, x_type = x_type, y_type = y_type)
+    refine(discrete = discrete, focus = focus)
 
   return(plot)
 }

@@ -29,7 +29,7 @@ gg_density2d <- function(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  focus = NULL,
+  
   refine = NULL,
   border = FALSE,
   x = NULL,
@@ -197,7 +197,7 @@ gg_density2d <- function(
     position = position,
     before = before,
     with = with,
-    focus = focus,
+    
     refine = refine,
     border = border,
     x = {{ x }},

@@ -7,7 +7,7 @@
 set_blanket(
   ...,
   theme = ggrefine::theme_grey(),
-  refine = ggrefine::modern,
+  refine = modern_drift,
   fill = "#357BA2FF",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
   fill_border = NULL,
@@ -28,9 +28,9 @@ set_blanket(
 \arguments{
 \item{...}{Not used. Forces named arguments.}
 
-\item{theme}{A ggplot2 theme. Defaults to \code{\link[ggrefine:theme_grey]{ggrefine::theme_grey()}}.}
+\item{theme}{A ggplot2 theme. Defaults to \code{\link[ggrefine:theme_light]{ggrefine::theme_light()}}.}
 
-\item{refine}{A refine function. Defaults to \link[ggrefine:modern]{ggrefine::modern}.}
+\item{refine}{A function to refine the theme from the ggrefine package.}
 
 \item{fill}{Default fill colour. Defaults to \code{"#357BA2FF"}.}
 
