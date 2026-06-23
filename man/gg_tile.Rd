@@ -12,8 +12,9 @@ gg_tile(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  refine = NULL,
   border = TRUE,
+  theme = NULL,
+  refine = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -184,9 +185,11 @@ gg_tile(
 
 \item{with}{A function to apply to the geom layer.}
 
-\item{refine}{A bare function from the ggrefine package.}
-
 \item{border}{Whether to apply border colour and linewidth. \code{TRUE} forces border on, \code{FALSE} forces off.}
+
+\item{theme}{A complete theme function. Defaults to that globally set.}
+
+\item{refine}{A bare function from the ggrefine package. Defaults to that globally set.}
 
 \item{x}{Variable mapped to x.}
 

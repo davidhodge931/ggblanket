@@ -11,8 +11,9 @@
 #' @param position A position as a function (`ggplot2::position_identity()`).
 #' @param before A ggplot2 layer to add before the geom layer. Unaffected by border transformations.
 #' @param with A function to apply to the geom layer.
-#' @param refine A bare function from the ggrefine package. Defaults to that globally set.
 #' @param border Whether to apply border colour and linewidth. `TRUE` forces border on, `FALSE` forces off.
+#' @param theme A complete theme function. Defaults to that globally set.
+#' @param refine A bare function from the ggrefine package. Defaults to that globally set.
 #' @param x Variable mapped to x.
 #' @param xmin Variable mapped to xmin.
 #' @param xmax Variable mapped to xmax.
@@ -198,8 +199,8 @@ gg_blanket <- function(
     before = NULL,
     with = NULL,
 
-    refine = NULL,
-    border = NULL,
+    
+    border = NULL, theme = NULL, refine = NULL,
 
     # aesthetics
     x = NULL,
@@ -382,7 +383,7 @@ gg_blanket <- function(
   geom_str  <- geom_info$str
 
   ### get options
-  current_theme <- ggplot2::get_theme()
+  current_theme <- theme %||% ggplot2::get_theme()
 
   refine <- refine %||%
     if (!is.null(ggplot) || geom_str == "sf") {
@@ -532,7 +533,7 @@ gg_blanket <- function(
     ggplot
   }
 
-  # plot <- plot + current_theme
+  plot <- plot + current_theme
 
   ### before
   if (!is.null(before)) {

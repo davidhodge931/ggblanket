@@ -34,8 +34,8 @@ gg_freqpoly <- function(
   before = NULL,
   with = NULL,
   
-  refine = NULL,
-  border = FALSE,
+  
+  border = FALSE, theme = NULL, refine = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -202,7 +202,7 @@ gg_freqpoly <- function(
     before = before,
     with = with,
     
-    refine = refine,
+    theme = theme, refine = refine,
     border = border,
     x = {{ x }},
     xmin = {{ xmin }},

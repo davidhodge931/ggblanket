@@ -2,6 +2,9 @@
 
 * Support for named palettes (i.e. manual scales).
 * Changed `coord_clip` default to `"on"`.
+* Updated `refine` method.
+* Removed `focus` argument.
+* Added `theme` argument.
 
 # ggblanket 20.0.0
 
