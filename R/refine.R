@@ -2,7 +2,7 @@
 # Internal helpers
 # ------------------------------------------------------------------------------
 
-.infer_focus <- function(discrete) {
+.infer_orientation <- function(discrete) {
   if (discrete == "x") {
     "x"
   } else if (discrete == "y") {
@@ -12,18 +12,18 @@
   }
 }
 
-.validate_refine_args <- function(discrete, focus) {
+.validate_refine_args <- function(discrete, orientation) {
   discrete <- rlang::arg_match(discrete, c("none", "x", "y", "both"))
 
-  if (is.null(focus)) {
-    focus <- .infer_focus(discrete)
+  if (is.null(orientation)) {
+    orientation <- .infer_orientation(discrete)
   }
 
-  focus <- rlang::arg_match(focus, c("x", "y"))
+  orientation <- rlang::arg_match(orientation, c("x", "y"))
 
   list(
     discrete = discrete,
-    focus = focus
+    orientation = orientation
   )
 }
 
@@ -109,7 +109,7 @@
 # Axis policies (prefixes)
 # ------------------------------------------------------------------------------
 
-.apply_axis_policy <- function(theme, axis_mode, discrete, focus) {
+.apply_axis_policy <- function(theme, axis_mode, discrete, orientation) {
   axis_mode <- rlang::arg_match(
     axis_mode,
     c("classic", "modern", "minimal", "void")
@@ -128,13 +128,13 @@
   }
 
   if (axis_mode == "modern") {
-    if (focus == "x") {
+    if (orientation == "x") {
       theme <- theme +
         .remove_y_axis_line() +
         .remove_y_axis_ticks()
     }
 
-    if (focus == "y") {
+    if (orientation == "y") {
       theme <- theme +
         .remove_x_axis_line() +
         .remove_x_axis_ticks()
@@ -182,7 +182,7 @@
 # Grid policies (suffixes)
 # ------------------------------------------------------------------------------
 
-.apply_grid_policy <- function(theme, grid_mode, discrete, focus) {
+.apply_grid_policy <- function(theme, grid_mode, discrete, orientation) {
   grid_mode <- rlang::arg_match(
     grid_mode,
     c("keep", "drift", "flow", "drop")
@@ -194,11 +194,11 @@
 
   if (grid_mode == "drift") {
     if (discrete != "none") {
-      if (focus == "x") {
+      if (orientation == "x") {
         theme <- theme + .remove_x_panel_grid()
       }
 
-      if (focus == "y") {
+      if (orientation == "y") {
         theme <- theme + .remove_y_panel_grid()
       }
     }
@@ -207,11 +207,11 @@
   }
 
   if (grid_mode == "flow") {
-    if (focus == "x") {
+    if (orientation == "x") {
       theme <- theme + .remove_x_panel_grid()
     }
 
-    if (focus == "y") {
+    if (orientation == "y") {
       theme <- theme + .remove_y_panel_grid()
     }
 
@@ -233,8 +233,8 @@
 # Composition helper
 # ------------------------------------------------------------------------------
 
-.compose_refine <- function(axis_mode, grid_mode, discrete, focus) {
-  args <- .validate_refine_args(discrete = discrete, focus = focus)
+.compose_refine <- function(axis_mode, grid_mode, discrete, orientation) {
+  args <- .validate_refine_args(discrete = discrete, orientation = orientation)
 
   theme <- ggplot2::theme()
 
@@ -242,14 +242,14 @@
     theme = theme,
     axis_mode = axis_mode,
     discrete = args$discrete,
-    focus = args$focus
+    orientation = args$orientation
   )
 
   theme <- .apply_grid_policy(
     theme = theme,
     grid_mode = grid_mode,
     discrete = args$discrete,
-    focus = args$focus
+    orientation = args$orientation
   )
 
   theme
@@ -257,29 +257,29 @@
 
 #' Modern drift refine
 #'
-#' Removes axis lines, ticks, and minor ticks from the non-focused axis.
+#' Removes axis lines, ticks, and minor ticks from the non-orientationed axis.
 #' Axis ticks on discrete axes are removed. Removes panel gridlines on the
-#' focused axis only when at least one axis is discrete.
+#' orientationed axis only when at least one axis is discrete.
 #'
 #' @param ... Reserved for future extensions. Placed first so later arguments
 #'   must be named, and to support trailing commas in calls.
 #' @param discrete Character scalar describing which axes should be treated as
 #'   discrete for refinement purposes: `"none"`, `"x"`, `"y"`, or `"both"`.
-#' @param focus Character. The primary axis of interest: `"x"` or `"y"`.
+#' @param orientation Character. The primary axis of interest: `"x"` or `"y"`.
 #'   This affects grid modes such as `*_drift()` and `*_flow()`. If `NULL`
-#'   (default), focus is inferred from `discrete`: `"x"` gives `"x"`,
-#'   `"y"` gives `"y"`, otherwise `"x"`.
+#'   (default), orientation is inferred from `discrete`: `"y"` gives `"y"`,
+#'   otherwise `"x"`.
 #'
 #' @return A ggplot2 theme object
 #' @export
 modern_drift <- function(
     ...,
     discrete = "none",
-    focus = NULL
+    orientation = NULL
 ) {
   rlang::check_dots_empty0(...)
 
-  .compose_refine("modern", "drift", discrete, focus)
+  .compose_refine("modern", "drift", discrete, orientation)
 }
 
 
@@ -295,9 +295,9 @@ modern_drift <- function(
 void_drop <- function(
     ...,
     discrete = "none",
-    focus = NULL
+    orientation = NULL
 ) {
   rlang::check_dots_empty0(...)
 
-  .compose_refine("void", "drop", discrete, focus)
+  .compose_refine("void", "drop", discrete, orientation)
 }

@@ -199,7 +199,7 @@ gg_blanket <- function(
     before = NULL,
     with = NULL,
 
-    
+
     border = NULL, theme = NULL, refine = NULL,
 
     # aesthetics
@@ -668,7 +668,7 @@ gg_blanket <- function(
     }
   }
 
-  ### identify scales and focus
+  ### identify scales and orientation
   built  <- ggplot2::ggplot_build(plot)
   nrows  <- length(unique(built$layout$layout$ROW))
   ncols  <- length(unique(built$layout$layout$COL))
@@ -701,7 +701,7 @@ gg_blanket <- function(
   is_x_mapped <- "x" %in% names(separated$mapped) || "x" %in% names(mapping)
   is_y_mapped <- "y" %in% names(separated$mapped) || "y" %in% names(mapping)
 
-  focus <- get_focus(
+  orientation <- get_orientation(
     x_type      = x_type,
     y_type      = y_type,
     built       = built,
@@ -1286,7 +1286,7 @@ gg_blanket <- function(
 
   ### theme refine
   plot <- plot +
-    refine(discrete = discrete, focus = focus)
+    refine(discrete = discrete, orientation = orientation)
 
   return(plot)
 }

@@ -317,7 +317,7 @@ get_coord <- function(
   }
 }
 
-#' Determine plot focus from scale types and mapped aesthetics
+#' Determine plot orientation from scale types and mapped aesthetics
 #'
 #' Returns "y" if the plot has a horizontal orientation. This can be determined by:
 #' - Only y is mapped (and x is not)
@@ -333,7 +333,7 @@ get_coord <- function(
 #' @return "y" for horizontal orientation, "x" otherwise
 #'
 #' @noRd
-get_focus <- function(x_type, y_type, built = NULL, is_x_mapped = FALSE, is_y_mapped = FALSE) {
+get_orientation <- function(x_type, y_type, built = NULL, is_x_mapped = FALSE, is_y_mapped = FALSE) {
 
   # If only y is mapped, orientation is horizontal
   if (is_y_mapped && !is_x_mapped) return("y")
@@ -355,14 +355,14 @@ get_focus <- function(x_type, y_type, built = NULL, is_x_mapped = FALSE, is_y_ma
   }
 
   if (x_type == "discrete" & y_type %in% c("continuous", "binned")) {
-    focus <- "x"
+    orientation <- "x"
   } else if (x_type %in% c("continuous", "binned") & y_type == "discrete") {
-    focus <- "y"
+    orientation <- "y"
   } else {
-    focus <- "x"
+    orientation <- "x"
   }
 
-  return(focus)
+  return(orientation)
 }
 
 set_refine <- function(refine = NULL) {
