@@ -5,6 +5,7 @@
 * Updated `refine` method.
 * Removed `focus` argument.
 * Added `theme` argument.
+* Fixed `facet_space` and `facet_labeller` argument.
 
 # ggblanket 20.0.0
 

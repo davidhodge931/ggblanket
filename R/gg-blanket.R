@@ -634,6 +634,8 @@ gg_blanket <- function(
         nrow        = facet_nrow,
         ncol        = facet_ncol,
         scales      = facet_scales,
+        space       = facet_space,
+        labeller    = facet_labeller,
         drop        = facet_drop,
         axes        = facet_axes,
         axis.labels = facet_axis_labels
@@ -645,6 +647,7 @@ gg_blanket <- function(
         cols        = facet_cols,
         scales      = facet_scales,
         space       = facet_space,
+        labeller    = facet_labeller,
         drop        = facet_drop,
         axes        = facet_axes,
         axis.labels = facet_axis_labels
