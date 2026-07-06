@@ -218,7 +218,6 @@ identify_scale <- function(built) {
 #' @return A expansion vector
 #' @noRd
 get_expand <- function(limits) {
-
   mult_lower <- if (limits[1] == 0) 0 else 0.05
   mult_upper <- if (limits[2] == 0) 0 else 0.05
 
@@ -293,7 +292,6 @@ get_coord <- function(
   coord_xlim = NULL,
   coord_ylim = NULL,
 
-
   ...
 ) {
   if (coord_type == "sf") {
@@ -304,8 +302,7 @@ get_coord <- function(
       reverse = coord_reverse,
       ...
     )
-  }
-  else {
+  } else {
     ggplot2::coord_cartesian(
       xlim = coord_xlim,
       ylim = coord_ylim,
@@ -333,13 +330,22 @@ get_coord <- function(
 #' @return "y" for horizontal orientation, "x" otherwise
 #'
 #' @noRd
-get_orientation <- function(x_type, y_type, built = NULL, is_x_mapped = FALSE, is_y_mapped = FALSE) {
-
+get_orientation <- function(
+  x_type,
+  y_type,
+  built = NULL,
+  is_x_mapped = FALSE,
+  is_y_mapped = FALSE
+) {
   # If only y is mapped, orientation is horizontal
-  if (is_y_mapped && !is_x_mapped) return("y")
+  if (is_y_mapped && !is_x_mapped) {
+    return("y")
+  }
 
   # If only x is mapped, orientation is vertical
-  if (is_x_mapped && !is_y_mapped) return("x")
+  if (is_x_mapped && !is_y_mapped) {
+    return("x")
+  }
 
   if (!is.null(built)) {
     if (y_type == "discrete") {
@@ -376,7 +382,9 @@ get_refine <- function() {
 set_colour_border <- function(colour_border = NULL) {
   if (is.null(colour_border)) {
     colour_border <- \(x) {
-      if (is.null(x)) return(x)
+      if (is.null(x)) {
+        return(x)
+      }
       if (is_panel_dark()) blends::screen(x) else blends::multiply(x)
     }
   }
@@ -428,7 +436,6 @@ get_coord_clip <- function() {
 #'   `is_stroke_geom` (TRUE if stroke is available).
 #' @noRd
 get_geom_info <- function(geom) {
-
   # Case 1: String input (e.g., "point" or "density_ridges")
   if (is.character(geom)) {
     geom_name <- paste0("geom_", geom)
@@ -446,9 +453,10 @@ get_geom_info <- function(geom) {
       }
       geom_obj <- temp_result$geom
       return(list(
-        fn             = geom_fn,
-        str            = geom,
-        is_border_geom = "fill"   %in% geom_obj$aesthetics() &
+        fn = geom_fn,
+        str = geom,
+        is_border_geom = "fill" %in%
+          geom_obj$aesthetics() &
           "colour" %in% geom_obj$aesthetics(),
         is_stroke_geom = "stroke" %in% geom_obj$aesthetics()
       ))
@@ -456,7 +464,9 @@ get_geom_info <- function(geom) {
 
     # Search other loaded packages
     for (pkg in loadedNamespaces()) {
-      if (pkg == "ggplot2") next
+      if (pkg == "ggplot2") {
+        next
+      }
 
       geom_fn <- tryCatch(
         getExportedValue(pkg, geom_name),
@@ -478,9 +488,10 @@ get_geom_info <- function(geom) {
           geom_str <- geom
         }
         return(list(
-          fn             = geom_fn,
-          str            = geom_str,
-          is_border_geom = "fill"   %in% geom_obj$aesthetics() &
+          fn = geom_fn,
+          str = geom_str,
+          is_border_geom = "fill" %in%
+            geom_obj$aesthetics() &
             "colour" %in% geom_obj$aesthetics(),
           is_stroke_geom = "stroke" %in% geom_obj$aesthetics()
         ))
@@ -488,7 +499,9 @@ get_geom_info <- function(geom) {
     }
 
     stop(
-      "Geom '", geom_name, "' not found. Make sure the package is loaded.",
+      "Geom '",
+      geom_name,
+      "' not found. Make sure the package is loaded.",
       call. = FALSE
     )
   }
@@ -519,9 +532,10 @@ get_geom_info <- function(geom) {
         snakecase::to_snake_case()
     }
     return(list(
-      fn             = geom,
-      str            = geom_str,
-      is_border_geom = "fill"   %in% geom_obj$aesthetics() &
+      fn = geom,
+      str = geom_str,
+      is_border_geom = "fill" %in%
+        geom_obj$aesthetics() &
         "colour" %in% geom_obj$aesthetics(),
       is_stroke_geom = "stroke" %in% geom_obj$aesthetics()
     ))
@@ -539,10 +553,15 @@ get_geom_info <- function(geom) {
 #' @return A palette function or NULL/waiver
 #' @noRd
 as_discrete_palette <- function(palette) {
-  if (is.function(palette)) palette
-  else if (is.null(palette) || inherits(palette, "waiver")) palette
-  else if (is.atomic(palette)) function(n) unname(palette[seq_len(n)])
-  else stop("palette must be a function, vector, or NULL", call. = FALSE)
+  if (is.function(palette)) {
+    palette
+  } else if (is.null(palette) || inherits(palette, "waiver")) {
+    palette
+  } else if (is.atomic(palette)) {
+    function(n) unname(palette[seq_len(n)])
+  } else {
+    stop("palette must be a function, vector, or NULL", call. = FALSE)
+  }
 }
 
 #' Convert continuous palette to function
@@ -555,13 +574,19 @@ as_discrete_palette <- function(palette) {
 #' @return A palette function or NULL/waiver
 #' @noRd
 as_continuous_palette <- function(palette) {
-  if (is.function(palette)) palette
-  else if (is.null(palette) || inherits(palette, "waiver")) palette
-  else if (is.atomic(palette)) {
-    if (is.character(palette)) scales::pal_gradient_n(palette)
-    else if (is.numeric(palette)) function(x) scales::rescale(x, to = palette, from = c(0, 1))
+  if (is.function(palette)) {
+    palette
+  } else if (is.null(palette) || inherits(palette, "waiver")) {
+    palette
+  } else if (is.atomic(palette)) {
+    if (is.character(palette)) {
+      scales::pal_gradient_n(palette)
+    } else if (is.numeric(palette)) {
+      function(x) scales::rescale(x, to = palette, from = c(0, 1))
+    }
+  } else {
+    stop("palette must be a function, vector, or NULL", call. = FALSE)
   }
-  else stop("palette must be a function, vector, or NULL", call. = FALSE)
 }
 
 # Helper — compose a border function with a palette, regardless of type
@@ -570,7 +595,7 @@ apply_border_to_palette <- function(palette, border_fn) {
     \(n) border_fn(palette(n))
   } else if (is.atomic(palette)) {
     result <- border_fn(palette)
-    names(result) <- names(palette)  # preserve names through border transform
+    names(result) <- names(palette) # preserve names through border transform
     result
   } else {
     palette
@@ -675,7 +700,9 @@ is_panel_dark <- function(theme = ggplot2::get_theme()) {
     return(FALSE)
   }
   col <- bg@fill
-  if (is.null(col) || is.na(col) || col == "transparent") return(FALSE)
+  if (is.null(col) || is.na(col) || col == "transparent") {
+    return(FALSE)
+  }
   luminance <- farver::get_channel(col, "l", space = "hsl")
   luminance < 50
 }

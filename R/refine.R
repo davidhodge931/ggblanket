@@ -273,9 +273,9 @@
 #' @return A ggplot2 theme object
 #' @export
 modern_drift <- function(
-    ...,
-    discrete = "none",
-    orientation = NULL
+  ...,
+  discrete = "none",
+  orientation = NULL
 ) {
   rlang::check_dots_empty0(...)
 
@@ -293,9 +293,9 @@ modern_drift <- function(
 #' @return A ggplot2 theme object
 #' @export
 void_drop <- function(
-    ...,
-    discrete = "none",
-    orientation = NULL
+  ...,
+  discrete = "none",
+  orientation = NULL
 ) {
   rlang::check_dots_empty0(...)
 

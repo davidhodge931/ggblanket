@@ -31,9 +31,10 @@ gg_hex <- function(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  
-  
-  border = FALSE, theme = NULL, refine = NULL,
+
+  border = FALSE,
+  theme = NULL,
+  refine = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -185,7 +186,6 @@ gg_hex <- function(
   coord_reverse = "none",
   coord_ratio = NULL,
 
-
   title = NULL,
   subtitle = NULL,
   caption = NULL,
@@ -199,8 +199,9 @@ gg_hex <- function(
     position = position,
     before = before,
     with = with,
-    
-    theme = theme, refine = refine,
+
+    theme = theme,
+    refine = refine,
     border = border,
     x = {{ x }},
     xmin = {{ xmin }},
@@ -352,7 +353,6 @@ gg_hex <- function(
     coord_clip = coord_clip,
     coord_reverse = coord_reverse,
     coord_ratio = coord_ratio,
-
 
     title = title,
     subtitle = subtitle,
