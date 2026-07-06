@@ -6,7 +6,7 @@
 \usage{
 set_blanket(
   ...,
-  theme = ggrefine::theme_grey(),
+  theme = ggrefine::theme_light(),
   refine = modern_drift,
   fill = "#357BA2FF",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),

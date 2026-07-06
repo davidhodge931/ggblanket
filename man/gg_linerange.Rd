@@ -148,7 +148,7 @@ gg_linerange(
   shape_limits = NULL,
   shape_name = ggplot2::waiver(),
   shape_palette = NULL,
-  facet_wrap = NULL,
+  facet = NULL,
   facet_rows = NULL,
   facet_cols = NULL,
   facet_axes = "margins",
@@ -457,7 +457,7 @@ gg_linerange(
 
 \item{shape_palette}{Palette for the shape scale.}
 
-\item{facet_wrap}{Variables to facet by, passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}}. Accepts a bare variable name or \code{\link[ggplot2:vars]{ggplot2::vars()}} for multiple variables.}
+\item{facet}{Variables to facet by, passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}}. Accepts a bare variable name or \code{\link[ggplot2:vars]{ggplot2::vars()}} for multiple variables.}
 
 \item{facet_rows}{Row variables for \code{\link[ggplot2:facet_grid]{ggplot2::facet_grid()}}. Accepts a bare variable name or \code{\link[ggplot2:vars]{ggplot2::vars()}} for multiple variables.}
 
@@ -546,7 +546,7 @@ mpg |>
     y = mean,
     ymin = lower,
     ymax = upper,
-    facet_wrap = class,
+    facet = class,
   )
 
 mpg |>
