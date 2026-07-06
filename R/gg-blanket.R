@@ -147,7 +147,7 @@
 #' @param shape_limits Limits for the shape scale.
 #' @param shape_name Name/title for the shape scale.
 #' @param shape_palette Palette for the shape scale.
-#' @param facet_wrap Variables to facet by, passed to [ggplot2::facet_wrap()]. Accepts a bare variable name or [ggplot2::vars()] for multiple variables.
+#' @param facet Variables to facet by, passed to [ggplot2::facet_wrap()]. Accepts a bare variable name or [ggplot2::vars()] for multiple variables.
 #' @param facet_rows Row variables for [ggplot2::facet_grid()]. Accepts a bare variable name or [ggplot2::vars()] for multiple variables.
 #' @param facet_cols Column variables for [ggplot2::facet_grid()]. Accepts a bare variable name or [ggplot2::vars()] for multiple variables.
 #' @param facet_axes Which axes to draw on facet panels. Defaults to `"margins"`.
@@ -185,7 +185,7 @@
 #'   x = wt,
 #'   y = mpg,
 #'   fill = factor(cyl),
-#'   facet_wrap = cyl,
+#'   facet = cyl,
 #' )
 gg_blanket <- function(
     data,
@@ -346,7 +346,7 @@ gg_blanket <- function(
     shape_name = ggplot2::waiver(),
     shape_palette = NULL,
     # facet
-    facet_wrap = NULL,
+    facet = NULL,
     facet_rows = NULL,
     facet_cols = NULL,
     facet_axes = "margins",
@@ -593,18 +593,18 @@ gg_blanket <- function(
   }
 
   ### facet
-  facet_wrap_quo <- rlang::enquo(facet_wrap)
+  facet_quo <- rlang::enquo(facet)
   facet_rows_quo <- rlang::enquo(facet_rows)
   facet_cols_quo <- rlang::enquo(facet_cols)
 
-  facet_wrap <- if (rlang::quo_is_null(facet_wrap_quo)) {
+  facet <- if (rlang::quo_is_null(facet_quo)) {
     NULL
-  } else if (inherits(rlang::quo_get_expr(facet_wrap_quo), "quosures")) {
-    rlang::quo_get_expr(facet_wrap_quo)
-  } else if (rlang::is_call(rlang::quo_get_expr(facet_wrap_quo), "vars")) {
-    rlang::eval_tidy(facet_wrap_quo)
+  } else if (inherits(rlang::quo_get_expr(facet_quo), "quosures")) {
+    rlang::quo_get_expr(facet_quo)
+  } else if (rlang::is_call(rlang::quo_get_expr(facet_quo), "vars")) {
+    rlang::eval_tidy(facet_quo)
   } else {
-    ggplot2::vars(!!facet_wrap_quo)
+    ggplot2::vars(!!facet_quo)
   }
 
   facet_rows <- if (rlang::quo_is_null(facet_rows_quo)) {
@@ -627,10 +627,10 @@ gg_blanket <- function(
     ggplot2::vars(!!facet_cols_quo)
   }
 
-  if (!is.null(facet_wrap)) {
+  if (!is.null(facet)) {
     plot <- plot +
       ggplot2::facet_wrap(
-        facets      = facet_wrap,
+        facets      = facet,
         nrow        = facet_nrow,
         ncol        = facet_ncol,
         scales      = facet_scales,

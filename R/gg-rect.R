@@ -48,7 +48,7 @@
 #'     xmax = xmax,
 #'     ymin = ymin,
 #'     ymax = ymax,
-#'     facet_wrap = group,
+#'     facet = group,
 #'   )
 #'
 gg_rect <- function(
@@ -195,7 +195,7 @@ gg_rect <- function(
   shape_limits = NULL,
   shape_name = ggplot2::waiver(),
   shape_palette = NULL,
-  facet_wrap = NULL,
+  facet = NULL,
   facet_rows = NULL,
   facet_cols = NULL,
   facet_axes = "margins",
@@ -363,7 +363,7 @@ gg_rect <- function(
     shape_limits = shape_limits,
     shape_name = shape_name,
     shape_palette = shape_palette,
-    facet_wrap = {{ facet_wrap }},
+    facet = {{ facet }},
     facet_rows = {{ facet_rows }},
     facet_cols = {{ facet_cols }},
     facet_axes = facet_axes,

@@ -25,7 +25,7 @@
 #'   gg_point(
 #'     x = Sepal.Width,
 #'     y = Sepal.Length,
-#'     facet_wrap = Species,
+#'     facet = Species,
 #'   )
 #'
 #' tibble::tibble(
@@ -68,7 +68,7 @@
 #'     xend = xend,
 #'     y = y,
 #'     yend = yend,
-#'     facet_wrap = group,
+#'     facet = group,
 #'   )
 #'
 gg_segment <- function(
@@ -215,7 +215,7 @@ gg_segment <- function(
   shape_limits = NULL,
   shape_name = ggplot2::waiver(),
   shape_palette = NULL,
-  facet_wrap = NULL,
+  facet = NULL,
   facet_rows = NULL,
   facet_cols = NULL,
   facet_axes = "margins",
@@ -383,7 +383,7 @@ gg_segment <- function(
     shape_limits = shape_limits,
     shape_name = shape_name,
     shape_palette = shape_palette,
-    facet_wrap = {{ facet_wrap }},
+    facet = {{ facet }},
     facet_rows = {{ facet_rows }},
     facet_cols = {{ facet_cols }},
     facet_axes = facet_axes,

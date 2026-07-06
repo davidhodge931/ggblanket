@@ -1,5 +1,6 @@
 # ggblanket (development)
 
+* Renamed `facet_wrap` to `facet`.
 * Support for named palettes (i.e. manual scales).
 * Changed `coord_clip` default to `"on"`.
 * Updated `refine` method.
