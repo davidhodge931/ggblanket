@@ -271,7 +271,7 @@
 #'   otherwise `"x"`.
 #'
 #' @return A ggplot2 theme object
-#' @export
+#' @noRd
 modern_drift <- function(
   ...,
   discrete = "none",
@@ -291,7 +291,7 @@ modern_drift <- function(
 #' @inheritParams modern_drift
 #'
 #' @return A ggplot2 theme object
-#' @export
+#' @noRd
 void_drop <- function(
   ...,
   discrete = "none",
