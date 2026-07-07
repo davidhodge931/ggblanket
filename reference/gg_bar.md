@@ -15,9 +15,9 @@ gg_bar(
   position = ggplot2::position_stack(),
   before = NULL,
   with = NULL,
-  focus = NULL,
-  refine = NULL,
   border = TRUE,
+  theme = NULL,
+  refine = NULL,
   x = NULL,
   xmin = NULL,
   xmax = NULL,
@@ -97,7 +97,7 @@ gg_bar(
   colour_guide = NULL,
   colour_labels = NULL,
   colour_limits = NULL,
-  colour_name = NULL,
+  colour_name = fill_name,
   colour_oob = NULL,
   colour_rescaler = NULL,
   colour_palette = NULL,
@@ -151,7 +151,7 @@ gg_bar(
   shape_limits = NULL,
   shape_name = ggplot2::waiver(),
   shape_palette = NULL,
-  facet_wrap = NULL,
+  facet = NULL,
   facet_rows = NULL,
   facet_cols = NULL,
   facet_axes = "margins",
@@ -208,21 +208,19 @@ gg_bar(
 
   A function to apply to the geom layer.
 
-- focus:
-
-  The orientation focus of the plot. Either `"x"` (default) or `"y"` for
-  horizontal plots. Auto-detected from scale types.
-
-- refine:
-
-  A function to refine the theme based on focus and scale types.
-  Defaults to
-  [`ggrefine::modern`](https://davidhodge931.github.io/ggrefine/reference/modern.html).
-
 - border:
 
   Whether to apply border colour and linewidth. `TRUE` forces border on,
   `FALSE` forces off.
+
+- theme:
+
+  A complete theme function. Defaults to that globally set.
+
+- refine:
+
+  A bare function from the ggrefine package. Defaults to that globally
+  set.
 
 - x:
 
@@ -806,7 +804,7 @@ gg_bar(
 
   Palette for the shape scale.
 
-- facet_wrap:
+- facet:
 
   Variables to facet by, passed to
   [`ggplot2::facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html).
@@ -927,7 +925,7 @@ ggplot2::diamonds |>
   dplyr::filter(cut %in% c("Premium", "Ideal")) |>
   gg_bar(
     x = color,
-    facet_wrap = cut,
+    facet = cut,
   )
 
 ```

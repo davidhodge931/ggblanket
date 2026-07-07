@@ -29,8 +29,8 @@ Use `set_blanket` to:
 ``` r
 set_blanket(
   ...,
-  theme = ggrefine::theme_grey(),
-  refine = ggrefine::modern,
+  theme = ggrefine::theme_light(),
+  refine = modern_drift,
   fill = "#357BA2FF",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
   fill_border = NULL,
@@ -45,7 +45,7 @@ set_blanket(
   linetype_palette = scales::pal_manual(1:6),
   size = 1.5,
   stroke = 0.33,
-  coord_clip = "off"
+  coord_clip = "on"
 )
 ```
 
@@ -58,12 +58,11 @@ set_blanket(
 - theme:
 
   A ggplot2 theme. Defaults to
-  [`ggrefine::theme_grey()`](https://davidhodge931.github.io/ggrefine/reference/theme_grey.html).
+  [`ggrefine::theme_light()`](https://davidhodge931.github.io/ggrefine/reference/theme_light.html).
 
 - refine:
 
-  A refine function. Defaults to
-  [ggrefine::modern](https://davidhodge931.github.io/ggrefine/reference/modern.html).
+  A function to refine the theme from the ggrefine package.
 
 - fill:
 
@@ -133,8 +132,7 @@ set_blanket(
 
 - coord_clip:
 
-  Whether drawing is clipped to the panel. Either `"on"` or `"off"`
-  (default).
+  Whether drawing is clipped to the panel. Either `"on"` or `"off"`.
 
 ## Value
 

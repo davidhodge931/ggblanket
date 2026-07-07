@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">20.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">21.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,9 +52,9 @@
 <span>  position <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_identity.html" class="external-link">position_identity</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  before <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  with <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  focus <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  refine <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  border <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  refine <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  xmin <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  xmax <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -134,7 +134,7 @@
 <span>  colour_guide <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  colour_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  colour_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  colour_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colour_name <span class="op">=</span> <span class="va">fill_name</span>,</span>
 <span>  colour_oob <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  colour_rescaler <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  colour_palette <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -188,7 +188,7 @@
 <span>  shape_limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  shape_name <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  shape_palette <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  facet_wrap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  facet <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_rows <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  facet_axes <span class="op">=</span> <span class="st">"margins"</span>,</span>
@@ -243,16 +243,16 @@
 <dd><p>A function to apply to the geom layer.</p></dd>
 
 
-<dt id="arg-focus">focus<a class="anchor" aria-label="anchor" href="#arg-focus"></a></dt>
-<dd><p>The orientation focus of the plot. Either <code>"x"</code> (default) or <code>"y"</code> for horizontal plots. Auto-detected from scale types.</p></dd>
+<dt id="arg-border">border<a class="anchor" aria-label="anchor" href="#arg-border"></a></dt>
+<dd><p>Whether to apply border colour and linewidth. <code>TRUE</code> forces border on, <code>FALSE</code> forces off.</p></dd>
+
+
+<dt id="arg-theme">theme<a class="anchor" aria-label="anchor" href="#arg-theme"></a></dt>
+<dd><p>A complete theme function. Defaults to that globally set.</p></dd>
 
 
 <dt id="arg-refine">refine<a class="anchor" aria-label="anchor" href="#arg-refine"></a></dt>
-<dd><p>A function to refine the theme based on focus and scale types. Defaults to <code><a href="https://davidhodge931.github.io/ggrefine/reference/modern.html" class="external-link">ggrefine::modern</a></code>.</p></dd>
-
-
-<dt id="arg-border">border<a class="anchor" aria-label="anchor" href="#arg-border"></a></dt>
-<dd><p>Whether to apply border colour and linewidth. <code>TRUE</code> forces border on, <code>FALSE</code> forces off.</p></dd>
+<dd><p>A bare function from the ggrefine package. Defaults to that globally set.</p></dd>
 
 
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
@@ -787,7 +787,7 @@
 <dd><p>Palette for the shape scale.</p></dd>
 
 
-<dt id="arg-facet-wrap">facet_wrap<a class="anchor" aria-label="anchor" href="#arg-facet-wrap"></a></dt>
+<dt id="arg-facet">facet<a class="anchor" aria-label="anchor" href="#arg-facet"></a></dt>
 <dd><p>Variables to facet by, passed to <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap()</a></code>. Accepts a bare variable name or <code><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">ggplot2::vars()</a></code> for multiple variables.</p></dd>
 
 
@@ -893,7 +893,7 @@
 <span class="r-in"><span>  <span class="fu">gg_smooth</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    x <span class="op">=</span> <span class="va">Sepal.Width</span>,</span></span>
 <span class="r-in"><span>    y <span class="op">=</span> <span class="va">Sepal.Length</span>,</span></span>
-<span class="r-in"><span>    facet_wrap <span class="op">=</span> <span class="va">Species</span>,</span></span>
+<span class="r-in"><span>    facet <span class="op">=</span> <span class="va">Species</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span>
