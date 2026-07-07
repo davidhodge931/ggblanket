@@ -1,6 +1,6 @@
 Package: ggblanket
 Title: Publication-Quality 'ggplot2' Visualisation
-Version: 20.0.0.9000
+Version: 21.0.0
 Authors@R: 
     person(given = "David", family = "Hodge", 
            email = "davidhodge931@gmail.com", 

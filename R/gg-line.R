@@ -136,7 +136,7 @@ gg_line <- function(
   colour_guide = NULL,
   colour_labels = NULL,
   colour_limits = NULL,
-  colour_name = NULL,
+  colour_name = fill_name,
   colour_oob = NULL,
   colour_rescaler = NULL,
   colour_palette = NULL,

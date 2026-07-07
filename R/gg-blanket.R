@@ -287,7 +287,7 @@ gg_blanket <- function(
   colour_guide = NULL,
   colour_labels = NULL,
   colour_limits = NULL,
-  colour_name = NULL,
+  colour_name = fill_name,
   colour_oob = NULL,
   colour_rescaler = NULL,
   colour_palette = NULL,
@@ -587,7 +587,7 @@ gg_blanket <- function(
         },
         labels = colour_labels %||% fill_labels %||% ggplot2::waiver(),
         limits = colour_limits %||% fill_limits,
-        name = colour_name %||% fill_name
+        name = colour_name
       )
     plot <- plot + ggnewscale::new_scale_colour()
   }
@@ -1018,7 +1018,7 @@ gg_blanket <- function(
             guide = colour_guide %||% fill_guide %||% ggplot2::guide_legend(),
             labels = colour_labels %||% fill_labels %||% ggplot2::waiver(),
             limits = colour_limits %||% fill_limits,
-            name = colour_name %||% fill_name,
+            name = colour_name,
             na.value = colour_na
           )
       } else {
@@ -1031,7 +1031,7 @@ gg_blanket <- function(
             guide = colour_guide %||% fill_guide %||% ggplot2::guide_legend(),
             labels = colour_labels %||% fill_labels %||% ggplot2::waiver(),
             limits = colour_limits %||% fill_limits,
-            name = colour_name %||% fill_name,
+            name = colour_name,
             na.value = colour_na
           )
       }
@@ -1069,7 +1069,7 @@ gg_blanket <- function(
               fill_labels %||%
               get_labels(coord_type, colour_subtype, "colour"),
             limits = colour_limits %||% fill_limits,
-            name = colour_name %||% fill_name,
+            name = colour_name,
             oob = colour_oob %||% fill_oob,
             rescaler = colour_rescaler %||% fill_rescaler,
             transform = colour_transform %||% get_transform(colour_subtype),
@@ -1090,7 +1090,7 @@ gg_blanket <- function(
               fill_labels %||%
               get_labels(coord_type, colour_subtype, "colour"),
             limits = colour_limits %||% fill_limits,
-            name = colour_name %||% fill_name,
+            name = colour_name,
             oob = colour_oob %||% fill_oob,
             rescaler = colour_rescaler %||% fill_rescaler,
             transform = colour_transform %||% get_transform(colour_subtype),

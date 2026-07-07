@@ -1,4 +1,4 @@
-# ggblanket (development)
+# ggblanket 21.0.0
 
 * Renamed `facet_wrap` to `facet`.
 * Support for named palettes (i.e. manual scales).
@@ -7,6 +7,7 @@
 * Removed `focus` argument.
 * Added `theme` argument.
 * Fixed `facet_space` and `facet_labeller` argument.
+* Fixed `colour_name = NULL` bug. 
 
 # ggblanket 20.0.0
 
