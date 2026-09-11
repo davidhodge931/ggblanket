@@ -45,7 +45,7 @@ ggplot2::economics_long |>
   gg_area(
     x = date,
     y = value01,
-    facet_wrap = variable,
+    facet = variable,
   )
 ```
 

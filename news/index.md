@@ -2,6 +2,8 @@
 
 ## ggblanket 21.0.0
 
+CRAN release: 2026-07-07
+
 - Renamed `facet_wrap` to `facet`.
 - Support for named palettes (i.e. manual scales).
 - Changed `coord_clip` default to `"on"`.
