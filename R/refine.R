@@ -13,6 +13,7 @@
 }
 
 .validate_refine_args <- function(discrete, orientation) {
+  rlang::check_required(discrete)
   discrete <- rlang::arg_match(discrete, c("none", "x", "y", "both"))
 
   if (is.null(orientation)) {
@@ -255,49 +256,182 @@
   theme
 }
 
-#' Modern drift refine
-#'
-#' Removes axis lines, ticks, and minor ticks from the non-orientationed axis.
-#' Axis ticks on discrete axes are removed. Removes panel gridlines on the
-#' orientationed axis only when at least one axis is discrete.
-#'
-#' @param ... Reserved for future extensions. Placed first so later arguments
-#'   must be named, and to support trailing commas in calls.
-#' @param discrete Character scalar describing which axes should be treated as
-#'   discrete for refinement purposes: `"none"`, `"x"`, `"y"`, or `"both"`.
-#' @param orientation Character. The primary axis of interest: `"x"` or `"y"`.
-#'   This affects grid modes such as `*_drift()` and `*_flow()`. If `NULL`
-#'   (default), orientation is inferred from `discrete`: `"y"` gives `"y"`,
-#'   otherwise `"x"`.
-#'
-#' @return A ggplot2 theme object
-#' @noRd
-modern_drift <- function(
-  ...,
-  discrete = "none",
-  orientation = NULL
-) {
-  rlang::check_dots_empty0(...)
+# ------------------------------------------------------------------------------
+# refine_* family (internal)
+#
+# These were previously individually exported (refine_classic_keep,
+# refine_modern_drift, etc). They are now internal implementation details,
+# dispatched to by the exported refine_axis_grid() below. Kept as separate
+# functions (rather than inlined) so each axis_style/grid_style combination
+# stays independently readable, documented, and testable.
+# ------------------------------------------------------------------------------
 
+# -- classic family -----------------------------------------------------------
+
+# Removes axis ticks on discrete axes and leaves panel gridlines unchanged.
+.refine_classic_keep <- function(discrete, orientation = NULL) {
+  .compose_refine("classic", "keep", discrete, orientation)
+}
+
+# Removes axis ticks on discrete axes. Removes panel gridlines on the
+# orientation axis only when at least one axis is discrete.
+.refine_classic_drift <- function(discrete, orientation = NULL) {
+  .compose_refine("classic", "drift", discrete, orientation)
+}
+
+# Removes axis ticks on discrete axes and removes panel gridlines on the
+# orientation axis.
+.refine_classic_flow <- function(discrete, orientation = NULL) {
+  .compose_refine("classic", "flow", discrete, orientation)
+}
+
+# Removes axis ticks on discrete axes and removes all panel gridlines.
+.refine_classic_drop <- function(discrete, orientation = NULL) {
+  .compose_refine("classic", "drop", discrete, orientation)
+}
+
+# -- modern family --------------------------------------------------------
+
+# Removes axis lines, ticks, and minor ticks from the non-orientation axis.
+# Axis ticks on discrete axes are removed. Panel gridlines are left unchanged.
+.refine_modern_keep <- function(discrete, orientation = NULL) {
+  .compose_refine("modern", "keep", discrete, orientation)
+}
+
+# Removes axis lines, ticks, and minor ticks from the non-orientation axis.
+# Axis ticks on discrete axes are removed. Removes panel gridlines on the
+# orientation axis only when at least one axis is discrete.
+.refine_modern_drift <- function(discrete, orientation = NULL) {
   .compose_refine("modern", "drift", discrete, orientation)
 }
 
+# Removes axis lines, ticks, and minor ticks from the non-orientation axis.
+# Axis ticks on discrete axes are removed. Removes panel gridlines on the
+# orientation axis.
+.refine_modern_flow <- function(discrete, orientation = NULL) {
+  .compose_refine("modern", "flow", discrete, orientation)
+}
 
-#' Void drop refine
-#'
-#' Removes all axis lines, ticks, and minor ticks, and removes all axis text
-#' and axis titles. Removes all panel gridlines.
-#'
-#' @inheritParams modern_drift
-#'
-#' @return A ggplot2 theme object
-#' @noRd
-void_drop <- function(
-  ...,
-  discrete = "none",
-  orientation = NULL
-) {
-  rlang::check_dots_empty0(...)
+# Removes axis lines, ticks, and minor ticks from the non-orientation axis.
+# Axis ticks on discrete axes are removed. Removes all panel gridlines.
+.refine_modern_drop <- function(discrete, orientation = NULL) {
+  .compose_refine("modern", "drop", discrete, orientation)
+}
 
+# -- minimal family -------------------------------------------------------
+
+# Removes all axis lines, ticks, and minor ticks. Panel gridlines are left
+# unchanged.
+.refine_minimal_keep <- function(discrete, orientation = NULL) {
+  .compose_refine("minimal", "keep", discrete, orientation)
+}
+
+# Removes all axis lines, ticks, and minor ticks. Removes panel gridlines on
+# the orientation axis only when at least one axis is discrete.
+.refine_minimal_drift <- function(discrete, orientation = NULL) {
+  .compose_refine("minimal", "drift", discrete, orientation)
+}
+
+# Removes all axis lines, ticks, and minor ticks. Removes panel gridlines on
+# the orientation axis.
+.refine_minimal_flow <- function(discrete, orientation = NULL) {
+  .compose_refine("minimal", "flow", discrete, orientation)
+}
+
+# Removes all axis lines, ticks, and minor ticks. Removes all panel gridlines.
+.refine_minimal_drop <- function(discrete, orientation = NULL) {
+  .compose_refine("minimal", "drop", discrete, orientation)
+}
+
+# -- void family ------------------------------------------------------------
+
+# Removes all axis lines, ticks, and minor ticks, and removes all axis text
+# and axis titles. Panel gridlines are left unchanged.
+.refine_void_keep <- function(discrete, orientation = NULL) {
+  .compose_refine("void", "keep", discrete, orientation)
+}
+
+# Removes all axis lines, ticks, and minor ticks, and removes all axis text
+# and axis titles. Removes panel gridlines on the orientation axis only when
+# at least one axis is discrete.
+.refine_void_drift <- function(discrete, orientation = NULL) {
+  .compose_refine("void", "drift", discrete, orientation)
+}
+
+# Removes all axis lines, ticks, and minor ticks, and removes all axis text
+# and axis titles. Removes panel gridlines on the orientation axis.
+.refine_void_flow <- function(discrete, orientation = NULL) {
+  .compose_refine("void", "flow", discrete, orientation)
+}
+
+# Removes all axis lines, ticks, and minor ticks, and removes all axis text
+# and axis titles. Removes all panel gridlines.
+.refine_void_drop <- function(discrete, orientation = NULL) {
   .compose_refine("void", "drop", discrete, orientation)
+}
+
+# ------------------------------------------------------------------------------
+# Exported master function
+# ------------------------------------------------------------------------------
+
+#' Refine plot axes and panel grid
+#'
+#' A single entry point over the `axis_mode` x `grid_mode` combinations
+#' previously exposed as sixteen separate `refine_*_*()` functions. Those
+#' functions still exist internally (e.g. `.refine_modern_drift()`) and do
+#' the actual work; this function just dispatches to the right one.
+#'
+#' `axis_mode` controls what happens to axis lines, ticks, text, and titles:
+#' \describe{
+#'   \item{classic}{Removes ticks on discrete axes only.}
+#'   \item{modern}{Like `classic`, plus removes the axis line and ticks on
+#'     the non-orientation axis.}
+#'   \item{minimal}{Removes all axis lines and ticks, regardless of
+#'     orientation or discreteness.}
+#'   \item{void}{Like `minimal`, plus removes all axis text and titles.}
+#' }
+#'
+#' `grid_mode` controls what happens to panel gridlines:
+#' \describe{
+#'   \item{keep}{Leaves panel gridlines unchanged.}
+#'   \item{drift}{Removes gridlines on the orientation axis, but only when
+#'     at least one axis is discrete.}
+#'   \item{flow}{Removes gridlines on the orientation axis unconditionally.}
+#'   \item{drop}{Removes all panel gridlines.}
+#' }
+#'
+#' @param discrete Character. Which axes should be treated as discrete for
+#'   refinement purposes: `"none"`, `"x"`, `"y"`, or `"both"`. Required.
+#' @param orientation Character. The primary axis of interest: `"x"` or
+#'   `"y"`. Affects `grid_mode` values `"drift"` and `"flow"`. If `NULL`
+#'   (default), it is inferred from `discrete`: `"y"` gives `"y"`, otherwise
+#'   `"x"`.
+#' @param axis_mode Character. One of `"classic"`, `"modern"`, `"minimal"`,
+#'   `"void"`. Default `"modern"`.
+#' @param grid_mode Character. One of `"keep"`, `"drift"`, `"flow"`,
+#'   `"drop"`. Default `"drift"`.
+#'
+#' @return A ggplot2 theme object.
+#' @noRd
+refine_axis_grid <- function(
+    discrete,
+    orientation = NULL,
+    axis_mode = "modern",
+    grid_mode = "drift"
+) {
+  axis_mode <- rlang::arg_match(
+    axis_mode,
+    c("classic", "modern", "minimal", "void")
+  )
+  grid_mode <- rlang::arg_match(
+    grid_mode,
+    c("keep", "drift", "flow", "drop")
+  )
+
+  refine_fn <- get(
+    paste0(".refine_", axis_mode, "_", grid_mode),
+    mode = "function"
+  )
+
+  refine_fn(discrete = discrete, orientation = orientation)
 }

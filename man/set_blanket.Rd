@@ -6,8 +6,8 @@
 \usage{
 set_blanket(
   ...,
-  theme = ggrefine::theme_light(),
-  refine = modern_drift,
+  theme = theme_lights(),
+  refine = function(discrete, orientation) refine_axis_grid(discrete, orientation),
   fill = "#357BA2FF",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
   fill_border = NULL,
@@ -28,9 +28,9 @@ set_blanket(
 \arguments{
 \item{...}{Not used. Forces named arguments.}
 
-\item{theme}{A ggplot2 theme. Defaults to \code{\link[ggrefine:theme_light]{ggrefine::theme_light()}}.}
+\item{theme}{A ggplot2 theme.}
 
-\item{refine}{A function to refine the theme from the ggrefine package.}
+\item{refine}{A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set.}
 
 \item{fill}{Default fill colour. Defaults to \code{"#357BA2FF"}.}
 

@@ -19,7 +19,6 @@ Imports:
     farver,
     ggnewscale (>= 0.5.2),
     ggplot2 (>= 4.0.0),
-    ggrefine,
     jumble,
     purrr,
     rlang,
@@ -48,4 +47,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0

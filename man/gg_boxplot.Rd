@@ -189,7 +189,7 @@ gg_boxplot(
 
 \item{theme}{A complete theme function. Defaults to that globally set.}
 
-\item{refine}{A bare function from the ggrefine package. Defaults to that globally set.}
+\item{refine}{A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set.}
 
 \item{x}{Variable mapped to x.}
 

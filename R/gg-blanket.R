@@ -13,7 +13,7 @@
 #' @param with A function to apply to the geom layer.
 #' @param border Whether to apply border colour and linewidth. `TRUE` forces border on, `FALSE` forces off.
 #' @param theme A complete theme function. Defaults to that globally set.
-#' @param refine A bare function from the ggrefine package. Defaults to that globally set.
+#' @param refine A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set.
 #' @param x Variable mapped to x.
 #' @param xmin Variable mapped to xmin.
 #' @param xmax Variable mapped to xmax.
@@ -385,11 +385,22 @@ gg_blanket <- function(
   current_theme <- theme %||% ggplot2::get_theme()
 
   refine <- refine %||%
-    if (!is.null(ggplot) || geom_str == "sf") {
-      void_drop
-    } else {
-      get_refine() %||% modern_drift
-    }
+  if (!is.null(ggplot) || geom_str == "sf") {
+    \(discrete, orientation) refine_axis_grid(
+      discrete = discrete,
+      orientation = orientation,
+      axis_mode = "void",
+      grid_mode = "drop"
+    )
+  } else {
+    get_refine() %||%
+      \(discrete, orientation) refine_axis_grid(
+        discrete = discrete,
+        orientation = orientation,
+        axis_mode = "modern",
+        grid_mode = "drift"
+      )
+  }
 
   # Resolve border functions and linewidth from options, with sensible fallbacks
   colour_border_fn <- get_colour_border()
