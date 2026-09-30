@@ -29,8 +29,8 @@ Use `set_blanket` to:
 ``` r
 set_blanket(
   ...,
-  theme = ggrefine::theme_light(),
-  refine = modern_drift,
+  theme = theme_lights(),
+  refine = function(discrete, orientation) refine_axis_grid(discrete, orientation),
   fill = "#357BA2FF",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
   fill_border = NULL,
@@ -57,12 +57,12 @@ set_blanket(
 
 - theme:
 
-  A ggplot2 theme. Defaults to
-  [`ggrefine::theme_light()`](https://davidhodge931.github.io/ggrefine/reference/theme_light.html).
+  A ggplot2 theme.
 
 - refine:
 
-  A function to refine the theme from the ggrefine package.
+  A function with arguments discrete and orientation to refine the theme
+  based on these. Defaults to that globally set.
 
 - fill:
 

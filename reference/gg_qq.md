@@ -220,8 +220,8 @@ gg_qq(
 
 - refine:
 
-  A bare function from the ggrefine package. Defaults to that globally
-  set.
+  A function with arguments discrete and orientation to refine the theme
+  based on these. Defaults to that globally set.
 
 - x:
 
