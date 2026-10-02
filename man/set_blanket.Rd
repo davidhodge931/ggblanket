@@ -10,8 +10,8 @@ set_blanket(
   refine = function(discrete, orientation) refine_axis_grid(discrete, orientation),
   colour_blend = NULL,
   fill_blend = NULL,
-  polygon_linewidth = 0.33,
-  fill = "#357BA2FF",
+  borderwidth = 0.33,
+  fill = "steelblue",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
   colour = fill,
   colour_palette = fill_palette,
@@ -40,7 +40,7 @@ panels. Otherwise defaults to \verb{\\(x) x}.}
 \item{fill_blend}{When \code{polygon = TRUE}, a function applied to \code{fill} and
 \code{fill_palette} to derive the fill. Defaults to \verb{\\(x) x}.}
 
-\item{polygon_linewidth}{When \code{polygon = TRUE}, the default linewidth.
+\item{borderwidth}{When \code{polygon = TRUE}, the default linewidth.
 Defaults to \code{0.33}.}
 
 \item{fill}{Default fill colour. Defaults to \code{"#357BA2FF"}.}
