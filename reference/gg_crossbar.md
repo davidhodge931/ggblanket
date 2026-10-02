@@ -15,7 +15,7 @@ gg_crossbar(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  border = TRUE,
+  polygon = TRUE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -201,17 +201,17 @@ gg_crossbar(
 
 - before:
 
-  A ggplot2 layer to add before the geom layer. Unaffected by border
+  A ggplot2 layer to add before the geom layer. Unaffected by polygon
   transformations.
 
 - with:
 
   A function to apply to the geom layer.
 
-- border:
+- polygon:
 
-  Whether to apply border colour and linewidth. `TRUE` forces border on,
-  `FALSE` forces off.
+  Whether to apply polygon colour and linewidth. `TRUE` forces polygon
+  on, `FALSE` forces off.
 
 - theme:
 
@@ -920,6 +920,8 @@ iris |>
     ymin = lower,
     ymax = upper,
   )
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 ggplot2::mpg |>
@@ -943,6 +945,8 @@ ggplot2::mpg |>
 #> ℹ Use `summarise(.groups = "drop_last")` to silence this message.
 #> ℹ Use `summarise(.by = c(class, drv))` for per-operation grouping
 #>   (`?dplyr::dplyr_by`) instead.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 ggplot2::mpg |>
@@ -965,5 +969,7 @@ ggplot2::mpg |>
 #> ℹ Use `summarise(.groups = "drop_last")` to silence this message.
 #> ℹ Use `summarise(.by = c(class, drv))` for per-operation grouping
 #>   (`?dplyr::dplyr_by`) instead.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 ```

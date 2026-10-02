@@ -52,7 +52,7 @@
 <span>  position <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
 <span>  before <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  with <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  polygon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  refine <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -236,15 +236,15 @@
 
 
 <dt id="arg-before">before<a class="anchor" aria-label="anchor" href="#arg-before"></a></dt>
-<dd><p>A ggplot2 layer to add before the geom layer. Unaffected by border transformations.</p></dd>
+<dd><p>A ggplot2 layer to add before the geom layer. Unaffected by polygon transformations.</p></dd>
 
 
 <dt id="arg-with">with<a class="anchor" aria-label="anchor" href="#arg-with"></a></dt>
 <dd><p>A function to apply to the geom layer.</p></dd>
 
 
-<dt id="arg-border">border<a class="anchor" aria-label="anchor" href="#arg-border"></a></dt>
-<dd><p>Whether to apply border colour and linewidth. <code>TRUE</code> forces border on, <code>FALSE</code> forces off.</p></dd>
+<dt id="arg-polygon">polygon<a class="anchor" aria-label="anchor" href="#arg-polygon"></a></dt>
+<dd><p>Whether to apply polygon colour and linewidth. <code>TRUE</code> forces polygon on, <code>FALSE</code> forces off.</p></dd>
 
 
 <dt id="arg-theme">theme<a class="anchor" aria-label="anchor" href="#arg-theme"></a></dt>
@@ -876,8 +876,10 @@
 <span class="r-in"><span>    y <span class="op">=</span> <span class="va">carat</span>,</span></span>
 <span class="r-in"><span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
 <span class="r-plt img"><img src="gg_violin-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op">|&gt;</span></span></span>
@@ -887,8 +889,10 @@
 <span class="r-in"><span>    fill <span class="op">=</span> <span class="va">cut</span>,</span></span>
 <span class="r-in"><span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
 <span class="r-plt img"><img src="gg_violin-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op">|&gt;</span></span></span>
@@ -899,8 +903,10 @@
 <span class="r-in"><span>    facet <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    y_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
 <span class="r-plt img"><img src="gg_violin-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

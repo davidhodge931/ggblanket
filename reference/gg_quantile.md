@@ -15,7 +15,7 @@ gg_quantile(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  border = FALSE,
+  polygon = FALSE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -201,17 +201,17 @@ gg_quantile(
 
 - before:
 
-  A ggplot2 layer to add before the geom layer. Unaffected by border
+  A ggplot2 layer to add before the geom layer. Unaffected by polygon
   transformations.
 
 - with:
 
   A function to apply to the geom layer.
 
-- border:
+- polygon:
 
-  Whether to apply border colour and linewidth. `TRUE` forces border on,
-  `FALSE` forces off.
+  Whether to apply polygon colour and linewidth. `TRUE` forces polygon
+  on, `FALSE` forces off.
 
 - theme:
 
@@ -930,19 +930,23 @@ if (requireNamespace("quantreg", quietly = TRUE)) {
 }
 #> Warning: Ignoring unknown parameters: `fill`
 #> Smoothing formula not specified. Using: y ~ x
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Warning: Ignoring unknown aesthetics: fill
 #> Smoothing formula not specified. Using: y ~ x
 #> Warning: Solution may be nonunique
 #> Smoothing formula not specified. Using: y ~ x
 #> Smoothing formula not specified. Using: y ~ x
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Warning: Ignoring unknown parameters: `fill`
 #> Smoothing formula not specified. Using: y ~ x
 #> Warning: Solution may be nonunique
 #> Smoothing formula not specified. Using: y ~ x
 #> Smoothing formula not specified. Using: y ~ x
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Smoothing formula not specified. Using: y ~ x
 #> Warning: Solution may be nonunique
 #> Smoothing formula not specified. Using: y ~ x
 #> Smoothing formula not specified. Using: y ~ x
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 ```

@@ -15,7 +15,7 @@ gg_boxplot(
   position = ggplot2::position_dodge2(preserve = "single"),
   before = NULL,
   with = NULL,
-  border = TRUE,
+  polygon = TRUE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -201,17 +201,17 @@ gg_boxplot(
 
 - before:
 
-  A ggplot2 layer to add before the geom layer. Unaffected by border
+  A ggplot2 layer to add before the geom layer. Unaffected by polygon
   transformations.
 
 - with:
 
   A function to apply to the geom layer.
 
-- border:
+- polygon:
 
-  Whether to apply border colour and linewidth. `TRUE` forces border on,
-  `FALSE` forces off.
+  Whether to apply polygon colour and linewidth. `TRUE` forces polygon
+  on, `FALSE` forces off.
 
 - theme:
 
@@ -913,8 +913,10 @@ ggplot2::diamonds |>
     y = carat,
     y_limits = c(0, NA),
   )
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Scale for y is already present.
 #> Adding another scale for y, which will replace the existing scale.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 ggplot2::diamonds |>
@@ -924,8 +926,10 @@ ggplot2::diamonds |>
     fill = cut,
     y_limits = c(0, NA),
   )
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Scale for y is already present.
 #> Adding another scale for y, which will replace the existing scale.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 ggplot2::diamonds |>
@@ -936,7 +940,9 @@ ggplot2::diamonds |>
     facet = ggplot2::vars(cut),
     y_limits = c(0, NA),
   )
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Scale for y is already present.
 #> Adding another scale for y, which will replace the existing scale.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 ```

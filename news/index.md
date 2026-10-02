@@ -1,5 +1,9 @@
 # Changelog
 
+## ggblanket 21.0.0.9000
+
+- Changed border argument names to polygon.
+
 ## ggblanket 21.0.0
 
 CRAN release: 2026-07-07

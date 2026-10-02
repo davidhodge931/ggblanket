@@ -15,7 +15,7 @@ gg_linerange(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  border = FALSE,
+  polygon = FALSE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -201,17 +201,17 @@ gg_linerange(
 
 - before:
 
-  A ggplot2 layer to add before the geom layer. Unaffected by border
+  A ggplot2 layer to add before the geom layer. Unaffected by polygon
   transformations.
 
 - with:
 
   A function to apply to the geom layer.
 
-- border:
+- polygon:
 
-  Whether to apply border colour and linewidth. `TRUE` forces border on,
-  `FALSE` forces off.
+  Whether to apply polygon colour and linewidth. `TRUE` forces polygon
+  on, `FALSE` forces off.
 
 - theme:
 
@@ -923,6 +923,8 @@ iris |>
     ymax = upper,
   )
 #> Warning: Ignoring unknown parameters: `fill`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 mpg |>
@@ -947,6 +949,8 @@ mpg |>
 #> ℹ Use `summarise(.by = c(class, drv))` for per-operation grouping
 #>   (`?dplyr::dplyr_by`) instead.
 #> Warning: Ignoring unknown aesthetics: fill
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 mpg |>
@@ -970,6 +974,8 @@ mpg |>
 #> ℹ Use `summarise(.by = c(class, drv))` for per-operation grouping
 #>   (`?dplyr::dplyr_by`) instead.
 #> Warning: Ignoring unknown parameters: `fill`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 mpg |>
@@ -998,6 +1004,8 @@ mpg |>
 #>   (`?dplyr::dplyr_by`) instead.
 #> Warning: Ignoring unknown parameters: `linewidth`
 #> Warning: Ignoring unknown aesthetics: ymin and ymax
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 penguins |>
@@ -1014,4 +1022,6 @@ penguins |>
     ),
   )
 #> Warning: Ignoring unknown parameters: `linewidth`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 ```

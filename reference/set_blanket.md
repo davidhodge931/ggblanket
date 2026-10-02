@@ -14,12 +14,12 @@ Use `set_blanket` to:
 - Update the global theme `fill_palette`, `colour_palette`,
   `shape_palette` and `linetype_palette`
 
-- Set a global option for `colour_border`, which is a function to
+- Set a global option for `colour_blend`, which is a function to
   transform the `colour` and `colour_palette` with input of the `fill`
   and `fill_palette` respectively
 
-- Set a global option for `fill_border`, which is a function to
-  transform the `fill` and `fill_palette` with input of the `colour` and
+- Set a global option for `fill_blend`, which is a function to transform
+  the `fill` and `fill_palette` with input of the `colour` and
   `colour_palette` respectively.
 
 - Set a global option `coord_clip`.
@@ -31,14 +31,14 @@ set_blanket(
   ...,
   theme = theme_lights(),
   refine = function(discrete, orientation) refine_axis_grid(discrete, orientation),
+  colour_blend = NULL,
+  fill_blend = NULL,
+  polygon_linewidth = 0.33,
   fill = "#357BA2FF",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
-  fill_border = NULL,
   colour = fill,
   colour_palette = fill_palette,
-  colour_border = NULL,
   linewidth = 0.66,
-  linewidth_border = 0.33,
   shape = 21,
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype = 1,
@@ -64,6 +64,24 @@ set_blanket(
   A function with arguments discrete and orientation to refine the theme
   based on these. Defaults to that globally set.
 
+- colour_blend:
+
+  When `polygon = TRUE`, a function applied to `fill` and `fill_palette`
+  to derive the colour. If `fill_blend` is `NULL`, defaults to
+  [`blends::multiply()`](https://davidhodge931.github.io/blends/reference/multiply.html)
+  for light panels and
+  [`blends::screen()`](https://davidhodge931.github.io/blends/reference/screen.html)
+  for dark panels. Otherwise defaults to `\(x) x`.
+
+- fill_blend:
+
+  When `polygon = TRUE`, a function applied to `fill` and `fill_palette`
+  to derive the fill. Defaults to `\(x) x`.
+
+- polygon_linewidth:
+
+  When `polygon = TRUE`, the default linewidth. Defaults to `0.33`.
+
 - fill:
 
   Default fill colour. Defaults to `"#357BA2FF"`.
@@ -74,11 +92,6 @@ set_blanket(
   `list(discrete, continuous)`. Defaults to
   `list(jumble::jumble, viridis::turbo(n = 256))`.
 
-- fill_border:
-
-  When `border = TRUE`, a function applied to `fill` and `fill_palette`
-  to derive the fill. Defaults to `\(x) x`.
-
 - colour:
 
   Default colour. Defaults to `fill`.
@@ -88,22 +101,9 @@ set_blanket(
   Palette for colour scales. Same format as `fill_palette`. Defaults to
   `fill_palette`.
 
-- colour_border:
-
-  When `border = TRUE`, a function applied to `fill` and `fill_palette`
-  to derive the colour. If `fill_border` is `NULL`, defaults to
-  [`blends::multiply()`](https://davidhodge931.github.io/blends/reference/multiply.html)
-  for light panels and
-  [`blends::screen()`](https://davidhodge931.github.io/blends/reference/screen.html)
-  for dark panels. Otherwise defaults to `\(x) x`.
-
 - linewidth:
 
   Default linewidth. Defaults to `0.66`.
-
-- linewidth_border:
-
-  When `border = TRUE`, the default linewidth. Defaults to `0.33`.
 
 - shape:
 
@@ -148,6 +148,121 @@ Called for side effects.
 set_blanket(
   fill_palette = scales::pal_hue(),
 )
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic arguments:
+#> • polygonwidth = borderwidth
+#> • polygontype = linetype
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
 
 palmerpenguins::penguins |>
   gg_density(
@@ -156,14 +271,131 @@ palmerpenguins::penguins |>
   )
 #> Warning: Removed 2 rows containing non-finite outside the scale range
 #> (`stat_density()`).
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Warning: Removed 2 rows containing non-finite outside the scale range
 #> (`stat_density()`).
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 set_blanket(
   fill_palette = scales::pal_hue(),
-  fill_border = \(x) scales::alpha(x, 0.75),
+  fill_blend = \(x) scales::alpha(x, 0.75),
 )
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = 0.33
+#> Warning: `...` must be empty.
+#> ✖ Problematic arguments:
+#> • polygonwidth = borderwidth
+#> • polygontype = linetype
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
+#> Warning: `...` must be empty.
+#> ✖ Problematic argument:
+#> • polygonwidth = borderwidth
 
 palmerpenguins::penguins |>
   gg_density(
@@ -172,7 +404,9 @@ palmerpenguins::penguins |>
   )
 #> Warning: Removed 2 rows containing non-finite outside the scale range
 #> (`stat_density()`).
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Warning: Removed 2 rows containing non-finite outside the scale range
 #> (`stat_density()`).
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 ```

@@ -15,7 +15,7 @@ gg_line(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  border = FALSE,
+  polygon = FALSE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -201,17 +201,17 @@ gg_line(
 
 - before:
 
-  A ggplot2 layer to add before the geom layer. Unaffected by border
+  A ggplot2 layer to add before the geom layer. Unaffected by polygon
   transformations.
 
 - with:
 
   A function to apply to the geom layer.
 
-- border:
+- polygon:
 
-  Whether to apply border colour and linewidth. `TRUE` forces border on,
-  `FALSE` forces off.
+  Whether to apply polygon colour and linewidth. `TRUE` forces polygon
+  on, `FALSE` forces off.
 
 - theme:
 
@@ -927,8 +927,10 @@ ggplot2::economics |>
     y_limits = \(x) range(x, 0),
   )
 #> Warning: Ignoring unknown parameters: `fill`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Scale for y is already present.
 #> Adding another scale for y, which will replace the existing scale.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 ggplot2::economics_long |>
@@ -938,6 +940,8 @@ ggplot2::economics_long |>
     fill = variable,
   )
 #> Warning: Ignoring unknown aesthetics: fill
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 ggplot2::economics_long |>
@@ -947,6 +951,8 @@ ggplot2::economics_long |>
     facet = variable,
   )
 #> Warning: Ignoring unknown parameters: `fill`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 ggplot2::economics_long |>
@@ -960,5 +966,7 @@ ggplot2::economics_long |>
     before = geom_line(),
   )
 #> Warning: Ignoring unknown parameters: `linewidth`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 ```

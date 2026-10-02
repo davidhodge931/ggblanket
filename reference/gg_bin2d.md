@@ -17,7 +17,7 @@ gg_bin2d(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  border = FALSE,
+  polygon = FALSE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -203,17 +203,17 @@ gg_bin2d(
 
 - before:
 
-  A ggplot2 layer to add before the geom layer. Unaffected by border
+  A ggplot2 layer to add before the geom layer. Unaffected by polygon
   transformations.
 
 - with:
 
   A function to apply to the geom layer.
 
-- border:
+- polygon:
 
-  Whether to apply border colour and linewidth. `TRUE` forces border on,
-  `FALSE` forces off.
+  Whether to apply polygon colour and linewidth. `TRUE` forces polygon
+  on, `FALSE` forces off.
 
 - theme:
 
@@ -915,7 +915,9 @@ ggplot2::diamonds |>
     y = price,
   )
 #> `stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> `stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 ggplot2::diamonds |>
@@ -925,6 +927,8 @@ ggplot2::diamonds |>
     facet = cut,
   )
 #> `stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> `stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 ```

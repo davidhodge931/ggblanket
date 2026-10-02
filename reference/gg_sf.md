@@ -15,7 +15,7 @@ gg_sf(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  border = TRUE,
+  polygon = TRUE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -201,17 +201,17 @@ gg_sf(
 
 - before:
 
-  A ggplot2 layer to add before the geom layer. Unaffected by border
+  A ggplot2 layer to add before the geom layer. Unaffected by polygon
   transformations.
 
 - with:
 
   A function to apply to the geom layer.
 
-- border:
+- polygon:
 
-  Whether to apply border colour and linewidth. `TRUE` forces border on,
-  `FALSE` forces off.
+  Whether to apply polygon colour and linewidth. `TRUE` forces polygon
+  on, `FALSE` forces off.
 
 - theme:
 
@@ -929,4 +929,7 @@ if (requireNamespace("sf", quietly = TRUE)) {
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
 #> Warning: st_centroid assumes attributes are constant over geometries
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 ```

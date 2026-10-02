@@ -15,7 +15,7 @@ gg_segment(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  border = FALSE,
+  polygon = FALSE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -201,17 +201,17 @@ gg_segment(
 
 - before:
 
-  A ggplot2 layer to add before the geom layer. Unaffected by border
+  A ggplot2 layer to add before the geom layer. Unaffected by polygon
   transformations.
 
 - with:
 
   A function to apply to the geom layer.
 
-- border:
+- polygon:
 
-  Whether to apply border colour and linewidth. `TRUE` forces border on,
-  `FALSE` forces off.
+  Whether to apply polygon colour and linewidth. `TRUE` forces polygon
+  on, `FALSE` forces off.
 
 - theme:
 
@@ -913,6 +913,8 @@ iris |>
     y = Sepal.Length,
   )
 #> Warning: Ignoring unknown parameters: `linewidth`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 iris |>
@@ -922,6 +924,8 @@ iris |>
     fill = Species,
   )
 #> Warning: Ignoring unknown parameters: `linewidth`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 iris |>
@@ -931,6 +935,8 @@ iris |>
     facet = Species,
   )
 #> Warning: Ignoring unknown parameters: `linewidth`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 tibble::tibble(
@@ -946,6 +952,8 @@ tibble::tibble(
     yend = yend,
   )
 #> Warning: Ignoring unknown parameters: `fill`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 tibble::tibble(
@@ -963,6 +971,8 @@ tibble::tibble(
     fill = group,
   )
 #> Warning: Ignoring unknown aesthetics: fill
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 tibble::tibble(
@@ -980,5 +990,7 @@ tibble::tibble(
     facet = group,
   )
 #> Warning: Ignoring unknown parameters: `fill`
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
+#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 ```
