@@ -8,10 +8,10 @@
 #'   `linetype`, `size`, `stroke`
 #' * Update the global theme `fill_palette`, `colour_palette`, `shape_palette`
 #'   and `linetype_palette`
-#' * Set a global option for `colour_border`, which is a function to transform
+#' * Set a global option for `colour_blend`, which is a function to transform
 #'   the `colour` and `colour_palette` with input of the `fill` and
 #'   `fill_palette` respectively
-#' * Set a global option for `fill_border`, which is a function to transform
+#' * Set a global option for `fill_blend`, which is a function to transform
 #'   the `fill` and `fill_palette` with input of the `colour` and
 #'   `colour_palette` respectively.
 #' * Set a global option `coord_clip`.
@@ -23,17 +23,17 @@
 #' @param fill_palette Palette for fill scales. A single discrete palette or
 #'   `list(discrete, continuous)`. Defaults to
 #'   `list(jumble::jumble, viridis::turbo(n = 256))`.
-#' @param fill_border When `border = TRUE`, a function applied to `fill` and
+#' @param fill_blend When `polygon = TRUE`, a function applied to `fill` and
 #'   `fill_palette` to derive the fill. Defaults to `\(x) x`.
 #' @param colour Default colour. Defaults to `fill`.
 #' @param colour_palette Palette for colour scales. Same format as
 #'   `fill_palette`. Defaults to `fill_palette`.
-#' @param colour_border When `border = TRUE`, a function applied to `fill` and
-#'   `fill_palette` to derive the colour. If `fill_border` is `NULL`, defaults
+#' @param colour_blend When `polygon = TRUE`, a function applied to `fill` and
+#'   `fill_palette` to derive the colour. If `fill_blend` is `NULL`, defaults
 #'   to [blends::multiply()] for light panels and [blends::screen()] for dark
 #'   panels. Otherwise defaults to `\(x) x`.
 #' @param linewidth Default linewidth. Defaults to `0.66`.
-#' @param linewidth_border When `border = TRUE`, the default linewidth.
+#' @param borderwidth When `polygon = TRUE`, the default linewidth.
 #'   Defaults to `0.33`.
 #' @param shape Default point shape. Defaults to `21`.
 #' @param shape_palette Palette for shape scales. Defaults to
@@ -61,7 +61,7 @@
 #'
 #' set_blanket(
 #'   fill_palette = scales::pal_hue(),
-#'   fill_border = \(x) scales::alpha(x, 0.75),
+#'   fill_blend = \(x) scales::alpha(x, 0.75),
 #' )
 #'
 #' palmerpenguins::penguins |>
@@ -76,14 +76,16 @@ set_blanket <- function(
   ...,
   theme = theme_lights(),
   refine = \(discrete, orientation) refine_axis_grid(discrete, orientation),
+
+  colour_blend = NULL,
+  fill_blend = NULL,
+  borderwidth = 0.33,
+
   fill = "#357BA2FF",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
-  fill_border = NULL,
   colour = fill,
   colour_palette = fill_palette,
-  colour_border = NULL,
   linewidth = 0.66,
-  linewidth_border = 0.33,
   shape = 21,
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype = 1,
@@ -94,9 +96,9 @@ set_blanket <- function(
 ) {
   rlang::check_dots_empty()
 
-  if (!is.null(fill_border) && !is.null(colour_border)) {
+  if (!is.null(fill_blend) && !is.null(colour_blend)) {
     rlang::abort(
-      "Only one of `fill_border` or `colour_border` can be set - not both."
+      "Only one of `fill_blend` or `colour_blend` can be set - not both."
     )
   }
 
@@ -124,83 +126,83 @@ set_blanket <- function(
       colour = colour,
       pointshape = shape,
       linewidth = linewidth,
-      borderwidth = linewidth_border,
+      polygonwidth = borderwidth,
       linetype = linetype,
-      bordertype = linetype,
+      polygontype = linetype,
       pointsize = size
     ),
     # Border geoms — have both fill and colour
     geom.area = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.bar = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.boxplot = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.col = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.crossbar = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.density = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.dotplot = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.hex = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.map = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.point = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.pointrange = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.polygon = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.rect = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.ribbon = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.smooth = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.sf = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.tile = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     geom.violin = ggplot2::element_geom(
-      linewidth = linewidth_border,
-      borderwidth = linewidth_border
+      linewidth = borderwidth,
+      polygonwidth = borderwidth
     ),
     # Line geoms — colour only
     geom.abline = ggplot2::element_geom(linewidth = linewidth),
@@ -229,21 +231,21 @@ set_blanket <- function(
   # Set refine function
   set_refine(refine = refine)
 
-  # Set border functions as options — only one of fill_border or colour_border
-  if (is.null(fill_border) && is.null(colour_border)) {
-    colour_border <- \(x) {
+  # Set polygon functions as options — only one of fill_blend or colour_blend
+  if (is.null(fill_blend) && is.null(colour_blend)) {
+    colour_blend <- \(x) {
       if (is_panel_dark()) blends::screen(x) else blends::multiply(x)
     }
-    fill_border <- \(x) x
-  } else if (is.null(fill_border)) {
-    fill_border <- \(x) x
-  } else if (is.null(colour_border)) {
-    colour_border <- \(x) x
+    fill_blend <- \(x) x
+  } else if (is.null(fill_blend)) {
+    fill_blend <- \(x) x
+  } else if (is.null(colour_blend)) {
+    colour_blend <- \(x) x
   }
 
-  set_colour_border(colour_border = colour_border)
-  set_fill_border(fill_border = fill_border)
-  set_linewidth_border(linewidth_border = linewidth_border)
+  set_colour_blend(colour_blend = colour_blend)
+  set_fill_blend(fill_blend = fill_blend)
+  set_borderwidth(borderwidth = borderwidth)
   set_stroke(stroke = stroke)
 
   set_coord_clip(coord_clip = coord_clip)

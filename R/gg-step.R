@@ -52,7 +52,7 @@ gg_step <- function(
   before = NULL,
   with = NULL,
 
-  border = FALSE,
+  polygon = FALSE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -222,7 +222,7 @@ gg_step <- function(
 
     theme = theme,
     refine = refine,
-    border = border,
+    polygon = polygon,
     x = {{ x }},
     xmin = {{ xmin }},
     xmax = {{ xmax }},

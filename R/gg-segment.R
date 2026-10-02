@@ -80,7 +80,7 @@ gg_segment <- function(
   before = NULL,
   with = NULL,
 
-  border = FALSE,
+  polygon = FALSE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -250,7 +250,7 @@ gg_segment <- function(
 
     theme = theme,
     refine = refine,
-    border = border,
+    polygon = polygon,
     x = {{ x }},
     xmin = {{ xmin }},
     xmax = {{ xmax }},

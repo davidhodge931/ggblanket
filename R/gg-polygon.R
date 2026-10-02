@@ -52,7 +52,7 @@ gg_polygon <- function(
   before = NULL,
   with = NULL,
 
-  border = TRUE,
+  polygon = TRUE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -222,7 +222,7 @@ gg_polygon <- function(
 
     theme = theme,
     refine = refine,
-    border = border,
+    polygon = polygon,
     x = {{ x }},
     xmin = {{ xmin }},
     xmax = {{ xmax }},

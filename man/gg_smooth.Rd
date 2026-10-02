@@ -12,7 +12,7 @@ gg_smooth(
   position = ggplot2::position_identity(),
   before = NULL,
   with = NULL,
-  border = FALSE,
+  polygon = FALSE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -181,11 +181,11 @@ gg_smooth(
 
 \item{position}{A position as a function (\code{ggplot2::position_identity()}).}
 
-\item{before}{A ggplot2 layer to add before the geom layer. Unaffected by border transformations.}
+\item{before}{A ggplot2 layer to add before the geom layer. Unaffected by polygon transformations.}
 
 \item{with}{A function to apply to the geom layer.}
 
-\item{border}{Whether to apply border colour and linewidth. \code{TRUE} forces border on, \code{FALSE} forces off.}
+\item{polygon}{Whether to apply polygon colour and linewidth. \code{TRUE} forces polygon on, \code{FALSE} forces off.}
 
 \item{theme}{A complete theme function. Defaults to that globally set.}
 

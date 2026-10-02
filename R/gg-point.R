@@ -73,7 +73,7 @@ gg_point <- function(
   before = NULL,
   with = NULL,
 
-  border = TRUE,
+  polygon = TRUE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -243,7 +243,7 @@ gg_point <- function(
 
     theme = theme,
     refine = refine,
-    border = border,
+    polygon = polygon,
     x = {{ x }},
     xmin = {{ xmin }},
     xmax = {{ xmax }},

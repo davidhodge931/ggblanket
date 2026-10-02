@@ -8,14 +8,14 @@ set_blanket(
   ...,
   theme = theme_lights(),
   refine = function(discrete, orientation) refine_axis_grid(discrete, orientation),
+  colour_blend = NULL,
+  fill_blend = NULL,
+  polygon_linewidth = 0.33,
   fill = "#357BA2FF",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
-  fill_border = NULL,
   colour = fill,
   colour_palette = fill_palette,
-  colour_border = NULL,
   linewidth = 0.66,
-  linewidth_border = 0.33,
   shape = 21,
   shape_palette = scales::pal_manual(c(21, 24, 22, 23, 25)),
   linetype = 1,
@@ -32,29 +32,29 @@ set_blanket(
 
 \item{refine}{A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set.}
 
+\item{colour_blend}{When \code{polygon = TRUE}, a function applied to \code{fill} and
+\code{fill_palette} to derive the colour. If \code{fill_blend} is \code{NULL}, defaults
+to \code{\link[blends:multiply]{blends::multiply()}} for light panels and \code{\link[blends:screen]{blends::screen()}} for dark
+panels. Otherwise defaults to \verb{\\(x) x}.}
+
+\item{fill_blend}{When \code{polygon = TRUE}, a function applied to \code{fill} and
+\code{fill_palette} to derive the fill. Defaults to \verb{\\(x) x}.}
+
+\item{polygon_linewidth}{When \code{polygon = TRUE}, the default linewidth.
+Defaults to \code{0.33}.}
+
 \item{fill}{Default fill colour. Defaults to \code{"#357BA2FF"}.}
 
 \item{fill_palette}{Palette for fill scales. A single discrete palette or
 \code{list(discrete, continuous)}. Defaults to
 \code{list(jumble::jumble, viridis::turbo(n = 256))}.}
 
-\item{fill_border}{When \code{border = TRUE}, a function applied to \code{fill} and
-\code{fill_palette} to derive the fill. Defaults to \verb{\\(x) x}.}
-
 \item{colour}{Default colour. Defaults to \code{fill}.}
 
 \item{colour_palette}{Palette for colour scales. Same format as
 \code{fill_palette}. Defaults to \code{fill_palette}.}
 
-\item{colour_border}{When \code{border = TRUE}, a function applied to \code{fill} and
-\code{fill_palette} to derive the colour. If \code{fill_border} is \code{NULL}, defaults
-to \code{\link[blends:multiply]{blends::multiply()}} for light panels and \code{\link[blends:screen]{blends::screen()}} for dark
-panels. Otherwise defaults to \verb{\\(x) x}.}
-
 \item{linewidth}{Default linewidth. Defaults to \code{0.66}.}
-
-\item{linewidth_border}{When \code{border = TRUE}, the default linewidth.
-Defaults to \code{0.33}.}
 
 \item{shape}{Default point shape. Defaults to \code{21}.}
 
@@ -85,10 +85,10 @@ types via \code{refine}
 \code{linetype}, \code{size}, \code{stroke}
 \item Update the global theme \code{fill_palette}, \code{colour_palette}, \code{shape_palette}
 and \code{linetype_palette}
-\item Set a global option for \code{colour_border}, which is a function to transform
+\item Set a global option for \code{colour_blend}, which is a function to transform
 the \code{colour} and \code{colour_palette} with input of the \code{fill} and
 \code{fill_palette} respectively
-\item Set a global option for \code{fill_border}, which is a function to transform
+\item Set a global option for \code{fill_blend}, which is a function to transform
 the \code{fill} and \code{fill_palette} with input of the \code{colour} and
 \code{colour_palette} respectively.
 \item Set a global option \code{coord_clip}.
@@ -107,7 +107,7 @@ palmerpenguins::penguins |>
 
 set_blanket(
   fill_palette = scales::pal_hue(),
-  fill_border = \(x) scales::alpha(x, 0.75),
+  fill_blend = \(x) scales::alpha(x, 0.75),
 )
 
 palmerpenguins::penguins |>

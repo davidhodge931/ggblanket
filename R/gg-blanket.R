@@ -9,9 +9,9 @@
 #' @param geom A geom as a string (`"point"`). Note relevant geom library must be loaded.
 #' @param stat A stat as a string (`"identity"`). Note relevant stat library must be loaded.
 #' @param position A position as a function (`ggplot2::position_identity()`).
-#' @param before A ggplot2 layer to add before the geom layer. Unaffected by border transformations.
+#' @param before A ggplot2 layer to add before the geom layer. Unaffected by polygon transformations.
 #' @param with A function to apply to the geom layer.
-#' @param border Whether to apply border colour and linewidth. `TRUE` forces border on, `FALSE` forces off.
+#' @param polygon Whether to apply polygon colour and linewidth. `TRUE` forces polygon on, `FALSE` forces off.
 #' @param theme A complete theme function. Defaults to that globally set.
 #' @param refine A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set.
 #' @param x Variable mapped to x.
@@ -199,7 +199,7 @@ gg_blanket <- function(
   before = NULL,
   with = NULL,
 
-  border = NULL,
+  polygon = NULL,
   theme = NULL,
   refine = NULL,
 
@@ -402,12 +402,12 @@ gg_blanket <- function(
       )
   }
 
-  # Resolve border functions and linewidth from options, with sensible fallbacks
-  colour_border_fn <- get_colour_border()
+  # Resolve polygon functions and linewidth from options, with sensible fallbacks
+  colour_blend_fn <- get_colour_blend()
 
-  fill_border_fn <- get_fill_border()
+  fill_blend_fn <- get_fill_blend()
 
-  linewidth_border_default <- get_linewidth_border()
+  borderwidth_default <- get_borderwidth()
 
   ### make aesthetics list
   aesthetics <- rlang::enquos(
@@ -460,11 +460,11 @@ gg_blanket <- function(
   is_fill_fixed <- "fill" %in% names(separated$fixed)
   is_colour_fixed <- "colour" %in% names(separated$fixed)
 
-  ### identify if border geom
-  is_border_geom <- geom_info$is_border_geom
-  is_colour_border <- if (is.null(border)) is_border_geom else isTRUE(border)
-  is_fill_border <- if (is.null(border)) is_border_geom else isTRUE(border)
-  is_linewidth_border <- if (is.null(border)) is_border_geom else isTRUE(border)
+  ### identify if polygon geom
+  is_polygon_geom <- geom_info$is_polygon_geom
+  is_colour_blend <- if (is.null(polygon)) is_polygon_geom else isTRUE(polygon)
+  is_fill_blend <- if (is.null(polygon)) is_polygon_geom else isTRUE(polygon)
+  is_borderwidth <- if (is.null(polygon)) is_polygon_geom else isTRUE(polygon)
 
   ### ensure colour is inherited from fill
   if (is_fill_mapped & !is_colour_mapped & !is_colour_fixed) {
@@ -481,23 +481,23 @@ gg_blanket <- function(
     colour_fill_same <- identical(fill_var, colour_var)
   }
 
-  ### compute fixed colour — apply colour_border_fn if border geom
+  ### compute fixed colour — apply colour_blend_fn if polygon geom
   computed_colour <- NULL
   if (!is_colour_mapped) {
     computed_colour <- separated$fixed[["colour"]] %||%
       separated$fixed[["fill"]] %||%
       current_theme$geom@fill
-    if (is_colour_border && !is.null(computed_colour)) {
-      computed_colour <- colour_border_fn(computed_colour)
+    if (is_colour_blend && !is.null(computed_colour)) {
+      computed_colour <- colour_blend_fn(computed_colour)
     }
   }
 
-  ### compute fixed linewidth — use border default if border geom
+  ### compute fixed linewidth — use polygon default if polygon geom
   computed_linewidth <- NULL
   if (!is_linewidth_mapped) {
-    if (is_linewidth_border) {
+    if (is_borderwidth) {
       computed_linewidth <- separated$fixed[["linewidth"]] %||%
-        linewidth_border_default
+        borderwidth_default
     } else {
       computed_linewidth <- separated$fixed[["linewidth"]] %||%
         current_theme$geom@linewidth
@@ -513,7 +513,7 @@ gg_blanket <- function(
   if (
     !is_stroke_mapped &&
       !is_stroke_fixed &&
-      is_colour_border &&
+      is_colour_blend &&
       geom_info$is_stroke_geom
   ) {
     computed_stroke <- get_stroke()
@@ -541,11 +541,11 @@ gg_blanket <- function(
     all_params$stroke <- computed_stroke
   }
 
-  ### compute fixed fill — apply fill_border_fn if border geom and fill not user-specified
+  ### compute fixed fill — apply fill_blend_fn if polygon geom and fill not user-specified
   if (!is_fill_mapped && !is_fill_fixed) {
     computed_fill <- current_theme$geom@fill
-    if (is_fill_border && !is.null(computed_fill)) {
-      computed_fill <- fill_border_fn(computed_fill)
+    if (is_fill_blend && !is.null(computed_fill)) {
+      computed_fill <- fill_blend_fn(computed_fill)
     }
     if (!is.null(computed_fill)) all_params$fill <- computed_fill
   }
@@ -887,20 +887,20 @@ gg_blanket <- function(
       )
   }
 
-  # Resolve scale NA and override values, applying border functions if border geom
+  # Resolve scale NA and override values, applying polygon functions if polygon geom
   fill_na <- jumble::grey
   fill_override <- jumble::slate
 
-  colour_na <- if (is_colour_border) colour_border_fn(fill_na) else fill_na
-  colour_override <- if (is_colour_border) {
-    colour_border_fn(fill_override)
+  colour_na <- if (is_colour_blend) colour_blend_fn(fill_na) else fill_na
+  colour_override <- if (is_colour_blend) {
+    colour_blend_fn(fill_override)
   } else {
     fill_override
   }
 
-  if (is_fill_border) {
-    fill_na <- fill_border_fn(fill_na)
-    fill_override <- fill_border_fn(fill_override)
+  if (is_fill_blend) {
+    fill_na <- fill_blend_fn(fill_na)
+    fill_override <- fill_blend_fn(fill_override)
   }
 
   ### fill scale
@@ -911,8 +911,8 @@ gg_blanket <- function(
         scales::pal_hue()
 
       if (is_named_palette(fill_palette)) {
-        fill_values <- if (is_fill_border) {
-          stats::setNames(fill_border_fn(fill_palette), names(fill_palette))
+        fill_values <- if (is_fill_blend) {
+          stats::setNames(fill_blend_fn(fill_palette), names(fill_palette))
         } else {
           fill_palette
         }
@@ -929,8 +929,8 @@ gg_blanket <- function(
             na.value = fill_na
           )
       } else {
-        fill_palette_scaled <- if (is_fill_border) {
-          apply_border_to_palette(fill_palette, fill_border_fn)
+        fill_palette_scaled <- if (is_fill_blend) {
+          apply_polygon_to_palette(fill_palette, fill_blend_fn)
         } else {
           fill_palette
         }
@@ -951,8 +951,8 @@ gg_blanket <- function(
       fill_palette <- fill_palette %||%
         current_theme$palette.fill.continuous %||%
         scales::pal_gradient_n(viridis::turbo(n = 256))
-      fill_palette_scaled <- if (is_fill_border) {
-        apply_border_to_palette(fill_palette, fill_border_fn)
+      fill_palette_scaled <- if (is_fill_blend) {
+        apply_polygon_to_palette(fill_palette, fill_blend_fn)
       } else {
         fill_palette
       }
@@ -999,12 +999,12 @@ gg_blanket <- function(
   ### colour scale
   if (!is.null(colour_type)) {
     if (colour_type == "discrete") {
-      if (is_colour_border) {
+      if (is_colour_blend) {
         colour_palette <- colour_palette %||%
           (if (!is.null(fill_palette)) {
-            apply_border_to_palette(fill_palette, colour_border_fn)
+            apply_polygon_to_palette(fill_palette, colour_blend_fn)
           }) %||%
-          apply_border_to_palette(scales::pal_hue(), colour_border_fn)
+          apply_polygon_to_palette(scales::pal_hue(), colour_blend_fn)
       } else {
         colour_palette <- colour_palette %||%
           fill_palette %||%
@@ -1047,16 +1047,16 @@ gg_blanket <- function(
           )
       }
     } else if (colour_type %in% c("continuous", "binned")) {
-      if (is_colour_border) {
+      if (is_colour_blend) {
         colour_palette <- colour_palette %||%
-          apply_border_to_palette(fill_palette, colour_border_fn) %||%
-          apply_border_to_palette(
+          apply_polygon_to_palette(fill_palette, colour_blend_fn) %||%
+          apply_polygon_to_palette(
             current_theme$palette.fill.continuous,
-            colour_border_fn
+            colour_blend_fn
           ) %||%
-          apply_border_to_palette(
+          apply_polygon_to_palette(
             scales::pal_gradient_n(viridis::turbo(n = 256)),
-            colour_border_fn
+            colour_blend_fn
           )
       } else {
         colour_palette <- colour_palette %||%

@@ -261,7 +261,7 @@ theme_ggrefine <- function(
         colour = panel_background_fill,
         fill = panel_background_fill
       ),
-      panel.border = ggplot2::element_blank(),
+      panel.polygon = ggplot2::element_blank(),
       panel.grid = ggplot2::element_line(
         colour = panel_grid_colour,
         lineend = "butt"
@@ -347,48 +347,48 @@ theme_ggrefine <- function(
         colour = "steelblue",
         pointshape = 21,
         linewidth = 0.66,
-        borderwidth = 0.33,
+        polygonwidth = 0.33,
         pointsize = 1.5,
         fontsize = text_size,
         family = text_family
       ),
       # Border geoms — have both fill and colour
-      geom.area = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
-      geom.bar = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.area = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.bar = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
       geom.boxplot = ggplot2::element_geom(
         linewidth = 0.33,
-        borderwidth = 0.33
+        polygonwidth = 0.33
       ),
-      geom.col = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.col = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
       geom.crossbar = ggplot2::element_geom(
         linewidth = 0.33,
-        borderwidth = 0.33
+        polygonwidth = 0.33
       ),
       geom.density = ggplot2::element_geom(
         linewidth = 0.33,
-        borderwidth = 0.33
+        polygonwidth = 0.33
       ),
       geom.dotplot = ggplot2::element_geom(
         linewidth = 0.33,
-        borderwidth = 0.33
+        polygonwidth = 0.33
       ),
-      geom.hex = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
-      geom.map = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
-      geom.point = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.hex = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.map = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.point = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
       geom.pointrange = ggplot2::element_geom(
         linewidth = 0.33,
-        borderwidth = 0.33
+        polygonwidth = 0.33
       ),
       geom.polygon = ggplot2::element_geom(
         linewidth = 0.33,
-        borderwidth = 0.33
+        polygonwidth = 0.33
       ),
-      geom.rect = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
-      geom.ribbon = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
-      geom.smooth = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
-      geom.sf = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
-      geom.tile = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
-      geom.violin = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.rect = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.ribbon = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.smooth = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.sf = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.tile = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.violin = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
 
       # Line geoms — colour only
       geom.abline = ggplot2::element_geom(linewidth = 0.66),

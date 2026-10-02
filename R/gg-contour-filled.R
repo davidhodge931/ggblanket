@@ -27,7 +27,7 @@ gg_contour_filled <- function(
   before = NULL,
   with = NULL,
 
-  border = FALSE,
+  polygon = FALSE,
   theme = NULL,
   refine = NULL,
   x = NULL,
@@ -197,7 +197,7 @@ gg_contour_filled <- function(
 
     theme = theme,
     refine = refine,
-    border = border,
+    polygon = polygon,
     x = {{ x }},
     xmin = {{ xmin }},
     xmax = {{ xmax }},

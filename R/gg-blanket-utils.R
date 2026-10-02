@@ -379,36 +379,36 @@ get_refine <- function() {
   getOption("ggblanket.refine")
 }
 
-set_colour_border <- function(colour_border = NULL) {
-  if (is.null(colour_border)) {
-    colour_border <- \(x) {
+set_colour_blend <- function(colour_blend = NULL) {
+  if (is.null(colour_blend)) {
+    colour_blend <- \(x) {
       if (is.null(x)) {
         return(x)
       }
       if (is_panel_dark()) blends::screen(x) else blends::multiply(x)
     }
   }
-  options("ggblanket.colour_border" = colour_border)
+  options("ggblanket.colour_blend" = colour_blend)
 }
 
-get_colour_border <- function() {
-  getOption("ggblanket.colour_border")
+get_colour_blend <- function() {
+  getOption("ggblanket.colour_blend")
 }
 
-set_fill_border <- function(fill_border = NULL) {
-  options("ggblanket.fill_border" = fill_border)
+set_fill_blend <- function(fill_blend = NULL) {
+  options("ggblanket.fill_blend" = fill_blend)
 }
 
-get_fill_border <- function() {
-  getOption("ggblanket.fill_border")
+get_fill_blend <- function() {
+  getOption("ggblanket.fill_blend")
 }
 
-set_linewidth_border <- function(linewidth_border = NULL) {
-  options("ggblanket.linewidth_border" = linewidth_border)
+set_borderwidth <- function(borderwidth = NULL) {
+  options("ggblanket.borderwidth" = borderwidth)
 }
 
-get_linewidth_border <- function() {
-  getOption("ggblanket.linewidth_border")
+get_borderwidth <- function() {
+  getOption("ggblanket.borderwidth")
 }
 
 set_stroke <- function(stroke = NULL) {
@@ -432,7 +432,7 @@ get_coord_clip <- function() {
 #'   - Function: `geom_point` or `ggridges::geom_density_ridges` (no parentheses)
 #'
 #' @return List with `fn` (geom function), `str` (geom name string),
-#'   `is_border_geom` (TRUE if both fill and colour are available), and
+#'   `is_polygon_geom` (TRUE if both fill and colour are available), and
 #'   `is_stroke_geom` (TRUE if stroke is available).
 #' @noRd
 get_geom_info <- function(geom) {
@@ -455,7 +455,7 @@ get_geom_info <- function(geom) {
       return(list(
         fn = geom_fn,
         str = geom,
-        is_border_geom = "fill" %in%
+        is_polygon_geom = "fill" %in%
           geom_obj$aesthetics() &
           "colour" %in% geom_obj$aesthetics(),
         is_stroke_geom = "stroke" %in% geom_obj$aesthetics()
@@ -490,7 +490,7 @@ get_geom_info <- function(geom) {
         return(list(
           fn = geom_fn,
           str = geom_str,
-          is_border_geom = "fill" %in%
+          is_polygon_geom = "fill" %in%
             geom_obj$aesthetics() &
             "colour" %in% geom_obj$aesthetics(),
           is_stroke_geom = "stroke" %in% geom_obj$aesthetics()
@@ -534,7 +534,7 @@ get_geom_info <- function(geom) {
     return(list(
       fn = geom,
       str = geom_str,
-      is_border_geom = "fill" %in%
+      is_polygon_geom = "fill" %in%
         geom_obj$aesthetics() &
         "colour" %in% geom_obj$aesthetics(),
       is_stroke_geom = "stroke" %in% geom_obj$aesthetics()
@@ -589,13 +589,13 @@ as_continuous_palette <- function(palette) {
   }
 }
 
-# Helper — compose a border function with a palette, regardless of type
-apply_border_to_palette <- function(palette, border_fn) {
+# Helper — compose a polygon function with a palette, regardless of type
+apply_polygon_to_palette <- function(palette, polygon_fn) {
   if (is.function(palette)) {
-    \(n) border_fn(palette(n))
+    \(n) polygon_fn(palette(n))
   } else if (is.atomic(palette)) {
-    result <- border_fn(palette)
-    names(result) <- names(palette) # preserve names through border transform
+    result <- polygon_fn(palette)
+    names(result) <- names(palette) # preserve names through polygon transform
     result
   } else {
     palette
