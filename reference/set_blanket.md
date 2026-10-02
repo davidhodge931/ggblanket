@@ -33,8 +33,8 @@ set_blanket(
   refine = function(discrete, orientation) refine_axis_grid(discrete, orientation),
   colour_blend = NULL,
   fill_blend = NULL,
-  polygon_linewidth = 0.33,
-  fill = "#357BA2FF",
+  borderwidth = 0.33,
+  fill = "steelblue",
   fill_palette = list(jumble::jumble, viridis::turbo(n = 256)),
   colour = fill,
   colour_palette = fill_palette,
@@ -78,7 +78,7 @@ set_blanket(
   When `polygon = TRUE`, a function applied to `fill` and `fill_palette`
   to derive the fill. Defaults to `\(x) x`.
 
-- polygon_linewidth:
+- borderwidth:
 
   When `polygon = TRUE`, the default linewidth. Defaults to `0.33`.
 
@@ -206,63 +206,8 @@ set_blanket(
 #> ✖ Problematic argument:
 #> • polygonwidth = 0.33
 #> Warning: `...` must be empty.
-#> ✖ Problematic arguments:
-#> • polygonwidth = borderwidth
+#> ✖ Problematic argument:
 #> • polygontype = linetype
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
 
 palmerpenguins::penguins |>
   gg_density(
@@ -339,63 +284,8 @@ set_blanket(
 #> ✖ Problematic argument:
 #> • polygonwidth = 0.33
 #> Warning: `...` must be empty.
-#> ✖ Problematic arguments:
-#> • polygonwidth = borderwidth
+#> ✖ Problematic argument:
 #> • polygontype = linetype
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
 
 palmerpenguins::penguins |>
   gg_density(

@@ -970,63 +970,8 @@ ggplot2::economics |>
 #> ✖ Problematic argument:
 #> • polygonwidth = 0.33
 #> Warning: `...` must be empty.
-#> ✖ Problematic arguments:
-#> • polygonwidth = borderwidth
+#> ✖ Problematic argument:
 #> • polygontype = linetype
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
-#> Warning: `...` must be empty.
-#> ✖ Problematic argument:
-#> • polygonwidth = borderwidth
 #> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 #> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
