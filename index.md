@@ -26,8 +26,6 @@ library(ggblanket)
 library(ggplot2)
 library(dplyr)
 
-set_blanket()
-
 iris |>
   gg_point(
     x = Sepal.Width,
@@ -63,27 +61,7 @@ Use the `gg_*()` wrapper functions to:
 - If lower x/y scale limit is zero, get default scale expansion of
   `ggplot2::expansion(c(0, 0.5))`
 - Access to other arguments within relevant `geom_*` function via `...`
-- Get global
-  [`set_blanket()`](https://davidhodge931.github.io/ggblanket/reference/set_blanket.md)
-  setting defaults.
-
-Use the global setup function,
-[`set_blanket()`](https://davidhodge931.github.io/ggblanket/reference/set_blanket.md),
-to:
-
-- Adjust the global theme
-- Adjust the global option for how themes are to be refined based on
-  plot scale types etc
-- Adjust the global theme `fill`, `colour`, `linewidth`, `shape`,
-  `linetype`, `size`, `stroke`
-- Adjust the global theme `fill_palette`, `colour_palette`,
-  `shape_palette` and `linetype_palette`
-- Adjust the global option for `colour_border`, which is a function to
-  transform the `colour` and `colour_palette` with input of the `fill`
-  and `fill_palette` respectively
-- Adjust the global option for `fill_border`, which is a function to
-  transform the `fill` and `fill_palette` with input of the `colour` and
-  `colour_palette` respectively
+- Plus more!
 
 ## Other packages
 

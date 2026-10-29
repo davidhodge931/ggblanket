@@ -1,8 +1,11 @@
 # Changelog
 
-## ggblanket 21.0.0.9000
+## ggblanket 30.0.0
 
 - Changed border argument names to polygon.
+- Removed `set_blanket`, and provided `set_*` functions for the various
+  options.
+- Plus more!
 
 ## ggblanket 21.0.0
 

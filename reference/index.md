@@ -1,7 +1,5 @@
 # Package index
 
-- [`set_blanket()`](https://davidhodge931.github.io/ggblanket/reference/set_blanket.md)
-  : Set ggblanket defaults
 - [`gg_blanket()`](https://davidhodge931.github.io/ggblanket/reference/gg_blanket.md)
   : Any ggplot
 - [`gg_area()`](https://davidhodge931.github.io/ggblanket/reference/gg_area.md)
@@ -70,3 +68,9 @@
   : Tile ggplot
 - [`gg_violin()`](https://davidhodge931.github.io/ggblanket/reference/gg_violin.md)
   : Violin ggplot
+- [`set_colour_blend()`](https://davidhodge931.github.io/ggblanket/reference/set_colour_blend.md)
+  : Set the ggblanket colour blend function
+- [`set_fill_blend()`](https://davidhodge931.github.io/ggblanket/reference/set_fill_blend.md)
+  : Set the ggblanket fill blend function
+- [`set_refine()`](https://davidhodge931.github.io/ggblanket/reference/set_refine.md)
+  : Set the ggblanket refine function

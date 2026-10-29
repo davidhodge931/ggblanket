@@ -7,6 +7,16 @@ defaults for the geom, stat and position.
 Note this is an all-purpose custom wrapper intended for use with any
 geom.
 
+Defaults for fill, colour, linewidth, palettes etc. come from the theme,
+e.g. via
+[`ggplot2::set_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.html).
+Use
+[`set_refine()`](https://davidhodge931.github.io/ggblanket/reference/set_refine.md),
+[`set_colour_blend()`](https://davidhodge931.github.io/ggblanket/reference/set_colour_blend.md)
+and
+[`set_fill_blend()`](https://davidhodge931.github.io/ggblanket/reference/set_fill_blend.md)
+to set the remaining ggblanket-specific global options.
+
 ## Usage
 
 ``` r
@@ -218,12 +228,14 @@ gg_blanket(
 
 - theme:
 
-  A complete theme function. Defaults to that globally set.
+  A complete theme object. Defaults to the global theme set with
+  [`ggplot2::set_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.html).
 
 - refine:
 
   A function with arguments discrete and orientation to refine the theme
-  based on these. Defaults to that globally set.
+  based on these. Defaults to that globally set with
+  [`set_refine()`](https://davidhodge931.github.io/ggblanket/reference/set_refine.md).
 
 - x:
 
@@ -871,7 +883,8 @@ gg_blanket(
 
 - coord_clip:
 
-  Whether drawing is clipped to the panel. Either `"on"` or `"on"`.
+  Whether drawing is clipped to the panel. Either `"on"` (default) or
+  `"off"`.
 
 - coord_reverse:
 
@@ -918,8 +931,6 @@ gg_blanket(
   fill = hp,
 )
 #> Warning: Ignoring unknown parameters: `linewidth`
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 gg_blanket(
@@ -931,6 +942,4 @@ gg_blanket(
   facet = cyl,
 )
 #> Warning: Ignoring unknown parameters: `linewidth`
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 ```

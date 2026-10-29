@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggblanket</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">21.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">30.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -248,11 +248,11 @@
 
 
 <dt id="arg-theme">theme<a class="anchor" aria-label="anchor" href="#arg-theme"></a></dt>
-<dd><p>A complete theme function. Defaults to that globally set.</p></dd>
+<dd><p>A complete theme object. Defaults to the global theme set with <code><a href="https://ggplot2.tidyverse.org/reference/get_theme.html" class="external-link">ggplot2::set_theme()</a></code>.</p></dd>
 
 
 <dt id="arg-refine">refine<a class="anchor" aria-label="anchor" href="#arg-refine"></a></dt>
-<dd><p>A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set.</p></dd>
+<dd><p>A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set with <code><a href="set_refine.html">set_refine()</a></code>.</p></dd>
 
 
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
@@ -836,7 +836,7 @@
 
 
 <dt id="arg-coord-clip">coord_clip<a class="anchor" aria-label="anchor" href="#arg-coord-clip"></a></dt>
-<dd><p>Whether drawing is clipped to the panel. Either <code>"on"</code> or <code>"on"</code>.</p></dd>
+<dd><p>Whether drawing is clipped to the panel. Either <code>"on"</code> (default) or <code>"off"</code>.</p></dd>
 
 
 <dt id="arg-coord-reverse">coord_reverse<a class="anchor" aria-label="anchor" href="#arg-coord-reverse"></a></dt>
@@ -874,8 +874,6 @@
 <span class="r-in"><span>  <span class="fu">gg_density</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    x <span class="op">=</span> <span class="va">Sepal.Width</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
 <span class="r-plt img"><img src="gg_density-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">iris</span> <span class="op">|&gt;</span></span></span>
@@ -883,8 +881,6 @@
 <span class="r-in"><span>    x <span class="op">=</span> <span class="va">Sepal.Width</span>,</span></span>
 <span class="r-in"><span>    fill <span class="op">=</span> <span class="va">Species</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
 <span class="r-plt img"><img src="gg_density-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">iris</span> <span class="op">|&gt;</span></span></span>
@@ -892,8 +888,6 @@
 <span class="r-in"><span>    x <span class="op">=</span> <span class="va">Sepal.Width</span>,</span></span>
 <span class="r-in"><span>    facet <span class="op">=</span> <span class="va">Species</span>,</span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `panel.polygon` theme element is not defined in the element hierarchy.</span>
 <span class="r-plt img"><img src="gg_density-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

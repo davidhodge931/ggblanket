@@ -215,12 +215,14 @@ gg_rect(
 
 - theme:
 
-  A complete theme function. Defaults to that globally set.
+  A complete theme object. Defaults to the global theme set with
+  [`ggplot2::set_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.html).
 
 - refine:
 
   A function with arguments discrete and orientation to refine the theme
-  based on these. Defaults to that globally set.
+  based on these. Defaults to that globally set with
+  [`set_refine()`](https://davidhodge931.github.io/ggblanket/reference/set_refine.md).
 
 - x:
 
@@ -868,7 +870,8 @@ gg_rect(
 
 - coord_clip:
 
-  Whether drawing is clipped to the panel. Either `"on"` or `"on"`.
+  Whether drawing is clipped to the panel. Either `"on"` (default) or
+  `"off"`.
 
 - coord_reverse:
 
@@ -919,8 +922,6 @@ tibble::tibble(
     ymin = ymin,
     ymax = ymax,
   )
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 tibble::tibble(
@@ -937,8 +938,6 @@ tibble::tibble(
     ymax = ymax,
     fill = group,
   )
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 
 tibble::tibble(
@@ -955,7 +954,5 @@ tibble::tibble(
     ymax = ymax,
     facet = group,
   )
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
-#> Warning: The `panel.polygon` theme element is not defined in the element hierarchy.
 
 ```
