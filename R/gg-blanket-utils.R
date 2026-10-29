@@ -371,16 +371,16 @@ get_orientation <- function(
   return(orientation)
 }
 
-set_refine <- function(refine = NULL) {
-  options("ggblanket.refine" = refine)
+set_refine <- function(new = NULL) {
+  options("ggblanket.refine" = new)
 }
 
 get_refine <- function() {
   getOption("ggblanket.refine")
 }
 
-set_colour_blend <- function(colour_blend = NULL) {
-  if (is.null(colour_blend)) {
+set_colour_blend <- function(new = NULL) {
+  if (is.null(new)) {
     colour_blend <- \(x) {
       if (is.null(x)) {
         return(x)
@@ -395,8 +395,8 @@ get_colour_blend <- function() {
   getOption("ggblanket.colour_blend")
 }
 
-set_fill_blend <- function(fill_blend = NULL) {
-  options("ggblanket.fill_blend" = fill_blend)
+set_fill_blend <- function(new = NULL) {
+  options("ggblanket.fill_blend" = new)
 }
 
 get_fill_blend <- function() {

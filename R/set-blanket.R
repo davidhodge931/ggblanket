@@ -228,7 +228,7 @@ set_blanket <- function(
   )
 
   # Set refine function
-  set_refine(refine = refine)
+  set_refine(new = refine)
 
   # Set polygon functions as options — only one of fill_blend or colour_blend
   if (is.null(fill_blend) && is.null(colour_blend)) {
@@ -242,8 +242,8 @@ set_blanket <- function(
     colour_blend <- \(x) x
   }
 
-  set_colour_blend(colour_blend = colour_blend)
-  set_fill_blend(fill_blend = fill_blend)
+  set_colour_blend(new = colour_blend)
+  set_fill_blend(new = fill_blend)
   set_borderwidth(borderwidth = borderwidth)
   set_stroke(stroke = stroke)
 

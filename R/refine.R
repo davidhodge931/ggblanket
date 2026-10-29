@@ -401,23 +401,23 @@
 #' }
 #'
 #' @param discrete Character. Which axes should be treated as discrete for
-#'   refinement purposes: `"none"`, `"x"`, `"y"`, or `"both"`. Required.
+#'   refinement purposes: `"none"`, `"x"`, `"y"`, or `"both"`. Default `"none"`.
 #' @param orientation Character. The primary axis of interest: `"x"` or
 #'   `"y"`. Affects `grid_mode` values `"drift"` and `"flow"`. If `NULL`
 #'   (default), it is inferred from `discrete`: `"y"` gives `"y"`, otherwise
 #'   `"x"`.
-#' @param axis_mode Character. One of `"classic"`, `"modern"`, `"minimal"`,
-#'   `"void"`. Default `"modern"`.
-#' @param grid_mode Character. One of `"keep"`, `"drift"`, `"flow"`,
-#'   `"drop"`. Default `"drift"`.
+#' @param axis_mode Character. One of `"modern"`, `"minimal"`, `"classic"` `"void"`. Default `"modern"`.
+#'
+#' @param grid_mode Character. One of `"flow"`, `"drift"`, `"keep"`, `"drop"`. Default
+#' `"flow"`.
 #'
 #' @return A ggplot2 theme object.
-#' @noRd
+#' @export
 refine_axis_grid <- function(
-    discrete,
+    discrete = "none",
     orientation = NULL,
     axis_mode = "modern",
-    grid_mode = "drift"
+    grid_mode = "flow"
 ) {
   axis_mode <- rlang::arg_match(
     axis_mode,
