@@ -4,6 +4,7 @@ template:
   light-switch: true
 reference:
 - contents:
-  - set_blanket
   - gg_blanket
   - starts_with("gg_")
+  - starts_with("set_")
+

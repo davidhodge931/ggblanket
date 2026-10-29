@@ -4,6 +4,10 @@
 #'
 #' Note this is an all-purpose custom wrapper intended for use with any geom.
 #'
+#' Defaults for fill, colour, linewidth, palettes etc. come from the theme, e.g.
+#' via [ggplot2::set_theme()]. Use [set_refine()], [set_colour_blend()] and
+#' [set_fill_blend()] to set the remaining ggblanket-specific global options.
+#'
 #' @param data A data frame.
 #' @param ... Arguments passed to the geom layer, including geom params.
 #' @param geom A geom as a string (`"point"`). Note relevant geom library must be loaded.
@@ -12,8 +16,8 @@
 #' @param before A ggplot2 layer to add before the geom layer. Unaffected by polygon transformations.
 #' @param with A function to apply to the geom layer.
 #' @param polygon Whether to apply polygon colour and linewidth. `TRUE` forces polygon on, `FALSE` forces off.
-#' @param theme A complete theme function. Defaults to that globally set.
-#' @param refine A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set.
+#' @param theme A complete theme object. Defaults to the global theme set with [ggplot2::set_theme()].
+#' @param refine A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set with [set_refine()].
 #' @param x Variable mapped to x.
 #' @param xmin Variable mapped to xmin.
 #' @param xmax Variable mapped to xmax.
@@ -158,7 +162,7 @@
 #' @param facet_nrow Number of rows for [ggplot2::facet_wrap()].
 #' @param facet_scales Whether facet scales are fixed or free. Defaults to `"fixed"`.
 #' @param facet_space Whether facet space is fixed or free. Defaults to `"fixed"`.
-#' @param coord_clip Whether drawing is clipped to the panel. Either `"on"` or `"on"`.
+#' @param coord_clip Whether drawing is clipped to the panel. Either `"on"` (default) or `"off"`.
 #' @param coord_ratio Aspect ratio expressed as y / x, for [ggplot2::coord_cartesian()].
 #' @param coord_reverse Which axes to reverse. One of `"none"` (default), `"x"`, `"y"`, or `"xy"`.
 #' @param coord_xlim,coord_ylim Zoom limits within the coordinate system.
@@ -188,226 +192,203 @@
 #'   facet = cyl,
 #' )
 gg_blanket <- function(
-  data,
-  ...,
-  # geom
-  geom = "blank",
-  stat = "identity",
-  position = ggplot2::position_identity(),
+    data,
+    ...,
+    # geom
+    geom = "blank",
+    stat = "identity",
+    position = ggplot2::position_identity(),
 
-  # gg_blanket specific
-  before = NULL,
-  with = NULL,
+    # gg_blanket specific
+    before = NULL,
+    with = NULL,
 
-  polygon = NULL,
-  theme = NULL,
-  refine = NULL,
+    polygon = NULL,
+    theme = NULL,
+    refine = NULL,
 
-  # aesthetics
-  x = NULL,
-  xmin = NULL,
-  xmax = NULL,
-  xend = NULL,
-  xintercept = NULL,
-  y = NULL,
-  ymin = NULL,
-  ymax = NULL,
-  yend = NULL,
-  yintercept = NULL,
-  z = NULL,
-  fill = NULL,
-  colour = NULL,
-  alpha = NULL,
-  shape = NULL,
-  linetype = NULL,
-  linewidth = NULL,
-  size = NULL,
-  stroke = NULL,
-  label = NULL,
-  weight = NULL,
-  group = NULL,
-  width = NULL,
-  height = NULL,
-  slope = NULL,
-  intercept = NULL,
-  sample = NULL,
-  angle = NULL,
-  radius = NULL,
-  mapping = ggplot2::aes(),
-  # x scale
-  x_type = NULL,
-  x_subtype = NULL,
-  x_breaks = NULL,
-  x_drop = TRUE,
-  x_expand = NULL,
-  x_guide = ggplot2::waiver(),
-  x_labels = NULL,
-  x_limits = NULL,
-  x_minor_breaks = ggplot2::waiver(),
-  x_name = ggplot2::waiver(),
-  x_oob = scales::oob_censor,
-  x_palette = seq_len,
-  x_position = "bottom",
-  x_sec_axis = ggplot2::waiver(),
-  x_transform = NULL,
-  # y scale
-  y_type = NULL,
-  y_subtype = NULL,
-  y_breaks = NULL,
-  y_drop = TRUE,
-  y_expand = NULL,
-  y_guide = ggplot2::waiver(),
-  y_labels = NULL,
-  y_limits = NULL,
-  y_minor_breaks = ggplot2::waiver(),
-  y_name = ggplot2::waiver(),
-  y_oob = scales::oob_censor,
-  y_palette = seq_len,
-  y_position = "left",
-  y_sec_axis = ggplot2::waiver(),
-  y_transform = NULL,
-  # fill scale
-  fill_type = NULL,
-  fill_subtype = NULL,
-  fill_breaks = ggplot2::waiver(),
-  fill_drop = TRUE,
-  fill_guide = NULL,
-  fill_labels = NULL,
-  fill_limits = NULL,
-  fill_name = ggplot2::waiver(),
-  fill_oob = scales::oob_censor,
-  fill_rescaler = scales::rescale,
-  fill_palette = NULL,
-  fill_transform = NULL,
-  # colour scale
-  colour_type = NULL,
-  colour_subtype = NULL,
-  colour_breaks = NULL,
-  colour_drop = NULL,
-  colour_guide = NULL,
-  colour_labels = NULL,
-  colour_limits = NULL,
-  colour_name = fill_name,
-  colour_oob = NULL,
-  colour_rescaler = NULL,
-  colour_palette = NULL,
-  colour_transform = NULL,
-  # alpha scale
-  alpha_type = NULL,
-  alpha_subtype = NULL,
-  alpha_breaks = ggplot2::waiver(),
-  alpha_drop = TRUE,
-  alpha_guide = NULL,
-  alpha_labels = NULL,
-  alpha_limits = NULL,
-  alpha_name = ggplot2::waiver(),
-  alpha_oob = scales::oob_censor,
-  alpha_palette = NULL,
-  alpha_transform = NULL,
-  # size scale
-  size_type = NULL,
-  size_subtype = NULL,
-  size_breaks = ggplot2::waiver(),
-  size_drop = TRUE,
-  size_guide = NULL,
-  size_labels = NULL,
-  size_limits = NULL,
-  size_name = ggplot2::waiver(),
-  size_oob = scales::oob_censor,
-  size_palette = NULL,
-  size_transform = NULL,
-  # linewidth scale
-  linewidth_type = NULL,
-  linewidth_subtype = NULL,
-  linewidth_breaks = ggplot2::waiver(),
-  linewidth_drop = TRUE,
-  linewidth_guide = NULL,
-  linewidth_labels = NULL,
-  linewidth_limits = NULL,
-  linewidth_name = ggplot2::waiver(),
-  linewidth_oob = scales::oob_censor,
-  linewidth_palette = NULL,
-  linewidth_transform = NULL,
-  # linetype scale
-  linetype_type = NULL,
-  linetype_breaks = ggplot2::waiver(),
-  linetype_drop = TRUE,
-  linetype_guide = NULL,
-  linetype_labels = NULL,
-  linetype_limits = NULL,
-  linetype_name = ggplot2::waiver(),
-  linetype_palette = NULL,
-  # shape scale
-  shape_type = NULL,
-  shape_breaks = ggplot2::waiver(),
-  shape_drop = TRUE,
-  shape_guide = NULL,
-  shape_labels = NULL,
-  shape_limits = NULL,
-  shape_name = ggplot2::waiver(),
-  shape_palette = NULL,
-  # facet
-  facet = NULL,
-  facet_rows = NULL,
-  facet_cols = NULL,
-  facet_axes = "margins",
-  facet_axis_labels = "all",
-  facet_drop = TRUE,
-  facet_labeller = "label_value",
-  facet_ncol = NULL,
-  facet_nrow = NULL,
-  facet_scales = "fixed",
-  facet_space = "fixed",
-  # coord
-  coord_xlim = NULL,
-  coord_ylim = NULL,
-  coord_clip = NULL,
-  coord_reverse = "none",
-  coord_ratio = NULL,
+    # aesthetics
+    x = NULL,
+    xmin = NULL,
+    xmax = NULL,
+    xend = NULL,
+    xintercept = NULL,
+    y = NULL,
+    ymin = NULL,
+    ymax = NULL,
+    yend = NULL,
+    yintercept = NULL,
+    z = NULL,
+    fill = NULL,
+    colour = NULL,
+    alpha = NULL,
+    shape = NULL,
+    linetype = NULL,
+    linewidth = NULL,
+    size = NULL,
+    stroke = NULL,
+    label = NULL,
+    weight = NULL,
+    group = NULL,
+    width = NULL,
+    height = NULL,
+    slope = NULL,
+    intercept = NULL,
+    sample = NULL,
+    angle = NULL,
+    radius = NULL,
+    mapping = ggplot2::aes(),
+    # x scale
+    x_type = NULL,
+    x_subtype = NULL,
+    x_breaks = NULL,
+    x_drop = TRUE,
+    x_expand = NULL,
+    x_guide = ggplot2::waiver(),
+    x_labels = NULL,
+    x_limits = NULL,
+    x_minor_breaks = ggplot2::waiver(),
+    x_name = ggplot2::waiver(),
+    x_oob = scales::oob_censor,
+    x_palette = seq_len,
+    x_position = "bottom",
+    x_sec_axis = ggplot2::waiver(),
+    x_transform = NULL,
+    # y scale
+    y_type = NULL,
+    y_subtype = NULL,
+    y_breaks = NULL,
+    y_drop = TRUE,
+    y_expand = NULL,
+    y_guide = ggplot2::waiver(),
+    y_labels = NULL,
+    y_limits = NULL,
+    y_minor_breaks = ggplot2::waiver(),
+    y_name = ggplot2::waiver(),
+    y_oob = scales::oob_censor,
+    y_palette = seq_len,
+    y_position = "left",
+    y_sec_axis = ggplot2::waiver(),
+    y_transform = NULL,
+    # fill scale
+    fill_type = NULL,
+    fill_subtype = NULL,
+    fill_breaks = ggplot2::waiver(),
+    fill_drop = TRUE,
+    fill_guide = NULL,
+    fill_labels = NULL,
+    fill_limits = NULL,
+    fill_name = ggplot2::waiver(),
+    fill_oob = scales::oob_censor,
+    fill_rescaler = scales::rescale,
+    fill_palette = NULL,
+    fill_transform = NULL,
+    # colour scale
+    colour_type = NULL,
+    colour_subtype = NULL,
+    colour_breaks = NULL,
+    colour_drop = NULL,
+    colour_guide = NULL,
+    colour_labels = NULL,
+    colour_limits = NULL,
+    colour_name = fill_name,
+    colour_oob = NULL,
+    colour_rescaler = NULL,
+    colour_palette = NULL,
+    colour_transform = NULL,
+    # alpha scale
+    alpha_type = NULL,
+    alpha_subtype = NULL,
+    alpha_breaks = ggplot2::waiver(),
+    alpha_drop = TRUE,
+    alpha_guide = NULL,
+    alpha_labels = NULL,
+    alpha_limits = NULL,
+    alpha_name = ggplot2::waiver(),
+    alpha_oob = scales::oob_censor,
+    alpha_palette = NULL,
+    alpha_transform = NULL,
+    # size scale
+    size_type = NULL,
+    size_subtype = NULL,
+    size_breaks = ggplot2::waiver(),
+    size_drop = TRUE,
+    size_guide = NULL,
+    size_labels = NULL,
+    size_limits = NULL,
+    size_name = ggplot2::waiver(),
+    size_oob = scales::oob_censor,
+    size_palette = NULL,
+    size_transform = NULL,
+    # linewidth scale
+    linewidth_type = NULL,
+    linewidth_subtype = NULL,
+    linewidth_breaks = ggplot2::waiver(),
+    linewidth_drop = TRUE,
+    linewidth_guide = NULL,
+    linewidth_labels = NULL,
+    linewidth_limits = NULL,
+    linewidth_name = ggplot2::waiver(),
+    linewidth_oob = scales::oob_censor,
+    linewidth_palette = NULL,
+    linewidth_transform = NULL,
+    # linetype scale
+    linetype_type = NULL,
+    linetype_breaks = ggplot2::waiver(),
+    linetype_drop = TRUE,
+    linetype_guide = NULL,
+    linetype_labels = NULL,
+    linetype_limits = NULL,
+    linetype_name = ggplot2::waiver(),
+    linetype_palette = NULL,
+    # shape scale
+    shape_type = NULL,
+    shape_breaks = ggplot2::waiver(),
+    shape_drop = TRUE,
+    shape_guide = NULL,
+    shape_labels = NULL,
+    shape_limits = NULL,
+    shape_name = ggplot2::waiver(),
+    shape_palette = NULL,
+    # facet
+    facet = NULL,
+    facet_rows = NULL,
+    facet_cols = NULL,
+    facet_axes = "margins",
+    facet_axis_labels = "all",
+    facet_drop = TRUE,
+    facet_labeller = "label_value",
+    facet_ncol = NULL,
+    facet_nrow = NULL,
+    facet_scales = "fixed",
+    facet_space = "fixed",
+    # coord
+    coord_xlim = NULL,
+    coord_ylim = NULL,
+    coord_clip = NULL,
+    coord_reverse = "none",
+    coord_ratio = NULL,
 
-  # titles
-  title = NULL,
-  subtitle = NULL,
-  caption = NULL,
-  ggplot = NULL
+    # titles
+    title = NULL,
+    subtitle = NULL,
+    caption = NULL,
+    ggplot = NULL
 ) {
-  #set blanket, if not already set
-  if (!isTRUE(getOption("ggblanket.initialised"))) {
-    set_blanket()
-  }
-
   ### get geom info
   geom_info <- get_geom_info(geom)
   geom_fn <- geom_info$fn
   geom_str <- geom_info$str
 
-  ### get options
-  current_theme <- theme %||% ggplot2::get_theme()
+  ### get theme-based and global options (fallbacks live in the get_* functions)
+  current_theme <- get_theme(theme)
 
   refine <- refine %||%
-  if (!is.null(ggplot) || geom_str == "sf") {
-    \(discrete, orientation) refine_axis_grid(
-      discrete = discrete,
-      orientation = orientation,
-      axis_mode = "void",
-      grid_mode = "drop"
-    )
-  } else {
-    get_refine() %||%
-      \(discrete, orientation) refine_axis_grid(
-        discrete = discrete,
-        orientation = orientation,
-        axis_mode = "modern",
-        grid_mode = "drift"
-      )
-  }
+    get_refine()
 
-  # Resolve polygon functions and linewidth from options, with sensible fallbacks
   colour_blend_fn <- get_colour_blend()
-
   fill_blend_fn <- get_fill_blend()
-
-  borderwidth_default <- get_borderwidth()
+  borderwidth_default <- get_borderwidth(current_theme)
 
   ### make aesthetics list
   aesthetics <- rlang::enquos(
@@ -504,21 +485,6 @@ gg_blanket <- function(
     }
   }
 
-  is_stroke_mapped <- "stroke" %in%
-    names(separated$mapped) ||
-    "stroke" %in% names(mapping)
-  is_stroke_fixed <- "stroke" %in% names(separated$fixed)
-
-  computed_stroke <- NULL
-  if (
-    !is_stroke_mapped &&
-      !is_stroke_fixed &&
-      is_colour_blend &&
-      geom_info$is_stroke_geom
-  ) {
-    computed_stroke <- get_stroke()
-  }
-
   # Remove colour and linewidth from separated$fixed as they are now computed
   separated$fixed <- separated$fixed[
     !names(separated$fixed) %in% c("colour", "linewidth")
@@ -536,9 +502,6 @@ gg_blanket <- function(
   }
   if (!is.null(computed_linewidth)) {
     all_params$linewidth <- computed_linewidth
-  }
-  if (!is.null(computed_stroke)) {
-    all_params$stroke <- computed_stroke
   }
 
   ### compute fixed fill — apply fill_blend_fn if polygon geom and fill not user-specified
@@ -1370,7 +1333,7 @@ gg_blanket <- function(
       coord_type = coord_type,
       coord_xlim = coord_xlim,
       coord_ylim = coord_ylim,
-      coord_clip = coord_clip %||% get_coord_clip() %||% "on",
+      coord_clip = get_clip(coord_clip),
       coord_reverse = coord_reverse,
       coord_ratio = coord_ratio
     )

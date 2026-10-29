@@ -187,9 +187,9 @@ gg_blanket(
 
 \item{polygon}{Whether to apply polygon colour and linewidth. \code{TRUE} forces polygon on, \code{FALSE} forces off.}
 
-\item{theme}{A complete theme function. Defaults to that globally set.}
+\item{theme}{A complete theme object. Defaults to the global theme set with \code{\link[ggplot2:set_theme]{ggplot2::set_theme()}}.}
 
-\item{refine}{A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set.}
+\item{refine}{A function with arguments discrete and orientation to refine the theme based on these. Defaults to that globally set with \code{\link[=set_refine]{set_refine()}}.}
 
 \item{x}{Variable mapped to x.}
 
@@ -481,7 +481,7 @@ gg_blanket(
 
 \item{coord_xlim, coord_ylim}{Zoom limits within the coordinate system.}
 
-\item{coord_clip}{Whether drawing is clipped to the panel. Either \code{"on"} or \code{"on"}.}
+\item{coord_clip}{Whether drawing is clipped to the panel. Either \code{"on"} (default) or \code{"off"}.}
 
 \item{coord_reverse}{Which axes to reverse. One of \code{"none"} (default), \code{"x"}, \code{"y"}, or \code{"xy"}.}
 
@@ -502,6 +502,10 @@ A ggplot object.
 A blank ggplot with \link[ggplot2:geom_blank]{geom_blank()} defaults for the geom, stat and position.
 
 Note this is an all-purpose custom wrapper intended for use with any geom.
+
+Defaults for fill, colour, linewidth, palettes etc. come from the theme, e.g.
+via \code{\link[ggplot2:set_theme]{ggplot2::set_theme()}}. Use \code{\link[=set_refine]{set_refine()}}, \code{\link[=set_colour_blend]{set_colour_blend()}} and
+\code{\link[=set_fill_blend]{set_fill_blend()}} to set the remaining ggblanket-specific global options.
 }
 \examples{
 gg_blanket(

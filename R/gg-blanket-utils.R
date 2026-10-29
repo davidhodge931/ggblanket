@@ -371,60 +371,6 @@ get_orientation <- function(
   return(orientation)
 }
 
-set_refine <- function(new = NULL) {
-  options("ggblanket.refine" = new)
-}
-
-get_refine <- function() {
-  getOption("ggblanket.refine")
-}
-
-set_colour_blend <- function(new = NULL) {
-  if (is.null(new)) {
-    colour_blend <- \(x) {
-      if (is.null(x)) {
-        return(x)
-      }
-      if (is_panel_dark()) blends::screen(x) else blends::multiply(x)
-    }
-  }
-  options("ggblanket.colour_blend" = colour_blend)
-}
-
-get_colour_blend <- function() {
-  getOption("ggblanket.colour_blend")
-}
-
-set_fill_blend <- function(new = NULL) {
-  options("ggblanket.fill_blend" = new)
-}
-
-get_fill_blend <- function() {
-  getOption("ggblanket.fill_blend")
-}
-
-set_borderwidth <- function(borderwidth = NULL) {
-  options("ggblanket.borderwidth" = borderwidth)
-}
-
-get_borderwidth <- function() {
-  getOption("ggblanket.borderwidth")
-}
-
-set_stroke <- function(stroke = NULL) {
-  options("ggblanket.stroke" = stroke)
-}
-get_stroke <- function() {
-  getOption("ggblanket.stroke")
-}
-
-set_coord_clip <- function(coord_clip = "on") {
-  options("ggblanket.coord_clip" = coord_clip)
-}
-get_coord_clip <- function() {
-  getOption("ggblanket.coord_clip")
-}
-
 #' Get geom function and string identifier
 #'
 #' @param geom A geom specified as:

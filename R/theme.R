@@ -32,7 +32,7 @@ theme_ggrefine <- function(
     legend_ticks_linetype = 1,
     legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
     axis_line_colour = NULL,
-    axis_line_linewidth = 0.2,
+    axis_line_linewidth = 0.15,
     axis_ticks_colour = NULL,
     axis_ticks_linewidth = NULL,
     axis_ticks_length = grid::unit(3.66, "pt"),
@@ -41,7 +41,7 @@ theme_ggrefine <- function(
     panel_grid_linetype = 1,
     panel_grid_linewidth = 1,
     panel_grid_minor_linetype = 1,
-    panel_grid_minor_linewidth = 0.5,
+    panel_grid_minor_linewidth = ggplot2::rel(0.5),
     plot_background_fill = "white"
 ) {
   legend_position <- match.arg(legend_position, c("right", "top", "bottom"))
@@ -159,18 +159,6 @@ theme_ggrefine <- function(
         linewidth = axis_ticks_linewidth,
         lineend = "butt"
       ),
-      axis.minor.ticks.x.bottom = ggplot2::element_line(
-        colour = axis_ticks_colour
-      ),
-      axis.minor.ticks.x.top = ggplot2::element_line(
-        colour = axis_ticks_colour
-      ),
-      axis.minor.ticks.y.left = ggplot2::element_line(
-        colour = axis_ticks_colour
-      ),
-      axis.minor.ticks.y.right = ggplot2::element_line(
-        colour = axis_ticks_colour
-      ),
       axis.ticks.x = NULL,
       axis.ticks.x.top = NULL,
       axis.ticks.x.bottom = NULL,
@@ -185,7 +173,7 @@ theme_ggrefine <- function(
       axis.ticks.length.y.left = NULL,
       axis.ticks.length.y.right = NULL,
       axis.minor.ticks.length = ggplot2::rel(0.66),
-      axis.title = ggplot2::element_text(),
+      axis.title = ggplot2::element_text(size = text_size),
       axis.title.x = ggplot2::element_text(
         margin = ggplot2::margin(t = 5.5)
       ),
@@ -200,7 +188,7 @@ theme_ggrefine <- function(
         margin = ggplot2::margin(l = 11),
         angle = -90
       ),
-      axis.text = ggplot2::element_text(),
+      axis.text = ggplot2::element_text(size = text_size),
       axis.text.x = ggplot2::element_text(
         vjust = 1,
         margin = ggplot2::margin(t = 3.33)
@@ -232,6 +220,7 @@ theme_ggrefine <- function(
       legend.spacing = ggplot2::unit(5.5, "pt"),
       legend.spacing.y = ggplot2::unit(0, "pt"),
       legend.text = ggplot2::element_text(
+        size = text_size,
         margin = ggplot2::margin(l = 5.5)
       ),
       legend.axis.line = ggplot2::element_line(
@@ -256,20 +245,20 @@ theme_ggrefine <- function(
       legend.justification.right = "top",
       legend.justification.top = "left",
       legend.justification.bottom = "left",
+      legend.title = ggplot2::element_text(size = text_size),
       legend.title.position = "top",
       panel.background = ggplot2::element_rect(
         colour = panel_background_fill,
         fill = panel_background_fill
       ),
-      panel.polygon = ggplot2::element_blank(),
+      panel.border = ggplot2::element_blank(),
       panel.grid = ggplot2::element_line(
         colour = panel_grid_colour,
-        lineend = "butt"
-      ),
-      panel.grid.major = ggplot2::element_line(
+        lineend = "butt",
         linewidth = panel_grid_linewidth,
         linetype = panel_grid_linetype
       ),
+      panel.grid.major = ggplot2::element_line(),
       panel.grid.major.x = NULL,
       panel.grid.major.y = NULL,
       panel.grid.minor = ggplot2::element_line(
@@ -286,6 +275,7 @@ theme_ggrefine <- function(
       strip.background = ggplot2::element_rect(fill = NA, colour = NA),
       strip.clip = "off",
       strip.text = ggplot2::element_text(
+        size = text_size,
         margin = ggplot2::margin(b = 5.5)
       ),
       strip.text.x = NULL,
@@ -347,48 +337,48 @@ theme_ggrefine <- function(
         colour = "steelblue",
         pointshape = 21,
         linewidth = 0.66,
-        polygonwidth = 0.33,
+        borderwidth = 0.33,
         pointsize = 1.5,
         fontsize = text_size,
         family = text_family
       ),
       # Border geoms — have both fill and colour
-      geom.area = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
-      geom.bar = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.area = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.bar = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
       geom.boxplot = ggplot2::element_geom(
         linewidth = 0.33,
-        polygonwidth = 0.33
+        borderwidth = 0.33
       ),
-      geom.col = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.col = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
       geom.crossbar = ggplot2::element_geom(
         linewidth = 0.33,
-        polygonwidth = 0.33
+        borderwidth = 0.33
       ),
       geom.density = ggplot2::element_geom(
         linewidth = 0.33,
-        polygonwidth = 0.33
+        borderwidth = 0.33
       ),
       geom.dotplot = ggplot2::element_geom(
         linewidth = 0.33,
-        polygonwidth = 0.33
+        borderwidth = 0.33
       ),
-      geom.hex = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
-      geom.map = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
-      geom.point = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.hex = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.map = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.point = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
       geom.pointrange = ggplot2::element_geom(
         linewidth = 0.33,
-        polygonwidth = 0.33
+        borderwidth = 0.33
       ),
       geom.polygon = ggplot2::element_geom(
         linewidth = 0.33,
-        polygonwidth = 0.33
+        borderwidth = 0.33
       ),
-      geom.rect = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
-      geom.ribbon = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
-      geom.smooth = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
-      geom.sf = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
-      geom.tile = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
-      geom.violin = ggplot2::element_geom(linewidth = 0.33, polygonwidth = 0.33),
+      geom.rect = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.ribbon = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.smooth = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.sf = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.tile = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
+      geom.violin = ggplot2::element_geom(linewidth = 0.33, borderwidth = 0.33),
 
       # Line geoms — colour only
       geom.abline = ggplot2::element_geom(linewidth = 0.66),
@@ -499,7 +489,7 @@ theme_lights <- function(
     legend_ticks_linetype = 1,
     legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
     axis_line_colour = NULL,
-    axis_line_linewidth = 0.2,
+    axis_line_linewidth = 0.15,
     axis_ticks_colour = NULL,
     axis_ticks_linewidth = NULL,
     axis_ticks_length = grid::unit(3.66, "pt"),
@@ -508,7 +498,7 @@ theme_lights <- function(
     panel_grid_linetype = 1,
     panel_grid_linewidth = 1,
     panel_grid_minor_linetype = 1,
-    panel_grid_minor_linewidth = 0.5,
+    panel_grid_minor_linewidth = ggplot2::rel(0.5),
     plot_background_fill = "white"
 ) {
   theme_ggrefine(
@@ -586,7 +576,7 @@ theme_greys <- function(
     legend_ticks_linetype = 1,
     legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
     axis_line_colour = NULL,
-    axis_line_linewidth = 0.2,
+    axis_line_linewidth = 0.15,
     axis_ticks_colour = NULL,
     axis_ticks_linewidth = NULL,
     axis_ticks_length = grid::unit(3.66, "pt"),
@@ -595,7 +585,7 @@ theme_greys <- function(
     panel_grid_linetype = 1,
     panel_grid_linewidth = 1,
     panel_grid_minor_linetype = 1,
-    panel_grid_minor_linewidth = 0.5,
+    panel_grid_minor_linewidth = ggplot2::rel(0.5),
     plot_background_fill = "white"
 ) {
   theme_ggrefine(
@@ -673,7 +663,7 @@ theme_darks <- function(
     legend_ticks_linetype = 1,
     legend_ticks_length = grid::unit(c(2.75, 0), "pt"),
     axis_line_colour = NULL,
-    axis_line_linewidth = 0.2,
+    axis_line_linewidth = 0.15,
     axis_ticks_colour = NULL,
     axis_ticks_linewidth = NULL,
     axis_ticks_length = grid::unit(3.66, "pt"),
@@ -682,7 +672,7 @@ theme_darks <- function(
     panel_grid_linetype = 1,
     panel_grid_linewidth = 1,
     panel_grid_minor_linetype = 1,
-    panel_grid_minor_linewidth = 0.5,
+    panel_grid_minor_linewidth = ggplot2::rel(0.5),
     plot_background_fill = "#100F0F" #flexoki::flexoki$base["black"],
 ) {
   theme_ggrefine(
@@ -722,53 +712,4 @@ theme_darks <- function(
     panel_grid_minor_linetype = panel_grid_minor_linetype,
     panel_grid_minor_linewidth = panel_grid_minor_linewidth
   )
-}
-
-#' Move Legend
-#'
-#' Helper shortcut to set legend position, location, and margins.
-#'
-#' @param position Character. Where to place the legend ("right", "top", or "bottom").
-#' @return A ggplot2 theme object.
-#' @noRd
-refine_legend <- function(position = "right") {
-
-  if (position == "right") {
-    return(
-      ggplot2::theme(
-        legend.position = "right",
-        legend.location = "panel",
-        legend.margin   = ggplot2::margin(l = 5.5, b = 11),
-        legend.justification = "top",
-        legend.title.position = "top",
-        legend.byrow = FALSE
-      )
-    )
-  }
-
-  if (position == "top") {
-    return(
-      ggplot2::theme(
-        legend.position = "top",
-        legend.location = "plot",
-        legend.margin   = ggplot2::margin(r = 5.5, b = 11),
-        legend.justification = "left",
-        legend.title.position = "top",
-        legend.byrow = TRUE
-      )
-    )
-  }
-
-  if (position == "bottom") {
-    return(
-      ggplot2::theme(
-        legend.position = "bottom",
-        legend.location = "plot",
-        legend.margin   = ggplot2::margin(r = 5.5, b = 11),
-        legend.justification = "left",
-        legend.title.position = "top",
-        legend.byrow = TRUE
-      )
-    )
-  }
 }
