@@ -2,6 +2,8 @@
 
 ## ggblanket 30.0.0
 
+CRAN release: 2026-10-29
+
 - Changed border argument names to polygon.
 - Removed `set_blanket`, and provided `set_*` functions for the various
   options.
